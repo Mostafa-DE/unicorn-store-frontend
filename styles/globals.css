@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #fafafa;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/*----------------------Global Btns---------------------------*/
+.standardBtn {
+  background: linear-gradient(to right, #fb9aa7, #fac5cb);
+  border: none;
+  border-radius: 5px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.standardBtn:hover {
+  transition: all 0.3s ease-out;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.outlineBtn {
+  background: none;
+  border: 1px solid #fb9aa7;
+  border-radius: 5px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  color: #333;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease-in;
+}
+
+.outlineBtn:hover {
+  background: linear-gradient(to right, #fb9aa7, #fac5cb);
+  color: #fff;
+  border: 1px solid #fac5cb;
+  transition: all 0.4s ease-out;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+/*---------------------------X---------------------------------*/
