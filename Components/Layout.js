@@ -19,8 +19,9 @@ export default function Layout({ title, description, children }) {
         <title> {title} </title>
         <meta name="description" content={description} />
       </Head>
-      {router.pathname === "/" && <CarouselHome />}
       <Header />
+      {router.pathname === "/" && <CarouselHome />}
+
       <div className={styles.container}> {children} </div>
       <Footer />
     </div>
