@@ -1,12 +1,15 @@
 import styles from "@/styles/Header.module.css";
-import React, { useState } from "react";
 import Link from "next/link";
 
 import useDrawer from "@/Hooks/useDrawer";
 
-/*----------------------Components-----------------------*/
+/*--------------------Components-------------------------*/
 import MenuDrawer from "./MenuDrawer";
 import CartDrawer from "@/components/CartDrawer";
+/*-------------------------X-----------------------------*/
+
+/*-----------------------Hooks---------------------------*/
+import useScrollNavbar from "@/Hooks/useScrollNavbar";
 /*-------------------------X-----------------------------*/
 
 /*--------------------React Icons------------------------*/
@@ -17,8 +20,6 @@ import { ImHeart } from "react-icons/im";
 import { IoIosArrowDown } from "react-icons/io";
 /*-------------------------X----------------------------*/
 
-/*------------------------X-----------------------*/
-
 export default function Header() {
   /*---state for handle drawer menu (open/close)----*/
   const [drawerMenu, openDrawer, closeDrawer] = useDrawer(false);
@@ -28,9 +29,17 @@ export default function Header() {
   const [drawerCart, openDrawerCart, closeDrawerCart] = useDrawer(false);
   /*------------------------X-----------------------*/
 
+  /*----------State scroll down for Navbar----------*/
+  const [scrollState] = useScrollNavbar("");
+  /*------------------------X-----------------------*/
+
   return (
     <div className={styles.main}>
-      <nav className={styles.containerNav}>
+      <nav
+        className={`${styles.containerNav} ${
+          scrollState !== "top" && styles.backgroundNavWhenScroll
+        }`}
+      >
         <div className={styles.logo}>
           <Link href="/">
             <img src="/images/unicorn.png" className={styles.logoImg} />
@@ -45,16 +54,301 @@ export default function Header() {
             <Link href="/">
               <li className={styles.link}>Home</li>
             </Link>
-            <li className={styles.linkProducts}>
-              Products <IoIosArrowDown />
+
+            <li>
+              <div className={styles.dropDown}>
+                <li className={styles.linkProducts}>
+                  Products <IoIosArrowDown />
+                </li>
+                <div className={styles.dropDownContent}>
+                  <div className={styles.containerDropDownContent}>
+                    <div className={styles.womenDiv}>
+                      <p>Women</p>
+                      <span>turkish made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={`${styles.categoryLink} ${styles.collectionText}`}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+
+                      <span className={styles.localMade}>local made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={styles.categoryLink}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className={styles.womenDiv}>
+                      <p>Women</p>
+                      <span>turkish made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={`${styles.categoryLink} ${styles.collectionText}`}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+
+                      <span className={styles.localMade}>local made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={styles.categoryLink}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className={styles.womenDiv}>
+                      <p>Women</p>
+                      <span>turkish made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={`${styles.categoryLink} ${styles.collectionText}`}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+
+                      <span className={styles.localMade}>local made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={styles.categoryLink}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className={styles.womenDiv}>
+                      <p>Women</p>
+                      <span>turkish made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={`${styles.categoryLink} ${styles.collectionText}`}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+
+                      <span className={styles.localMade}>local made</span>
+                      <ul>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              evening dresses
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>lingerie</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a className={styles.categoryLink}>
+                              abaya & Qatafin{" "}
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="#">
+                            <a
+                              className={styles.categoryLink}
+                              style={{ padding: "1rem 0 2rem 0" }}
+                            >
+                              Collections
+                            </a>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
-            <Link href="account/my-account">
+
+            <Link href="/account/my-account">
               <li className={styles.link}>My Account</li>
             </Link>
-            <Link href="account/login">
+            <Link href="/account/login">
               <li className={styles.link}>Sign In</li>
             </Link>
-            <Link href="contact">
+            <Link href="/contact">
               <li className={styles.link}>Contact Us</li>
             </Link>
           </ul>

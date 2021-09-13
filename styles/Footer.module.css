@@ -1,0 +1,68 @@
+.mainFooter {
+  background-color: #fafafa;
+  color: #333;
+  box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease-in;
+}
+
+.link:hover {
+  color: #fb9aa7;
+  transition: all 0.2s ease-out;
+}
+
+.social {
+  color: #333;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  transition: all 0.3s ease-in;
+}
+
+.social:hover {
+  color: #fb9aa7;
+  transition: all 0.3s ease-out;
+}
+
+.copyRight {
+  margin: 1rem 0 0 0;
+  padding: 0 0 1rem 0;
+  text-align: center;
+}
+.copyRight p {
+  transition: 1s;
+  color: #333;
+}
+
+.copyRight p a {
+  color: #fb9aa7;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  margin: 0 0 0 0.4rem;
+}
+
+.copyRight p a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2.5px;
+  bottom: 0;
+  left: 0;
+  background-color: #fb9aa7;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.copyRight p a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
