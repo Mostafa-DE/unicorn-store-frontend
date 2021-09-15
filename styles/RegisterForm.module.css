@@ -1,0 +1,26 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 35%;
+  margin: 10rem 0 0 0;
+  background-color: #fafafa;
+  padding: 1rem;
+}
+
+.containerPassword {
+  display: flex;
+  align-items: center;
+}
+
+.iconPassword {
+  margin: 2rem 0 0 0.5rem;
+  color: #333;
+  cursor: pointer;
+  font-size: 1.2rem;
+}

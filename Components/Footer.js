@@ -117,7 +117,7 @@ export default function Header() {
                 <p>
                   <SiMessenger className={styles.socialContact} />{" "}
                   <a className={styles.link} href="http://m.me/JoUnicornsStore">
-                    Unicorn Store
+                    Unicorns Store
                   </a>
                 </p>
               </li>
@@ -174,7 +174,7 @@ export default function Header() {
       {/*-----------------Copy right & reserved----------------*/}
       <div className={styles.copyRight}>
         <p>
-          Copyright &copy; Unicorn Store All rights reserved || By
+          Copyright &copy; Unicorns Store All rights reserved || By
           <a href="https://github.com/Mostafa-DE">Mostafa Fayyad</a>
         </p>
       </div>

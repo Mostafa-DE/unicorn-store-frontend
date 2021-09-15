@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function useDrawerMenu() {
+export default function useScrollNavbar() {
   const [scrollState, setScrollState] = useState("top");
 
   useEffect(() => {

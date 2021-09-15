@@ -194,3 +194,86 @@
   padding: 0 0 1rem 0;
 }
 /*----------------X----------------*/
+
+.titleDialog {
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+  font-size: 1.5rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.containerPassword {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0 0 0;
+}
+
+.iconPassword {
+  margin: 2rem 0 0 0.5rem;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.containerInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.signInBtn {
+  margin: 1.4rem 0 0 0;
+  background-color: #333;
+  color: #fafafa;
+  border: 1px solid #333;
+  padding: 0.3rem 0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in;
+  text-transform: uppercase;
+}
+
+.alertIcon {
+  font-size: 1.1rem;
+  margin: 0 0 0.2rem 0.3rem;
+  cursor: pointer;
+}
+
+.checkBox {
+  margin: 1rem 0 0 0;
+}
+
+.signInBtn:hover {
+  background: none;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+.forgotPassword {
+  margin: 0.6rem 0 0 0;
+  color: #333;
+}
+
+.forgotPassword:hover {
+  color: #000;
+}
+
+.noAccountText {
+  margin: 1.8rem 0 0 0;
+  font-size: 0.9rem;
+}
+
+.registerBtn {
+  margin: 0.6rem 0 0 0;
+  background: none;
+  color: #333;
+  border: 1.5px solid #333;
+  padding: 0.3rem 0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in;
+  text-transform: uppercase;
+}
+
+.registerBtn:hover {
+  background-color: #333;
+  color: #fafafa;
+  transition: all 0.3s ease-out;
+}
