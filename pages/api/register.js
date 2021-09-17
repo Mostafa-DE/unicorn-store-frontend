@@ -3,7 +3,18 @@ import { API_URL } from "@/config/index";
 
 const registerApi = async (req, res) => {
   if (req.method === "POST") {
-    const { username, email, password, phone, address } = req.body;
+    const {
+      username,
+      email,
+      password,
+      phone,
+      firstName,
+      lastName,
+      address,
+      deliveryPhone,
+      city,
+      building,
+    } = req.body;
     const createUserInStrapi = await fetch(`${API_URL}/auth/local/register`, {
       method: "POST",
       headers: {
@@ -14,7 +25,12 @@ const registerApi = async (req, res) => {
         email,
         password,
         phone,
+        firstName,
+        lastName,
         address,
+        deliveryPhone,
+        city,
+        building,
       }),
     });
 
@@ -32,9 +48,10 @@ const registerApi = async (req, res) => {
         })
       );
 
-      return res.status(200).json({ user: data.user });
+      res.status(200).json({ user: data.user });
+      return;
     } else {
-      return res.status(data.statusCode).json({
+      res.status(data.statusCode).json({
         message:
           "Email must not be exist before, and username must be unique, please check and try again!!",
       });

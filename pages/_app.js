@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -25,7 +26,10 @@ function MyApp({ Component, pageProps }) {
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
         crossOrigin="anonymous"
       />
-      <Component {...pageProps} />
+
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   );
 }

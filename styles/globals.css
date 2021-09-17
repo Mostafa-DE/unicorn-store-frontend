@@ -57,3 +57,7 @@ a {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 /*---------------------------X---------------------------------*/
+
+.swal2-popup .swal2-styled:focus {
+  box-shadow: none !important;
+}

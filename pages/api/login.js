@@ -4,7 +4,7 @@ import { API_URL } from "@/config/index";
 const loginApi = async (req, res) => {
   if (req.method === "POST") {
     const { identifier, password } = req.body;
-    const loginUserInStrapi = await fetch(`${API_URL}/auth/local`, {
+    const strapiRes = await fetch(`${API_URL}/auth/local`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -14,27 +14,28 @@ const loginApi = async (req, res) => {
         password,
       }),
     });
-
-    const data = loginUserInStrapi.json();
-    if (loginUserInStrapi.ok) {
-      //Set a Cookie for a week
+    const data = await strapiRes.json();
+    if (strapiRes.ok) {
+      /* @todo - set a Cookie */
       res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", data.jwt, {
           httpOnly: true,
-          secure: process.env.NODE_ENV !== "development",
-          maxAge: 60 * 60 * 24 * 7,
+          secure: process.env.NODE_ENV != "development",
+          maxAge: 60 * 60 * 24 * 7, // for a week
           sameSite: "strict",
           path: "/",
         })
       );
-
-      return res.status(200).json({ user: data.user });
+      /*----------X-----------*/
+      res.status(200).json({ user: data.user });
+      return;
     } else {
-      return res.status(data.statusCode).json({
-        message: "Email or password invalid, Please try again !!",
-      });
+      res
+        .status(data.statusCode)
+        .json({ message: "Email or password invalid, Please try again !!" });
     }
+    res.status(200).json({});
   } else {
     res.setHeader("Allow", ["POST"]);
     res.status(405).json({ message: `Method ${req.method} not allowed` });

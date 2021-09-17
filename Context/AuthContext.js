@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   /*--------------------Register------------------*/
   const register = async (user) => {
+    // console.log(user);
     const createUser = await fetch(`${NEXT_URL}/api/register`, {
       method: "POST",
       headers: {
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     const data = await createUser.json();
 
     if (createUser.ok) {
-      setUser(data);
+      setUser(data.user);
       router.push("/account/my-account");
     } else {
       setError(data.message);
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   /*----------------------Login-------------------*/
   const login = async ({ email: identifier, password }) => {
     const loginUser = await fetch(`${NEXT_URL}/api/login`, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }) => {
 
     if (logoutUser.ok) {
       setUser(null);
-      router.push("/account/login");
+      router.push("/");
     }
   };
 
