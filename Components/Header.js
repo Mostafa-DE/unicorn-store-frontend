@@ -183,6 +183,7 @@ export default function Header() {
     </div>
   );
 
+  /*-----------------All Collections----------------*/
   const WomanCollections = (
     <div className={styles.dropDown}>
       <li className={styles.linkProducts}>
@@ -195,22 +196,22 @@ export default function Header() {
             <span>turkey products</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/turkey/dresses">
                   <a className={styles.categoryLink}>evening dresses</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/turkey/lingerie">
                   <a className={styles.categoryLink}>lingerie</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/turkey/abaya">
                   <a className={styles.categoryLink}>abaya & Qatafin </a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/turkey/other-products">
                   <a
                     className={`${styles.categoryLink} ${styles.collectionText}`}
                     style={{ padding: "1rem 0 2rem 0" }}
@@ -224,22 +225,22 @@ export default function Header() {
             <span>local products</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/local/dresses">
                   <a className={styles.categoryLink}>evening dresses</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/local/lingerie">
                   <a className={styles.categoryLink}>lingerie</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/local/abaya">
                   <a className={styles.categoryLink}>abaya & Qatafin </a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/women-fashions/local/other-products">
                   <a
                     className={styles.categoryLink}
                     style={{ padding: "1rem 0 2rem 0" }}
@@ -252,7 +253,7 @@ export default function Header() {
           </div>
           <div className={styles.img}>
             <img
-              src="images/unicorn/women fashions.jpg"
+              src="/images/unicorn/women fashions.jpg"
               width={380}
               height={470}
             />
@@ -273,12 +274,12 @@ export default function Header() {
             <p>Men Fashions</p>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/men-fashions/pajamas">
                   <a className={styles.categoryLink}>pajamas</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/men-fashions/other-products">
                   <a className={styles.categoryLink}>Other products</a>
                 </Link>
               </li>
@@ -286,7 +287,7 @@ export default function Header() {
           </div>
           <div className={styles.img}>
             <img
-              src="images/unicorn/men fashions.jpg"
+              src="/images/unicorn/men fashions.jpg"
               width={400}
               height={380}
             />
@@ -308,17 +309,17 @@ export default function Header() {
             <span>turkey products</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/kids-fashions/pajamas">
                   <a className={styles.categoryLink}>pajamas</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/kids-fashions/dresses">
                   <a className={styles.categoryLink}>Dresses</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/kids-fashions/other-products">
                   <a className={styles.categoryLink}>Other Products </a>
                 </Link>
               </li>
@@ -326,7 +327,7 @@ export default function Header() {
           </div>
           <div className={styles.img}>
             <img
-              src="images/unicorn/kids fashions.jpg"
+              src="/images/unicorn/kids fashions.jpg"
               width={400}
               height={400}
             />
@@ -348,22 +349,22 @@ export default function Header() {
             <span>Women</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/accessories/women/necklace">
                   <a className={styles.categoryLink}>necklace</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/accessories/women/rings">
                   <a className={styles.categoryLink}>rings</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/accessories/women/bracelets">
                   <a className={styles.categoryLink}>Bracelets </a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/accessories/women/other-products">
                   <a className={styles.categoryLink}>Other Collections </a>
                 </Link>
               </li>
@@ -371,12 +372,12 @@ export default function Header() {
             <span>Men</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/accessories/men/watches">
                   <a className={styles.categoryLink}>watches</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="/categories/accessories/men/other-products">
                   <a className={styles.categoryLink}>Other Collections</a>
                 </Link>
               </li>
@@ -384,7 +385,7 @@ export default function Header() {
             <span>Kids</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/accessories/kids/products">
                   <a
                     className={styles.categoryLink}
                     style={{ padding: "1rem 0 2rem 0" }}
@@ -396,7 +397,7 @@ export default function Header() {
             </ul>
           </div>
           <div className={styles.img}>
-            <img src="images/unicorn/accessories.jpg" width={400} />
+            <img src="/images/unicorn/accessories.jpg" width={400} />
           </div>
         </div>
       </div>
@@ -415,7 +416,7 @@ export default function Header() {
             <span>Makeup</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/makeup/products">
                   <a className={styles.categoryLink}>All Products</a>
                 </Link>
               </li>
@@ -424,7 +425,7 @@ export default function Header() {
             <span>Packages</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/packages/products">
                   <a className={styles.categoryLink}>All Products</a>
                 </Link>
               </li>
@@ -433,19 +434,20 @@ export default function Header() {
             <span>Houseware</span>
             <ul>
               <li>
-                <Link href="#">
+                <Link href="/categories/houseware/products">
                   <a className={styles.categoryLink}>All Products</a>
                 </Link>
               </li>
             </ul>
           </div>
           <div className={styles.img}>
-            <img src="images/test/test1.jpg" width={400} />
+            <img src="/images/test/test1.jpg" width={400} />
           </div>
         </div>
       </div>
     </div>
   );
+  /*------------------------X-----------------------*/
 
   return (
     <div className={styles.main}>
@@ -465,10 +467,6 @@ export default function Header() {
 
         <div>
           <ul className={styles.containerLink}>
-            {/* <Link href="/">
-              <li className={styles.link}>Home</li>
-            </Link> */}
-
             <div>{WomanCollections}</div>
 
             <div>{MenCollections}</div>

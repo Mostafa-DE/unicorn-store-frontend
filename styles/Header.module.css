@@ -147,6 +147,13 @@
   transition: all 0.3s ease-in;
 }
 
+.collectionsDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .collectionsDiv p {
   text-transform: uppercase;
   text-align: center;

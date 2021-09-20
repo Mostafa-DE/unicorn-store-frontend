@@ -58,6 +58,29 @@ a {
 }
 /*---------------------------X---------------------------------*/
 
+/*--Remove focus style from sweetAlert-*/
 .swal2-popup .swal2-styled:focus {
   box-shadow: none !important;
 }
+/*------------------X------------------*/
+
+/*------Responsive card position-------*/
+.containerCardProducts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+/*------------------X------------------*/
+
+/*--------rate icons Five star---------*/
+.containerRateStarIcons {
+  display: flex;
+}
+
+.starIcon {
+  font-size: 1.3rem;
+  margin: 0.5rem 0 0 0;
+  color: #333;
+}
+/*------------------X------------------*/
