@@ -22,7 +22,7 @@ export default function MenuDrawer({ closeDrawerMenu, drawerMenu }) {
   /*----------state for products category-----------*/
   const [openCategory, setOpenCategory] = useState(true);
 
-  const handleOpenCategory = () => {
+  const handleOpenCategory = (e) => {
     setOpenCategory(!openCategory);
   };
   /*------------------------X------------------------*/

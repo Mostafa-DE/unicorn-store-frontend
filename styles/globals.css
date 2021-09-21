@@ -3,9 +3,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  /* background-color: #fafafa; */
+  font-family: bodoni, ltc-bodoni-175, serif;
 }
 
 a {
@@ -84,3 +82,10 @@ a {
   color: #333;
 }
 /*------------------X------------------*/
+
+.lineIcone {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #333;
+  margin: -2rem 0 1rem 0;
+}
