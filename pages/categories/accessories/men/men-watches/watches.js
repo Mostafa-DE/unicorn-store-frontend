@@ -2,15 +2,15 @@ import { API_URL } from "@/config/index";
 import Layout from "@/components/Layout";
 import ProductItems from "@/components/ProductItems";
 
-export default function Packages({ packages }) {
-  const pathname = "/categories/packages";
+export default function AccessoriesWatches({ menWatches }) {
+  const pathname = "/categories/accessories/men/men-watches";
   return (
     <Layout>
       <div className="containerCardProducts">
-        {packages.map((package) => (
+        {menWatches.map((menWatch) => (
           <ProductItems
-            key={package.id}
-            product={package}
+            key={menWatch.id}
+            product={menWatch}
             pathname={pathname}
           />
         ))}
@@ -20,13 +20,13 @@ export default function Packages({ packages }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${API_URL}/packages`);
+  const res = await fetch(`${API_URL}/men-watches`);
 
-  const packages = await res.json();
+  const menWatches = await res.json();
 
   return {
     props: {
-      packages: packages,
+      menWatches: menWatches,
     },
   };
 }

@@ -50,7 +50,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Header() {
   /*-----------context authenication-----------*/
   const { login, logout, user, error } = useContext(AuthContext);
-  console.log(user);
+
   useEffect(() => {
     error && toast.error(error);
   });
@@ -89,7 +89,7 @@ export default function Header() {
 
   const DialogLogin = (
     <div>
-      <li onClick={openLoginDialog}>sign in</li>
+      <li onClick={openLoginDialog}>sign in / sign up</li>
       <Dialog
         open={loginDialog}
         TransitionComponent={Transition}
@@ -196,22 +196,22 @@ export default function Header() {
             <span>turkey products</span>
             <ul>
               <li>
-                <Link href="/categories/women-fashions/turkey/dresses">
+                <Link href="/categories/women-fashions/turkey-dresses/dresses">
                   <a className={styles.categoryLink}>evening dresses</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/women-fashions/turkey/lingerie">
+                <Link href="/categories/women-fashions/turkey-lingeries/lingerie">
                   <a className={styles.categoryLink}>lingerie</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/women-fashions/turkey/abaya">
+                <Link href="/categories/women-fashions/turkey-abayas/abaya">
                   <a className={styles.categoryLink}>abaya & Qatafin </a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/women-fashions/turkey/other-products">
+                <Link href="/categories/women-fashions/turkey-all-products/other-products">
                   <a
                     className={`${styles.categoryLink} ${styles.collectionText}`}
                     style={{ padding: "1rem 0 2rem 0" }}
@@ -225,22 +225,22 @@ export default function Header() {
             <span>local products</span>
             <ul>
               <li>
-                <Link href="/categories/women-fashions/local/dresses">
+                <Link href="/categories/women-fashions/local-dresses/dresses">
                   <a className={styles.categoryLink}>evening dresses</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/women-fashions/local/lingerie">
+                <Link href="/categories/women-fashions/local-lingeries/lingerie">
                   <a className={styles.categoryLink}>lingerie</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/women-fashions/local/abaya">
+                <Link href="/categories/women-fashions/local-abayas/abaya">
                   <a className={styles.categoryLink}>abaya & Qatafin </a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/women-fashions/local/other-products">
+                <Link href="/categories/women-fashions/local-all-products/other-products">
                   <a
                     className={styles.categoryLink}
                     style={{ padding: "1rem 0 2rem 0" }}
@@ -274,12 +274,12 @@ export default function Header() {
             <p>Men Fashions</p>
             <ul>
               <li>
-                <Link href="/categories/men-fashions/pajamas">
+                <Link href="/categories/men-fashions/men-pajamas/pajamas">
                   <a className={styles.categoryLink}>pajamas</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/men-fashions/other-products">
+                <Link href="/categories/men-fashions/all-products/other-products">
                   <a className={styles.categoryLink}>Other products</a>
                 </Link>
               </li>
@@ -309,17 +309,17 @@ export default function Header() {
             <span>turkey products</span>
             <ul>
               <li>
-                <Link href="/categories/kids-fashions/pajamas">
+                <Link href="/categories/kids-fashions/kids-pajamas/pajamas">
                   <a className={styles.categoryLink}>pajamas</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/kids-fashions/dresses">
+                <Link href="/categories/kids-fashions/kids-dresses/dresses">
                   <a className={styles.categoryLink}>Dresses</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/kids-fashions/other-products">
+                <Link href="/categories/kids-fashions/all-products/other-products">
                   <a className={styles.categoryLink}>Other Products </a>
                 </Link>
               </li>
@@ -349,22 +349,22 @@ export default function Header() {
             <span>Women</span>
             <ul>
               <li>
-                <Link href="/categories/accessories/women/necklace">
+                <Link href="/categories/accessories/women/women-necklace/necklace">
                   <a className={styles.categoryLink}>necklace</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/accessories/women/rings">
+                <Link href="/categories/accessories/women/women-rings/rings">
                   <a className={styles.categoryLink}>rings</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/accessories/women/bracelets">
+                <Link href="/categories/accessories/women/women-bracelets/bracelets">
                   <a className={styles.categoryLink}>Bracelets </a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/accessories/women/other-products">
+                <Link href="/categories/accessories/women/all-products/other-products">
                   <a className={styles.categoryLink}>Other Collections </a>
                 </Link>
               </li>
@@ -372,12 +372,12 @@ export default function Header() {
             <span>Men</span>
             <ul>
               <li>
-                <Link href="/categories/accessories/men/watches">
+                <Link href="/categories/accessories/men/men-watches/watches">
                   <a className={styles.categoryLink}>watches</a>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/accessories/men/other-products">
+                <Link href="/categories/accessories/men/all-products/other-products">
                   <a className={styles.categoryLink}>Other Collections</a>
                 </Link>
               </li>
@@ -385,7 +385,7 @@ export default function Header() {
             <span>Kids</span>
             <ul>
               <li>
-                <Link href="/categories/accessories/kids/products">
+                <Link href="/categories/accessories/kids/all-products/products">
                   <a
                     className={styles.categoryLink}
                     style={{ padding: "1rem 0 2rem 0" }}
@@ -478,10 +478,6 @@ export default function Header() {
             <div>{MoreCollections}</div>
 
             <div className={styles.link}>{DialogLogin}</div>
-
-            <Link href="/contact">
-              <li className={styles.link}>Contact Us</li>
-            </Link>
           </ul>
         </div>
 

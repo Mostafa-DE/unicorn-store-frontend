@@ -5,19 +5,16 @@ import { AiOutlineLine } from "react-icons/ai";
 import { IoMdHeartEmpty } from "react-icons/io";
 import RateStarIcons from "./RateStarIcons";
 
-export default function ProductDetails() {
-  const [image, setImage] = useState("/images/unicorn/evening dresses.jpg");
-  const handleChangeImage1 = () => {
-    setImage("/images/unicorn/women fashions.jpg");
+export default function ProductDetails({ product }) {
+  const [video, setvideo] = useState("");
+  const [image, setImage] = useState(product.images[0].url);
+  const handleChangeVideo = (url) => {
+    setvideo(url);
+    setImage("");
   };
-  const handleChangeImage2 = () => {
-    setImage("/images/unicorn/men fashions.jpg");
-  };
-  const handleChangeImage3 = () => {
-    setImage("/images/unicorn/kids fashions.jpg");
-  };
-  const handleChangeImage4 = () => {
-    setImage("/images/unicorn/evening dresses.jpg");
+  const handleChangeImage = (url) => {
+    setImage(url);
+    setvideo("");
   };
 
   return (
@@ -25,28 +22,29 @@ export default function ProductDetails() {
       <div className={styles.container}>
         <div className={styles.containerImages}>
           <div className={styles.smallImagesProduct}>
-            <img
-              onClick={handleChangeImage1}
-              className={styles.smallImage}
-              src="/images/unicorn/women fashions.jpg"
-            />
-            <img
-              onClick={handleChangeImage2}
-              className={styles.smallImage}
-              src="/images/unicorn/men fashions.jpg"
-            />
-            <img
-              onClick={handleChangeImage3}
-              className={styles.smallImage}
-              src="/images/unicorn/kids fashions.jpg"
-            />
-            <img
-              onClick={handleChangeImage4}
-              className={styles.smallImage}
-              src="/images/unicorn/evening dresses.jpg"
-            />
+            {product.images?.map((image) => (
+              <img
+                onClick={() => handleChangeImage(image.url)}
+                className={styles.smallImage}
+                src={image.url}
+              />
+            ))}
+            {product.videos?.map((video) => (
+              <img
+                onClick={() => handleChangeVideo(video.url)}
+                className={styles.smallImage}
+                src={video.previewUrl}
+              />
+            ))}
           </div>
-          <ImageMagnifier src={image} width={"100%"} height={"600px"} />
+          {video !== "" ? (
+            <video className={styles.video} controls>
+              <source src={video} />
+            </video>
+          ) : null}
+          {image !== "" ? (
+            <ImageMagnifier src={image} width={"100%"} height={"600px"} />
+          ) : null}
         </div>
 
         <div className={styles.containerDetails}>
@@ -56,12 +54,12 @@ export default function ProductDetails() {
           </div>
 
           <div className={styles.containerTitle}>
-            <p className={styles.nameProduct}> فستان سهرة فخم </p>
+            <p className={styles.nameProduct}> {product.name} </p>
             <AiOutlineLine className="lineIcone" />
           </div>
 
           <div className={styles.containerPriceProduct}>
-            <p className={styles.priceProduct}> 20 JD :السعر </p>
+            <p className={styles.priceProduct}> {product.price} JD :السعر </p>
           </div>
           <div className={styles.containerColorsAndSizes}>
             <div className={styles.containerColorsProduct}>
@@ -89,11 +87,13 @@ export default function ProductDetails() {
                   aria-label="Default select example"
                   style={{ width: "6rem" }}
                 >
-                  <option value="1">S</option>
-                  <option value="2">M</option>
-                  <option value="3">L</option>
-                  <option value="3">XL</option>
-                  <option value="3">XXL</option>
+                  {product.S === true ? <option value="S">S</option> : null}
+                  <option value="M">M</option>
+                  {product.L === true ? <option value="L">L</option> : null}
+                  {product.XL === true ? <option value="XL">XL</option> : null}
+                  {product.XXL === true ? (
+                    <option value="XXL">XXL</option>
+                  ) : null}
                 </select>
                 <label className={styles.labelSizes} htmlFor="sizes">
                   :القياس
@@ -102,11 +102,7 @@ export default function ProductDetails() {
             </div>
           </div>
           <div className={styles.containerDescription}>
-            <p className={styles.description}>
-              eded edewe fwef wefwfwef wefewfwe fewfwe hvefrfr ewfwferfw ecd
-              ecfewcve fewfcece edac ecdei eicjeic eicjeicj eicjeicci eijciaj
-              jiciwejc icdwjci jciejciej ecjiejeic eijcej ie eijceicj eicj
-            </p>
+            <p className={styles.description}>{product.description}</p>
           </div>
           <div className={styles.containerAllBtns}>
             <button className={styles.addToBagBtn}>أضف إلى السلة</button>

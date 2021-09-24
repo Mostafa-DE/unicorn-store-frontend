@@ -36,6 +36,18 @@
   cursor: pointer;
 }
 
+.video {
+  width: 98%;
+  height: 500px;
+}
+
+.smallVideo {
+  width: 120px;
+  height: 100px;
+  margin: 0 1rem 1rem 0;
+  cursor: pointer;
+}
+
 .containerTitle {
   display: flex;
   flex-direction: column;
@@ -204,6 +216,10 @@
 
   .smallImage {
     margin: 1rem 0 0 0;
+  }
+
+  .video {
+    height: 100%;
   }
 }
 

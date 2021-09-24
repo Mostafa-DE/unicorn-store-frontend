@@ -1,9 +1,10 @@
 import styles from "@/styles/ProductItems.module.css";
+import Link from "next/link";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import RateStarIcons from "./RateStarIcons";
 
-export default function ProductItems({ product }) {
+export default function ProductItems({ product, pathname }) {
   return (
     <div className={styles.container}>
       <img className={styles.imgs} src={product.images[0].url} />
@@ -22,7 +23,9 @@ export default function ProductItems({ product }) {
           <p className={styles.newPrice}>{product.price} JD</p>
         </div>
         <div className={styles.quickview}>
-          <button className={styles.quickviewBtn}>التفاصيل</button>
+          <Link href={`${pathname}/${product.slug}`}>
+            <button className={styles.quickviewBtn}>التفاصيل</button>
+          </Link>
         </div>
         <div className={styles.cart}>
           <button className={styles.addToCartBtn}>أضف إلى السلة</button>

@@ -2,13 +2,13 @@ import { API_URL } from "@/config/index";
 import Layout from "@/components/Layout";
 import ProductItems from "@/components/ProductItems";
 
-export default function makeup({ makeups }) {
-  const pathname = "/categories//makeup";
+export default function rings({ rings }) {
+  const pathname = "/categories/accessories/women/women-rings";
   return (
     <Layout>
       <div className="containerCardProducts">
-        {makeups.map((makeup) => (
-          <ProductItems key={makeup.id} product={makeup} pathname={pathname} />
+        {rings.map((ring) => (
+          <ProductItems key={ring.id} product={ring} pathname={pathname} />
         ))}
       </div>
     </Layout>
@@ -16,13 +16,13 @@ export default function makeup({ makeups }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${API_URL}/make-ups`);
+  const res = await fetch(`${API_URL}/rings`);
 
-  const makeups = await res.json();
+  const rings = await res.json();
 
   return {
     props: {
-      makeups: makeups,
+      rings: rings,
     },
   };
 }
