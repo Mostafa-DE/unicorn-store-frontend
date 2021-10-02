@@ -57,7 +57,7 @@ export default function RegisterForm() {
     /*----------------validation password--------------------*/
     if (password !== confirmPassword) {
       Swal.fire({
-        title: "Passwords Don't Match, Please Try Again !!",
+        title: "!! كلمات المرور غير متطابقة",
         icon: "error",
         confirmButtonColor: "#fb9aa7",
         showClass: {
@@ -66,14 +66,14 @@ export default function RegisterForm() {
         hideClass: {
           popup: "animate__animated animate__fadeOutUp",
         },
-        footer: "<p>Password and Password Confirm must be match</p>",
+        footer: "<p>كلمة المرور و تأكيد كلمة المرور يجب أن تكون متطابقة</p>",
       });
       return;
     }
 
     if (password.length < 8) {
       Swal.fire({
-        title: "Password must be at least 8 character !!",
+        title: "كلمة المرور يجب أن تكون على الأقل مكونة من 8 خانات",
         icon: "error",
         confirmButtonColor: "#fb9aa7",
         showClass: {
@@ -84,27 +84,12 @@ export default function RegisterForm() {
         },
       });
 
-      return;
-    }
-
-    if (password.search(/[a-z]/i) === -1) {
-      Swal.fire({
-        title: "Password must contain at least one letter !!",
-        icon: "error",
-        confirmButtonColor: "#fb9aa7",
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      });
       return;
     }
 
     if (password.search(/[0-9]/) === -1) {
       Swal.fire({
-        title: "Password must contain at least one Number !!",
+        title: "كلمة المرور يجب ان تحتوي على الأقل رقم واحد",
         icon: "error",
         confirmButtonColor: "#fb9aa7",
         showClass: {
@@ -153,8 +138,10 @@ export default function RegisterForm() {
               {/*---------------image login-----------------*/}
               <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <div className={"d-flex align-items-center my-4"}>
-                  <p className="text-center fw-bold mx-3 mb-0">
-                    Contact Details
+                  <p
+                    className={`text-center fw-bold mx-3 mb-0 ${styles.titleContactDetails}`}
+                  >
+                    بيانات المتصل
                   </p>
                 </div>
 
@@ -166,9 +153,9 @@ export default function RegisterForm() {
                     value={username}
                     fullWidth
                     variant="standard"
-                    label="Username"
+                    label="إسم المستخدم"
                     validators={["required"]}
-                    errorMessages={["You can't leave this field empty !!"]}
+                    errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                   />
                 </div>
                 <div className="form-outline mb-3">
@@ -178,9 +165,9 @@ export default function RegisterForm() {
                     value={email}
                     fullWidth
                     variant="standard"
-                    label="Email Address"
+                    label="البريد الإلكتروني"
                     validators={["required"]}
-                    errorMessages={["You can't leave this field empty !!"]}
+                    errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                   />
                 </div>
 
@@ -192,9 +179,9 @@ export default function RegisterForm() {
                       value={password}
                       onChange={handleChangePassword}
                       variant="standard"
-                      label="Password"
+                      label="الرقم السري"
                       validators={["required"]}
-                      errorMessages={["You can't leave this field empty "]}
+                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                     />
                   </div>
 
@@ -205,9 +192,9 @@ export default function RegisterForm() {
                       value={confirmPassword}
                       onChange={handleChangeConfirmPassword}
                       variant="standard"
-                      label="Confirm Password"
+                      label="تأكيد الرقم السري"
                       validators={["required"]}
-                      errorMessages={["You can't leave this field empty "]}
+                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                     />
                     {showPassword === true ? (
                       <RiEyeLine
@@ -229,9 +216,9 @@ export default function RegisterForm() {
                     value={phone}
                     fullWidth
                     variant="standard"
-                    label="Phone Number"
+                    label="رقم الهاتف"
                     validators={["required"]}
-                    errorMessages={["You can't leave this field empty !!"]}
+                    errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                   />
                 </div>
                 {/*-----------------------X------------------------*/}
@@ -242,8 +229,10 @@ export default function RegisterForm() {
                 <div
                   className={`${styles.divider} d-flex align-items-center my-4`}
                 >
-                  <p className="text-center fw-bold mx-3 mb-0">
-                    Delivery Details
+                  <p
+                    className={`text-center fw-bold mx-3 mb-0 ${styles.titleContactDetails}`}
+                  >
+                    بيانات التوصيل
                   </p>
                 </div>
 
@@ -256,9 +245,9 @@ export default function RegisterForm() {
                       value={firstName}
                       onChange={handleChangeFirstName}
                       variant="standard"
-                      label="First Name"
+                      label="الإسم الأول"
                       validators={["required"]}
-                      errorMessages={["You can't leave this field empty "]}
+                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                     />
                   </div>
 
@@ -269,9 +258,9 @@ export default function RegisterForm() {
                       value={lastName}
                       onChange={handleChangeLastName}
                       variant="standard"
-                      label="Last Name"
+                      label="الإسم الأخير"
                       validators={["required"]}
-                      errorMessages={["You can't leave this field empty "]}
+                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                     />
                   </div>
                 </div>
@@ -284,9 +273,9 @@ export default function RegisterForm() {
                       value={city}
                       onChange={handleChangeCity}
                       variant="standard"
-                      label="City"
+                      label="المحافظة"
                       validators={["required"]}
-                      errorMessages={["You can't leave this field empty "]}
+                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                     />
                   </div>
 
@@ -297,9 +286,9 @@ export default function RegisterForm() {
                       value={building}
                       onChange={handleChangeBuilding}
                       variant="standard"
-                      label="Building Number"
+                      label="رقم العمارة"
                       validators={["required"]}
-                      errorMessages={["You can't leave this field empty "]}
+                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                     />
                   </div>
                 </div>
@@ -311,9 +300,9 @@ export default function RegisterForm() {
                       onChange={handleChangeAddress}
                       fullWidth
                       variant="standard"
-                      label="Full Address"
+                      label="العنوان كامل"
                       validators={["required"]}
-                      errorMessages={["You can't leave this field empty "]}
+                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                     />
                   </div>
                 </div>
@@ -326,7 +315,7 @@ export default function RegisterForm() {
                       onChange={handleChangeDeliveryPhone}
                       fullWidth
                       variant="standard"
-                      label="Delivery Phone (optional)"
+                      label="رقم هاتف للتوصيل (اختياري)"
                     />
                   </div>
                 </div>
@@ -345,13 +334,13 @@ export default function RegisterForm() {
                       />
                     </div>
                     <label className="form-check-label" htmlFor="form2Example3">
-                      I do accept the{" "}
+                      أنا اوافق على{" "}
                       <Link href="/terms-policy/terms-conditions">
                         <a className={styles.linkTermsAndConditions}>
-                          Terms & Conditions{" "}
+                          شروط و أحكام{" "}
                         </a>
                       </Link>
-                      of this site
+                      هذا الموقع
                     </label>
                   </div>
                   {/*------------------------X-----------------------*/}
@@ -362,7 +351,7 @@ export default function RegisterForm() {
                 >
                   {/*----------------------button login-------------------------*/}
                   <button type="submit" className={styles.loginBtn}>
-                    Sign Up
+                    تسجيل
                   </button>
                   {/*----------------------------X------------------------------*/}
                 </div>

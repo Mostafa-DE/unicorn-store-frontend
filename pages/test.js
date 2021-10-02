@@ -1,6 +1,10 @@
 import Layout from "@/components/Layout";
-import ProductDetails from "@/components/ProductDetails";
+import CategoriesPhoto from "@/components/CategoriesPhoto";
 
 export default function ZoomImage() {
-  return <Layout>{/* <ProductDetails /> */}</Layout>;
+  return (
+    <Layout>
+      <CategoriesPhoto />
+    </Layout>
+  );
 }

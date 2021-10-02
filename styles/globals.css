@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
 html,
 body {
   padding: 0;
@@ -83,9 +84,64 @@ a {
 }
 /*------------------X------------------*/
 
-.lineIcone {
+/*--------Title page Categories--------*/
+.containerTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 8rem 0 -3rem 0;
+  font-family: "Tajawal", sans-serif;
+}
+
+.h1Title {
+  padding: 0 0 0.5rem 0;
+  font-size: 2.6rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.lineIcon {
   font-size: 3rem;
   font-weight: 400;
   color: #333;
   margin: -2rem 0 1rem 0;
+  color: #fb9aa7;
 }
+/*------------------X------------------*/
+
+/*------Text For Search Results--------*/
+.containerSearchResults {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Tajawal", sans-serif;
+  animation-name: zoomIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  margin: 4rem 0 0 0;
+}
+
+.h1Text {
+  font-size: 2.7rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pText {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+/*------------------X------------------*/

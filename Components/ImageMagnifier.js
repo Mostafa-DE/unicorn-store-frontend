@@ -15,7 +15,11 @@ export default function ImageMagnifier({
     <div style={{ position: "relative", height: height, width: width }}>
       <img
         src={src}
-        style={{ height: height, width: width, cursor: "zoom-in" }}
+        style={{
+          height: height,
+          width: width,
+          cursor: "zoom-in",
+        }}
         onMouseEnter={(e) => {
           // update image size and turn-on magnifier
           const elem = e.currentTarget;

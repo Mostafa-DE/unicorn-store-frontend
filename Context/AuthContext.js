@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
 
     if (logoutUser.ok) {
       setUser(null);
-      router.push("/");
+      router.push("/account/login");
     }
   };
 

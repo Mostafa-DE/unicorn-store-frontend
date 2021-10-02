@@ -23,58 +23,54 @@ export default function Header() {
         <div className="row">
           {/*-----------------descripe about who we are--------------*/}
           <div className="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
-            <h5 className="font-weight-bold text-uppercase mb-4">
-              Who we are ??
-            </h5>
-            <p> That not your business </p>
+            <h5 className="font-weight-bold text-uppercase mb-4">من نحن ؟؟</h5>
+            <p> ملكاش دخل, مثقل دمك </p>
           </div>
           {/*-----------------------------X------------------------*/}
           <hr className="clearfix w-100 d-md-none" />
           {/*--------------terms & conditions & policies-----------*/}
           <div className="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
-            <h5 className="font-weight-bold text-uppercase mb-4">
-              UNICORN POLICIES
-            </h5>
+            <h5 className="font-weight-bold text-uppercase mb-4">سياساتُنا</h5>
             <ul className="list-unstyled">
               <li>
                 <p>
                   <Link href="/terms-policy/terms-conditions">
-                    <a className={styles.link}>Terms & Conditions</a>
+                    <a className={styles.link}> الأحكام و الشروط </a>
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
                   <Link href="/terms-policy/privacy-policy">
-                    <a className={styles.link}>Privacy Policy</a>
+                    <a className={styles.link}>سياسة خاصة</a>
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
                   <Link href="/terms-policy/sales-policies">
-                    <a className={styles.link}>Sales Policies</a>
+                    <a className={styles.link}>سياسة المبيعات</a>
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
                   <Link href="/terms-policy/refund-policy">
-                    <a className={styles.link}>Refund Policy</a>
+                    <a className={styles.link}>سياسة الاسترجاع</a>
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
                   <Link href="/terms-policy/cancellation-policy">
-                    <a className={styles.link}>Cancellation Policy</a>
+                    <a className={styles.link}>سياسة الإلغاء</a>
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
                   <Link href="/terms-policy/shipping-policy">
-                    <a className={styles.link}>Shipping Policy</a>
+                    <a className={styles.link}>سياسة الشحن</a>
                   </Link>
                 </p>
               </li>
@@ -84,13 +80,13 @@ export default function Header() {
           <hr className="clearfix w-100 d-md-none" />
           {/*--------------------Contact methods-------------------*/}
           <div className="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
-            <h5 className="font-weight-bold text-uppercase mb-4">CONTACT US</h5>
+            <h5 className="font-weight-bold text-uppercase mb-4">تواصل معنا</h5>
             <ul className="list-unstyled">
               <li>
                 <p>
                   <FaMapMarkerAlt className={styles.socialContact} />{" "}
                   <a className={styles.link} href="#">
-                    Joradn, Amman, online store
+                    الأردن , عمان , متجر على الانترنت
                   </a>
                 </p>
               </li>
@@ -138,7 +134,7 @@ export default function Header() {
           <hr className="clearfix w-100 d-md-none" />
           {/*--------------------Follow us social------------------*/}
           <div className="col-md-2 col-lg-2 text-center mx-auto my-4">
-            <h5 className="font-weight-bold text-uppercase mb-4">FOLLOW US</h5>
+            <h5 className="font-weight-bold text-uppercase mb-4">تابعنا</h5>
             <a
               href="https://web.facebook.com/JoUnicornsStore"
               type="button"
@@ -174,8 +170,9 @@ export default function Header() {
       {/*-----------------Copy right & reserved----------------*/}
       <div className={styles.copyRight}>
         <p>
-          Copyright &copy; Unicorns Store All rights reserved || By
-          <a href="https://github.com/Mostafa-DE">Mostafa Fayyad</a>
+          حقوق النشر والنسخ محفوظة || صنع بواسطة
+          <br />
+          <a href="https://github.com/Mostafa-DE">مصطفى فياض</a>
         </p>
       </div>
 

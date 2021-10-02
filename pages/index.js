@@ -1,13 +1,11 @@
 import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
-import Carousel from "react-bootstrap/Carousel";
+import CategoriesPhoto from "@/components/CategoriesPhoto";
 
 export default function Home() {
   return (
     <Layout title="Unicorn Store | Shop Online For Fastions, Tools, Gifts & More">
-      <h1 className="text-center bg-secondary">Home Page...</h1>
-
-      <button className="standardBtn">Awesome</button>
+      <CategoriesPhoto />
     </Layout>
   );
 }

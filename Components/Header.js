@@ -1,25 +1,30 @@
 import styles from "@/styles/Header.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import "animate.css";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 /*--------------------Components-------------------------*/
 import MenuDrawer from "./MenuDrawer";
-import CartDrawer from "@/components/CartDrawer";
+// import CartDrawer from "@/components/CartDrawer";
+import DialogShoppingBag from "@/components/DialogShoppingBag";
 /*-------------------------X-----------------------------*/
 
 /*--------------------Material Ui------------------------*/
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Slide from "@material-ui/core/Slide";
+import Badge from "@mui/material/Badge";
 /*-------------------------X-----------------------------*/
 
 /*----------------------Context--------------------------*/
 import { AuthContext } from "@/context/AuthContext";
+import { BagContext } from "@/context/BagContext";
+import { WishBagContext } from "@/context/WishBagContext";
 /*-------------------------X-----------------------------*/
 
 /*-----------------------Hooks---------------------------*/
@@ -32,7 +37,7 @@ import useShowPassword from "@/Hooks/useShowPassword";
 
 /*--------------------React Icons------------------------*/
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { AiOutlineSearch } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 import { FiMenu } from "react-icons/fi";
 import { ImHeart } from "react-icons/im";
 import { IoIosArrowDown } from "react-icons/io";
@@ -48,6 +53,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 /*-----------------------------------X-----------------------------*/
 
 export default function Header() {
+  const router = useRouter();
+
   /*-----------context authenication-----------*/
   const { login, logout, user, error } = useContext(AuthContext);
 
@@ -57,12 +64,21 @@ export default function Header() {
 
   /*---------------------X---------------------*/
 
+  /*-----------------context Bag---------------*/
+  const { bag } = useContext(BagContext);
+  /*---------------------X---------------------*/
+
+  /*-----------------context Bag---------------*/
+  const { wishBag } = useContext(WishBagContext);
+  /*---------------------X---------------------*/
+
   /*---state for handle drawer menu (open/close)----*/
   const [drawerMenu, openDrawer, closeDrawer] = useDrawer(false);
   /*------------------------X-----------------------*/
 
-  /*---state for handle drawer cart (open/close)----*/
-  const [drawerCart, openDrawerCart, closeDrawerCart] = useDrawer(false);
+  /*---state for handle shopping Bag (open/close)---*/
+  const [shoppingDialog, openShoppingDialog, closeShoppingDialog] =
+    useDrawer(false);
   /*------------------------X-----------------------*/
 
   /*----------State scroll down for Navbar----------*/
@@ -85,12 +101,16 @@ export default function Header() {
     login({ email, password });
     resetPassword();
     resetEmail();
+    // router.push("/account/my-account");
   };
 
   const DialogLogin = (
     <div>
-      <li onClick={openLoginDialog}>sign in / sign up</li>
+      {!user && <li onClick={openLoginDialog}>تسجيل الدخول / اشتراك</li>}
+      {user && <li onClick={logout}>تسجيل الخروج</li>}
+
       <Dialog
+        animation={"false"}
         open={loginDialog}
         TransitionComponent={Transition}
         keepMounted
@@ -99,7 +119,7 @@ export default function Header() {
         aria-describedby="alert-dialog-slide-description"
       >
         <ValidatorForm onSubmit={handleSubmit}>
-          <p className={styles.titleDialog}>{"Sign In"}</p>
+          <p className={styles.titleDialog}>تسجيل الدخول</p>
 
           <DialogContent>
             <ToastContainer
@@ -120,9 +140,9 @@ export default function Header() {
                 value={email}
                 fullWidth
                 variant="standard"
-                label="Email Address"
+                label="البريد الإلكتروني"
                 validators={["required"]}
-                errorMessages={["You can't leave this field empty !!"]}
+                errorMessages={[" !! لا تستطيع ترك هذا الحقل فارغاً"]}
               />
               <div className={styles.containerPassword}>
                 <TextValidator
@@ -131,9 +151,9 @@ export default function Header() {
                   value={password}
                   fullWidth
                   variant="standard"
-                  label="Password"
+                  label="الرقم السري"
                   validators={["required"]}
-                  errorMessages={["You can't leave this field empty !!"]}
+                  errorMessages={["!! لا تستطيع ترك هذا الحقل فارغاً"]}
                 />
                 {showPassword === true ? (
                   <RiEyeLine
@@ -156,24 +176,24 @@ export default function Header() {
                   readOnly
                 />
                 <label className="form-check-label" htmlFor="form2Example3">
-                  Remember Me
+                  تذكرني
                   <FiAlertCircle className={styles.alertIcon} />
                 </label>
               </div>
               <button type="submit" className={styles.signInBtn}>
-                Sign In
+                تسجيل الدخول
               </button>
               <Link href="/account/forgot-password">
                 <a className={styles.forgotPassword}>
-                  Forgotten your password ?
+                  هل نسيت كلمة المرور الخاصة بك ؟؟
                 </a>
               </Link>
               <p className={styles.noAccountText}>
-                Don't currently have an account ?
+                لا يوجد لديك حساب من قبل ؟؟
               </p>
               <Link href="/account/register">
                 <button type="submit" className={styles.registerBtn}>
-                  Create An Account
+                  اشترك الآن
                 </button>
               </Link>
             </div>
@@ -187,27 +207,27 @@ export default function Header() {
   const WomanCollections = (
     <div className={styles.dropDown}>
       <li className={styles.linkProducts}>
-        women <IoIosArrowDown />
+        أقسام النساء <IoIosArrowDown />
       </li>
       <div className={styles.dropDownContent}>
         <div className={styles.containerDropDownContent}>
           <div className={styles.collectionsDiv}>
-            <p>Women Fashions</p>
-            <span>turkey products</span>
+            <p>الأزياء النسائية</p>
+            <span>منتجات صناعة تركية</span>
             <ul>
               <li>
                 <Link href="/categories/women-fashions/turkey-dresses/dresses">
-                  <a className={styles.categoryLink}>evening dresses</a>
+                  <a className={styles.categoryLink}>فساتين سهرة</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/women-fashions/turkey-lingeries/lingerie">
-                  <a className={styles.categoryLink}>lingerie</a>
+                  <a className={styles.categoryLink}>ﻻنجري</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/women-fashions/turkey-abayas/abaya">
-                  <a className={styles.categoryLink}>abaya & Qatafin </a>
+                  <a className={styles.categoryLink}>عبايات و قطافين</a>
                 </Link>
               </li>
               <li>
@@ -216,27 +236,27 @@ export default function Header() {
                     className={`${styles.categoryLink} ${styles.collectionText}`}
                     style={{ padding: "1rem 0 2rem 0" }}
                   >
-                    Other Products
+                    جميع المنتجات الأخرى
                   </a>
                 </Link>
               </li>
             </ul>
 
-            <span>local products</span>
+            <span>منتجات صناعة محلية</span>
             <ul>
               <li>
                 <Link href="/categories/women-fashions/local-dresses/dresses">
-                  <a className={styles.categoryLink}>evening dresses</a>
+                  <a className={styles.categoryLink}>فساتين سهرة</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/women-fashions/local-lingeries/lingerie">
-                  <a className={styles.categoryLink}>lingerie</a>
+                  <a className={styles.categoryLink}>ﻻنجري</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/women-fashions/local-abayas/abaya">
-                  <a className={styles.categoryLink}>abaya & Qatafin </a>
+                  <a className={styles.categoryLink}>عبايات و قطافين</a>
                 </Link>
               </li>
               <li>
@@ -245,17 +265,18 @@ export default function Header() {
                     className={styles.categoryLink}
                     style={{ padding: "1rem 0 2rem 0" }}
                   >
-                    Other Products
+                    جميع المنتجات الأخرى
                   </a>
                 </Link>
               </li>
             </ul>
           </div>
-          <div className={styles.img}>
+          <div>
             <img
               src="/images/unicorn/women fashions.jpg"
               width={380}
-              height={470}
+              height={521}
+              className={styles.img}
             />
           </div>
         </div>
@@ -266,21 +287,21 @@ export default function Header() {
   const MenCollections = (
     <div className={styles.dropDown}>
       <li className={styles.linkProducts}>
-        men <IoIosArrowDown />
+        أقسام الرجال <IoIosArrowDown />
       </li>
       <div className={styles.dropDownContent}>
         <div className={styles.containerDropDownContent}>
           <div className={styles.collectionsDiv}>
-            <p>Men Fashions</p>
+            <p>الأزياء الرجالية</p>
             <ul>
               <li>
                 <Link href="/categories/men-fashions/men-pajamas/pajamas">
-                  <a className={styles.categoryLink}>pajamas</a>
+                  <a className={styles.categoryLink}>البيجامات</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/men-fashions/all-products/other-products">
-                  <a className={styles.categoryLink}>Other products</a>
+                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
                 </Link>
               </li>
             </ul>
@@ -290,6 +311,7 @@ export default function Header() {
               src="/images/unicorn/men fashions.jpg"
               width={400}
               height={380}
+              className={styles.img}
             />
           </div>
         </div>
@@ -300,27 +322,27 @@ export default function Header() {
   const KidsCollections = (
     <div className={styles.dropDown}>
       <li className={styles.linkProducts}>
-        kids <IoIosArrowDown />
+        أقسام الأطفال <IoIosArrowDown />
       </li>
       <div className={styles.dropDownContent}>
         <div className={styles.containerDropDownContent}>
           <div className={styles.collectionsDiv}>
-            <p>Kids Fashions</p>
-            <span>turkey products</span>
+            <p>أزياء الأطفال</p>
+            <span>منتجات صناعة تركية</span>
             <ul>
               <li>
                 <Link href="/categories/kids-fashions/kids-pajamas/pajamas">
-                  <a className={styles.categoryLink}>pajamas</a>
+                  <a className={styles.categoryLink}>البيجامات</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/kids-fashions/kids-dresses/dresses">
-                  <a className={styles.categoryLink}>Dresses</a>
+                  <a className={styles.categoryLink}>فساتين</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/kids-fashions/all-products/other-products">
-                  <a className={styles.categoryLink}>Other Products </a>
+                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
                 </Link>
               </li>
             </ul>
@@ -330,6 +352,7 @@ export default function Header() {
               src="/images/unicorn/kids fashions.jpg"
               width={400}
               height={400}
+              className={styles.img}
             />
           </div>
         </div>
@@ -340,49 +363,49 @@ export default function Header() {
   const AccessoriesCollections = (
     <div className={styles.dropDown}>
       <li className={styles.linkProducts}>
-        Accessories <IoIosArrowDown />
+        قسم الإكسسوارات <IoIosArrowDown />
       </li>
       <div className={styles.dropDownContent}>
         <div className={styles.containerDropDownContent}>
           <div className={styles.collectionsDiv}>
-            <p>Accessories Collections</p>
-            <span>Women</span>
+            <p>أقسام الإكسسوارات</p>
+            <span>نساء</span>
             <ul>
               <li>
                 <Link href="/categories/accessories/women/women-necklace/necklace">
-                  <a className={styles.categoryLink}>necklace</a>
+                  <a className={styles.categoryLink}>قلادات</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/accessories/women/women-rings/rings">
-                  <a className={styles.categoryLink}>rings</a>
+                  <a className={styles.categoryLink}>خواتم</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/accessories/women/women-bracelets/bracelets">
-                  <a className={styles.categoryLink}>Bracelets </a>
+                  <a className={styles.categoryLink}>أساور </a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/accessories/women/all-products/other-products">
-                  <a className={styles.categoryLink}>Other Collections </a>
+                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
                 </Link>
               </li>
             </ul>
-            <span>Men</span>
+            <span>رجال</span>
             <ul>
               <li>
                 <Link href="/categories/accessories/men/men-watches/watches">
-                  <a className={styles.categoryLink}>watches</a>
+                  <a className={styles.categoryLink}>ساعات</a>
                 </Link>
               </li>
               <li>
                 <Link href="/categories/accessories/men/all-products/other-products">
-                  <a className={styles.categoryLink}>Other Collections</a>
+                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
                 </Link>
               </li>
             </ul>
-            <span>Kids</span>
+            <span>الأطفال</span>
             <ul>
               <li>
                 <Link href="/categories/accessories/kids/all-products/products">
@@ -390,14 +413,18 @@ export default function Header() {
                     className={styles.categoryLink}
                     style={{ padding: "1rem 0 2rem 0" }}
                   >
-                    All Products
+                    جميع المنتجات
                   </a>
                 </Link>
               </li>
             </ul>
           </div>
           <div className={styles.img}>
-            <img src="/images/unicorn/accessories.jpg" width={400} />
+            <img
+              src="/images/unicorn/accessories.jpg"
+              width={400}
+              className={styles.img}
+            />
           </div>
         </div>
       </div>
@@ -407,41 +434,45 @@ export default function Header() {
   const MoreCollections = (
     <div className={styles.dropDown}>
       <li className={styles.linkProducts}>
-        More <IoIosArrowDown />
+        الأقسام الأخرى <IoIosArrowDown />
       </li>
       <div className={styles.dropDownContent}>
         <div className={styles.containerDropDownContent}>
           <div className={styles.collectionsDiv}>
-            <p>More Collections</p>
-            <span>Makeup</span>
+            <p>جميع الأقسام</p>
+            <span>تجميل</span>
             <ul>
               <li>
                 <Link href="/categories/makeup/products">
-                  <a className={styles.categoryLink}>All Products</a>
+                  <a className={styles.categoryLink}>جميع المنتجات</a>
                 </Link>
               </li>
             </ul>
 
-            <span>Packages</span>
+            <span>الباكيجات</span>
             <ul>
               <li>
                 <Link href="/categories/packages/products">
-                  <a className={styles.categoryLink}>All Products</a>
+                  <a className={styles.categoryLink}>جميع المنتجات</a>
                 </Link>
               </li>
             </ul>
 
-            <span>Houseware</span>
+            <span>الأدوات المنزلية</span>
             <ul>
               <li>
                 <Link href="/categories/houseware/products">
-                  <a className={styles.categoryLink}>All Products</a>
+                  <a className={styles.categoryLink}>جميع المنتجات</a>
                 </Link>
               </li>
             </ul>
           </div>
           <div className={styles.img}>
-            <img src="/images/test/test1.jpg" width={400} />
+            <img
+              src="/images/test/test1.jpg"
+              width={400}
+              className={styles.img}
+            />
           </div>
         </div>
       </div>
@@ -482,17 +513,62 @@ export default function Header() {
         </div>
 
         <div className={styles.containerIcons}>
-          <HiOutlineShoppingBag
-            className={styles.bagIcon}
-            onClick={openDrawerCart}
-          />
-          <ImHeart className={styles.heartIcon} />
-          <AiOutlineSearch className={styles.searchIcon} />
+          <Badge
+            badgeContent={bag.itemsCount}
+            color="error"
+            showZero
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            className={styles.badgCart}
+          >
+            <HiOutlineShoppingBag
+              onClick={openShoppingDialog}
+              className={styles.bagIcon}
+            />
+          </Badge>
+
+          <Badge
+            badgeContent={wishBag.itemsCount}
+            color="error"
+            showZero
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            className={styles.badgWishBag}
+          >
+            {user !== null ? (
+              <Link href="/products/wish-list">
+                <ImHeart className={styles.heartIcon} />
+              </Link>
+            ) : (
+              <ImHeart
+                onClick={() => router.push("/account/login")}
+                className={styles.heartIcon}
+              />
+            )}
+          </Badge>
+
+          {user ? (
+            <Link href="/account/my-account">
+              <CgProfile className={styles.searchIcon} />
+            </Link>
+          ) : (
+            <Link href="#">
+              <CgProfile
+                onClick={openLoginDialog}
+                className={styles.searchIcon}
+              />
+            </Link>
+          )}
+
           <FiMenu className={styles.menuIcon} onClick={openDrawer} />
           <MenuDrawer closeDrawerMenu={closeDrawer} drawerMenu={drawerMenu} />
-          <CartDrawer
-            closeDrawerCart={closeDrawerCart}
-            drawerCart={drawerCart}
+          <DialogShoppingBag
+            shoppingDialog={shoppingDialog}
+            closeShoppingDialog={closeShoppingDialog}
           />
         </div>
       </nav>

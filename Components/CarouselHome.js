@@ -13,7 +13,7 @@ export default function CarouselHome() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="./images/test/test1.jpg"
+            src="./images/unicorn/mainModelWomen.jpg"
             alt="First slide"
             height={heightImgs}
           />
@@ -27,7 +27,7 @@ export default function CarouselHome() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="./images/test/test2.jpg"
+            src="./images/unicorn/mainModelWomen2.jpg"
             alt="Second slide"
             height={heightImgs}
           />

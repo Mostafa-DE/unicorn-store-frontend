@@ -1,0 +1,186 @@
+.fontFamily {
+  font-family: "Tajawal", sans-serif;
+}
+
+.containerTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleShoppingBag {
+  font-size: 2rem;
+  font-family: "Tajawal", sans-serif;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2rem;
+  margin: 0 0.5rem 0 0;
+  cursor: pointer;
+}
+
+.containerItemCell {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nameItem {
+  max-width: 6rem;
+}
+
+.addOrRemoveQty {
+  display: flex;
+  justify-content: center;
+}
+
+.plus {
+  font-size: 1.5rem;
+  border: 1px solid #fb9aa7;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #fb9aa7;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  width: 3rem;
+}
+
+.plus:hover {
+  box-shadow: 2.5px 2.5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease-out;
+}
+
+.minus {
+  font-size: 1.5rem;
+  border: 1px solid #333;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  width: 3rem;
+}
+
+.minus:hover {
+  box-shadow: 2.5px 2.5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease-out;
+}
+
+.deleteBtn {
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.deleteBtn:hover {
+  color: #fb9aa7;
+  transform: scale(1.3);
+  transition: all 0.3s ease-out;
+}
+
+.mainBoxAmountDetails {
+  font-family: "Tajawal", sans-serif;
+}
+
+.totalAmount {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.2rem;
+  margin: 1rem 0 0 0;
+}
+
+.containerBtns {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 0.8rem 0;
+}
+
+.checkoutBtn {
+  padding: 0.4rem 3.5rem;
+  background-color: #333;
+  color: #fafafa;
+  font-weight: 600;
+  border: 1.5px solid #333;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in;
+  text-transform: uppercase;
+  margin: 0 0 0 0.5rem;
+}
+
+.checkoutBtn:hover {
+  background: none;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+.continueShoppingBtn {
+  padding: 0.4rem 3rem;
+  background: none;
+  color: #333;
+  font-weight: 600;
+  border: 1.5px solid #333;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in;
+  text-transform: uppercase;
+}
+
+.continueShoppingBtn:hover {
+  background-color: #333;
+  color: #fafafa;
+  transition: all 0.3s ease-out;
+}
+
+.containerShoppingBagEmpty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2.5rem 2.5rem 2.5rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  animation-name: zoomIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.containerShoppingBagEmpty h1 {
+  font-size: 2.2rem;
+  text-align: center;
+  font-weight: 600;
+  color: #fb9aa7;
+}
+
+.containerShoppingBagEmpty p {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+}
+
+@media (max-width: 452px) {
+  .containerBtns {
+    flex-direction: column;
+  }
+
+  .checkoutBtn {
+    width: 100%;
+    margin: 0.8rem 0 0 0;
+  }
+
+  .continueShoppingBtn {
+    width: 100%;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,7 +1,8 @@
 import styles from "@/styles/Layout.module.css";
-
 import Head from "next/head";
 import { useRouter } from "next/dist/client/router";
+import ButtonScrollUp from "./ButtonScrollUp";
+import ButtonWhatsApp from "./ButtonWhatsApp";
 
 /*-------------components--------------*/
 import Header from "./Header";
@@ -24,6 +25,8 @@ export default function Layout({ title, description, children }) {
 
       <div className={styles.container}> {children} </div>
       <Footer />
+      <ButtonScrollUp />
+      <ButtonWhatsApp />
     </div>
   );
 }

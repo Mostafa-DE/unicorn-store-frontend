@@ -3,13 +3,27 @@ import Layout from "./Layout";
 import Link from "next/link";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import useInputField from "@/Hooks/useInputField";
+import Swal from "sweetalert2";
 
 export default function ForgotPasswordForm() {
-  const [email, handleChangeEmail] = useInputField("");
+  const [email, handleChangeEmail, resetEmail] = useInputField("");
 
   const handleSubmit = (evnt) => {
     evnt.preventDefault();
-    setEmail("");
+
+    Swal.fire({
+      title: "لقد قمنا بإرسال رابط إعادة تعيين كلمة المرور",
+      icon: "success",
+      confirmButtonColor: "#fb9aa7",
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      footer: "<p>يرجى التحقق من البريد الإلكتروني الخاص بك</p>",
+    });
+    resetEmail("");
   };
 
   return (
@@ -18,9 +32,9 @@ export default function ForgotPasswordForm() {
         <ValidatorForm onSubmit={handleSubmit}>
           <div className={styles.container}>
             <div className={styles.boxContainer}>
-              <h4> Recover Password </h4>
+              <h4>إعادة تعيين كلمة المرور</h4>
               <hr />
-              <p> Don't worry, happens to the most of us. </p>
+              <p> لا تقلق, يحدث مع المعظم منا </p>
               <TextValidator
                 type="email"
                 name="email"
@@ -28,17 +42,18 @@ export default function ForgotPasswordForm() {
                 onChange={handleChangeEmail}
                 fullWidth
                 variant="standard"
-                label="Email Address"
+                label="ادخل عنوان بريدك الإلكتروني"
                 validators={["required"]}
-                errorMessages={["You Can't leave this field empty !!"]}
+                errorMessages={["!! لا تستطيع ترك هذا الحقل فارغاً"]}
               />
               <button type="submit" className={styles.btn}>
-                Email me a recovery link
+                ارسل لي رابط تعيين كلمة المرور
               </button>
               <div className={styles.contactText}>
-                If you have any problem with recover password <br />
+                إذا كان لديك أي مشكلة في إعادة تعيين كلمة المرور لا تتردد في{" "}
+                <br />
                 <Link href="/contact">
-                  <a className={styles.link}> Contact Us </a>
+                  <a className={styles.link}> التواصل معنا </a>
                 </Link>
               </div>
             </div>

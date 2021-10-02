@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
+
+.main {
+  font-family: "Tajawal", sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+
+.containerWomenCard,
+.containerKidsCard,
+.containerMenCard {
+  background: url("../public/images/unicorn/womenCategory.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 25rem;
+  height: 18.5rem;
+  cursor: pointer;
+  margin: 0.5rem;
+}
+
+.containerKidsCard {
+  background: url("../public/images/unicorn/kidsCategory.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerMenCard {
+  background: url("../public/images/unicorn/menCategory.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.womenCardContent {
+  margin: 4rem 0 0 1rem;
+}
+
+.womenCardContent p {
+  font-size: 1.7rem;
+}
+
+.menCardContent {
+  margin: 4rem 0 0 1rem;
+}
+
+.menCardContent p {
+  color: #fafafa;
+  font-size: 2rem;
+}
+
+.kidsCardContent {
+  margin: 4rem 0 0 1rem;
+}
+
+.kidsCardContent p {
+  font-size: 1.8rem;
+}
+
+.WomenShopBtn {
+  background: none;
+  border: 1.5px solid #333;
+  padding: 0.4rem 2.5rem;
+  font-weight: 600;
+  transition: all 0.4s ease-in;
+  margin: 0 0 0 0.25rem;
+}
+
+.WomenShopBtn:hover,
+.kidsShopBtn:hover {
+  background-color: #333;
+  border-color: #333;
+  color: #fafafa;
+  transition: all 0.4s ease-out;
+}
+
+.menShopBtn {
+  background: none;
+  border: 1px solid #fafafa;
+  color: #fafafa;
+  margin: 0 0 0 0.8rem;
+  padding: 0.4rem 2.5rem;
+  font-weight: 600;
+  transition: all 0.4s ease-in;
+}
+
+.menShopBtn:hover {
+  background-color: #fafafa;
+  border-color: #fafafa;
+  color: #333;
+  transition: all 0.4s ease-out;
+}
+
+.kidsShopBtn {
+  background: none;
+  border: 1px solid #333;
+  color: #333;
+  margin: 0 0 0 0.8rem;
+  padding: 0.4rem 2.5rem;
+  font-weight: 600;
+  transition: all 0.4s ease-in;
+}

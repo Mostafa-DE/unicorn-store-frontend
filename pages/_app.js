@@ -1,5 +1,7 @@
 import "../styles/globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { BagProvider } from "@/context/BagContext";
+import { WishBagProvider } from "@/context/WishBagContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -28,7 +30,11 @@ function MyApp({ Component, pageProps }) {
       />
 
       <AuthProvider>
-        <Component {...pageProps} />
+        <BagProvider>
+          <WishBagProvider>
+            <Component {...pageProps} />
+          </WishBagProvider>
+        </BagProvider>
       </AuthProvider>
     </>
   );
