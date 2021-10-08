@@ -1,0 +1,163 @@
+.containerTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.titleCompareProducts {
+  font-size: 2rem;
+  font-family: "Tajawal", sans-serif;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2rem;
+  margin: 0 0.5rem 0 0;
+  cursor: pointer;
+}
+
+.DialogContent {
+  font-family: "Tajawal", sans-serif;
+}
+
+.titleTable {
+  font-weight: 400;
+  text-align: center;
+  border-right: 0.1px solid rgb(170, 170, 170);
+  border-bottom: 0.1px solid rgb(170, 170, 170);
+}
+
+.titleTable p {
+  padding: 0 1.5rem 0 0;
+  margin: 0.5rem 0 0 0;
+  font-weight: 300;
+}
+
+.borderBottomTitle {
+  border-bottom: 0.1px solid rgb(170, 170, 170);
+}
+
+.containerProducts {
+  margin: 0 0 0 2rem;
+  padding: 0 0 1rem 0;
+  max-width: 200px;
+}
+
+.containerDescription {
+  display: block;
+  max-width: 220px;
+  text-align: end;
+  margin: 0 0 0 0.5rem;
+}
+
+.name {
+  text-align: end;
+}
+
+.price {
+  margin: -1.1rem 0 0 0;
+  text-align: end;
+}
+
+.description {
+  font-size: 0.9rem;
+  text-align: end;
+}
+
+.goToProductDetailsPage {
+  padding: 0.2rem 0;
+  width: 100%;
+  background-color: #333;
+  border: 1px solid #333;
+  color: #fafafa;
+  transition: all 0.2s ease-in;
+}
+
+.goToProductDetailsPage:hover {
+  background: none;
+  color: #333;
+  transition: all 0.4s ease-out;
+}
+
+.inStockText {
+  text-align: end;
+  margin: 0.5rem 0 0 0;
+  color: rgb(6, 194, 6);
+  letter-spacing: -0.5px;
+}
+
+.productType,
+.productMade,
+.productColors {
+  text-align: end;
+  margin: 0.5rem 0 0 0;
+}
+
+.deleteCompareProduct {
+  text-align: end;
+  margin: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #333;
+}
+
+.noProductsAddedText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 0 8rem 0;
+}
+
+.noProductsAddedText h3 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.noProductsAddedText p {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.deleteAllBtn {
+  display: flex;
+  justify-content: flex-end;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Tajawal", sans-serif;
+}
+
+.deleteAllBtn:hover {
+  color: #000;
+}
+
+.deleteIconAll {
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  margin: 0.2rem 0.2rem 0 0;
+}
+
+.deleteIconItem {
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.deleteIconItem:hover {
+  color: #fb9aa7;
+  transform: scale(1.3);
+  transition: all 0.3s ease-out;
+}
+
+@media (max-width: 400px) {
+  .noProductsAddedText {
+    padding: 0 1.5rem 0 0;
+  }
+}

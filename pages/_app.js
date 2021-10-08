@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { BagProvider } from "@/context/BagContext";
 import { WishBagProvider } from "@/context/WishBagContext";
+import { CompareProvider } from "@/context/CompareContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -32,7 +33,9 @@ function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <BagProvider>
           <WishBagProvider>
-            <Component {...pageProps} />
+            <CompareProvider>
+              <Component {...pageProps} />
+            </CompareProvider>
           </WishBagProvider>
         </BagProvider>
       </AuthProvider>

@@ -1,9 +1,10 @@
 import Layout from "@/components/Layout";
+import WishList from "@/components/WishList";
 
 export default function wishListPage() {
   return (
     <Layout>
-      <h1>Wish List Page...</h1>
+      <WishList />
     </Layout>
   );
 }

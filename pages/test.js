@@ -1,10 +1,10 @@
 import Layout from "@/components/Layout";
-import CategoriesPhoto from "@/components/CategoriesPhoto";
+import Test from "@/components/Test";
 
-export default function ZoomImage() {
+export default function TestPage() {
   return (
-    <Layout>
-      <CategoriesPhoto />
-    </Layout>
+    <div>
+      <Test />
+    </div>
   );
 }

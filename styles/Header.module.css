@@ -91,7 +91,7 @@
 .searchIcon,
 .menuIcon {
   margin: 0 1rem 0 0;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
@@ -102,13 +102,27 @@
 }
 
 .badgCart,
-.badgWishBag {
-  margin: 0 1rem 0 0;
+.badgWishBag,
+.badgCompareProducts {
+  margin: 0 0.7rem 0 0;
+  font-size: 0.5rem;
 }
 
 .heartIcon {
-  margin: 0 0.5rem 0 0;
+  margin: 0 0.5rem 0 0.3rem;
   color: #fb9aa7;
+}
+
+.compareIcon {
+  font-size: 1.5rem;
+  margin: 0 0.3rem 0 0;
+  cursor: pointer;
+}
+
+.questionIcon {
+  font-size: 1.5rem;
+  margin: 0 0.5rem 0 0;
+  cursor: pointer;
 }
 
 /*-----dropDown button styles------*/

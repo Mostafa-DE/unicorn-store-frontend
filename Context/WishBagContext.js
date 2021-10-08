@@ -4,15 +4,32 @@ export const WishBagContext = createContext();
 
 export const WishBagProvider = ({ children }) => {
   const [wishBag, setWishBag] = useState({
-    items: [],
+    wishItems: [],
     itemsCount: 0,
     wishBagTotal: 0,
   });
 
+  /*---------Save Compare Product in localStorage-----------*/
+
+  useEffect(() => {
+    const shoppingcart = window.localStorage.getItem("wishBag");
+    /*this condition very important, if you don't put it you may face some problem with rendering the app*/
+    if (shoppingcart !== null) {
+      setWishBag(JSON.parse(shoppingcart));
+    }
+    /*--------------------------------------------------X------------------------------------------------*/
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("wishBag", JSON.stringify(wishBag));
+  }, [wishBag]);
+
+  /*---------------------------X----------------------------*/
+
   // calculate total amount for shopping wishBag and qty of product
-  const calculateBagTotal = (items) => {
-    const itemsCount = items.reduce((prev, curr) => prev + curr.qty, 0);
-    const totalBag = items.reduce(
+  const calculateBagTotal = (wishItems) => {
+    const itemsCount = wishItems.reduce((prev, curr) => prev + curr.qty, 0);
+    const totalBag = wishItems.reduce(
       (prev, curr) => prev + curr.qty * curr.price,
       0
     );
@@ -21,29 +38,34 @@ export const WishBagProvider = ({ children }) => {
 
   // add product to shopping wishBag
   const addToWishBag = (product) => {
-    const { items = [] } = wishBag;
-    const isProductExist = items.findIndex((item) => item.id === product.id);
+    const { wishItems = [] } = wishBag;
+    const isProductExist = wishItems.findIndex(
+      (item) => item.id === product.id
+    );
     if (isProductExist === -1) {
       // false then do ==>
-      items.push({
+      wishItems.push({
         ...product,
         qty: 1,
+        isProductExist: true,
       });
     }
-    const total = calculateBagTotal(items);
-    setWishBag({ items, ...total });
+    const total = calculateBagTotal(wishItems);
+    setWishBag({ wishItems, ...total });
   };
 
   // remove product from shopping wishBag
   const removeFromWishBag = (product) => {
-    const { items = [] } = wishBag;
-    const isProductExist = items.findIndex((item) => item.id === product.id);
+    const { wishItems = [] } = wishBag;
+    const isProductExist = wishItems.findIndex(
+      (item) => item.id === product.id
+    );
     if (isProductExist !== -1) {
       // true then do ==>
-      items.splice(isProductExist, 1);
+      wishItems.splice(isProductExist, 1);
     }
-    const total = calculateBagTotal(items);
-    setWishBag({ items, ...total });
+    const total = calculateBagTotal(wishItems);
+    setWishBag({ wishItems, ...total });
   };
 
   return (

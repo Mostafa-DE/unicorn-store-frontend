@@ -9,6 +9,23 @@ export const BagProvider = ({ children }) => {
     cartTotal: 0,
   });
 
+  /*---------Save Compare Product in localStorage-----------*/
+
+  useEffect(() => {
+    const shoppingcart = window.localStorage.getItem("shoppingBag");
+    /*this condition very important, if you don't put it you may face some problem with rendering the app*/
+    if (shoppingcart !== null) {
+      setBag(JSON.parse(shoppingcart));
+    }
+    /*--------------------------------------------------X------------------------------------------------*/
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("shoppingBag", JSON.stringify(bag));
+  }, [bag]);
+
+  /*---------------------------X----------------------------*/
+
   // calculate total amount for shopping bag and qty of product
   const calculateBagTotal = (items) => {
     const itemsCount = items.reduce((prev, curr) => prev + curr.qty, 0);
@@ -20,21 +37,29 @@ export const BagProvider = ({ children }) => {
   };
 
   // add product to shopping bag
-  const addToBag = (product, size, color) => {
+  const addToBag = (product, size) => {
     const { items = [] } = bag;
     const isProductExist = items.findIndex((item) => item.id === product.id);
+    const isSizeExist = items.findIndex((item) => item.size === size);
+    console.log(`isSizeExist: ${isSizeExist}`);
+    console.log(`isProductExist: ${isProductExist}`);
     if (isProductExist === -1) {
       // false then do ==>
       items.push({
         ...product,
         qty: 1,
         size: size,
-        color: color,
+      });
+    } else if (isSizeExist === -1) {
+      items.push({
+        ...product,
+        qty: 1,
+        size: size,
       });
     } else {
-      // true then do ==>
-      items[isProductExist].qty++;
+      items[isSizeExist].qty++;
     }
+
     const total = calculateBagTotal(items);
     setBag({ items, ...total });
   };

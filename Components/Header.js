@@ -10,8 +10,8 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 /*--------------------Components-------------------------*/
 import MenuDrawer from "./MenuDrawer";
-// import CartDrawer from "@/components/CartDrawer";
 import DialogShoppingBag from "@/components/DialogShoppingBag";
+import DialogCompareProducts from "./DialogCompareProducts";
 /*-------------------------X-----------------------------*/
 
 /*--------------------Material Ui------------------------*/
@@ -25,6 +25,7 @@ import Badge from "@mui/material/Badge";
 import { AuthContext } from "@/context/AuthContext";
 import { BagContext } from "@/context/BagContext";
 import { WishBagContext } from "@/context/WishBagContext";
+import { CompareContext } from "@/context/CompareContext";
 /*-------------------------X-----------------------------*/
 
 /*-----------------------Hooks---------------------------*/
@@ -37,13 +38,15 @@ import useShowPassword from "@/Hooks/useShowPassword";
 
 /*--------------------React Icons------------------------*/
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { CgProfile } from "react-icons/cg";
+import { RiAccountPinCircleLine } from "react-icons/ri";
 import { FiMenu } from "react-icons/fi";
 import { ImHeart } from "react-icons/im";
 import { IoIosArrowDown } from "react-icons/io";
 import { RiEyeLine } from "react-icons/ri";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { FiAlertCircle } from "react-icons/fi";
+import { GiScales } from "react-icons/gi";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 /*-------------------------X----------------------------*/
 
 /*------------------------transition for Dialog--------------------*/
@@ -68,8 +71,12 @@ export default function Header() {
   const { bag } = useContext(BagContext);
   /*---------------------X---------------------*/
 
-  /*-----------------context Bag---------------*/
+  /*--------------context wish Bag-------------*/
   const { wishBag } = useContext(WishBagContext);
+  /*---------------------X---------------------*/
+
+  /*--------------context compare--------------*/
+  const { productsCompare } = useContext(CompareContext);
   /*---------------------X---------------------*/
 
   /*---state for handle drawer menu (open/close)----*/
@@ -78,6 +85,11 @@ export default function Header() {
 
   /*---state for handle shopping Bag (open/close)---*/
   const [shoppingDialog, openShoppingDialog, closeShoppingDialog] =
+    useDrawer(false);
+  /*------------------------X-----------------------*/
+
+  /*--state for handle compare dialog (open/close)--*/
+  const [compareDialog, openCompareDialog, closeCompareDialog] =
     useDrawer(false);
   /*------------------------X-----------------------*/
 
@@ -513,6 +525,8 @@ export default function Header() {
         </div>
 
         <div className={styles.containerIcons}>
+          <AiOutlineQuestionCircle className={styles.questionIcon} />
+
           <Badge
             badgeContent={bag.itemsCount}
             color="error"
@@ -532,7 +546,6 @@ export default function Header() {
           <Badge
             badgeContent={wishBag.itemsCount}
             color="error"
-            showZero
             anchorOrigin={{
               vertical: "top",
               horizontal: "right",
@@ -540,9 +553,10 @@ export default function Header() {
             className={styles.badgWishBag}
           >
             {user !== null ? (
-              <Link href="/products/wish-list">
-                <ImHeart className={styles.heartIcon} />
-              </Link>
+              <ImHeart
+                onClick={() => router.push("/products/wish-list")}
+                className={styles.heartIcon}
+              />
             ) : (
               <ImHeart
                 onClick={() => router.push("/account/login")}
@@ -551,17 +565,31 @@ export default function Header() {
             )}
           </Badge>
 
+          <Badge
+            badgeContent={productsCompare.itemsCount}
+            color="error"
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            className={styles.badgCompareProducts}
+          >
+            <GiScales
+              onClick={openCompareDialog}
+              className={styles.compareIcon}
+            />
+          </Badge>
+
           {user ? (
-            <Link href="/account/my-account">
-              <CgProfile className={styles.searchIcon} />
-            </Link>
+            <RiAccountPinCircleLine
+              onClick={() => router.push("/account/my-account")}
+              className={styles.searchIcon}
+            />
           ) : (
-            <Link href="#">
-              <CgProfile
-                onClick={openLoginDialog}
-                className={styles.searchIcon}
-              />
-            </Link>
+            <RiAccountPinCircleLine
+              onClick={() => router.push("/account/login")}
+              className={styles.searchIcon}
+            />
           )}
 
           <FiMenu className={styles.menuIcon} onClick={openDrawer} />
@@ -569,6 +597,10 @@ export default function Header() {
           <DialogShoppingBag
             shoppingDialog={shoppingDialog}
             closeShoppingDialog={closeShoppingDialog}
+          />
+          <DialogCompareProducts
+            compareDialog={compareDialog}
+            closeCompareDialog={closeCompareDialog}
           />
         </div>
       </nav>

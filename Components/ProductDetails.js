@@ -1,14 +1,18 @@
 import styles from "@/styles/ProductDetails.module.css";
-import { useContext, useState } from "react";
+import "animate.css";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { BagContext } from "@/context/BagContext";
+import { WishBagContext } from "@/context/WishBagContext";
 import { AuthContext } from "@/context/AuthContext";
 import ImageMagnifier from "./ImageMagnifier";
 import { AiOutlineLine } from "react-icons/ai";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { ImWhatsapp } from "react-icons/im";
 import RateStarIcons from "./RateStarIcons";
 import { useRouter } from "next/router";
-import useSelectInput from "@/Hooks/useSelectInput";
+import TextField from "@mui/material/TextField";
+import Swal from "sweetalert2";
 
 export default function ProductDetails({ product }) {
   const router = useRouter();
@@ -16,8 +20,20 @@ export default function ProductDetails({ product }) {
   // shopping bag context
   const { bag, addToBag } = useContext(BagContext);
   const { items = [] } = bag;
-  console.log(items);
+
   // xxxxxxxxxxxxxxxxxxxx
+  const AddToBag = async (product) => {
+    await addToBag(product, size);
+    router.push("/products/shopping-bag");
+  };
+
+  // wish bag context
+  const { addToWishBag } = useContext(WishBagContext);
+  // xxxxxxxxxxxxxxxx
+  const AddToWishBag = async (product) => {
+    await addToWishBag(product);
+    router.push("/products/wish-list");
+  };
 
   // Auth Context
   const { user } = useContext(AuthContext);
@@ -34,13 +50,80 @@ export default function ProductDetails({ product }) {
     setvideo("");
   };
 
-  // state for select input (Size)
-  const [size, handleChangeSelectSize] = useSelectInput("...");
-  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  // state for chose right size
+  const [length, setLength] = useState();
 
-  // state for select input (Color)
-  const [color, handleChangeSelectColor] = useSelectInput("...");
-  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  const handleChangeLength = (evnt) => {
+    setLength(evnt.target.value);
+  };
+
+  const [weight, setWeight] = useState();
+  const handleChangeWeight = (evnt) => {
+    setWeight(evnt.target.value);
+  };
+
+  // I don't think this is the best solution but for now it worked :(
+  const [size, setSize] = useState("");
+  useEffect(() => {
+    if (length >= 158 && length <= 165) {
+      if (weight <= 50 && weight > 0) {
+        setSize("S");
+      } else if (weight >= 51 && weight <= 57) {
+        setSize("M");
+      } else if (weight >= 58 && weight <= 64) {
+        setSize("L");
+      } else if (weight >= 65 && weight <= 75) {
+        setSize("XL");
+      } else if (weight >= 76 && weight <= 80) {
+        setSize("2XL");
+      } else if (weight >= 81) {
+        setSize("3XL");
+      } else {
+        setSize("");
+      }
+    } else if (length > 165) {
+      if (weight <= 50 && weight > 0) {
+        setSize("M");
+      } else if (weight >= 51 && weight <= 57) {
+        setSize("L");
+      } else if (weight >= 58 && weight <= 64) {
+        setSize("XL");
+      } else if (weight >= 65 && weight <= 75) {
+        setSize("2XL");
+      } else if (weight >= 76) {
+        setSize("3XL");
+      } else {
+        setSize("");
+      }
+    } else if (length < 158) {
+      if (weight <= 57 && weight > 0) {
+        setSize("S");
+      } else if (weight >= 58 && weight <= 64) {
+        setSize("M");
+      } else if (weight >= 65 && weight <= 75) {
+        setSize("L");
+      } else if (weight >= 76 && weight <= 80) {
+        setSize("XL");
+      } else if (weight >= 81) {
+        setSize("2XL");
+      } else {
+        setSize("");
+      }
+    }
+  }, [length, weight]);
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  const SizeNotExist = (
+    <>
+      <p className={styles.sizeNotExistText}>
+        نعتذر يبدو أن القياس المطلوب غير متوفر حالياً لمعرفة إن كان سيتوفر بعد
+        مدة معينة يرجى مراسلتنا عبر{" "}
+        <a href="https://wa.me/message/HRQFZDWSM3EUH1">
+          <ImWhatsapp /> الواتس
+        </a>
+      </p>
+    </>
+  );
 
   return (
     <div className={styles.main}>
@@ -49,6 +132,7 @@ export default function ProductDetails({ product }) {
           <div className={styles.smallImagesProduct}>
             {product.images?.map((image) => (
               <img
+                key={image.id}
                 onClick={() => handleChangeImage(image.url)}
                 className={styles.smallImage}
                 src={image.url}
@@ -56,6 +140,7 @@ export default function ProductDetails({ product }) {
             ))}
             {product.videos?.map((video) => (
               <img
+                key={video.id}
                 onClick={() => handleChangeVideo(video.url)}
                 className={styles.smallImage}
                 src={video.previewUrl}
@@ -86,55 +171,96 @@ export default function ProductDetails({ product }) {
           <div className={styles.containerPriceProduct}>
             <p className={styles.priceProduct}> {product.price} JD :السعر </p>
           </div>
-          <div className={styles.containerColorsAndSizes}>
-            <div className={styles.containerSizesProduct}>
-              <div className={styles.sizesProduct}>
-                <select
-                  onChange={handleChangeSelectSize}
-                  id="sizes"
-                  className="form-select"
-                  aria-label="Default select example"
-                  style={{ width: "6rem" }}
-                  value={size}
-                >
-                  <option>...</option>
-                  {product.S === true ? <option value="S">S</option> : null}
-                  <option value="M">M</option>
-                  {product.L === true ? <option value="L">L</option> : null}
-                  {product.XL === true ? <option value="XL">XL</option> : null}
-                  {product.XXL === true ? (
-                    <option value="XXL">XXL</option>
-                  ) : null}
-                </select>
-                <label className={styles.labelSizes} htmlFor="sizes">
-                  :القياس
-                </label>
-              </div>
-            </div>
+
+          <div className={styles.containerPriceProduct}>
+            <p className={styles.priceProduct}> اللون: أسود </p>
           </div>
+
+          <div className={styles.containerTitleText}>
+            <p className={styles.titleText}>
+              يرجى إدخال الطول و الوزن لتحديد القياس المناسب لك
+            </p>
+          </div>
+          {/* size input */}
+          <div className={styles.containerInputLengthAndWeight}>
+            <TextField
+              type="text"
+              label="القياس"
+              variant="standard"
+              value={size}
+              readOnly
+              fullWidth
+            />
+            <TextField
+              type="number"
+              label="(الوزن (كغ"
+              variant="standard"
+              value={weight}
+              onChange={handleChangeWeight}
+              style={{ margin: "0 1rem 0 1rem" }}
+              fullWidth
+            />
+            <TextField
+              fullWidth
+              type="number"
+              label="(الطول (سم"
+              variant="standard"
+              value={length}
+              onChange={handleChangeLength}
+            />
+          </div>
+
+          <div>
+            {size === "S" && product.S !== true && SizeNotExist}
+            {size === "M" && product.M !== true && SizeNotExist}
+            {size === "L" && product.L !== true && SizeNotExist}
+            {size === "XL" && product.XL !== true && SizeNotExist}
+            {size === "2XL" && product.XXL !== true && SizeNotExist}
+            {size === "3XL" && product.XXXL !== true && SizeNotExist}
+          </div>
+          <div>
+            {size !== "" && (
+              <p className={styles.sizeNotFitText}>
+                إذا كنت تعتقد أن القياس لا يناسبك يرجى ترك ملاحظة عند الطلب
+                وسنتواصل معك بأسرع وقت ممكن
+              </p>
+            )}
+          </div>
+          {/* xxxxxxxxxx */}
+
           <div className={styles.containerDescription}>
+            <p className={styles.descriptionTitle}> -: الوصف</p>
             <p className={styles.description}>{product.description}</p>
           </div>
           <div className={styles.containerAllBtns}>
             <button
               onClick={
-                size === "..."
-                  ? () => console.log(alert("you have to enter a size"))
-                  : () => addToBag(product, size)
+                size === ""
+                  ? () =>
+                      Swal.fire({
+                        title:
+                          " لا تستطيع إضافة المنتج إلى حقيبة التسوق الخاصة بك, يجب عليك إدخال الطول والوزن لتحديد القياس المناسب لك",
+                        icon: "error",
+                        confirmButtonColor: "#fb9aa7",
+                        showClass: {
+                          popup: "animate__animated animate__fadeInDown",
+                        },
+                        hideClass: {
+                          popup: "animate__animated animate__fadeOutUp",
+                        },
+                      })
+                  : () => AddToBag(product)
               }
               className={styles.addToBagBtn}
             >
-              أضف إلى السلة
+              أضف إلى الحقيبة
             </button>
             <div className={styles.containerOtherBtns}>
               <button
                 onClick={
                   user === null
                     ? () => router.push("/account/login")
-                    : () =>
-                        console.log(
-                          alert("the item has been added to wishlist")
-                        )
+                    : () => AddToWishBag(product)
                 }
                 className={styles.addToWishlistbtn}
               >
