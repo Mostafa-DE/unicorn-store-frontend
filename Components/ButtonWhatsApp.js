@@ -7,7 +7,7 @@ export default function ButtonWhatsApp() {
 
   useEffect(() => {
     const handleVisibility = () => {
-      if (window.pageYOffset > 400) {
+      if (window.pageYOffset > 100) {
         setIsVisible(true);
       } else {
         setIsVisible(false);

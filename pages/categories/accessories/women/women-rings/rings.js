@@ -4,8 +4,9 @@ import useSearch from "@/Hooks/useSearch";
 import SearchInput from "@/components/SearchInput";
 import ProductsWithSearch from "@/components/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
+import { parseCookies } from "@/helpers/index";
 
-export default function rings({ rings }) {
+export default function rings({ rings, token }) {
   const pathname = "/categories/accessories/women/women-rings";
   const [searchTerm, handleChange] = useSearch("");
 
@@ -21,13 +22,15 @@ export default function rings({ rings }) {
           productsData={rings}
           pathname={pathname}
           searchTerm={searchTerm}
+          token={token}
         />
       </div>
     </Layout>
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req);
   const res = await fetch(`${API_URL}/rings`);
 
   const rings = await res.json();
@@ -35,6 +38,7 @@ export async function getServerSideProps() {
   return {
     props: {
       rings: rings,
+      token: token,
     },
   };
 }

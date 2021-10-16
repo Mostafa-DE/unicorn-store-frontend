@@ -4,8 +4,9 @@ import useSearch from "@/Hooks/useSearch";
 import SearchInput from "@/components/SearchInput";
 import ProductsWithSearch from "@/components/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
+import { parseCookies } from "@/helpers/index";
 
-export default function makeup({ makeups }) {
+export default function makeup({ makeups, token }) {
   const pathname = "/categories//makeup";
   const [searchTerm, handleChange] = useSearch("");
 
@@ -21,13 +22,15 @@ export default function makeup({ makeups }) {
           productsData={makeups}
           pathname={pathname}
           searchTerm={searchTerm}
+          token={token}
         />
       </div>
     </Layout>
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req);
   const res = await fetch(`${API_URL}/make-ups`);
 
   const makeups = await res.json();
@@ -35,6 +38,7 @@ export async function getServerSideProps() {
   return {
     props: {
       makeups: makeups,
+      token: token,
     },
   };
 }

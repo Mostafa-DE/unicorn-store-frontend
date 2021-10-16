@@ -4,6 +4,7 @@ export default function ProductsWithSearch({
   productsData,
   searchTerm,
   pathname,
+  token,
 }) {
   const allProductsFiltered = productsData.filter((products) => {
     if (searchTerm === "") {
@@ -24,6 +25,7 @@ export default function ProductsWithSearch({
           key={productData.id}
           pathname={pathname}
           product={productData}
+          token={token}
         />
       ))}
 

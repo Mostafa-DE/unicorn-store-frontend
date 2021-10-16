@@ -1,19 +1,19 @@
 import Layout from "@/components/Layout";
-import MyAccount from "@/components/MyAccount";
-import { parseCookies } from "@/helpers/index";
+import ShippingInfoForm from "@/components/ShippingInfoForm";
 import { API_URL } from "@/config/index";
+import { parseCookies } from "@/helpers/index";
 
-export default function myAccount({ userAccount }) {
+export default function shippingInformations({ currentUser }) {
+  // console.log(currentUser);
   return (
     <Layout>
-      <MyAccount userAccount={userAccount} />
+      <ShippingInfoForm currentUser={currentUser} />
     </Layout>
   );
 }
 
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req);
-
   const res = await fetch(`${API_URL}/users/me`, {
     method: "GET",
     headers: {
@@ -21,11 +21,11 @@ export async function getServerSideProps({ req }) {
     },
   });
 
-  const userAccount = await res.json();
+  const currentUser = await res.json();
 
   return {
     props: {
-      userAccount,
+      currentUser,
     },
   };
 }

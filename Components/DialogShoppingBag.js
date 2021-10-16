@@ -16,11 +16,15 @@ import { HiPlusSm } from "react-icons/hi";
 import { AiOutlineLine } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 import { VscClose } from "react-icons/vsc";
+import { useRouter } from "next/router";
 
 export default function DialogShoppingBag({
   shoppingDialog,
   closeShoppingDialog,
+  user,
 }) {
+  const router = useRouter();
+
   // shopping bag context
   const { bag, increaseQty, decreaseQty, removeFromBag } =
     useContext(BagContext);
@@ -127,17 +131,30 @@ export default function DialogShoppingBag({
               <div className={styles.mainBoxAmountDetails}>
                 <div className={styles.containerBoxAmountDetails}>
                   <p className={styles.totalAmount}>
-                    {" "}
                     {bag.totalBag} JD :السعر الإجمالي
                   </p>
 
                   <div className={styles.containerBtns}>
-                    <Link href="/">
+                    <Link href="/products/shopping-bag">
                       <button className={styles.continueShoppingBtn}>
-                        أكمل التسوق
+                        عرض سلة التسوق
                       </button>
                     </Link>
-                    <button className={styles.checkoutBtn}>اطلب الآن</button>
+                    {user === null ? (
+                      <button
+                        onClick={() => router.push("/account/checkout-login")}
+                        className={styles.checkoutBtn}
+                      >
+                        اطلب الآن
+                      </button>
+                    ) : (
+                      <button
+                        className={styles.checkoutBtn}
+                        onClick={() => router.push("/payment/shipping-info")}
+                      >
+                        اطلب الآن
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

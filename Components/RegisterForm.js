@@ -141,7 +141,7 @@ export default function RegisterForm() {
                   <p
                     className={`text-center fw-bold mx-3 mb-0 ${styles.titleContactDetails}`}
                   >
-                    بيانات المتصل
+                    بيانات المستخدم
                   </p>
                 </div>
 
@@ -175,7 +175,7 @@ export default function RegisterForm() {
                   <div className="mb-4">
                     <TextValidator
                       type={showPassword === true ? "text" : "password"}
-                      name="firstName"
+                      name="password"
                       value={password}
                       onChange={handleChangePassword}
                       variant="standard"
@@ -188,7 +188,7 @@ export default function RegisterForm() {
                   <div className="mb-4 mx-3 d-flex">
                     <TextValidator
                       type={showPassword === true ? "text" : "password"}
-                      name="lastName"
+                      name="confirmPassword"
                       value={confirmPassword}
                       onChange={handleChangeConfirmPassword}
                       variant="standard"

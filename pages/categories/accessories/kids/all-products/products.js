@@ -4,8 +4,9 @@ import useSearch from "@/Hooks/useSearch";
 import SearchInput from "@/components/SearchInput";
 import ProductsWithSearch from "@/components/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
+import { parseCookies } from "@/helpers/index";
 
-export default function AccessoriesKids({ kidsAccessories }) {
+export default function AccessoriesKids({ kidsAccessories, token }) {
   const pathname = "/categories/accessories/kids/all-products";
   const [searchTerm, handleChange] = useSearch("");
 
@@ -21,13 +22,16 @@ export default function AccessoriesKids({ kidsAccessories }) {
           productsData={kidsAccessories}
           pathname={pathname}
           searchTerm={searchTerm}
+          token={token}
         />
       </div>
     </Layout>
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req);
+
   const res = await fetch(`${API_URL}/kids-accessories`);
 
   const kidsAccessories = await res.json();
@@ -35,6 +39,7 @@ export async function getServerSideProps() {
   return {
     props: {
       kidsAccessories: kidsAccessories,
+      token: token,
     },
   };
 }

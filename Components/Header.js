@@ -12,6 +12,7 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import MenuDrawer from "./MenuDrawer";
 import DialogShoppingBag from "@/components/DialogShoppingBag";
 import DialogCompareProducts from "./DialogCompareProducts";
+import Test from "@/components/Test";
 /*-------------------------X-----------------------------*/
 
 /*--------------------Material Ui------------------------*/
@@ -46,7 +47,6 @@ import { RiEyeLine } from "react-icons/ri";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { FiAlertCircle } from "react-icons/fi";
 import { GiScales } from "react-icons/gi";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
 /*-------------------------X----------------------------*/
 
 /*------------------------transition for Dialog--------------------*/
@@ -113,7 +113,6 @@ export default function Header() {
     login({ email, password });
     resetPassword();
     resetEmail();
-    // router.push("/account/my-account");
   };
 
   const DialogLogin = (
@@ -525,8 +524,6 @@ export default function Header() {
         </div>
 
         <div className={styles.containerIcons}>
-          <AiOutlineQuestionCircle className={styles.questionIcon} />
-
           <Badge
             badgeContent={bag.itemsCount}
             color="error"
@@ -542,7 +539,6 @@ export default function Header() {
               className={styles.bagIcon}
             />
           </Badge>
-
           <Badge
             badgeContent={wishBag.itemsCount}
             color="error"
@@ -564,7 +560,6 @@ export default function Header() {
               />
             )}
           </Badge>
-
           <Badge
             badgeContent={productsCompare.itemsCount}
             color="error"
@@ -579,7 +574,6 @@ export default function Header() {
               className={styles.compareIcon}
             />
           </Badge>
-
           {user ? (
             <RiAccountPinCircleLine
               onClick={() => router.push("/account/my-account")}
@@ -591,12 +585,13 @@ export default function Header() {
               className={styles.searchIcon}
             />
           )}
-
           <FiMenu className={styles.menuIcon} onClick={openDrawer} />
-          <MenuDrawer closeDrawerMenu={closeDrawer} drawerMenu={drawerMenu} />
+          {/* <MenuDrawer closeDrawerMenu={closeDrawer} drawerMenu={drawerMenu} /> */}
+          <Test closeDrawerMenu={closeDrawer} drawerMenu={drawerMenu} />
           <DialogShoppingBag
             shoppingDialog={shoppingDialog}
             closeShoppingDialog={closeShoppingDialog}
+            user={user}
           />
           <DialogCompareProducts
             compareDialog={compareDialog}

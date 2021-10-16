@@ -10,6 +10,7 @@
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease-in;
+  background-color: #fff;
 }
 
 .backgroundNavWhenScroll {
@@ -63,36 +64,17 @@
   display: none;
 }
 
-@media (max-width: 1050px) {
-  .containerLink {
-    display: none;
-  }
-
-  .logoImg {
-    display: none;
-  }
-
-  .logoImg2 {
-    display: block;
-    height: 110px;
-    margin: 0.5rem 0 0 0;
-  }
-
-  .containerNav {
-    margin: -2rem 0 -2rem 0;
-  }
-
-  .containerIcons {
-    margin: 1.5rem 0 0 0;
-  }
-}
-
 .heartIcon,
 .searchIcon,
 .menuIcon {
   margin: 0 1rem 0 0;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.menuIcon {
+  position: absolute;
+  top: -100%;
 }
 
 .bagIcon {
@@ -144,7 +126,7 @@
 .dropDownContent {
   display: none;
   position: absolute;
-  right: -35rem;
+  right: -33rem;
   top: 25px;
   border-radius: 10px;
   background-color: #fafafa;
@@ -321,4 +303,32 @@
   background-color: #333;
   color: #fafafa;
   transition: all 0.3s ease-out;
+}
+
+@media (max-width: 1050px) {
+  .containerLink {
+    display: none;
+  }
+
+  .logoImg {
+    display: none;
+  }
+
+  .logoImg2 {
+    display: block;
+    height: 110px;
+    margin: 0.5rem 0 0 0;
+  }
+
+  .containerNav {
+    margin: -2rem 0 -2rem 0;
+  }
+
+  .containerIcons {
+    margin: 1.5rem 0 0 0;
+  }
+
+  .menuIcon {
+    position: relative;
+  }
 }

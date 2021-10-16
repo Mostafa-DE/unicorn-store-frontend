@@ -4,8 +4,9 @@ import useSearch from "@/Hooks/useSearch";
 import SearchInput from "@/components/SearchInput";
 import ProductsWithSearch from "@/components/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
+import { parseCookies } from "@/helpers/index";
 
-export default function dresses({ turkeyDresses }) {
+export default function dresses({ turkeyDresses, token }) {
   const pathname = "/categories/women-fashions/turkey-dresses";
   const [searchTerm, handleChange] = useSearch("");
 
@@ -22,13 +23,15 @@ export default function dresses({ turkeyDresses }) {
           productsData={turkeyDresses}
           pathname={pathname}
           searchTerm={searchTerm}
+          token={token}
         />
       </div>
     </Layout>
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req);
   const res = await fetch(`${API_URL}/turkey-dresses`);
 
   const turkeyDresses = await res.json();
@@ -36,6 +39,7 @@ export async function getServerSideProps() {
   return {
     props: {
       turkeyDresses: turkeyDresses,
+      token: token,
     },
   };
 }

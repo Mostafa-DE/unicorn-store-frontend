@@ -1,31 +1,25 @@
+.main {
+  margin: 10rem 0 0 0;
+}
+
 .fontFamily {
   font-family: "Tajawal", sans-serif;
 }
 
-.containerTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.containerTable {
+  max-width: 600px;
+  min-width: 600px;
 }
 
-.titleShoppingBag {
-  font-size: 2rem;
-  font-family: "Tajawal", sans-serif;
-}
-
-.closeIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 2rem;
-  margin: 0 0.5rem 0 0;
-  cursor: pointer;
+.itemDetails {
+  margin: 0 0 0 1rem;
+  text-align: center;
 }
 
 .containerItemCell {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 15rem;
 }
 
 .nameItem {
@@ -125,7 +119,7 @@
   font-weight: 600;
   border: 1.5px solid #333;
   transition: all 0.3s ease-in;
-  text-transform: uppercase;
+  font-family: "Tajawal", sans-serif;
 }
 
 .continueShoppingBtn:hover {
@@ -160,7 +154,33 @@
   margin: 0 0 2rem 0;
 }
 
-@media (max-width: 507px) {
+.totalAmountDetails {
+  background-color: #fafafa;
+  padding: 0.5rem;
+  text-align: end;
+  font-family: "Tajawal", sans-serif;
+}
+
+.subTotalText,
+.deliveryNote {
+  border-right: 3px solid #333;
+  padding: 0.1rem 0.4rem 0 0;
+}
+
+.containerBoxAmountDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0 0 0;
+}
+
+@media (max-width: 980px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 452px) {
   .containerBtns {
     flex-direction: column;
   }

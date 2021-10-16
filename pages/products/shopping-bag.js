@@ -1,9 +1,10 @@
 import Layout from "@/components/Layout";
+import ShoppingBag from "@/components/ShoppingBag";
 
 export default function shoppingBagListPage() {
   return (
     <Layout>
-      <h1>Shopping Bag List Page....</h1>
+      <ShoppingBag />
     </Layout>
   );
 }

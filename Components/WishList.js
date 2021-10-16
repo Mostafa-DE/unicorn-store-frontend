@@ -1,15 +1,45 @@
 import styles from "@/styles/WishList.module.css";
-import { useContext } from "react";
-import { WishBagContext } from "@/context/WishBagContext";
 import { useRouter } from "next/router";
 import { AiOutlineLine } from "react-icons/ai";
 import Link from "next/link";
+import { API_URL } from "@/config/index";
+import Swal from "sweetalert2";
 
-export default function WishList() {
+export default function WishList({ products, token }) {
   const router = useRouter();
 
-  const { wishBag, removeFromWishBag } = useContext(WishBagContext);
-  const { wishItems = [] } = wishBag;
+  const deleteFromWishList = async (product) => {
+    Swal.fire({
+      title: "هل أنت متأكد من  أنك تريد حذف هذا المنتج ؟؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#333",
+      cancelButtonColor: "#fb9aa7",
+      confirmButtonText: "!! نعم أنا متأكد",
+      cancelButtonText: "لا",
+      showClass: {
+        popup: "animate__animated animate__flipInX",
+      },
+      hideClass: {
+        popup: "animate__animated animate__flipOutX",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          fetch(`${API_URL}/wishes/${product.id}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          router.reload();
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    });
+  };
 
   return (
     <div className={styles.main}>
@@ -17,11 +47,11 @@ export default function WishList() {
         <h1 className="h1Title"> قائمة المفضلة </h1>
         <AiOutlineLine className="lineIcon" />
       </div>
-      {wishItems.length !== 0 ? (
+      {products.length !== 0 ? (
         <div className={styles.containerWishList}>
-          {wishItems.map((product) => (
-            <div className={styles.containerProducts}>
-              <img width={200} height={240} src={product.images[0].url} />
+          {products.map((product) => (
+            <div key={product.id} className={styles.containerProducts}>
+              <img width={200} height={240} src={product.image.url} />
               <p className={styles.name}>{product.name}</p>
               <p className={styles.price}>{product.price} JD</p>
               <button
@@ -34,7 +64,7 @@ export default function WishList() {
               </button>
               <p
                 className={styles.deleteBtn}
-                onClick={() => removeFromWishBag(product)}
+                onClick={() => deleteFromWishList(product)}
               >
                 حذف
               </p>

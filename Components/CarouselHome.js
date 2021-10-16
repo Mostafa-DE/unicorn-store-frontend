@@ -2,13 +2,13 @@ import styles from "@/styles/CarouselHome.module.css";
 import Carousel from "react-bootstrap/Carousel";
 
 export default function CarouselHome() {
-  const heightImgs = 800;
+  const heightImgs = 550;
   const styleCaption = {
     color: "#000",
   };
 
   return (
-    <div>
+    <div style={{ margin: "5rem 0 0 0" }}>
       <Carousel fade>
         <Carousel.Item>
           <img
