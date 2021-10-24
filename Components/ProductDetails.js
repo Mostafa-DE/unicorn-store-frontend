@@ -243,10 +243,10 @@ export default function ProductDetails({ product }) {
                         icon: "error",
                         confirmButtonColor: "#fb9aa7",
                         showClass: {
-                          popup: "animate__animated animate__fadeInDown",
+                          popup: "animate__animated animate__flipInX",
                         },
                         hideClass: {
-                          popup: "animate__animated animate__fadeOutUp",
+                          popup: "animate__animated animate__flipOutX",
                         },
                       })
                   : () => AddToBag(product)

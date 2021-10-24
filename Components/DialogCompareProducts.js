@@ -75,7 +75,7 @@ export default function DialogCompareProducts({
                           className={styles.goToProductDetailsPage}
                           onClick={() =>
                             router.push(
-                              `${product.productDetailsPage}/${product.slug}`
+                              `/${product.productDetailsPage}/${product.slug}`
                             )
                           }
                         >

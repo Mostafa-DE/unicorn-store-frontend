@@ -2,8 +2,6 @@ import styles from "@/styles/CheckoutLoginForm.module.css";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { useContext, useEffect } from "react";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "@/context/AuthContext";
 import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
@@ -38,17 +36,6 @@ export default function LoginForm() {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <nav className={styles.mainPageNav}>
         <ul className={styles.containerPageNav}>
           <li>

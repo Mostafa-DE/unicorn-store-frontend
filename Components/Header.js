@@ -3,8 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import "animate.css";
 import Swal from "sweetalert2";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import React, { useContext, useEffect, useState } from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
@@ -62,7 +60,12 @@ export default function Header() {
   const { login, logout, user, error } = useContext(AuthContext);
 
   useEffect(() => {
-    error && toast.error(error);
+    error &&
+      new Swal({
+        title: error,
+        icon: "error",
+        confirmButtonColor: "#fb9aa7",
+      });
   });
 
   /*---------------------X---------------------*/
@@ -103,16 +106,14 @@ export default function Header() {
   /*------------------------X-----------------------*/
 
   /*-------------State for Input Login--------------*/
-  const [email, handleChangeEmail, resetEmail] = useInputField("");
-  const [password, handleChangePassword, resetPassword] = useInputField("");
+  const [email, handleChangeEmail] = useInputField("");
+  const [password, handleChangePassword] = useInputField("");
   const [showPassword, handleShowPassword] = useShowPassword(false);
   /*------------------------X-----------------------*/
 
   const handleSubmit = (evnt) => {
     evnt.preventDefault();
     login({ email, password });
-    resetPassword();
-    resetEmail();
   };
 
   const DialogLogin = (
@@ -133,17 +134,6 @@ export default function Header() {
           <p className={styles.titleDialog}>تسجيل الدخول</p>
 
           <DialogContent>
-            <ToastContainer
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
             <div className={styles.containerInput}>
               <TextValidator
                 type="email"
@@ -434,6 +424,7 @@ export default function Header() {
             <img
               src="/images/unicorn/accessories.jpg"
               width={400}
+              height={538}
               className={styles.img}
             />
           </div>
@@ -539,15 +530,7 @@ export default function Header() {
               className={styles.bagIcon}
             />
           </Badge>
-          <Badge
-            badgeContent={wishBag.itemsCount}
-            color="error"
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            className={styles.badgWishBag}
-          >
+          <Badge color="error" variant="dot" className={styles.badgWishBag}>
             {user !== null ? (
               <ImHeart
                 onClick={() => router.push("/products/wish-list")}

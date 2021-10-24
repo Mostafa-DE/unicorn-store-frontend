@@ -84,14 +84,17 @@
 }
 
 .badgCart,
-.badgWishBag,
 .badgCompareProducts {
   margin: 0 0.7rem 0 0;
   font-size: 0.5rem;
 }
 
+.badgWishBag {
+  margin: 0 0.5rem 0 0;
+}
+
 .heartIcon {
-  margin: 0 0.5rem 0 0.3rem;
+  margin: -0.1rem 0 0 0.1rem;
   color: #fb9aa7;
 }
 
@@ -126,7 +129,7 @@
 .dropDownContent {
   display: none;
   position: absolute;
-  right: -33rem;
+  right: -31rem;
   top: 25px;
   border-radius: 10px;
   background-color: #fafafa;
@@ -305,7 +308,7 @@
   transition: all 0.3s ease-out;
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1230px) {
   .containerLink {
     display: none;
   }

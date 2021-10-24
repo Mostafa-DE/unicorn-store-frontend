@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { CompareContext } from "@/context/CompareContext";
+import { WishBagContext } from "@/context/WishBagContext";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import RateStarIcons from "./RateStarIcons";
@@ -20,6 +21,11 @@ export default function ProductItems({ product, pathname, token }) {
   const { user } = useContext(AuthContext);
   // xxxxxxxxxxxx
 
+  // wish bag context
+  const { wishBag, addToWishBag } = useContext(WishBagContext);
+  const { wishItems = [] } = wishBag;
+  // xxxxxxxxxxxxxxxxx
+
   const addToWishList = async (product) => {
     try {
       await fetch(`${API_URL}/wishes`, {
@@ -34,9 +40,11 @@ export default function ProductItems({ product, pathname, token }) {
           image: `${product.images[0].id}`,
           slug: `${product.slug}`,
           productDetailsPage: `${pathname}`,
+          IdProductExist: `${product.id}`,
+          qty: product.qty || 1,
         }),
       });
-
+      addToWishBag(product);
       Swal.fire({
         title: "تم إضافة المنتج إلى قائمة المفضلة لديك",
         icon: "success",
@@ -60,7 +68,7 @@ export default function ProductItems({ product, pathname, token }) {
   const { compareItems = [] } = productsCompare;
   // xxxxxxxxxxxxxxxx
 
-  // const productWish = wishItems.find((element) => element.id === product.id);
+  const wishBagProduct = wishItems.find((element) => element.id === product.id);
 
   const productCompare = compareItems.find(
     (element) => element.id === product.id
@@ -70,7 +78,7 @@ export default function ProductItems({ product, pathname, token }) {
     <div className={styles.container}>
       <img className={styles.imgs} src={product.images[0].url} />
       <div className={styles.overlay}>
-        <div className={styles.items}>
+        <div className={styles.wishItems}>
           <div className={styles.containerIcons}>
             <div
               onClick={
@@ -79,14 +87,11 @@ export default function ProductItems({ product, pathname, token }) {
                   : () => addToWishList(product)
               }
             >
-              {/* TODO: Make Empty heart and filled heart work fine  */}
-
-              {/* {productWish?.isProductExist === true ? (
+              {wishBagProduct?.isProductExist === true ? (
                 <IoMdHeart className={styles.wishIconFilled} />
               ) : (
-                
-              )} */}
-              <IoMdHeartEmpty className={styles.wishIconOutline} />
+                <IoMdHeartEmpty className={styles.wishIconOutline} />
+              )}
             </div>
             <HiCheckCircle
               className={
@@ -111,7 +116,7 @@ export default function ProductItems({ product, pathname, token }) {
           <p className={styles.newPrice}>{product.price} JD</p>
         </div>
         <div className={styles.quickview}>
-          <Link href={`${pathname}/${product.slug}`}>
+          <Link href={`/${product.productDetailsPage}/${product.slug}`}>
             <button className={styles.quickviewBtn}>التفاصيل</button>
           </Link>
         </div>

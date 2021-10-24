@@ -1,12 +1,12 @@
 import Layout from "@/components/Layout";
 import { API_URL } from "@/config/index";
-import ProductDetails from "@/components/ProductDetails";
+import ProductDetailsWithoutSize from "@/components/ProductDetailsWithoutSize";
 
 export default function ProductDetailsPage({ product }) {
   return (
     <Layout>
       {product.map((product) => (
-        <ProductDetails key={product.id} product={product} />
+        <ProductDetailsWithoutSize key={product.id} product={product} />
       ))}
     </Layout>
   );

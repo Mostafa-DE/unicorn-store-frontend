@@ -33,7 +33,10 @@ const loginApi = async (req, res) => {
     } else {
       res
         .status(data.statusCode)
-        .json({ message: "Email or password invalid, Please try again !!" });
+        .json({
+          message:
+            "البريد الإلكتروني أو كلمة المرور غير صحيحة, يرجى المحاولة مرة أخرى",
+        });
     }
     res.status(200).json({});
   } else {

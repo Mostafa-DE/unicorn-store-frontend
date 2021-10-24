@@ -1,44 +1,29 @@
 import styles from "@/styles/WishList.module.css";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { WishBagContext } from "@/context/WishBagContext";
 import { AiOutlineLine } from "react-icons/ai";
 import Link from "next/link";
 import { API_URL } from "@/config/index";
-import Swal from "sweetalert2";
 
 export default function WishList({ products, token }) {
   const router = useRouter();
+  console.log(products);
+
+  // wish bag context
+  const { removeFromWishBag } = useContext(WishBagContext);
+
+  // xxxxxxxxxxxxxxxxx
 
   const deleteFromWishList = async (product) => {
-    Swal.fire({
-      title: "هل أنت متأكد من  أنك تريد حذف هذا المنتج ؟؟",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#333",
-      cancelButtonColor: "#fb9aa7",
-      confirmButtonText: "!! نعم أنا متأكد",
-      cancelButtonText: "لا",
-      showClass: {
-        popup: "animate__animated animate__flipInX",
+    await fetch(`${API_URL}/wishes/${product.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      hideClass: {
-        popup: "animate__animated animate__flipOutX",
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        try {
-          fetch(`${API_URL}/wishes/${product.id}`, {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          router.reload();
-        } catch (err) {
-          console.log(err);
-        }
-      }
     });
+    await removeFromWishBag(product);
+    router.reload();
   };
 
   return (
@@ -57,7 +42,7 @@ export default function WishList({ products, token }) {
               <button
                 className={styles.goToProductDetailsPage}
                 onClick={() =>
-                  router.push(`${product.productDetailsPage}/${product.slug}`)
+                  router.push(`/${product.productDetailsPage}/${product.slug}`)
                 }
               >
                 التفاصيل

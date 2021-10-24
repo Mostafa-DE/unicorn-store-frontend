@@ -1,6 +1,8 @@
 import styles from "@/styles/ShippingInfoForm.module.css";
 import { useContext, useState } from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { API_URL } from "@/config/index";
+import Link from "next/link";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -13,50 +15,122 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMoreSharp";
 
 /*----------------------Context--------------------------*/
 import { BagContext } from "@/context/BagContext";
+import { ShippingInfoContext } from "@/context/ShippingInfoContext";
+import router from "next/router";
 /*-------------------------X-----------------------------*/
 
-/*-----------------------Hooks---------------------------*/
-import useInputField from "@/Hooks/useInputField";
-/*-------------------------X-----------------------------*/
+export default function ShippingInfoForm({ currentUser, token }) {
+  const randNumber = () =>
+    parseInt(Date.now() * Math.random())
+      .toString()
+      .substring(0, 5);
 
-export default function ShippingInfoForm({ currentUser }) {
+  const todayDate = new Date().toISOString().slice(0, 10);
+
+  // shopping bag context
   const { bag } = useContext(BagContext);
   const { items = [] } = bag;
+  // xxxxxxxxxxxxxxxxxxxx
 
-  const [city, setCity] = useState("عمان");
+  // shipping infornation context
+  const { shippingInfo, addToShippingInfo } = useContext(ShippingInfoContext);
+  const { shippingItems = [] } = shippingInfo;
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-  const handleChangeCity = (event) => {
-    setCity(event.target.value);
-  };
+  const idImageProducts = items.map((product) => product.images[0].id);
+  const detailsOrder = items.map(
+    (product) =>
+      `{#Name: ${product.name} ${product.size !== undefined ? ", Size:" : ""} ${
+        product.size !== undefined ? product.size : ""
+      }} `
+  );
 
   /*-------------State for Input register--------------*/
   const [values, setValues] = useState({
-    email: `${currentUser.email === undefined ? "" : currentUser.email}`,
+    email: `${currentUser.email || ""}`,
     firstName: `${currentUser.firstName || ""}`,
     lastName: `${currentUser.lastName || ""}`,
     address: `${currentUser.address || ""}`,
     building: `${currentUser.building || ""}`,
     phone: `${currentUser.phone || ""}`,
-    amount: bag.totalBag,
+    additionalInfo: "",
+    city: "",
   });
 
   const handleChangeInput = (evnt) => {
     const { name, value } = evnt.target;
     setValues({ ...values, [name]: value });
   };
+  let TotalBag;
 
-  // const [email, handleChangeInput, resetEmail] = useInputField("");
-  // const [phone, handleChangeInput, resetPhone] = useInputField("");
-  // const [firstName, handleChangeInput, resetFirstName] = useInputField("");
-  // const [lastName, handleChangeInput, resetLastName] = useInputField("");
-  // const [address, handleChangeInput, resetAddress] = useInputField("");
-  // const [building, handleChangeInput, resetBuilding] = useInputField("");
-
+  if (values.city === "عمان" || values.city === "الزرقاء") {
+    TotalBag = bag.totalBag + 3;
+  } else {
+    TotalBag = bag.totalBag + 5;
+  }
   /*------------------------X-----------------------*/
 
   const handleSubmit = (evnt) => {
     evnt.preventDefault();
-    console.log("submit....");
+    if (token !== null) {
+      try {
+        fetch(`${API_URL}/orders`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            ...values,
+            detailsOrder: `${detailsOrder}`,
+            orderTotal: `${TotalBag}`,
+            image1: `${idImageProducts[0] || ""}`,
+            image2: `${idImageProducts[1] || ""}`,
+            image3: `${idImageProducts[2] || ""}`,
+            image4: `${idImageProducts[3] || ""}`,
+            orderNumber: `#${randNumber()}`,
+            dateDelivered: `${todayDate}`,
+            numberOfItems: `${bag.itemsCount}`,
+          }),
+        });
+        addToShippingInfo(
+          bag,
+          values.firstName,
+          values.lastName,
+          values.address,
+          values.phone,
+          `#${randNumber()}`,
+          values.city,
+          todayDate
+        );
+        router.push("/test");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        fetch(`${API_URL}/orders`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...values,
+            detailsOrder: `${detailsOrder}`,
+            orderTotal: `${TotalBag}`,
+            image1: `${idImageProducts[0] || ""}`,
+            image2: `${idImageProducts[1] || ""}`,
+            image3: `${idImageProducts[2] || ""}`,
+            image4: `${idImageProducts[3] || ""}`,
+            orderNumber: `#${randNumber()}`,
+            DateDelivered: `${todayDate}`,
+            numberOfItems: `${bag.itemsCount}`,
+          }),
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
@@ -125,8 +199,10 @@ export default function ShippingInfoForm({ currentUser }) {
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
-                    value={city}
-                    onChange={handleChangeCity}
+                    value={values.city}
+                    onChange={handleChangeInput}
+                    name="city"
+                    required
                   >
                     <MenuItem value={"عمان"}>عمان</MenuItem>
                     <MenuItem value={"الزرقاء"}>الزرقاء</MenuItem>
@@ -165,7 +241,17 @@ export default function ShippingInfoForm({ currentUser }) {
                 style={{ margin: "0.25rem 0 0 0" }}
               />
 
-              <button className={styles.confirmOrderBtn}>تأكيد الطلب</button>
+              <textarea
+                placeholder="أدخل ملاحظاتك هنا"
+                name="additionalInfo"
+                className={styles.textarea}
+                onChange={handleChangeInput}
+                value={values.additionalInfo}
+              ></textarea>
+
+              <button type="submit" className={styles.confirmOrderBtn}>
+                تأكيد الطلب
+              </button>
             </ValidatorForm>
           </div>
         </div>
@@ -214,7 +300,9 @@ export default function ShippingInfoForm({ currentUser }) {
                   </div>
                 ))}
               </div>
-              <button className={styles.editBagBtn}>تعديل الحقيبة</button>
+              <Link href="/products/shopping-bag">
+                <button className={styles.editBagBtn}>تعديل الحقيبة</button>
+              </Link>
             </AccordionDetails>
           </Accordion>
           <div className={styles.containerCoboneDiscount}>
@@ -234,11 +322,15 @@ export default function ShippingInfoForm({ currentUser }) {
             </div>
             <div className={styles.allPrices}>
               <p>{bag.totalBag} JD</p>
-              <p> {city === "عمان" ? "2.50" : "3.50"} JD</p>
-              <p style={{ color: "red" }}> 0 JD</p>
               <p>
-                {city === "عمان" ? bag.totalBag + 2.5 : bag.totalBag + 3.5} JD
+                {" "}
+                {values.city === "عمان" || values.city === "الزرقاء"
+                  ? "3"
+                  : "5"}{" "}
+                JD
               </p>
+              <p style={{ color: "red" }}> 0 JD</p>
+              <p>{TotalBag} JD</p>
             </div>
           </div>
         </div>

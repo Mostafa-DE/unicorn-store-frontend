@@ -1,0 +1,56 @@
+.main {
+  margin: 7rem 0 0 0;
+  color: #727272;
+}
+
+.add td {
+  color: #727272;
+  font-size: 12px;
+}
+
+.content {
+  font-size: 14px;
+  color: #333;
+}
+
+.containerLogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.containerLogo p {
+  margin: 2rem 0.5rem 0 0;
+  font-size: 1.3rem;
+}
+
+.containerNumOrderAndDate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.numOrderAndDate {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+}
+
+.thnxText {
+  width: 50%;
+  text-align: center;
+}
+
+@media (max-width: 540px) {
+  .containerNumOrderAndDate {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .thnxText {
+    width: 100%;
+    text-align: end;
+    margin: 0 0 1rem 0;
+  }
+}

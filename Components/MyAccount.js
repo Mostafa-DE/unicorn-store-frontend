@@ -1,12 +1,16 @@
 import styles from "@/styles/MyAccount.module.css";
+import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Link from "next/link";
+// import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+// import { API_URL } from "@/config/index";
 
-export default function MyAccount({ userAccount }) {
+export default function MyAccount({ userAccount, token }) {
+  // get random quotation every reload :)
   const WelcomeArray = [
     " “ You look awesome today 😉 ” ",
     " “ You look incredible today 😉 ” ",
@@ -20,6 +24,15 @@ export default function MyAccount({ userAccount }) {
   ];
   const randWord = Math.floor(Math.random() * WelcomeArray.length);
   const words = WelcomeArray[randWord];
+  const [getQuotation, setGetQuotation] = useState(words);
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  // // state for input edit
+  // const [isEditInput, setIsEditInput] = useState(false);
+  // const handleEditInput = () => {
+  //   setIsEditInput(!isEditInput);
+  // };
+  // // xxxxxxxxxxxxxxxxxxxx
 
   return (
     <div className={styles.main}>
@@ -35,11 +48,11 @@ export default function MyAccount({ userAccount }) {
 
           <div className={styles.containerText}>
             <h3>{userAccount.username} 👋 مرحباً</h3>
-            <p> {words} </p>
+            <p> {getQuotation} </p>
           </div>
 
           <div className={styles.containerBtns}>
-            <Link href="#">
+            <Link href="/account/dashboard-user">
               <button className={styles.orderHistoryBtn}> سجل طلباتك </button>
             </Link>
             <Link href="/products/shopping-bag">
@@ -134,7 +147,9 @@ export default function MyAccount({ userAccount }) {
                 </TableRow>
               </TableHead>
             </Table>
-            <button className={styles.editBtn}>تعديل البيانات</button>
+            {/* <button onClick={handleEditInput} className={styles.editBtn}>
+              تعديل البيانات
+            </button> */}
           </TableContainer>
         </div>
       </div>

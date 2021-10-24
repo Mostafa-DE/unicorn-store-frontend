@@ -3,6 +3,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { BagProvider } from "@/context/BagContext";
 import { WishBagProvider } from "@/context/WishBagContext";
 import { CompareProvider } from "@/context/CompareContext";
+import { ShippingInfoProvider } from "@/context/ShippingInfoContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -34,7 +35,9 @@ function MyApp({ Component, pageProps }) {
         <BagProvider>
           <WishBagProvider>
             <CompareProvider>
-              <Component {...pageProps} />
+              <ShippingInfoProvider>
+                <Component {...pageProps} />
+              </ShippingInfoProvider>
             </CompareProvider>
           </WishBagProvider>
         </BagProvider>

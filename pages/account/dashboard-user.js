@@ -1,12 +1,12 @@
 import Layout from "@/components/Layout";
-import MyAccount from "@/components/MyAccount";
+import DashboardUser from "@/components/DashboardUser";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
 
-export default function myAccount({ userAccount, token }) {
+export default function dashboardUserPage({ userOrders, token }) {
   return (
     <Layout>
-      <MyAccount token={token} userAccount={userAccount} />
+      <DashboardUser userOrders={userOrders} token={token} />
     </Layout>
   );
 }
@@ -14,19 +14,19 @@ export default function myAccount({ userAccount, token }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req);
 
-  const res = await fetch(`${API_URL}/users/me`, {
+  const res = await fetch(`${API_URL}/orders/me`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  const userAccount = await res.json();
+  const userOrders = await res.json();
 
   return {
     props: {
-      userAccount,
-      token: token,
+      userOrders,
+      token,
     },
   };
 }

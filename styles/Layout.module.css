@@ -3,3 +3,50 @@
   max-width: 1350px;
   padding: 0 10px;
 }
+
+.coverHome {
+  background: url("../public/images/coverHome.jpg");
+  height: 25rem;
+  width: 100%;
+  margin: 6rem 0 0 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.containerCoverText {
+  position: absolute;
+  top: 30%;
+  right: 43%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.containerCoverText p {
+  font-size: 2rem;
+}
+
+.exploreBtn {
+  background-color: #333;
+  color: #fff;
+  padding: 0.3rem 1.2rem 0 1.2rem;
+  margin: 1.5rem 0 0 0;
+  border: 1px solid #333;
+  transition: all 0.3s ease-in;
+}
+
+.exploreBtn:hover {
+  background: none;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+@media (max-width: 485px) {
+  .coverHome {
+    background: url("../public/images/coverHome.jpg");
+    background-position: right 35% bottom 100%;
+  }
+}

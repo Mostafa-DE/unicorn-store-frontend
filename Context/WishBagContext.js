@@ -40,7 +40,7 @@ export const WishBagProvider = ({ children }) => {
   const addToWishBag = (product) => {
     const { wishItems = [] } = wishBag;
     const isProductExist = wishItems.findIndex(
-      (item) => item.id === product.id
+      (item) => item.name === product.name
     );
     if (isProductExist === -1) {
       // false then do ==>
@@ -49,6 +49,8 @@ export const WishBagProvider = ({ children }) => {
         qty: 1,
         isProductExist: true,
       });
+    } else {
+      console.log("this item already exist in your wish list");
     }
     const total = calculateBagTotal(wishItems);
     setWishBag({ wishItems, ...total });
@@ -58,7 +60,7 @@ export const WishBagProvider = ({ children }) => {
   const removeFromWishBag = (product) => {
     const { wishItems = [] } = wishBag;
     const isProductExist = wishItems.findIndex(
-      (item) => item.id === product.id
+      (item) => item.id === parseInt(product.IdProductExist)
     );
     if (isProductExist !== -1) {
       // true then do ==>

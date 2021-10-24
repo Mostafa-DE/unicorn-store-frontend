@@ -34,7 +34,7 @@ const registerApi = async (req, res) => {
       }),
     });
 
-    const data = createUserInStrapi.json();
+    const data = await createUserInStrapi.json();
     if (createUserInStrapi.ok) {
       //Set a Cookie for a week
       res.setHeader(
@@ -49,13 +49,13 @@ const registerApi = async (req, res) => {
       );
 
       res.status(200).json({ user: data.user });
-      return;
     } else {
       res.status(data.statusCode).json({
         message:
-          "Email must not be exist before, and username must be unique, please check and try again!!",
+          "إسم المستخدم أو البريد الإلكتروني مستخدم من قبل, إذا كنت متأكد من أن البريد الإلكتروني غير مستخدم من قبل, يرجى المحاولة بإستخدام إسم مستخدم آخر أو قم بإضافة أرقام على آخر إسم المستخدم",
       });
     }
+    res.status(200).json({});
   } else {
     res.setHeader("Allow", ["POST"]);
     res.status(405).json({ message: `Method ${req.method} not allowed` });

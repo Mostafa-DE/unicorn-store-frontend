@@ -25,28 +25,27 @@ export default function RegisterForm() {
   const { register, error } = useContext(AuthContext);
   useEffect(() => {
     error &&
-      Swal({
+      new Swal({
         title: error,
         icon: "error",
         confirmButtonColor: "#fb9aa7",
       });
-  });
+  }, [register, error]);
+
   /*---------------------X---------------------*/
 
   /*-------------State for Input register--------------*/
-  const [email, handleChangeEmail, resetEmail] = useInputField("");
-  const [password, handleChangePassword, resetPassword] = useInputField("");
-  const [confirmPassword, handleChangeConfirmPassword, resetConfirmPassword] =
-    useInputField("");
-  const [username, handleChangeUsername, resetUsername] = useInputField("");
-  const [phone, handleChangePhone, resetPhone] = useInputField("");
-  const [firstName, handleChangeFirstName, resetFirstName] = useInputField("");
-  const [lastName, handleChangeLastName, resetLastName] = useInputField("");
-  const [deliveryPhone, handleChangeDeliveryPhone, resetDeliveryPhone] =
-    useInputField("");
-  const [address, handleChangeAddress, resetAddress] = useInputField("");
-  const [city, handleChangeCity, resetCity] = useInputField("");
-  const [building, handleChangeBuilding, resetBuilding] = useInputField("");
+  const [email, handleChangeEmail] = useInputField("");
+  const [password, handleChangePassword] = useInputField("");
+  const [confirmPassword, handleChangeConfirmPassword] = useInputField("");
+  const [username, handleChangeUsername] = useInputField("");
+  const [phone, handleChangePhone] = useInputField("");
+  const [firstName, handleChangeFirstName] = useInputField("");
+  const [lastName, handleChangeLastName] = useInputField("");
+  const [deliveryPhone, handleChangeDeliveryPhone] = useInputField("");
+  const [address, handleChangeAddress] = useInputField("");
+  const [city, handleChangeCity] = useInputField("");
+  const [building, handleChangeBuilding] = useInputField("");
 
   /*------------------------X-----------------------*/
   const [showPassword, handleShowPassword] = useShowPassword(false);
@@ -115,19 +114,9 @@ export default function RegisterForm() {
       city,
       building,
     });
-
-    resetEmail();
-    resetPassword();
-    resetUsername();
-    resetConfirmPassword();
-    resetPhone();
-    resetFirstName();
-    resetLastName();
-    resetDeliveryPhone();
-    resetAddress();
-    resetCity();
-    resetBuilding();
   };
+
+  // console.log(error);
 
   return (
     <Layout>

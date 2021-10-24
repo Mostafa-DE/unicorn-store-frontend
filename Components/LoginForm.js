@@ -2,8 +2,6 @@ import styles from "@/styles/LoginForm.module.css";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { useContext, useEffect } from "react";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "@/context/AuthContext";
 import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
@@ -12,6 +10,7 @@ import { RiEyeLine } from "react-icons/ri";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { FiAlertCircle } from "react-icons/fi";
 import { AiOutlineLine } from "react-icons/ai";
+import Swal from "sweetalert2";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -19,8 +18,13 @@ export default function LoginForm() {
   // Auth context
   const { login, error } = useContext(AuthContext);
   useEffect(() => {
-    error && toast.error(error);
-  });
+    error &&
+      new Swal({
+        title: error,
+        icon: "error",
+        confirmButtonColor: "#fb9aa7",
+      });
+  }, [login, error]);
   // xxxxxxxxxxxx
 
   const [email, handleChangeEmail, resetEmail] = useInputField("");
@@ -36,19 +40,12 @@ export default function LoginForm() {
     resetEmail();
   };
 
+  useEffect(() => {
+    window.localStorage.removeItem("wishBag");
+  }, []);
+
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <div className="containerTitle">
         <h1 className="h1Title"> تسجيل الدخول </h1>
         <AiOutlineLine className="lineIcon" />

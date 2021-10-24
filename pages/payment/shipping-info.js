@@ -3,17 +3,17 @@ import ShippingInfoForm from "@/components/ShippingInfoForm";
 import { API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
 
-export default function shippingInformations({ currentUser }) {
+export default function shippingInformations({ currentUser, token }) {
   // console.log(currentUser);
   return (
     <Layout>
-      <ShippingInfoForm currentUser={currentUser} />
+      <ShippingInfoForm token={token} currentUser={currentUser} />
     </Layout>
   );
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/users/me`, {
     method: "GET",
     headers: {
@@ -26,6 +26,7 @@ export async function getServerSideProps({ req }) {
   return {
     props: {
       currentUser,
+      token: token,
     },
   };
 }

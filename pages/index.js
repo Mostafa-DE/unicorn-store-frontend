@@ -1,11 +1,16 @@
 import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
+import { useEffect } from "react";
 import CategoriesPhoto from "@/components/CategoriesPhoto";
 import { API_URL } from "@/config/index";
 import ProductItems from "@/components/ProductItems";
 import { parseCookies } from "@/helpers/index";
 
 export default function Home({ turkeyDresses, localAbayas, token }) {
+  useEffect(() => {
+    window.localStorage.removeItem("shippingInformation");
+  });
+
   return (
     <Layout title="Unicorn Store | Shop Online For Fastions, Tools, Gifts & More">
       <CategoriesPhoto />
@@ -34,7 +39,7 @@ export default function Home({ turkeyDresses, localAbayas, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
 
   const turkeyDressesRes = await fetch(`${API_URL}/turkey-dresses?_limit=2`);
   const turkeyDresses = await turkeyDressesRes.json();

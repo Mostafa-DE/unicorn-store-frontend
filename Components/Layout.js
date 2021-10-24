@@ -1,5 +1,6 @@
 import styles from "@/styles/Layout.module.css";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import ButtonScrollUp from "./ButtonScrollUp";
 import ButtonWhatsApp from "./ButtonWhatsApp";
@@ -7,8 +8,6 @@ import ButtonWhatsApp from "./ButtonWhatsApp";
 /*-------------components--------------*/
 import Header from "./Header";
 import Footer from "./Footer";
-import CarouselHome from "./CarouselHome";
-
 /*------------------X------------------*/
 
 export default function Layout({ title, description, children }) {
@@ -21,7 +20,17 @@ export default function Layout({ title, description, children }) {
         <meta name="description" content={description} />
       </Head>
       <Header />
-      {router.pathname === "/" && <CarouselHome />}
+      {router.pathname === "/" && (
+        <div className={styles.coverHome}>
+          <div className={styles.containerCoverText}>
+            <p> أيام أكثر إشراقاً</p>
+            <span>تسوق عروض الموسم الجديد</span>
+            <Link href="#">
+              <button className={styles.exploreBtn}>إكتشف الآن</button>
+            </Link>
+          </div>
+        </div>
+      )}
 
       <div className={styles.container}> {children} </div>
       <Footer />

@@ -41,8 +41,6 @@ export const BagProvider = ({ children }) => {
     const { items = [] } = bag;
     const isProductExist = items.findIndex((item) => item.id === product.id);
     const isSizeExist = items.findIndex((item) => item.size === size);
-    console.log(`isSizeExist: ${isSizeExist}`);
-    console.log(`isProductExist: ${isProductExist}`);
     if (isProductExist === -1) {
       // false then do ==>
       items.push({
