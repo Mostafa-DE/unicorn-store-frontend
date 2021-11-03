@@ -4,7 +4,7 @@ import { AiOutlineLine } from "react-icons/ai";
 
 export default function CategoriesPhoto() {
   return (
-    <div className={styles.main}>
+    <div data-aos="zoom-in" className={styles.main}>
       <div className={styles.container}>
         <div className={styles.containerWomenCard}>
           <div className={styles.womenCardContent}>

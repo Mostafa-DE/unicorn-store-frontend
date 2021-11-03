@@ -1,10 +1,10 @@
 import Layout from "@/components/Layout";
-import Test1 from "@/components/Test1";
+import Test from "@/components/Test";
 
 export default function TestPage() {
   return (
     <Layout>
-      <Test1 />
+      <Test />
     </Layout>
   );
 }

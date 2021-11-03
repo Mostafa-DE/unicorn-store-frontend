@@ -102,12 +102,6 @@
   flex-direction: column;
 }
 
-.containerOtherBtns {
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 0 0 0;
-}
-
 .addToBagBtn {
   margin: 1rem 0 0 0;
   padding: 0.6rem 4rem;
@@ -124,22 +118,6 @@
   transition: all 0.4s ease-out;
 }
 
-.addToWishlistbtn {
-  margin: 0 0.5rem 0 0;
-  padding: 0.7rem 2.5rem;
-  background: none;
-  color: #333;
-  border: 1px solid #333;
-  transition: all 0.4s ease-in;
-  font-weight: 600;
-}
-
-.addToWishlistbtn:hover {
-  background-color: #333;
-  color: #fafafa;
-  transition: all 0.4s ease-out;
-}
-
 .continueShoppingBtn {
   padding: 0.5rem 4rem;
   background: none;
@@ -147,6 +125,7 @@
   border: 1px solid #333;
   transition: all 0.4s ease-in;
   font-weight: 600;
+  margin: 0.5rem 0 0 0;
 }
 
 .continueShoppingBtn:hover {
@@ -165,6 +144,7 @@
 .heartIcon {
   font-size: 1.6rem;
   margin: 0.8rem 0 0 0;
+  color: #fb9aa7;
 }
 
 .sizeNotExistText {
@@ -200,6 +180,23 @@
   display: flex;
   align-items: center;
   margin: 0.5rem 0 2rem 5rem;
+}
+
+.buttonDisabled {
+  display: none;
+}
+
+.notAvaliableText {
+  color: red;
+  font-weight: 600;
+  text-align: center;
+  margin: 1rem 0 1rem 0;
+}
+
+.preOrderText {
+  text-align: end;
+  margin: 0.5rem 0 0 0;
+  color: #333;
 }
 
 @media (max-width: 1115px) {

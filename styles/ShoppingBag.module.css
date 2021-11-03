@@ -6,11 +6,6 @@
   font-family: "Tajawal", sans-serif;
 }
 
-.containerTable {
-  max-width: 600px;
-  min-width: 600px;
-}
-
 .itemDetails {
   margin: 0 0 0 1rem;
   text-align: center;
@@ -133,7 +128,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 2.5rem 2.5rem 2.5rem;
+  margin: 2.5rem 2.5rem 10rem 2.5rem;
   font-family: "Tajawal", sans-serif;
   animation-name: zoomIn;
   animation-duration: 1s;
@@ -164,14 +159,15 @@
 .subTotalText,
 .deliveryNote {
   border-right: 3px solid #333;
-  padding: 0.1rem 0.4rem 0 0;
+  padding: 0.5rem 0.4rem 0 4rem;
 }
 
 .containerBoxAmountDetails {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   margin: 1rem 0 0 0;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 980px) {

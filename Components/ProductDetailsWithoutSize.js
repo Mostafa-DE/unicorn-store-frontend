@@ -22,18 +22,6 @@ export default function ProductDetails({ product }) {
     router.push("/products/shopping-bag");
   };
 
-  // wish bag context
-  const { addToWishBag } = useContext(WishBagContext);
-  // xxxxxxxxxxxxxxxx
-  const AddToWishBag = async (product) => {
-    await addToWishBag(product);
-    router.push("/products/wish-list");
-  };
-
-  // Auth Context
-  const { user } = useContext(AuthContext);
-  // xxxxxxxxxxxx
-
   const [video, setvideo] = useState("");
   const [image, setImage] = useState(product.images[0].url);
   const handleChangeVideo = (url) => {
@@ -103,27 +91,25 @@ export default function ProductDetails({ product }) {
           <div className={styles.containerAllBtns}>
             <button
               onClick={() => AddToBag(product)}
-              className={styles.addToBagBtn}
+              className={
+                product.isAvailable === true
+                  ? styles.addToBagBtn
+                  : styles.buttonDisabled
+              }
             >
               أضف إلى الحقيبة
             </button>
-            <div className={styles.containerOtherBtns}>
-              <button
-                onClick={
-                  user === null
-                    ? () => router.push("/account/login")
-                    : () => AddToWishBag(product)
-                }
-                className={styles.addToWishlistbtn}
-              >
-                أضف إلى المفضلة
+
+            {product.isAvailable === false && (
+              <p className={styles.notAvaliableText}>
+                نعتذر يبدو أن المنتج حالياً غير متوفر
+              </p>
+            )}
+            <Link href="/">
+              <button className={styles.continueShoppingBtn}>
+                أكمل التسوق
               </button>
-              <Link href="/">
-                <button className={styles.continueShoppingBtn}>
-                  أكمل التسوق
-                </button>
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

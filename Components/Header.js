@@ -3,14 +3,21 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import "animate.css";
 import Swal from "sweetalert2";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 /*--------------------Components-------------------------*/
 import MenuDrawer from "./MenuDrawer";
 import DialogShoppingBag from "@/components/DialogShoppingBag";
 import DialogCompareProducts from "./DialogCompareProducts";
-import Test from "@/components/Test";
+/*-------------------------X-----------------------------*/
+
+/*--------------------Categories-------------------------*/
+import { WomanCollections } from "@/CategoriesHome/WomenCollections";
+import { MenCollections } from "@/CategoriesHome/MenCollections";
+import { KidsCollections } from "@/CategoriesHome/KidsCollections";
+import { AccessoriesCollections } from "@/CategoriesHome/AccessoriesCollections";
+import { MoreCollections } from "@/CategoriesHome/MoreCollections";
 /*-------------------------X-----------------------------*/
 
 /*--------------------Material Ui------------------------*/
@@ -40,7 +47,6 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { RiAccountPinCircleLine } from "react-icons/ri";
 import { FiMenu } from "react-icons/fi";
 import { ImHeart } from "react-icons/im";
-import { IoIosArrowDown } from "react-icons/io";
 import { RiEyeLine } from "react-icons/ri";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { FiAlertCircle } from "react-icons/fi";
@@ -72,10 +78,6 @@ export default function Header() {
 
   /*-----------------context Bag---------------*/
   const { bag } = useContext(BagContext);
-  /*---------------------X---------------------*/
-
-  /*--------------context wish Bag-------------*/
-  const { wishBag } = useContext(WishBagContext);
   /*---------------------X---------------------*/
 
   /*--------------context compare--------------*/
@@ -122,7 +124,6 @@ export default function Header() {
       {user && <li onClick={logout}>تسجيل الخروج</li>}
 
       <Dialog
-        animation={"false"}
         open={loginDialog}
         TransitionComponent={Transition}
         keepMounted
@@ -204,284 +205,6 @@ export default function Header() {
     </div>
   );
 
-  /*-----------------All Collections----------------*/
-  const WomanCollections = (
-    <div className={styles.dropDown}>
-      <li className={styles.linkProducts}>
-        أقسام النساء <IoIosArrowDown />
-      </li>
-      <div className={styles.dropDownContent}>
-        <div className={styles.containerDropDownContent}>
-          <div className={styles.collectionsDiv}>
-            <p>الأزياء النسائية</p>
-            <span>منتجات صناعة تركية</span>
-            <ul>
-              <li>
-                <Link href="/categories/women-fashions/turkey-dresses/dresses">
-                  <a className={styles.categoryLink}>فساتين سهرة</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/women-fashions/turkey-lingeries/lingerie">
-                  <a className={styles.categoryLink}>ﻻنجري</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/women-fashions/turkey-abayas/abaya">
-                  <a className={styles.categoryLink}>عبايات و قطافين</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/women-fashions/turkey-all-products/other-products">
-                  <a
-                    className={`${styles.categoryLink} ${styles.collectionText}`}
-                    style={{ padding: "1rem 0 2rem 0" }}
-                  >
-                    جميع المنتجات الأخرى
-                  </a>
-                </Link>
-              </li>
-            </ul>
-
-            <span>منتجات صناعة محلية</span>
-            <ul>
-              <li>
-                <Link href="/categories/women-fashions/local-dresses/dresses">
-                  <a className={styles.categoryLink}>فساتين سهرة</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/women-fashions/local-lingeries/lingerie">
-                  <a className={styles.categoryLink}>ﻻنجري</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/women-fashions/local-abayas/abaya">
-                  <a className={styles.categoryLink}>عبايات و قطافين</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/women-fashions/local-all-products/other-products">
-                  <a
-                    className={styles.categoryLink}
-                    style={{ padding: "1rem 0 2rem 0" }}
-                  >
-                    جميع المنتجات الأخرى
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <img
-              src="/images/unicorn/women fashions.jpg"
-              width={380}
-              height={521}
-              className={styles.img}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const MenCollections = (
-    <div className={styles.dropDown}>
-      <li className={styles.linkProducts}>
-        أقسام الرجال <IoIosArrowDown />
-      </li>
-      <div className={styles.dropDownContent}>
-        <div className={styles.containerDropDownContent}>
-          <div className={styles.collectionsDiv}>
-            <p>الأزياء الرجالية</p>
-            <ul>
-              <li>
-                <Link href="/categories/men-fashions/men-pajamas/pajamas">
-                  <a className={styles.categoryLink}>البيجامات</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/men-fashions/all-products/other-products">
-                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.img}>
-            <img
-              src="/images/unicorn/men fashions.jpg"
-              width={400}
-              height={380}
-              className={styles.img}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const KidsCollections = (
-    <div className={styles.dropDown}>
-      <li className={styles.linkProducts}>
-        أقسام الأطفال <IoIosArrowDown />
-      </li>
-      <div className={styles.dropDownContent}>
-        <div className={styles.containerDropDownContent}>
-          <div className={styles.collectionsDiv}>
-            <p>أزياء الأطفال</p>
-            <span>منتجات صناعة تركية</span>
-            <ul>
-              <li>
-                <Link href="/categories/kids-fashions/kids-pajamas/pajamas">
-                  <a className={styles.categoryLink}>البيجامات</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/kids-fashions/kids-dresses/dresses">
-                  <a className={styles.categoryLink}>فساتين</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/kids-fashions/all-products/other-products">
-                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.img}>
-            <img
-              src="/images/unicorn/kids fashions.jpg"
-              width={400}
-              height={400}
-              className={styles.img}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const AccessoriesCollections = (
-    <div className={styles.dropDown}>
-      <li className={styles.linkProducts}>
-        قسم الإكسسوارات <IoIosArrowDown />
-      </li>
-      <div className={styles.dropDownContent}>
-        <div className={styles.containerDropDownContent}>
-          <div className={styles.collectionsDiv}>
-            <p>أقسام الإكسسوارات</p>
-            <span>نساء</span>
-            <ul>
-              <li>
-                <Link href="/categories/accessories/women/women-necklace/necklace">
-                  <a className={styles.categoryLink}>قلادات</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/accessories/women/women-rings/rings">
-                  <a className={styles.categoryLink}>خواتم</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/accessories/women/women-bracelets/bracelets">
-                  <a className={styles.categoryLink}>أساور </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/accessories/women/all-products/other-products">
-                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
-                </Link>
-              </li>
-            </ul>
-            <span>رجال</span>
-            <ul>
-              <li>
-                <Link href="/categories/accessories/men/men-watches/watches">
-                  <a className={styles.categoryLink}>ساعات</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/accessories/men/all-products/other-products">
-                  <a className={styles.categoryLink}>جميع المنتجات الأخرى</a>
-                </Link>
-              </li>
-            </ul>
-            <span>الأطفال</span>
-            <ul>
-              <li>
-                <Link href="/categories/accessories/kids/all-products/products">
-                  <a
-                    className={styles.categoryLink}
-                    style={{ padding: "1rem 0 2rem 0" }}
-                  >
-                    جميع المنتجات
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.img}>
-            <img
-              src="/images/unicorn/accessories.jpg"
-              width={400}
-              height={538}
-              className={styles.img}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const MoreCollections = (
-    <div className={styles.dropDown}>
-      <li className={styles.linkProducts}>
-        الأقسام الأخرى <IoIosArrowDown />
-      </li>
-      <div className={styles.dropDownContent}>
-        <div className={styles.containerDropDownContent}>
-          <div className={styles.collectionsDiv}>
-            <p>جميع الأقسام</p>
-            <span>تجميل</span>
-            <ul>
-              <li>
-                <Link href="/categories/makeup/products">
-                  <a className={styles.categoryLink}>جميع المنتجات</a>
-                </Link>
-              </li>
-            </ul>
-
-            <span>الباكيجات</span>
-            <ul>
-              <li>
-                <Link href="/categories/packages/products">
-                  <a className={styles.categoryLink}>جميع المنتجات</a>
-                </Link>
-              </li>
-            </ul>
-
-            <span>الأدوات المنزلية</span>
-            <ul>
-              <li>
-                <Link href="/categories/houseware/products">
-                  <a className={styles.categoryLink}>جميع المنتجات</a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.img}>
-            <img
-              src="/images/test/test1.jpg"
-              width={400}
-              className={styles.img}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-  /*------------------------X-----------------------*/
-
   return (
     <div className={styles.main}>
       <nav
@@ -499,7 +222,7 @@ export default function Header() {
         </div>
 
         <div>
-          <ul className={styles.containerLink}>
+          <ul data-aos="fade-out" className={styles.containerLink}>
             <div>{WomanCollections}</div>
 
             <div>{MenCollections}</div>
@@ -569,8 +292,7 @@ export default function Header() {
             />
           )}
           <FiMenu className={styles.menuIcon} onClick={openDrawer} />
-          {/* <MenuDrawer closeDrawerMenu={closeDrawer} drawerMenu={drawerMenu} /> */}
-          <Test closeDrawerMenu={closeDrawer} drawerMenu={drawerMenu} />
+          <MenuDrawer closeDrawerMenu={closeDrawer} drawerMenu={drawerMenu} />
           <DialogShoppingBag
             shoppingDialog={shoppingDialog}
             closeShoppingDialog={closeShoppingDialog}

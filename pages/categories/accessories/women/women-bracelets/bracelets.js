@@ -30,7 +30,7 @@ export default function bracelets({ bracelets, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/bracelets`);
 
   const bracelets = await res.json();

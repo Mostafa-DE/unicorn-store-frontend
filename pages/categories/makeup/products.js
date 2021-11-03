@@ -30,7 +30,7 @@ export default function makeup({ makeups, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/make-ups`);
 
   const makeups = await res.json();

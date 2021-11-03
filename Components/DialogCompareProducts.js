@@ -129,7 +129,7 @@ export default function DialogCompareProducts({
                   <td className={styles.titleTable}> بلد المنشأ </td>
                   {compareItems.map((product) => (
                     <td key={product.id} className={styles.borderBottomTitle}>
-                      <p className={styles.productMade}>تركيا</p>
+                      <p className={styles.productMade}>{product.madeIn}</p>
                     </td>
                   ))}
                 </tr>

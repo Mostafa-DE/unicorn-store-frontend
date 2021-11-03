@@ -31,7 +31,7 @@ export default function otherProducts({ turkeyWomenProducts, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/turkey-women-products`);
 
   const turkeyWomenProducts = await res.json();

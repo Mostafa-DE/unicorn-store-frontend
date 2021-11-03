@@ -22,7 +22,7 @@ export default function Packages({ packages, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/packages`);
 
   const packages = await res.json();

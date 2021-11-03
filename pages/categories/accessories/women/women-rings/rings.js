@@ -30,7 +30,7 @@ export default function rings({ rings, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/rings`);
 
   const rings = await res.json();

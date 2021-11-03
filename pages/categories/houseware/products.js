@@ -30,7 +30,7 @@ export default function Houseware({ housewares, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/house-wares`);
 
   const housewares = await res.json();

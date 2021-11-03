@@ -19,33 +19,42 @@ export default function ShoppingBag() {
   const { bag, increaseQty, decreaseQty, removeFromBag } =
     useContext(BagContext);
   const { items = [] } = bag;
-  console.log(bag);
   // xxxxxxxxxxxxxxxxxxxxx
+  console.log(items);
 
   return (
     <div className={styles.main}>
+      <div className="containerTitle">
+        <h1 className="h1Title"> حقيبة التسوق </h1>
+        <AiOutlineLine className="lineIcon" />
+      </div>
       {items.length !== 0 ? (
-        <div>
-          <TableContainer>
+        <>
+          <TableContainer style={{ margin: "3.5rem 0 0 0" }}>
             <Table className={styles.containerTable}>
               <TableHead>
                 <TableRow>
-                  <TableCell className={styles.fontFamily} align="left">
-                    المنتج
+                  <TableCell align="left">
+                    <span>المنتج</span>
                   </TableCell>
-                  <TableCell className={styles.fontFamily}>السعر</TableCell>
-                  <TableCell className={styles.fontFamily} align="center">
-                    الكمية
+                  <TableCell>
+                    <span>السعر</span>
                   </TableCell>
-                  <TableCell align="center" className={styles.fontFamily}>
-                    الإجمالي
+                  <TableCell align="center">
+                    <span>الكمية</span>
+                  </TableCell>
+                  <TableCell align="center">
+                    <span>الإجمالي</span>
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {items.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell className={styles.fontFamily}>
+                    <TableCell
+                      sx={{ width: "23rem" }}
+                      className={styles.fontFamily}
+                    >
                       <div className={styles.containerItemCell}>
                         <img
                           src={item.images[0].url}
@@ -55,8 +64,11 @@ export default function ShoppingBag() {
                         />
                         <div className={styles.itemDetails}>
                           <p className={styles.nameItem}>{item.name}</p>
-                          <p>أحمر</p>
-                          <p>{item.sizeInput || item.size} :القياس</p>
+                          <p>{items.color}</p>
+                          <p>
+                            {item.size}{" "}
+                            {item.size !== undefined ? ":القياس" : null}
+                          </p>
                         </div>
                       </div>
                     </TableCell>
@@ -101,21 +113,20 @@ export default function ShoppingBag() {
               <p className={styles.subTotalText}>
                 {bag.totalBag} JD :السعر الإجمالي
               </p>
-              <p className={styles.deliveryNote}>
-                {" "}
-                أجور التوصيل تضاف عند الطلب
-              </p>
-            </div>
-            <div className={styles.containerBtns}>
-              <Link href="/">
-                <button className={styles.continueShoppingBtn}>
-                  أكمل التسوق
-                </button>
-              </Link>
-              <button className={styles.checkoutBtn}>اطلب الآن</button>
+              <p className={styles.deliveryNote}>أجور التوصيل تضاف عند الطلب</p>
             </div>
           </div>
-        </div>
+          <div className={styles.containerBtns}>
+            <Link href="/">
+              <button className={styles.continueShoppingBtn}>
+                أكمل التسوق
+              </button>
+            </Link>
+            <Link href="/payment/shipping-info">
+              <button className={styles.checkoutBtn}>اطلب الآن</button>
+            </Link>
+          </div>
+        </>
       ) : (
         <div className={styles.containerShoppingBagEmpty}>
           <h1> حقيبة التسوق الخاصة بك فارغة</h1>

@@ -7,7 +7,7 @@ export default function ButtonWhatsApp() {
 
   useEffect(() => {
     const handleVisibility = () => {
-      if (window.pageYOffset > 100) {
+      if (window.pageYOffset > 400) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -22,7 +22,7 @@ export default function ButtonWhatsApp() {
         <div className={styles.containerBtn}>
           <p className={styles.ButtonWhatsApp}>
             <a href="https://wa.me/message/HRQFZDWSM3EUH1">
-              <ImWhatsapp className={styles.whatsAppIcon} /> تواصل معنا
+              <ImWhatsapp className={styles.whatsAppIcon} />
             </a>
           </p>
         </div>

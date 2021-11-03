@@ -27,6 +27,11 @@
 
 .containerCoverText p {
   font-size: 2rem;
+  animation: fadeInDown 2s;
+}
+
+.containerCoverText span {
+  animation: fadeInLeft 2s;
 }
 
 .exploreBtn {
@@ -36,6 +41,7 @@
   margin: 1.5rem 0 0 0;
   border: 1px solid #333;
   transition: all 0.3s ease-in;
+  animation: btnAnimation 5s;
 }
 
 .exploreBtn:hover {
@@ -48,5 +54,75 @@
   .coverHome {
     background: url("../public/images/coverHome.jpg");
     background-position: right 35% bottom 100%;
+  }
+}
+
+.fixedImage {
+  background-image: url("../public/images/coverHome.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right 35% bottom 100%;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes btnAnimation {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9);
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    -webkit-transform: scale3d(0.97, 0.97, 0.97);
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }

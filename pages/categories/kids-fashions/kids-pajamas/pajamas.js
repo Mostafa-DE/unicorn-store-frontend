@@ -30,7 +30,7 @@ export default function pajamas({ kidsPajamas, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/kids-pajamas`);
 
   const kidsPajamas = await res.json();

@@ -10,6 +10,7 @@ import { RiEyeLine } from "react-icons/ri";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { FiAlertCircle } from "react-icons/fi";
 import { GrFormNext } from "react-icons/gr";
+import Swal from "sweetalert2";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -17,8 +18,13 @@ export default function LoginForm() {
   // Auth context
   const { login, error } = useContext(AuthContext);
   useEffect(() => {
-    error && toast.error(error);
-  });
+    error &&
+      new Swal({
+        title: error,
+        icon: "error",
+        confirmButtonColor: "#fb9aa7",
+      });
+  }, [login, error]);
   // xxxxxxxxxxxx
 
   const [email, handleChangeEmail, resetEmail] = useInputField("");
@@ -126,7 +132,7 @@ export default function LoginForm() {
             </div>
             <div className={styles.containerRegisterForm}>
               <p className={styles.dontHaveAccountText}>
-                لا تمتلك حساب بالفعل ؟؟
+                لا تريد إنشاء حساب ؟؟
               </p>
               <Link href="/payment/shipping-info">
                 <button className={styles.signUpBtn}>أكمل الطلب كضيف </button>

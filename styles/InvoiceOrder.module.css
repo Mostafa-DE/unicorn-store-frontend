@@ -1,56 +1,94 @@
 .main {
-  margin: 7rem 0 0 0;
-  color: #727272;
-}
-
-.add td {
-  color: #727272;
-  font-size: 12px;
-}
-
-.content {
-  font-size: 14px;
+  margin: 8rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: #333;
 }
 
-.containerLogo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.containerLogo p {
-  margin: 2rem 0.5rem 0 0;
-  font-size: 1.3rem;
-}
-
-.containerNumOrderAndDate {
-  display: flex;
-  justify-content: space-between;
-}
-
-.numOrderAndDate {
+.container {
   display: flex;
   flex-direction: column;
-  text-align: end;
+  justify-content: center;
+  align-items: center;
 }
 
-.thnxText {
-  width: 50%;
+.checkIcon {
+  font-size: 4.5rem;
+  color: #fb9aa7;
+  margin: 0 0 1rem 0;
+}
+
+.containerSuccessfully {
   text-align: center;
 }
 
-@media (max-width: 540px) {
-  .containerNumOrderAndDate {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-  }
+.thnxText,
+.orderNumText,
+.orderNumber {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
 
-  .thnxText {
-    width: 100%;
-    text-align: end;
-    margin: 0 0 1rem 0;
-  }
+.orderNumber {
+  font-size: 1.4rem;
+}
+
+.deliveryNote {
+  font-size: 1.1rem;
+}
+
+.detailsBagText,
+.detailsShippingText {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fb9aa7;
+  padding: 0 0 0.5rem 0;
+}
+
+.containerHomeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.containerPdfAndHistoryBtns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeBtn,
+.pdfBtn,
+.historyBtn {
+  padding: 0.5rem 1.5rem;
+  background-color: #fb9aa7;
+  border: 1px solid #fb9aa7;
+  color: #fafafa;
+  font-weight: 600;
+  transition: all 0.3s ease-in;
+}
+
+.pdfBtn,
+.historyBtn {
+  margin: 0 0.5rem 0 0.5rem;
+  background-color: #333;
+  border: 1px solid #333;
+}
+
+.homeBtn:hover,
+.pdfBtn:hover,
+.historyBtn:hover {
+  background: none;
+  color: #fb9aa7;
+  transition: all 0.3s ease-out;
+}
+
+.pdfBtn:hover,
+.historyBtn:hover {
+  color: #333;
 }

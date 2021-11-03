@@ -17,9 +17,10 @@ import Swal from "sweetalert2";
 export default function ProductDetails({ product }) {
   const router = useRouter();
 
+  console.log(product);
+
   // shopping bag context
-  const { bag, addToBag } = useContext(BagContext);
-  const { items = [] } = bag;
+  const { addToBag } = useContext(BagContext);
 
   // xxxxxxxxxxxxxxxxxxxx
   const AddToBag = async (product) => {
@@ -27,17 +28,17 @@ export default function ProductDetails({ product }) {
     router.push("/products/shopping-bag");
   };
 
-  // wish bag context
-  const { addToWishBag } = useContext(WishBagContext);
-  // xxxxxxxxxxxxxxxx
-  const AddToWishBag = async (product) => {
-    await addToWishBag(product);
-    router.push("/products/wish-list");
-  };
+  // // wish bag context
+  // const { addToWishBag } = useContext(WishBagContext);
+  // // xxxxxxxxxxxxxxxx
+  // const AddToWishBag = async (product) => {
+  //   await addToWishBag(product);
+  //   router.push("/products/wish-list");
+  // };
 
-  // Auth Context
-  const { user } = useContext(AuthContext);
-  // xxxxxxxxxxxx
+  // // Auth Context
+  // const { user } = useContext(AuthContext);
+  // // xxxxxxxxxxxx
 
   const [video, setvideo] = useState("");
   const [image, setImage] = useState(product.images[0].url);
@@ -176,6 +177,17 @@ export default function ProductDetails({ product }) {
             <p className={styles.priceProduct}> اللون: أسود </p>
           </div>
 
+          {product.preOrder === true && (
+            <div className={styles.preOrderText}>
+              <p>
+                يرجى العلم أن المنتج متوفر فقط عند الطلب المسبق, مع العلم أن بعض
+                المنتجات قد تستغرق وقت لحين الشحن قد تستمر إلى أسابيع, لذا عند
+                الطلب احتفظ برقم الطلب لكي تستطيع الاستفسار عنه بسهولة في وقت
+                لاحق
+              </p>
+            </div>
+          )}
+
           <div className={styles.containerTitleText}>
             <p className={styles.titleText}>
               يرجى إدخال الطول و الوزن لتحديد القياس المناسب لك
@@ -232,6 +244,7 @@ export default function ProductDetails({ product }) {
             <p className={styles.descriptionTitle}> -: الوصف</p>
             <p className={styles.description}>{product.description}</p>
           </div>
+
           <div className={styles.containerAllBtns}>
             <button
               onClick={
@@ -251,27 +264,28 @@ export default function ProductDetails({ product }) {
                       })
                   : () => AddToBag(product)
               }
-              className={styles.addToBagBtn}
+              className={
+                product.isAvailable === true
+                  ? styles.addToBagBtn
+                  : styles.buttonDisabled
+              }
             >
-              أضف إلى الحقيبة
+              {product.preOrder === false
+                ? "أضف إلى الحقيبة"
+                : "متوفر للطلب المسبق"}
             </button>
-            <div className={styles.containerOtherBtns}>
-              <button
-                onClick={
-                  user === null
-                    ? () => router.push("/account/login")
-                    : () => AddToWishBag(product)
-                }
-                className={styles.addToWishlistbtn}
-              >
-                أضف إلى المفضلة
+
+            {product.isAvailable === false && (
+              <p className={styles.notAvaliableText}>
+                نعتذر يبدو أن المنتج حالياً غير متوفر
+              </p>
+            )}
+
+            <Link href="/">
+              <button className={styles.continueShoppingBtn}>
+                أكمل التسوق
               </button>
-              <Link href="/">
-                <button className={styles.continueShoppingBtn}>
-                  أكمل التسوق
-                </button>
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,111 +1,166 @@
 import styles from "@/styles/InvoiceOrder.module.css";
-import { useContext } from "react";
-import { BagContext } from "@/context/BagContext";
+import React, { useContext } from "react";
+import Link from "next/link";
+import { ShippingInfoContext } from "@/context/ShippingInfoContext";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
-export default function InvoiceOrder() {
-  const { bag } = useContext(BagContext);
-  const { items = [] } = bag;
+export default function Test1() {
+  const { shippingInfo } = useContext(ShippingInfoContext);
+  const { shippingItems = [] } = shippingInfo;
+
+  console.log(shippingItems);
+
+  const printDocument = () => {
+    const input = document.getElementById("invoicePdf");
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, "PNG", 15, 0, 180, 150);
+      pdf.save("رقم الطلب.pdf");
+    });
+  };
 
   return (
     <div className={styles.main}>
-      <div className="App container mt-5">
-        {/* <button className="btn btn-primary">Export To PDF</button> */}
-        <div id="divToPrint" className="m-3">
-          <div className="row d-flex justify-content-center">
-            <div className="col-md-8">
-              <div className="card">
-                <div className="d-flex flex-row p-2">
-                  <div className={styles.containerLogo}>
-                    <img src="/images/unicorn.png" width={100} height={100} />
-                    <p>فاتورة مبيعات</p>
-                  </div>
-                </div>
+      <div className={styles.container}>
+        <div id="invoicePdf" className={styles.containerSuccessfully}>
+          <IoMdCheckmarkCircleOutline className={styles.checkIcon} />
+          <p className={styles.thnxText}>
+            شكراً لك !! لقد تم استلام طلبك بنجاح
+          </p>
+          <p className={styles.orderNumText}>رقم الطلب الخاص بك</p>
+          {shippingItems.map((product) => (
+            <p
+              key={product.orderNumber}
+              className={styles.orderNumber}
+            >{`" ${product.orderNumber} "`}</p>
+          ))}
 
-                <div className="table-responsive p-2">
-                  <table className="table table-borderless">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div className={styles.containerNumOrderAndDate}>
-                            <span className={styles.thnxText}>
-                              مرحبًا !! شكرًا لك على التسوق من متجرنا وعلى طلبك,
-                              نأمل أن تكون تجربتك رائعة
-                            </span>
-                            <div className={styles.numOrderAndDate}>
-                              <span>رقم الطلب: #55555</span>
-                              <span>تاريخ الطلب: 25-10-2021</span>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          <p className={styles.deliveryNote}>
+            يرجى العلم أن التوصيل يحتاج إلى فترة عمل تتراوح ما بين 24-48 ساعة من
+            تاريخ تثبيت الطلب
+          </p>
+        </div>
+        <TableContainer sx={{ maxWidth: "1000px", backgroundColor: "#fafafa" }}>
+          <p className={styles.detailsBagText}>تفاصيل الحقيبة</p>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">
+                  <span>معلومات الطلب</span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>السعر</span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>الكمية</span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>المجموع</span>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            {shippingItems.map((shippingItem) => (
+              <TableBody key={shippingItem.orderNumber}>
+                {shippingItem.items.map((product) => (
+                  <TableRow
+                    key={product.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="center" component="th" scope="product">
+                      <span>{product.name}</span>
+                    </TableCell>
+                    <TableCell align="center">
+                      <span>{product.price} JD</span>
+                    </TableCell>
+                    <TableCell align="center">
+                      <span>{product.qty}</span>
+                    </TableCell>
+                    <TableCell align="center">
+                      <span>{shippingItem.totalBag} JD</span>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            ))}
+          </Table>
+        </TableContainer>
 
-                <div className={styles.containerClientInfo}>
-                  <div className={styles.clientInfo}>
-                    <h2></h2>
-                  </div>
-                </div>
-                <div className="products p-2">
-                  <table className="table table-borderless">
-                    <tbody>
-                      <tr className={styles.add}>
-                        <td>Description</td>
-                        <td>Days</td>
-                        <td>Price</td>
-                        <td className="text-center">Total</td>
-                      </tr>
-                      {items.map((product) => (
-                        <tr key={product.id} className={styles.content}>
-                          <td> {product.name} </td>
-                          <td>15</td>
-                          <td>{product.price} JD</td>
-                          <td className="text-center">{bag.totalBag} JD</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <hr />
-                <div className="products p-2">
-                  <table className="table table-borderless">
-                    <tbody>
-                      <tr className={styles.add}>
-                        <td></td>
-                        <td>Subtotal</td>
-                        <td>GST(10%)</td>
-                        <td className="text-center">Total</td>
-                      </tr>
-                      <tr className={styles.content}>
-                        <td></td>
-                        <td>$40,000</td>
-                        <td>2,500</td>
-                        <td className="text-center">$42,500</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <hr />
-                <div className="address p-2">
-                  <table className="table table-borderless">
-                    <tbody>
-                      <tr className={styles.add}>
-                        <td>Bank Details</td>
-                      </tr>
-                      <tr className={styles.content}>
-                        <td>
-                          {" "}
-                          Bank Name : ADS BANK <br /> Swift Code : 00220022{" "}
-                          <br /> Account Holder : Jassa Pepper <br /> Account
-                          Number : 6953PO789 <br />{" "}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+        <TableContainer
+          sx={{
+            maxWidth: "1000px",
+            backgroundColor: "#fafafa",
+            margin: "2rem 0 0 0",
+          }}
+        >
+          <p className={styles.detailsShippingText}>معلومات التوصيل</p>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">
+                  <span>الإسم</span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>العنوان</span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>الهاتف</span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>المحافظة</span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>المجموع</span>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {shippingItems.map((shippingItem) => (
+                <TableRow
+                  key={shippingItem.orderNumber}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="center" component="th" scope="product">
+                    <span>{`${shippingItem.firstName} ${shippingItem.lastName}`}</span>
+                  </TableCell>
+                  <TableCell align="center">
+                    <span>{shippingItem.address}</span>
+                  </TableCell>
+                  <TableCell align="center">
+                    <span>{shippingItem.phone}</span>
+                  </TableCell>
+                  <TableCell align="center">
+                    <span>{shippingItem.city}</span>
+                  </TableCell>
+                  <TableCell align="center">
+                    <span>{shippingItem.totalBag} JD</span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div className={styles.containerBtns}>
+          <div className={styles.containerHomeBtn}>
+            <Link href="/">
+              <button className={styles.homeBtn}> العودة إلى الرئيسية </button>
+            </Link>
+          </div>
+          <div className={styles.containerPdfAndHistoryBtns}>
+            <button onClick={printDocument} className={styles.pdfBtn}>
+              طباعة رقم الطلب
+            </button>
+            <Link href="/account/dashboard-user">
+              <button className={styles.historyBtn}> سجل الطلبات </button>
+            </Link>
           </div>
         </div>
       </div>

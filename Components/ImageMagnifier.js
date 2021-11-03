@@ -4,8 +4,8 @@ export default function ImageMagnifier({
   src,
   width,
   height,
-  magnifierHeight = 200,
-  magnifieWidth = 350,
+  magnifierHeight = 280,
+  magnifieWidth = 300,
   zoomLevel = 1.4,
 }) {
   const [[x, y], setXY] = useState([0, 0]);

@@ -87,8 +87,11 @@ export default function DialogShoppingBag({
                               </div>
                               <div className={styles.itemDetails}>
                                 <p className={styles.nameItem}>{item.name}</p>
-                                <p>أحمر</p>
-                                <p>{item.sizeInput || item.size} :القياس</p>
+                                <p>{items.color}</p>
+                                <p>
+                                  {item.size}{" "}
+                                  {item.size !== undefined ? ":القياس" : null}
+                                </p>
                               </div>
                             </div>
                           </TableCell>

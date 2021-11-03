@@ -1,3 +1,85 @@
-.de {
-  color: rgb(170, 170, 170);
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap");
+
+.main {
+  margin: 8rem 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.oops {
+  font-size: 200px;
+  font-weight: 1000;
+  background-image: url("../public//images/unicorn/space.jpg");
+  background-position: center;
+  background-repeat: repeat;
+  background-clip: text;
+  text-transform: uppercase;
+  color: transparent;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.pageNotFound {
+  margin: -2.5rem 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.explainText {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.backBtn {
+  background-color: #333;
+  border: 1px solid #333;
+  padding: 0.6rem 2rem;
+  color: #fafafa;
+  border-radius: 25px;
+  font-weight: 600;
+  margin: 1rem 0 0 0;
+  transition: all 0.3s ease-in;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.205);
+}
+
+.backBtn:hover {
+  background-color: #fafafa;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+@media (max-width: 605px) {
+  .oops {
+    font-size: 150px;
+  }
+
+  .pageNotFound {
+    margin: -2rem 0 1rem 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .oops {
+    font-size: 120px;
+  }
+
+  .pageNotFound {
+    margin: -1.5rem 0 1rem 0;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .oops {
+    font-size: 100px;
+  }
 }

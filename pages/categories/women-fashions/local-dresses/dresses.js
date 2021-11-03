@@ -30,7 +30,7 @@ export default function dresses({ localDresses, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/local-dresses`);
 
   const localDresses = await res.json();

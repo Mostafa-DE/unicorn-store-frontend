@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
     if (createUser.ok) {
       setUser(data.user);
-      router.push("/account/login");
+      router.push("/account/my-account");
     } else {
       setError(data.message);
       setError(null);

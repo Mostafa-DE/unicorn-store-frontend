@@ -90,7 +90,7 @@
   line-height: 10px;
   font-weight: bold;
   opacity: 0;
-  margin: 0 0 0 0.5rem;
+  margin: 1.3rem 0 0 0.5rem;
   transform: translateY(40px);
   transition: all 0.7s;
 }
@@ -141,7 +141,7 @@
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.3s;
-  margin: -8rem 0 0 1rem;
+  margin: -8rem 0 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,7 +151,7 @@
   background: none;
   color: #000;
   font-weight: 500;
-  padding: 0.4rem 4rem;
+  padding: 0.4rem 0.8rem;
   border: 1.5px solid #333;
   transition: all 0.4s ease-in;
 }

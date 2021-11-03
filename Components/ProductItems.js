@@ -61,8 +61,6 @@ export default function ProductItems({ product, pathname, token }) {
     }
   };
 
-  // xxxxxxxxxxxxxxxx
-
   // Compare Context
   const { productsCompare, addToCompare } = useContext(CompareContext);
   const { compareItems = [] } = productsCompare;
@@ -75,7 +73,7 @@ export default function ProductItems({ product, pathname, token }) {
   );
 
   return (
-    <div className={styles.container}>
+    <div data-aos="fade-right" className={styles.container}>
       <img className={styles.imgs} src={product.images[0].url} />
       <div className={styles.overlay}>
         <div className={styles.wishItems}>
@@ -117,7 +115,9 @@ export default function ProductItems({ product, pathname, token }) {
         </div>
         <div className={styles.quickview}>
           <Link href={`/${product.productDetailsPage}/${product.slug}`}>
-            <button className={styles.quickviewBtn}>التفاصيل</button>
+            <button className={styles.quickviewBtn}>
+              اطلب الآن / التفاصيل
+            </button>
           </Link>
         </div>
       </div>

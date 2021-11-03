@@ -200,7 +200,7 @@ export default function RegisterForm() {
                 </div>
                 <div className="form-outline mb-3">
                   <TextValidator
-                    type="text"
+                    type="number"
                     onChange={handleChangePhone}
                     value={phone}
                     fullWidth
@@ -270,7 +270,7 @@ export default function RegisterForm() {
 
                   <div className="mb-4 mx-3 d-flex">
                     <TextValidator
-                      type="text"
+                      type="number"
                       name="lastName"
                       value={building}
                       onChange={handleChangeBuilding}
@@ -299,7 +299,7 @@ export default function RegisterForm() {
                 <div className="d-flex flex-row align-items-center mb-4">
                   <div className="form-outline flex-fill mb-4">
                     <TextValidator
-                      type="text"
+                      type="number"
                       value={deliveryPhone}
                       onChange={handleChangeDeliveryPhone}
                       fullWidth

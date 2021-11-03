@@ -64,7 +64,7 @@ export default function DashboardUser({ userOrders }) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  <spna>تفاصيل الطلب</spna>
+                  <span>تفاصيل الطلب</span>
                 </Typography>
                 <Table size="small" aria-label="purchases">
                   <TableHead>

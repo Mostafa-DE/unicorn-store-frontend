@@ -146,3 +146,46 @@ a {
   }
 }
 /*------------------X------------------*/
+
+/*---------Style For Carousel--------*/
+.carousel .rec .rec-arrow {
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  z-index: 1;
+}
+
+.carousel .rec .rec-arrow:hover {
+  background: none;
+  box-shadow: none;
+  color: black;
+}
+
+.carousel .rec .rec-arrow:focus {
+  background: none;
+  box-shadow: none;
+  color: black;
+}
+
+/* @media only screen and (max-width: 370px) {
+  .carousel .rec .rec-arrow {
+    border-radius: 0;
+    font-size: 1rem;
+    background-color: transparent;
+    box-shadow: none;
+    z-index: 1;
+  }
+} */
+@media only screen and (max-width: 365px) {
+  .containerRateStarIcons {
+    display: none;
+  }
+}
+
+.carousel .rec-pagination {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+/* ---------------X---------------*/

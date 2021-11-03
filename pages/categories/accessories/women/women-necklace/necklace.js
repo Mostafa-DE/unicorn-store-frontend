@@ -30,7 +30,7 @@ export default function necklace({ necklaces, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/necklaces`);
 
   const necklaces = await res.json();

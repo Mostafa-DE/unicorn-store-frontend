@@ -21,7 +21,7 @@ export default function Layout({ title, description, children }) {
       </Head>
       <Header />
       {router.pathname === "/" && (
-        <div className={styles.coverHome}>
+        <div data-aos="fade-in" className={styles.coverHome}>
           <div className={styles.containerCoverText}>
             <p> أيام أكثر إشراقاً</p>
             <span>تسوق عروض الموسم الجديد</span>
@@ -42,7 +42,7 @@ export default function Layout({ title, description, children }) {
 
 /*------------default title in case i forget to add title-----------*/
 Layout.defaultProps = {
-  title: "Unicorn Store | Shop Online For Fastions, Tools, Gifts & More",
+  title: "Unicorn Store | Shop Online For Fashions, Tools, Gifts & More",
   description:
     "Unicorn Store | Shop Online for Electronics, Toys, Beauty, Tools & More. Exclusive Products. Same Day Delivery. Cash on Delivery.",
 };

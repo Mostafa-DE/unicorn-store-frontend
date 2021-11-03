@@ -30,7 +30,7 @@ export default function otherProducts({ womenAccessories, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
   const res = await fetch(`${API_URL}/women-accessories`);
 
   const womenAccessories = await res.json();

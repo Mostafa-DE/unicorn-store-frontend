@@ -12,6 +12,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMoreSharp";
+import { GrFormNext } from "react-icons/gr";
 
 /*----------------------Context--------------------------*/
 import { BagContext } from "@/context/BagContext";
@@ -20,11 +21,12 @@ import router from "next/router";
 /*-------------------------X-----------------------------*/
 
 export default function ShippingInfoForm({ currentUser, token }) {
-  const randNumber = () =>
+  const randNumbers = () =>
     parseInt(Date.now() * Math.random())
       .toString()
       .substring(0, 5);
 
+  const orderNumber = randNumbers();
   const todayDate = new Date().toISOString().slice(0, 10);
 
   // shopping bag context
@@ -88,7 +90,7 @@ export default function ShippingInfoForm({ currentUser, token }) {
             image2: `${idImageProducts[1] || ""}`,
             image3: `${idImageProducts[2] || ""}`,
             image4: `${idImageProducts[3] || ""}`,
-            orderNumber: `#${randNumber()}`,
+            orderNumber: `#${orderNumber}`,
             dateDelivered: `${todayDate}`,
             numberOfItems: `${bag.itemsCount}`,
           }),
@@ -99,11 +101,11 @@ export default function ShippingInfoForm({ currentUser, token }) {
           values.lastName,
           values.address,
           values.phone,
-          `#${randNumber()}`,
+          `#${orderNumber}`,
           values.city,
           todayDate
         );
-        router.push("/test");
+        router.push("/payment/invoice-order");
       } catch (err) {
         console.log(err);
       }
@@ -122,11 +124,22 @@ export default function ShippingInfoForm({ currentUser, token }) {
             image2: `${idImageProducts[1] || ""}`,
             image3: `${idImageProducts[2] || ""}`,
             image4: `${idImageProducts[3] || ""}`,
-            orderNumber: `#${randNumber()}`,
+            orderNumber: `#${orderNumber}`,
             DateDelivered: `${todayDate}`,
             numberOfItems: `${bag.itemsCount}`,
           }),
         });
+        addToShippingInfo(
+          bag,
+          values.firstName,
+          values.lastName,
+          values.address,
+          values.phone,
+          `#${orderNumber}`,
+          values.city,
+          todayDate
+        );
+        router.push("/payment/invoice-order");
       } catch (err) {
         console.log(err);
       }
@@ -135,6 +148,27 @@ export default function ShippingInfoForm({ currentUser, token }) {
 
   return (
     <div className={styles.main}>
+      <nav className={styles.mainPageNav}>
+        <ul className={styles.containerPageNav}>
+          <li>
+            <Link href="/products/shopping-bag">
+              <a className={styles.LinkPage}>حقيبة التسوق</a>
+            </Link>
+          </li>
+          <GrFormNext className={styles.nextIcon} />
+
+          <li>
+            <Link href="/account/login">
+              <a className={styles.LinkPage}>تسجيل الدخول</a>
+            </Link>
+          </li>
+
+          <GrFormNext className={styles.nextIcon} />
+          <li>معلومات التوصيل</li>
+          <GrFormNext className={styles.nextIcon} />
+          <li className={styles.otherLink}>تأكيد الطلب</li>
+        </ul>
+      </nav>
       <div className={styles.container}>
         <div className={styles.containerShippingBox}>
           <p className={styles.shippingInfoText}>معلومات التوصيل</p>
