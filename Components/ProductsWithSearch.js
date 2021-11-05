@@ -36,7 +36,6 @@ export default function ProductsWithSearch({
             لم نتمكن من العثور على هذا المنتج ، ربما لم يكن موجودًا أو غير متوفر
             حالياً
           </p>
-          <p></p>
         </div>
       ) : null}
     </>

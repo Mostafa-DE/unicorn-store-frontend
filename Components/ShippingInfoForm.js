@@ -20,7 +20,7 @@ import { ShippingInfoContext } from "@/context/ShippingInfoContext";
 import router from "next/router";
 /*-------------------------X-----------------------------*/
 
-export default function ShippingInfoForm({ currentUser, token }) {
+export default function ShippingInfoForm({ currentUser, token, discounts }) {
   const randNumbers = () =>
     parseInt(Date.now() * Math.random())
       .toString()
@@ -47,6 +47,11 @@ export default function ShippingInfoForm({ currentUser, token }) {
       }} `
   );
 
+  const [discountInput, setDiscountInput] = useState("");
+  const handleChangeDiscountInput = (evnt) => {
+    setDiscountInput(evnt.target.value);
+  };
+
   /*-------------State for Input register--------------*/
   const [values, setValues] = useState({
     email: `${currentUser.email || ""}`,
@@ -63,13 +68,28 @@ export default function ShippingInfoForm({ currentUser, token }) {
     const { name, value } = evnt.target;
     setValues({ ...values, [name]: value });
   };
-  let TotalBag;
 
+  let TotalBag = 0;
+  let DeliveryFees;
   if (values.city === "عمان" || values.city === "الزرقاء") {
-    TotalBag = bag.totalBag + 3;
+    DeliveryFees = 3;
+    TotalBag = bag.totalBag + DeliveryFees;
   } else {
-    TotalBag = bag.totalBag + 5;
+    DeliveryFees = 5;
+    TotalBag = bag.totalBag + DeliveryFees;
   }
+
+  let discountValue;
+  discounts.map((discountText) => {
+    if (discountText.discount === discountInput) {
+      discountValue = (discountText.discountValue / 100) * TotalBag;
+    }
+  });
+
+  if (discountValue !== undefined) {
+    TotalBag = TotalBag - discountValue;
+  }
+
   /*------------------------X-----------------------*/
 
   const handleSubmit = (evnt) => {
@@ -93,6 +113,7 @@ export default function ShippingInfoForm({ currentUser, token }) {
             orderNumber: `#${orderNumber}`,
             dateDelivered: `${todayDate}`,
             numberOfItems: `${bag.itemsCount}`,
+            discountValue: `${discountValue}`,
           }),
         });
         addToShippingInfo(
@@ -103,7 +124,10 @@ export default function ShippingInfoForm({ currentUser, token }) {
           values.phone,
           `#${orderNumber}`,
           values.city,
-          todayDate
+          todayDate,
+          TotalBag,
+          DeliveryFees,
+          discountValue
         );
         router.push("/payment/invoice-order");
       } catch (err) {
@@ -127,6 +151,7 @@ export default function ShippingInfoForm({ currentUser, token }) {
             orderNumber: `#${orderNumber}`,
             DateDelivered: `${todayDate}`,
             numberOfItems: `${bag.itemsCount}`,
+            discountValue: `${discountValue}`,
           }),
         });
         addToShippingInfo(
@@ -137,7 +162,9 @@ export default function ShippingInfoForm({ currentUser, token }) {
           values.phone,
           `#${orderNumber}`,
           values.city,
-          todayDate
+          todayDate,
+          DeliveryFees,
+          discountValue
         );
         router.push("/payment/invoice-order");
       } catch (err) {
@@ -148,7 +175,7 @@ export default function ShippingInfoForm({ currentUser, token }) {
 
   return (
     <div className={styles.main}>
-      <nav className={styles.mainPageNav}>
+      <nav data-aos="fade-right" className={styles.mainPageNav}>
         <ul className={styles.containerPageNav}>
           <li>
             <Link href="/products/shopping-bag">
@@ -170,7 +197,7 @@ export default function ShippingInfoForm({ currentUser, token }) {
         </ul>
       </nav>
       <div className={styles.container}>
-        <div className={styles.containerShippingBox}>
+        <div data-aos="fade-in" className={styles.containerShippingBox}>
           <p className={styles.shippingInfoText}>معلومات التوصيل</p>
           <div className={styles.containerAllInput}>
             <ValidatorForm onSubmit={handleSubmit}>
@@ -290,7 +317,7 @@ export default function ShippingInfoForm({ currentUser, token }) {
           </div>
         </div>
 
-        <div className={styles.containerSummaryBagBox}>
+        <div data-aos="fade-in" className={styles.containerSummaryBagBox}>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -320,10 +347,10 @@ export default function ShippingInfoForm({ currentUser, token }) {
                           <p className={styles.productName}>{item.name}</p>
                           <div className={styles.containerColorAndSize}>
                             <span className={styles.productSize}>
-                              {item.size} /{" "}
+                              {item.size}
                             </span>
                             <span className={styles.productColor}>
-                              {item.color || "-"}
+                              {item.color}
                             </span>
                           </div>
                         </div>
@@ -340,13 +367,28 @@ export default function ShippingInfoForm({ currentUser, token }) {
             </AccordionDetails>
           </Accordion>
           <div className={styles.containerCoboneDiscount}>
-            <button className={styles.discountBtn}>تفعيل</button>
             <input
               type="text"
+              value={discountInput}
+              onChange={handleChangeDiscountInput}
               placeholder="أدخل كود الخصم هنا"
               className={styles.discountInput}
             />
           </div>
+          {discountValue === undefined && discountInput !== "" && (
+            <p
+              style={{
+                maxWidth: "18rem",
+                color: "red",
+                fontSize: "0.8rem",
+                textAlign: "center",
+                margin: "0.5rem 0 0 0",
+              }}
+            >
+              نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم من قبل
+            </p>
+          )}
+
           <div className={styles.containetTotalAmountBox}>
             <div className={styles.allTotalPrices}>
               <p>السعر الفرعي</p>
@@ -363,7 +405,7 @@ export default function ShippingInfoForm({ currentUser, token }) {
                   : "5"}{" "}
                 JD
               </p>
-              <p style={{ color: "red" }}> 0 JD</p>
+              <p style={{ color: "red" }}> {discountValue || 0} JD</p>
               <p>{TotalBag} JD</p>
             </div>
           </div>

@@ -3,10 +3,8 @@ import Layout from "@/components/Layout";
 import { useEffect } from "react";
 import CategoriesPhoto from "@/components/CategoriesPhoto";
 import { API_URL } from "@/config/index";
-import ProductItems from "@/components/ProductItems";
 import CarouselDresses from "@/components/CarouselDresses";
 import { parseCookies } from "@/helpers/index";
-import CarouselBrand from "@/components/CarouselBrand";
 import SubscripeForm from "@/components/SubscripeForm";
 
 export default function Home({

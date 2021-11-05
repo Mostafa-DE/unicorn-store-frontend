@@ -8,7 +8,6 @@ export default function CarouselBrand() {
         enableAutoPlay
         autoPlaySpeed={5000}
         breakPoints={breakPoints}
-        // disableArrowsOnEnd={false}
         className="carousel"
       >
         <img src="/images/test/test1.jpg" width={200} height={150} />

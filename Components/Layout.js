@@ -25,7 +25,7 @@ export default function Layout({ title, description, children }) {
           <div className={styles.containerCoverText}>
             <p> أيام أكثر إشراقاً</p>
             <span>تسوق عروض الموسم الجديد</span>
-            <Link href="#">
+            <Link href="/categories/women-fashions/turkey-dresses/dresses">
               <button className={styles.exploreBtn}>إكتشف الآن</button>
             </Link>
           </div>

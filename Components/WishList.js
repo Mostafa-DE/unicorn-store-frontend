@@ -8,11 +8,9 @@ import { API_URL } from "@/config/index";
 
 export default function WishList({ products, token }) {
   const router = useRouter();
-  console.log(products);
 
   // wish bag context
   const { removeFromWishBag } = useContext(WishBagContext);
-
   // xxxxxxxxxxxxxxxxx
 
   const deleteFromWishList = async (product) => {
@@ -28,12 +26,12 @@ export default function WishList({ products, token }) {
 
   return (
     <div className={styles.main}>
-      <div className="containerTitle">
+      <div data-aos="fade-in" className="containerTitle">
         <h1 className="h1Title"> قائمة المفضلة </h1>
         <AiOutlineLine className="lineIcon" />
       </div>
       {products.length !== 0 ? (
-        <div className={styles.containerWishList}>
+        <div data-aos="fade-right" className={styles.containerWishList}>
           {products.map((product) => (
             <div key={product.id} className={styles.containerProducts}>
               <img width={200} height={240} src={product.image.url} />

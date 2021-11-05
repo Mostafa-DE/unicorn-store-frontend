@@ -3,8 +3,6 @@ import "animate.css";
 import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { BagContext } from "@/context/BagContext";
-import { WishBagContext } from "@/context/WishBagContext";
-import { AuthContext } from "@/context/AuthContext";
 import ImageMagnifier from "./ImageMagnifier";
 import { AiOutlineLine } from "react-icons/ai";
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -17,8 +15,6 @@ import Swal from "sweetalert2";
 export default function ProductDetails({ product }) {
   const router = useRouter();
 
-  console.log(product);
-
   // shopping bag context
   const { addToBag } = useContext(BagContext);
 
@@ -27,18 +23,6 @@ export default function ProductDetails({ product }) {
     await addToBag(product, size);
     router.push("/products/shopping-bag");
   };
-
-  // // wish bag context
-  // const { addToWishBag } = useContext(WishBagContext);
-  // // xxxxxxxxxxxxxxxx
-  // const AddToWishBag = async (product) => {
-  //   await addToWishBag(product);
-  //   router.push("/products/wish-list");
-  // };
-
-  // // Auth Context
-  // const { user } = useContext(AuthContext);
-  // // xxxxxxxxxxxx
 
   const [video, setvideo] = useState("");
   const [image, setImage] = useState(product.images[0].url);
@@ -126,8 +110,23 @@ export default function ProductDetails({ product }) {
     </>
   );
 
+  const alertErrorSize = () => {
+    Swal.fire({
+      title:
+        " لا تستطيع إضافة المنتج إلى حقيبة التسوق الخاصة بك, يجب عليك إدخال الطول والوزن لتحديد القياس المناسب لك أولاً",
+      icon: "error",
+      confirmButtonColor: "#fb9aa7",
+      showClass: {
+        popup: "animate__animated animate__flipInX",
+      },
+      hideClass: {
+        popup: "animate__animated animate__flipOutX",
+      },
+    });
+  };
+
   return (
-    <div className={styles.main}>
+    <div data-aos="fade-in" className={styles.main}>
       <div className={styles.container}>
         <div className={styles.containerImages}>
           <div className={styles.smallImagesProduct}>
@@ -174,7 +173,7 @@ export default function ProductDetails({ product }) {
           </div>
 
           <div className={styles.containerPriceProduct}>
-            <p className={styles.priceProduct}> اللون: أسود </p>
+            <p className={styles.priceProduct}>اللون: {product.color} </p>
           </div>
 
           {product.preOrder === true && (
@@ -188,39 +187,43 @@ export default function ProductDetails({ product }) {
             </div>
           )}
 
-          <div className={styles.containerTitleText}>
-            <p className={styles.titleText}>
-              يرجى إدخال الطول و الوزن لتحديد القياس المناسب لك
-            </p>
-          </div>
           {/* size input */}
-          <div className={styles.containerInputLengthAndWeight}>
-            <TextField
-              type="text"
-              label="القياس"
-              variant="standard"
-              value={size}
-              readOnly
-              fullWidth
-            />
-            <TextField
-              type="number"
-              label="(الوزن (كغ"
-              variant="standard"
-              value={weight}
-              onChange={handleChangeWeight}
-              style={{ margin: "0 1rem 0 1rem" }}
-              fullWidth
-            />
-            <TextField
-              fullWidth
-              type="number"
-              label="(الطول (سم"
-              variant="standard"
-              value={length}
-              onChange={handleChangeLength}
-            />
-          </div>
+          {product.isAvailable === true && (
+            <>
+              <div className={styles.containerTitleText}>
+                <p className={styles.titleText}>
+                  يرجى إدخال الطول و الوزن لتحديد القياس المناسب لك
+                </p>
+              </div>
+              <div className={styles.containerInputLengthAndWeight}>
+                <TextField
+                  type="text"
+                  label="القياس"
+                  variant="standard"
+                  value={size}
+                  readOnly
+                  fullWidth
+                />
+                <TextField
+                  type="number"
+                  label="(الوزن (كغ"
+                  variant="standard"
+                  value={weight}
+                  onChange={handleChangeWeight}
+                  style={{ margin: "0 1rem 0 1rem" }}
+                  fullWidth
+                />
+                <TextField
+                  fullWidth
+                  type="number"
+                  label="(الطول (سم"
+                  variant="standard"
+                  value={length}
+                  onChange={handleChangeLength}
+                />
+              </div>
+            </>
+          )}
 
           <div>
             {size === "S" && product.S !== true && SizeNotExist}
@@ -248,21 +251,7 @@ export default function ProductDetails({ product }) {
           <div className={styles.containerAllBtns}>
             <button
               onClick={
-                size === ""
-                  ? () =>
-                      Swal.fire({
-                        title:
-                          " لا تستطيع إضافة المنتج إلى حقيبة التسوق الخاصة بك, يجب عليك إدخال الطول والوزن لتحديد القياس المناسب لك",
-                        icon: "error",
-                        confirmButtonColor: "#fb9aa7",
-                        showClass: {
-                          popup: "animate__animated animate__flipInX",
-                        },
-                        hideClass: {
-                          popup: "animate__animated animate__flipOutX",
-                        },
-                      })
-                  : () => AddToBag(product)
+                size === "" ? () => alertErrorSize() : () => AddToBag(product)
               }
               className={
                 product.isAvailable === true

@@ -39,11 +39,7 @@ export const MoreCollections = (
           </ul>
         </div>
         <div className={styles.img}>
-          <img
-            src="/images/test/test1.jpg"
-            width={400}
-            className={styles.img}
-          />
+          <img src="/images/unicorn2.png" width={400} className={styles.img} />
         </div>
       </div>
     </div>

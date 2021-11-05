@@ -6,8 +6,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Link from "next/link";
-// import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-// import { API_URL } from "@/config/index";
 
 export default function MyAccount({ userAccount, token }) {
   // get random quotation every reload :)
@@ -27,19 +25,13 @@ export default function MyAccount({ userAccount, token }) {
   const [getQuotation, setGetQuotation] = useState(words);
   // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-  // // state for input edit
-  // const [isEditInput, setIsEditInput] = useState(false);
-  // const handleEditInput = () => {
-  //   setIsEditInput(!isEditInput);
-  // };
-  // // xxxxxxxxxxxxxxxxxxxx
-
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-        <div className={styles.containerFirstBox}>
+        <div data-aos="zoom-in" className={styles.containerFirstBox}>
           <div className={styles.containerImg}>
             <img
+              data-aos="fade-down"
               className={styles.img}
               src="/images/unicorn/women fashions.jpg"
               width={100}
@@ -47,13 +39,13 @@ export default function MyAccount({ userAccount, token }) {
           </div>
 
           <div className={styles.containerText}>
-            <h3>{userAccount.username} 👋 مرحباً</h3>
-            <p> {getQuotation} </p>
+            <h3 data-aos="fade-up">{userAccount.username} 👋 مرحباً</h3>
+            <p data-aos="fade-up"> {getQuotation} </p>
           </div>
 
-          <div className={styles.containerBtns}>
+          <div data-aos="fade-right" className={styles.containerBtns}>
             <Link href="/account/dashboard-user">
-              <button className={styles.orderHistoryBtn}> سجل طلباتك </button>
+              <button className={styles.orderHistoryBtn}>سجل طلباتك</button>
             </Link>
             <Link href="/products/shopping-bag">
               <button className={styles.shoppingBagBtn}>حقيبة التسوق</button>
@@ -66,13 +58,17 @@ export default function MyAccount({ userAccount, token }) {
             <Table className={styles.containerTable} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell className={styles.titleTable} align="right">
+                  <TableCell
+                    data-aos="fade-in"
+                    className={styles.titleTable}
+                    align="right"
+                  >
                     تفاصيل الحساب
                   </TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-              <TableHead>
+              <TableHead data-aos="fade-right">
                 <TableRow>
                   <TableCell className={styles.fontFamily} align="left">
                     {userAccount.firstName}

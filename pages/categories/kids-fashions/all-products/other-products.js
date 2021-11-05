@@ -12,7 +12,7 @@ export default function otherProducts({ kidsProducts, token }) {
 
   return (
     <Layout>
-      <div className="containerTitle">
+      <div data-aos="fade-in" className="containerTitle">
         <h1 className="h1Title">جميع المنتجات الأخرى</h1>
         <AiOutlineLine className="lineIcon" />
       </div>

@@ -12,7 +12,6 @@ import { HiMinusSm } from "react-icons/hi";
 import { HiPlusSm } from "react-icons/hi";
 import { AiOutlineLine } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
-import { VscClose } from "react-icons/vsc";
 
 export default function ShoppingBag() {
   // shopping bag context
@@ -20,18 +19,17 @@ export default function ShoppingBag() {
     useContext(BagContext);
   const { items = [] } = bag;
   // xxxxxxxxxxxxxxxxxxxxx
-  console.log(items);
 
   return (
     <div className={styles.main}>
-      <div className="containerTitle">
+      <div data-aos="fade-in" className="containerTitle">
         <h1 className="h1Title"> حقيبة التسوق </h1>
         <AiOutlineLine className="lineIcon" />
       </div>
       {items.length !== 0 ? (
         <>
           <TableContainer style={{ margin: "3.5rem 0 0 0" }}>
-            <Table className={styles.containerTable}>
+            <Table data-aos="fade-right" className={styles.containerTable}>
               <TableHead>
                 <TableRow>
                   <TableCell align="left">
@@ -64,7 +62,7 @@ export default function ShoppingBag() {
                         />
                         <div className={styles.itemDetails}>
                           <p className={styles.nameItem}>{item.name}</p>
-                          <p>{items.color}</p>
+                          <p>{item.color}</p>
                           <p>
                             {item.size}{" "}
                             {item.size !== undefined ? ":القياس" : null}
@@ -108,7 +106,10 @@ export default function ShoppingBag() {
             </Table>
           </TableContainer>
 
-          <div className={styles.containerBoxAmountDetails}>
+          <div
+            data-aos="fade-left"
+            className={styles.containerBoxAmountDetails}
+          >
             <div className={styles.totalAmountDetails}>
               <p className={styles.subTotalText}>
                 {bag.totalBag} JD :السعر الإجمالي

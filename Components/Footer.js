@@ -172,7 +172,7 @@ export default function Header() {
         <p>
           حقوق النشر والنسخ محفوظة || صنع بواسطة
           <br />
-          <a href="https://github.com/Mostafa-DE">مصطفى فياض</a>
+          <a href="https://www.linkedin.com/in/mostafa-de/">مصطفى فياض</a>
         </p>
       </div>
 

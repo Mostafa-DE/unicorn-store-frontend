@@ -2,7 +2,7 @@ import styles from "@/styles/SearchInput.module.css";
 
 export default function SearchInput({ searchTerm, handleChange }) {
   return (
-    <div className={styles.containerSearchInput}>
+    <div data-aos="fade-in" className={styles.containerSearchInput}>
       <input
         type="text"
         value={searchTerm}

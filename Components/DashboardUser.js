@@ -3,7 +3,6 @@ import React from "react";
 import Link from "next/link";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -21,7 +20,10 @@ export default function DashboardUser({ userOrders }) {
 
     return (
       <React.Fragment>
-        <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+        <TableRow
+          data-aos="fade-right"
+          sx={{ "& > *": { borderBottom: "unset" } }}
+        >
           <TableCell>
             <div
               className={styles.containerDetailsIcon}
@@ -66,7 +68,7 @@ export default function DashboardUser({ userOrders }) {
                 <Typography variant="h6" gutterBottom component="div">
                   <span>تفاصيل الطلب</span>
                 </Typography>
-                <Table size="small" aria-label="purchases">
+                <Table size="small" aria-label="purchases" data-aos="fade-in">
                   <TableHead>
                     <TableRow>
                       <TableCell></TableCell>
@@ -136,7 +138,7 @@ export default function DashboardUser({ userOrders }) {
 
   return (
     <div className={styles.main}>
-      <div className="containerTitle">
+      <div data-aos="fade-in" className="containerTitle">
         <h1 className="h1Title"> سجل الطلبات</h1>
         <AiOutlineLine className="lineIcon" />
       </div>

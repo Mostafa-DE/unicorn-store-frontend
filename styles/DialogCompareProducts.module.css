@@ -87,7 +87,12 @@
   text-align: end;
   margin: 0.5rem 0 0 0;
   color: rgb(6, 194, 6);
-  letter-spacing: -0.5px;
+}
+
+.outOfStockText {
+  text-align: end;
+  margin: 0.5rem 0 0 0;
+  color: red;
 }
 
 .productType,
@@ -131,6 +136,7 @@
   cursor: pointer;
   text-decoration: none;
   font-family: "Tajawal", sans-serif;
+  font-size: 1rem;
 }
 
 .deleteAllBtn:hover {
@@ -138,7 +144,7 @@
 }
 
 .deleteIconAll {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease-in;
   margin: 0.2rem 0.2rem 0 0;

@@ -116,8 +116,6 @@ export default function RegisterForm() {
     });
   };
 
-  // console.log(error);
-
   return (
     <Layout>
       <section className={styles.main}>

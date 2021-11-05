@@ -74,7 +74,7 @@ export default function ProductItems({ product, pathname, token }) {
 
   return (
     <div data-aos="fade-right" className={styles.container}>
-      <img className={styles.imgs} src={product.images[0].url} />
+      <img className={styles.imgs} src={product.images[0]?.url} />
       <div className={styles.overlay}>
         <div className={styles.wishItems}>
           <div className={styles.containerIcons}>

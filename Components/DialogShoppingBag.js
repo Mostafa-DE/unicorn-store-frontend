@@ -39,7 +39,7 @@ export default function DialogShoppingBag({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <div className={styles.containerTitle}>
+          <div data-aos="fade-in" className={styles.containerTitle}>
             <p className={styles.titleShoppingBag}> حقيبة التسوق </p>
             <AiOutlineLine className="lineIcon" />
           </div>
@@ -52,7 +52,11 @@ export default function DialogShoppingBag({
             <>
               <div className={styles.containerTableDetails}>
                 <TableContainer>
-                  <Table sx={{ minWidth: 540 }} aria-label="simple table">
+                  <Table
+                    data-aos="fade-in"
+                    sx={{ minWidth: 540 }}
+                    aria-label="simple table"
+                  >
                     <TableHead>
                       <TableRow>
                         <TableCell className={styles.fontFamily} align="center">
@@ -87,7 +91,7 @@ export default function DialogShoppingBag({
                               </div>
                               <div className={styles.itemDetails}>
                                 <p className={styles.nameItem}>{item.name}</p>
-                                <p>{items.color}</p>
+                                <p>{item.color}</p>
                                 <p>
                                   {item.size}{" "}
                                   {item.size !== undefined ? ":القياس" : null}
@@ -133,7 +137,7 @@ export default function DialogShoppingBag({
               </div>
               <div className={styles.mainBoxAmountDetails}>
                 <div className={styles.containerBoxAmountDetails}>
-                  <p className={styles.totalAmount}>
+                  <p data-aos="fade-in" className={styles.totalAmount}>
                     {bag.totalBag} JD :السعر الإجمالي
                   </p>
 

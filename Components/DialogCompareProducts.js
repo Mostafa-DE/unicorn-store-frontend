@@ -1,6 +1,5 @@
 import styles from "@/styles/DialogCompareProducts.module.css";
 import React, { useContext } from "react";
-import Link from "next/link";
 import { CompareContext } from "@/context/CompareContext";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -22,8 +21,6 @@ export default function DialogCompareProducts({
   const { compareItems = [] } = productsCompare;
   // xxxxxxxxxxxxxxxxxxxxxxxx
 
-  // console.log(productsCompare);
-
   return (
     <div>
       <Dialog
@@ -35,7 +32,7 @@ export default function DialogCompareProducts({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <div className={styles.containerTitle}>
+          <div data-aos="zoom-in" className={styles.containerTitle}>
             <p className={styles.titleCompareProducts}>المقارنة بين المنتجات</p>
             <AiOutlineLine className="lineIcon" />
           </div>
@@ -51,7 +48,7 @@ export default function DialogCompareProducts({
 
         <DialogContent className={styles.DialogContent}>
           {compareItems.length !== 0 ? (
-            <table className={styles.containerTable}>
+            <table data-aos="fade-in" className={styles.containerTable}>
               <tbody>
                 <tr>
                   <td className={styles.titleTable}>المنتجات</td>
@@ -107,7 +104,11 @@ export default function DialogCompareProducts({
                   <td className={styles.titleTable}>التوفر</td>
                   {compareItems.map((product) => (
                     <td key={product.id} className={styles.borderBottomTitle}>
-                      <p className={styles.inStockText}>متوفر</p>
+                      {product.isAvaliable === true ? (
+                        <p className={styles.inStockText}>متوفر</p>
+                      ) : (
+                        <p className={styles.outOfStockText}>غير متوفر</p>
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -115,10 +116,10 @@ export default function DialogCompareProducts({
 
               <tbody>
                 <tr>
-                  <td className={styles.titleTable}>نوع المنتج</td>
+                  <td className={styles.titleTable}>نوع القسم</td>
                   {compareItems.map((product) => (
                     <td key={product.id} className={styles.borderBottomTitle}>
-                      <p className={styles.productType}>-</p>
+                      <p className={styles.productType}> {product.type} </p>
                     </td>
                   ))}
                 </tr>
@@ -140,7 +141,7 @@ export default function DialogCompareProducts({
                   <td className={styles.titleTable}> الألوان </td>
                   {compareItems.map((product) => (
                     <td key={product.id} className={styles.borderBottomTitle}>
-                      <p className={styles.productColors}>أسود, أحمر</p>
+                      <p className={styles.productColors}> {product.color} </p>
                     </td>
                   ))}
                 </tr>
@@ -152,8 +153,10 @@ export default function DialogCompareProducts({
                   {compareItems.map((product) => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       <p className={styles.productColors}>
-                        {product.S && "S , "} M , {product.L && "L , "}
-                        {product.XL && "XL , "} {product.XXL && "2XL , "} 3XL
+                        {product.S && "S , "} {product.M && "M , "}
+                        {product.L && "L , "}
+                        {product.XL && "XL , "} {product.XXL && "2XL , "}
+                        {product.XXXL && "3XL "}
                       </p>
                     </td>
                   ))}

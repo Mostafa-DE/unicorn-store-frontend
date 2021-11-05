@@ -1,5 +1,5 @@
 import styles from "@/styles/InvoiceOrder.module.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import { ShippingInfoContext } from "@/context/ShippingInfoContext";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
@@ -16,7 +16,9 @@ export default function Test1() {
   const { shippingInfo } = useContext(ShippingInfoContext);
   const { shippingItems = [] } = shippingInfo;
 
-  console.log(shippingItems);
+  useEffect(() => {
+    window.localStorage.removeItem("shoppingBag");
+  }, []);
 
   const printDocument = () => {
     const input = document.getElementById("invoicePdf");
@@ -28,8 +30,20 @@ export default function Test1() {
     });
   };
 
+  const headBagInfo = ["معلومات الطلب", "السعر", "الكمية", "المجموع"];
+
+  const headShippingInfo = [
+    "الإسم",
+    "العنوان",
+    "الهاتف",
+    "المحافظة",
+    "التوصيل",
+    "الخصم",
+    "المجموع",
+  ];
+
   return (
-    <div className={styles.main}>
+    <div data-aos="fade-in" className={styles.main}>
       <div className={styles.container}>
         <div id="invoicePdf" className={styles.containerSuccessfully}>
           <IoMdCheckmarkCircleOutline className={styles.checkIcon} />
@@ -54,18 +68,11 @@ export default function Test1() {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">
-                  <span>معلومات الطلب</span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>السعر</span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>الكمية</span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>المجموع</span>
-                </TableCell>
+                {headBagInfo.map((item) => (
+                  <TableCell align="center">
+                    <span>{item}</span>
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
             {shippingItems.map((shippingItem) => (
@@ -105,21 +112,11 @@ export default function Test1() {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">
-                  <span>الإسم</span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>العنوان</span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>الهاتف</span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>المحافظة</span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>المجموع</span>
-                </TableCell>
+                {headShippingInfo.map((item) => (
+                  <TableCell align="center">
+                    <span>{item}</span>
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -141,7 +138,13 @@ export default function Test1() {
                     <span>{shippingItem.city}</span>
                   </TableCell>
                   <TableCell align="center">
-                    <span>{shippingItem.totalBag} JD</span>
+                    <span>{shippingItem.DeliveryFees} JD</span>
+                  </TableCell>
+                  <TableCell align="center">
+                    <span>{shippingItem.discountValue || "0"} JD</span>
+                  </TableCell>
+                  <TableCell align="center">
+                    <span>{shippingItem.Totalbag} JD</span>
                   </TableCell>
                 </TableRow>
               ))}

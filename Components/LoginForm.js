@@ -5,7 +5,6 @@ import Link from "next/link";
 import { AuthContext } from "@/context/AuthContext";
 import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
-import { useRouter } from "next/router";
 import { RiEyeLine } from "react-icons/ri";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { FiAlertCircle } from "react-icons/fi";
@@ -13,8 +12,6 @@ import { AiOutlineLine } from "react-icons/ai";
 import Swal from "sweetalert2";
 
 export default function LoginForm() {
-  const router = useRouter();
-
   // Auth context
   const { login, error } = useContext(AuthContext);
   useEffect(() => {

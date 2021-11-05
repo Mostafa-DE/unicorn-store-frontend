@@ -12,7 +12,7 @@ export default function lingeries({ localLingeries, token }) {
 
   return (
     <Layout>
-      <div className="containerTitle">
+      <div data-aos="fade-in" className="containerTitle">
         <h1 className="h1Title">قسم اللانجري المحلي</h1>
         <AiOutlineLine className="lineIcon" />
       </div>

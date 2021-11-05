@@ -37,13 +37,7 @@
   height: 100px;
   margin: 0 1rem 1rem 0;
   cursor: pointer;
-  opacity: 0.7;
   transition: all 0.2s ease-in;
-}
-
-.smallImage:hover {
-  opacity: 1;
-  transition: all 0.2s ease-out;
 }
 
 .video {
@@ -235,12 +229,14 @@
   .smallImagesProduct {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     flex-flow: wrap;
   }
 
   .smallImage {
-    margin: 1rem 0 0 0;
+    margin: 1rem 0.5rem 0 0;
+    width: 5rem;
+    height: 4rem;
   }
 
   .video {

@@ -37,7 +37,10 @@ export const ShippingInfoProvider = ({ children }) => {
     phone,
     orderNumber,
     city,
-    dateDelivered
+    dateDelivered,
+    TotalBag,
+    DeliveryFees,
+    discountValue
   ) => {
     const { shippingItems = [] } = shippingInfo;
     shippingItems.push({
@@ -49,6 +52,9 @@ export const ShippingInfoProvider = ({ children }) => {
       orderNumber: orderNumber,
       city: city,
       dateDelivered: dateDelivered,
+      Totalbag: TotalBag,
+      DeliveryFees: DeliveryFees,
+      discountValue: discountValue,
     });
     setShippingInfo({ shippingItems });
   };

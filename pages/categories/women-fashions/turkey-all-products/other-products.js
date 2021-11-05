@@ -12,7 +12,7 @@ export default function otherProducts({ turkeyWomenProducts, token }) {
 
   return (
     <Layout>
-      <div className="containerTitle">
+      <div data-aos="fade-in" className="containerTitle">
         <h1 className="h1Title">جميع المنتجات التركية</h1>
         <AiOutlineLine className="lineIcon" />
       </div>

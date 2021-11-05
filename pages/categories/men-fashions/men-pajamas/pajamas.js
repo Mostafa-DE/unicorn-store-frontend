@@ -12,7 +12,7 @@ export default function MenPajamas({ menPagamas, token }) {
 
   return (
     <Layout>
-      <div className="containerTitle">
+      <div data-aos="fade-in" className="containerTitle">
         <h1 className="h1Title">البيجامات الرجالي</h1>
         <AiOutlineLine className="lineIcon" />
       </div>
