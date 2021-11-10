@@ -1,6 +1,7 @@
 import styles from "@/styles/InvoiceOrder.module.css";
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ShippingInfoContext } from "@/context/ShippingInfoContext";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import Table from "@mui/material/Table";
@@ -11,8 +12,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import Swal from "sweetalert2";
 
-export default function Test1() {
+export default function InvoiceOrderPage({ token }) {
+  const router = useRouter();
   const { shippingInfo } = useContext(ShippingInfoContext);
   const { shippingItems = [] } = shippingInfo;
 
@@ -22,11 +25,27 @@ export default function Test1() {
 
   const printDocument = () => {
     const input = document.getElementById("invoicePdf");
-    html2canvas(input).then((canvas) => {
+    html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       pdf.addImage(imgData, "PNG", 15, 0, 180, 150);
       pdf.save("رقم الطلب.pdf");
+    });
+  };
+
+  const alertMessageNotLoggedIn = () => {
+    Swal.fire({
+      title: "نعتذر لا يمكن إتمام طلبك",
+      text:
+        " أنت لا تمتلك حساب أو غير مسجل دخولك لذلك لا يمكن عرض سجل الطلبات, إذا كنت تريد تتبع طلبك يرجى تحميل رقم الطلب من خلال الضغط على زر تحميل رقم الطلب وإرسالة لنا عبر أحد وسائل التواصل المعتمدة لدينا",
+      icon: "error",
+      confirmButtonColor: "#fb9aa7",
+      showClass: {
+        popup: "animate__animated animate__flipInX"
+      },
+      hideClass: {
+        popup: "animate__animated animate__flipOutX"
+      }
     });
   };
 
@@ -39,7 +58,7 @@ export default function Test1() {
     "المحافظة",
     "التوصيل",
     "الخصم",
-    "المجموع",
+    "المجموع"
   ];
 
   return (
@@ -51,7 +70,7 @@ export default function Test1() {
             شكراً لك !! لقد تم استلام طلبك بنجاح
           </p>
           <p className={styles.orderNumText}>رقم الطلب الخاص بك</p>
-          {shippingItems.map((product) => (
+          {shippingItems.map(product => (
             <p
               key={product.orderNumber}
               className={styles.orderNumber}
@@ -68,16 +87,16 @@ export default function Test1() {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                {headBagInfo.map((item) => (
+                {headBagInfo.map(item => (
                   <TableCell align="center">
                     <span>{item}</span>
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
-            {shippingItems.map((shippingItem) => (
+            {shippingItems.map(shippingItem => (
               <TableBody key={shippingItem.orderNumber}>
-                {shippingItem.items.map((product) => (
+                {shippingItem.items.map(product => (
                   <TableRow
                     key={product.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -105,14 +124,14 @@ export default function Test1() {
           sx={{
             maxWidth: "1000px",
             backgroundColor: "#fafafa",
-            margin: "2rem 0 0 0",
+            margin: "2rem 0 0 0"
           }}
         >
           <p className={styles.detailsShippingText}>معلومات التوصيل</p>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                {headShippingInfo.map((item) => (
+                {headShippingInfo.map(item => (
                   <TableCell align="center">
                     <span>{item}</span>
                   </TableCell>
@@ -120,7 +139,7 @@ export default function Test1() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {shippingItems.map((shippingItem) => (
+              {shippingItems.map(shippingItem => (
                 <TableRow
                   key={shippingItem.orderNumber}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -161,9 +180,17 @@ export default function Test1() {
             <button onClick={printDocument} className={styles.pdfBtn}>
               طباعة رقم الطلب
             </button>
-            <Link href="/account/dashboard-user">
-              <button className={styles.historyBtn}> سجل الطلبات </button>
-            </Link>
+            <button
+              onClick={
+                token !== null
+                  ? () => router.push("/account/dashboard-user")
+                  : () => alertMessageNotLoggedIn()
+              }
+              className={styles.historyBtn}
+            >
+              {" "}
+              سجل الطلبات{" "}
+            </button>
           </div>
         </div>
       </div>

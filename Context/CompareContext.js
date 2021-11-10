@@ -5,7 +5,7 @@ export const CompareContext = createContext();
 export const CompareProvider = ({ children }) => {
   const [productsCompare, setProductsCompare] = useState({
     compareItems: [],
-    itemsCount: 0,
+    itemsCount: 0
   });
 
   /*---------Save Compare Product in localStorage-----------*/
@@ -29,23 +29,23 @@ export const CompareProvider = ({ children }) => {
   /*---------------------------X----------------------------*/
 
   // calculate total products that compared
-  const calculateBagTotal = (compareItems) => {
+  const calculateBagTotal = compareItems => {
     const itemsCount = compareItems.reduce((prev, curr) => prev + curr.qty, 0);
     return { itemsCount };
   };
 
   // add product to products list Compare
-  const addToCompare = (product) => {
+  const addToCompare = product => {
     const { compareItems = [] } = productsCompare;
     const isProductExist = compareItems.findIndex(
-      (item) => item.id === product.id
+      item => item.slug === product.slug
     );
     if (isProductExist === -1) {
       // false then do ==>
       compareItems.push({
         ...product,
         qty: 1,
-        isProductExist: true,
+        isProductExist: true
       });
     }
     const total = calculateBagTotal(compareItems);
@@ -53,10 +53,10 @@ export const CompareProvider = ({ children }) => {
   };
 
   // remove product from products list Compare
-  const removeFromCompare = (product) => {
+  const removeFromCompare = product => {
     const { compareItems = [] } = productsCompare;
     const isProductExist = compareItems.findIndex(
-      (item) => item.id === product.id
+      item => item.id === product.id
     );
     if (isProductExist !== -1) {
       // true then do ==>
@@ -77,7 +77,7 @@ export const CompareProvider = ({ children }) => {
         productsCompare,
         addToCompare,
         removeFromCompare,
-        removeAllProducts,
+        removeAllProducts
       }}
     >
       {children}

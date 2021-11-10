@@ -26,13 +26,13 @@ export default function ProductItems({ product, pathname, token }) {
   const { wishItems = [] } = wishBag;
   // xxxxxxxxxxxxxxxxx
 
-  const addToWishList = async (product) => {
+  const addToWishList = async product => {
     try {
       await fetch(`${API_URL}/wishes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           name: `${product.name}`,
@@ -41,8 +41,8 @@ export default function ProductItems({ product, pathname, token }) {
           slug: `${product.slug}`,
           productDetailsPage: `${pathname}`,
           IdProductExist: `${product.id}`,
-          qty: product.qty || 1,
-        }),
+          qty: product.qty || 1
+        })
       });
       addToWishBag(product);
       Swal.fire({
@@ -50,11 +50,11 @@ export default function ProductItems({ product, pathname, token }) {
         icon: "success",
         confirmButtonColor: "#fb9aa7",
         showClass: {
-          popup: "animate__animated animate__fadeInDown",
+          popup: "animate__animated animate__fadeInDown"
         },
         hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
+          popup: "animate__animated animate__fadeOutUp"
+        }
       });
     } catch (err) {
       console.log(err);
@@ -66,10 +66,10 @@ export default function ProductItems({ product, pathname, token }) {
   const { compareItems = [] } = productsCompare;
   // xxxxxxxxxxxxxxxx
 
-  const wishBagProduct = wishItems.find((element) => element.id === product.id);
+  const wishBagProduct = wishItems.find(element => element.id === product.id);
 
   const productCompare = compareItems.find(
-    (element) => element.id === product.id
+    element => element.slug === product.slug
   );
 
   return (
