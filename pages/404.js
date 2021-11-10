@@ -12,7 +12,7 @@ export default function NotFoundPage() {
           <p className={styles.explainText}>
             ربما تمت إزالة الصفحة التي تبحث عنها أو أنها غير متاحة مؤقتًا
           </p>
-          <Link href="/">
+          <Link href="/" passHref={true}>
             <button className={styles.backBtn}>رجوع إلى الصفحة الرئيسية</button>
           </Link>
         </div>

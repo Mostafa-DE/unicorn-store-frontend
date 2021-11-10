@@ -4,9 +4,9 @@ export default function ProductsWithSearch({
   productsData,
   searchTerm,
   pathname,
-  token,
+  token
 }) {
-  const allProductsFiltered = productsData.filter((products) => {
+  const allProductsFiltered = productsData.filter(products => {
     if (searchTerm === "") {
       return products;
     } else if (products.name.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -20,7 +20,7 @@ export default function ProductsWithSearch({
 
   return (
     <>
-      {allProductsFiltered.map((productData) => (
+      {allProductsFiltered.map(productData => (
         <ProductItems
           key={productData.id}
           pathname={pathname}
@@ -31,8 +31,8 @@ export default function ProductsWithSearch({
 
       {allProductsFiltered.length === 0 ? (
         <div className="containerSearchResults">
-          <h1 className="h1Text">😔 لا شيء هنا</h1>
-          <p className="pText">
+          <h1>😔 لا شيء هنا</h1>
+          <p>
             لم نتمكن من العثور على المنتج ، ربما لم يكن موجودًا أو غير متوفر
             حالياً
           </p>

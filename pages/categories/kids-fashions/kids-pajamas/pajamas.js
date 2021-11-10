@@ -6,7 +6,7 @@ import ProductsWithSearch from "@/components/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
 import { parseCookies } from "@/helpers/index";
 
-export default function pajamas({ kidsPajamas, token }) {
+export default function Pajamas({ kidsPajamas, token }) {
   const pathname = "/categories/kids-fashions/kids-pajamas";
   const [searchTerm, handleChange] = useSearch("");
 
@@ -38,7 +38,7 @@ export async function getServerSideProps({ req }) {
   return {
     props: {
       kidsPajamas: kidsPajamas,
-      token: token,
-    },
+      token: token
+    }
   };
 }

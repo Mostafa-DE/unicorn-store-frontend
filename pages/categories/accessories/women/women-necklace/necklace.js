@@ -6,7 +6,7 @@ import ProductsWithSearch from "@/components/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
 import { parseCookies } from "@/helpers/index";
 
-export default function necklace({ necklaces, token }) {
+export default function Necklace({ necklaces, token }) {
   const pathname = "/categories/accessories/women/women-necklace";
   const [searchTerm, handleChange] = useSearch("");
 
@@ -38,7 +38,7 @@ export async function getServerSideProps({ req }) {
   return {
     props: {
       necklaces: necklaces,
-      token: token,
-    },
+      token: token
+    }
   };
 }

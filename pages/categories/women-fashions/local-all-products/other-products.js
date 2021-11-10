@@ -6,7 +6,7 @@ import ProductsWithSearch from "@/components/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
 import { parseCookies } from "@/helpers/index";
 
-export default function otherProducts({ localWomenProducts, token }) {
+export default function OtherProducts({ localWomenProducts, token }) {
   const pathname = "/categories/women-fashions/local-all-products";
   const [searchTerm, handleChange] = useSearch("");
 
@@ -38,7 +38,7 @@ export async function getServerSideProps({ req }) {
   return {
     props: {
       localWomenProducts: localWomenProducts,
-      token: token,
-    },
+      token: token
+    }
   };
 }
