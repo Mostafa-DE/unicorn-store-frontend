@@ -1,9 +1,11 @@
 import styles from "@/styles/Layout.module.css";
+import { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import ButtonScrollUp from "./ButtonScrollUp";
 import ButtonWhatsApp from "./ButtonWhatsApp";
+import NProgress from "nprogress";
 
 /*-------------components--------------*/
 import Header from "./Header";
@@ -13,11 +15,42 @@ import ChatBot from "./ChatBot";
 
 export default function Layout({ title, description, children, userAccount }) {
   const router = useRouter();
+
+  /*---------n progress to show prgress for each click--------*/
+  useEffect(() => {
+    const onRouterChangeStart = () => {
+      NProgress.start();
+    };
+    const onRouteChangeComplete = () => {
+      NProgress.done();
+    };
+    const onRouteChangeError = () => {
+      NProgress.done();
+    };
+    router.events.on("routeChangeStart", onRouterChangeStart);
+    router.events.on("routeChangeComplete", onRouteChangeComplete);
+    router.events.on("routeChangeError", onRouteChangeError);
+
+    return () => {
+      router.events.off("routeChangeStart", onRouterChangeStart);
+      router.events.off("routeChangeComplete", onRouteChangeComplete);
+      router.events.off("routeChangeError", onRouteChangeError);
+    };
+  });
+  /*-----------------------------x----------------------------*/
+
   return (
     <div>
       <Head>
         <title> {title} </title>
         <meta name="description" content={description} />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
+          integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
       </Head>
       <Header />
       {router.pathname === "/" && (

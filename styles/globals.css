@@ -248,3 +248,33 @@ a {
 }
 
 /*  -------------X------------- */
+
+/* style for nProgress loading */
+#nprogress .bar {
+  background-color: #fb9aa7;
+  color: #fb9aa7;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #fb9aa7, 0 0 5px #fb9aa7;
+}
+
+#nprogress .spinner {
+  display: "block";
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: solid 2px transparent;
+  border-top-color: #fb9aa7;
+  border-left-color: #fb9aa7;
+  border-radius: 50%;
+  animation: nprogress-spinner 400ms linear infinite;
+}
+/*  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */

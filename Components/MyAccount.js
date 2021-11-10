@@ -18,7 +18,7 @@ export default function MyAccount({ userAccount, token }) {
     " “ Be Strong 🌹 ” ",
     " “ Love the life you live, live the life you love 🌹 ”  ",
     " “ Enjoy in every moment in your life 😉 ”  ",
-    ` “ Seize the days, ${userAccount.firstName} 😉 ”  `,
+    ` “ Seize the days, ${userAccount.firstName} 😉 ”  `
   ];
   const randWord = Math.floor(Math.random() * WelcomeArray.length);
   const words = WelcomeArray[randWord];

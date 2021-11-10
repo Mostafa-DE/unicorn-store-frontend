@@ -7,11 +7,12 @@ import { BagProvider } from "@/context/BagContext";
 import { WishBagProvider } from "@/context/WishBagContext";
 import { CompareProvider } from "@/context/CompareContext";
 import { ShippingInfoProvider } from "@/context/ShippingInfoContext";
+import { motion, AnimatePresence } from "framer-motion";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   useEffect(() => {
     AOS.init({
-      duration: 2000,
+      duration: 2000
     });
   }, []);
 
@@ -39,18 +40,37 @@ function MyApp({ Component, pageProps }) {
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
         crossOrigin="anonymous"
       />
-
-      <AuthProvider>
-        <BagProvider>
-          <WishBagProvider>
-            <CompareProvider>
-              <ShippingInfoProvider>
-                <Component {...pageProps} />
-              </ShippingInfoProvider>
-            </CompareProvider>
-          </WishBagProvider>
-        </BagProvider>
-      </AuthProvider>
+      <AnimatePresence>
+        <motion.div
+          key={router.route}
+          initial="pageInitial"
+          animate="pageAnimate"
+          variants={{
+            pageInitial: {
+              opacity: 0
+            },
+            pageAnimate: {
+              opacity: 1
+            },
+            pageExit: {
+              backgroundColor: "#fb9aa7",
+              opacity: 0
+            }
+          }}
+        >
+          <AuthProvider>
+            <BagProvider>
+              <WishBagProvider>
+                <CompareProvider>
+                  <ShippingInfoProvider>
+                    <Component {...pageProps} />
+                  </ShippingInfoProvider>
+                </CompareProvider>
+              </WishBagProvider>
+            </BagProvider>
+          </AuthProvider>
+        </motion.div>
+      </AnimatePresence>
     </>
   );
 }
