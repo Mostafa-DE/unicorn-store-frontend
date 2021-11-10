@@ -8,11 +8,11 @@ import ButtonWhatsApp from "./ButtonWhatsApp";
 /*-------------components--------------*/
 import Header from "./Header";
 import Footer from "./Footer";
+import ChatBot from "./ChatBot";
 /*------------------X------------------*/
 
-export default function Layout({ title, description, children }) {
+export default function Layout({ title, description, children, userAccount }) {
   const router = useRouter();
-
   return (
     <div>
       <Head>
@@ -34,6 +34,9 @@ export default function Layout({ title, description, children }) {
 
       <div className={styles.container}> {children} </div>
       <Footer />
+
+      <ChatBot userAccount={userAccount} />
+
       <ButtonScrollUp />
       <ButtonWhatsApp />
     </div>
@@ -44,6 +47,6 @@ export default function Layout({ title, description, children }) {
 Layout.defaultProps = {
   title: "Unicorn Store | Shop Online For Fashions, Tools, Gifts & More",
   description:
-    "Unicorn Store | Shop Online for Electronics, Toys, Beauty, Tools & More. Exclusive Products. Same Day Delivery. Cash on Delivery.",
+    "Unicorn Store | Shop Online for Electronics, Toys, Beauty, Tools & More. Exclusive Products. Same Day Delivery. Cash on Delivery."
 };
 /*---------------------------------X--------------------------------*/

@@ -13,7 +13,7 @@ export default function Packages({ packages, token }) {
   return (
     <Layout>
       <div data-aos="fade-in" className="containerTitle">
-        <h1 className="h1Title">البيجامات الرجالي</h1>
+        <h1 className="h1Title"> قسم الهدايا والباكيجات</h1>
         <AiOutlineLine className="lineIcon" />
       </div>
 

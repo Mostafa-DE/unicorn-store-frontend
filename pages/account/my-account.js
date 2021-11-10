@@ -17,8 +17,8 @@ export async function getServerSideProps({ req }) {
   const res = await fetch(`${API_URL}/users/me`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
-    },
+      Authorization: `Bearer ${token}`
+    }
   });
 
   const userAccount = await res.json();
@@ -26,7 +26,7 @@ export async function getServerSideProps({ req }) {
   return {
     props: {
       userAccount,
-      token: token,
-    },
+      token: token
+    }
   };
 }

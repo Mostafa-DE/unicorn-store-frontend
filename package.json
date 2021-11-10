@@ -31,6 +31,8 @@
     "react-elastic-carousel": "^0.11.5",
     "react-icons": "^4.2.0",
     "react-material-ui-form-validator": "^2.1.4",
+    "react-simple-chatbot": "^0.6.1",
+    "styled-components": "^5.3.3",
     "sweetalert2": "^11.1.5"
   },
   "devDependencies": {

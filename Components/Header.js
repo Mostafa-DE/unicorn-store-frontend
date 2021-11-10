@@ -2,9 +2,9 @@ import styles from "@/styles/Header.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import "animate.css";
-import Swal from "sweetalert2";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import Alert from "react-bootstrap/Alert";
 
 /*--------------------Components-------------------------*/
 import MenuDrawer from "./MenuDrawer";
@@ -30,7 +30,6 @@ import Badge from "@mui/material/Badge";
 /*----------------------Context--------------------------*/
 import { AuthContext } from "@/context/AuthContext";
 import { BagContext } from "@/context/BagContext";
-import { WishBagContext } from "@/context/WishBagContext";
 import { CompareContext } from "@/context/CompareContext";
 /*-------------------------X-----------------------------*/
 
@@ -65,15 +64,14 @@ export default function Header() {
   /*-----------context authenication-----------*/
   const { login, logout, user, error } = useContext(AuthContext);
 
-  useEffect(() => {
-    error &&
-      new Swal({
-        title: error,
-        icon: "error",
-        confirmButtonColor: "#fb9aa7",
-      });
-  });
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const handleCloseErrorMessage = () => {
+    setShowErrorMessage(false);
+  };
 
+  useEffect(() => {
+    error && setShowErrorMessage(true);
+  });
   /*---------------------X---------------------*/
 
   /*-----------------context Bag---------------*/
@@ -91,7 +89,7 @@ export default function Header() {
   /*---state for handle shopping Bag (open/close)---*/
   const [shoppingDialog, openShoppingDialog, closeShoppingDialog] =
     useDrawer(false);
-  /*------------------------X-----------------------*/
+  /*-------------------------X---------------------------*/
 
   /*--state for handle compare dialog (open/close)--*/
   const [compareDialog, openCompareDialog, closeCompareDialog] =
@@ -134,6 +132,20 @@ export default function Header() {
         <ValidatorForm onSubmit={handleSubmit}>
           <p className={styles.titleDialog}>تسجيل الدخول</p>
 
+          <Alert
+            style={{
+              maxWidth: "20rem",
+              textAlign: "center",
+              fontSize: "0.8rem",
+            }}
+            variant="danger"
+            onClose={handleCloseErrorMessage}
+            dismissible
+            show={showErrorMessage}
+          >
+            نعتذر كلمة المرور أو البريد الإلكتروني غير صحيح يرجى المحاولة مرة
+            أخرى
+          </Alert>
           <DialogContent>
             <div className={styles.containerInput}>
               <TextValidator
@@ -232,8 +244,9 @@ export default function Header() {
             <div>{AccessoriesCollections}</div>
 
             <div>{MoreCollections}</div>
-
-            <div className={styles.link}>{DialogLogin}</div>
+            {router.pathname === "/account/login" ? null : (
+              <div className={styles.link}>{DialogLogin}</div>
+            )}
           </ul>
         </div>
 

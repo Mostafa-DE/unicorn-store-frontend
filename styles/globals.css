@@ -125,14 +125,12 @@ a {
 }
 
 .h1Text {
-  font-size: 2.7rem;
-  font-weight: 600;
+  font-size: 2.2rem;
   text-align: center;
 }
 
 .pText {
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -167,15 +165,6 @@ a {
   color: black;
 }
 
-/* @media only screen and (max-width: 370px) {
-  .carousel .rec .rec-arrow {
-    border-radius: 0;
-    font-size: 1rem;
-    background-color: transparent;
-    box-shadow: none;
-    z-index: 1;
-  }
-} */
 @media only screen and (max-width: 365px) {
   .containerRateStarIcons {
     display: none;
@@ -189,3 +178,73 @@ a {
   visibility: hidden;
 }
 /* ---------------X---------------*/
+
+.rsc-float-button {
+  margin: 0 -1.5rem 1.5rem 0;
+}
+
+.rsc-container {
+  margin: 0 -1.3rem 1.5rem 0;
+}
+
+@media (max-width: 570px) {
+  .rsc-float-button {
+    margin: 0 0 1.5rem 0;
+  }
+
+  .rsc-container {
+    margin: 0;
+  }
+}
+
+/*  style all terms and policy */
+
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap");
+
+.containerAllText {
+  width: 50% !important;
+  margin: 3rem 0 0 0;
+}
+
+.h1Text {
+  text-align: center;
+  margin: 8rem 0 0 0;
+  font-family: "Roboto Slab", serif;
+  font-weight: 600;
+}
+
+.containerAllText h5 {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.containerAllText p {
+  font-family: "Lora", serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.containerAllText li {
+  font-family: "Lora", serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1000px) {
+  .containerAllText {
+    width: 100% !important;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: #fb9aa7;
+  font-weight: 600;
+}
+
+.link:hover {
+  color: #fac5cb;
+}
+
+/*  -------------X------------- */

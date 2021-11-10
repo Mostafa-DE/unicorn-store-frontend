@@ -26,7 +26,8 @@ export default function RegisterForm() {
   useEffect(() => {
     error &&
       new Swal({
-        title: error,
+        title: "حدث خطأ أثناء عملية إنشاء الحساب",
+        text: error,
         icon: "error",
         confirmButtonColor: "#fb9aa7",
       });
@@ -53,55 +54,6 @@ export default function RegisterForm() {
   const handleSubmit = (evnt) => {
     evnt.preventDefault();
 
-    /*----------------validation password--------------------*/
-    if (password !== confirmPassword) {
-      Swal.fire({
-        title: "!! كلمات المرور غير متطابقة",
-        icon: "error",
-        confirmButtonColor: "#fb9aa7",
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-        footer: "<p>كلمة المرور و تأكيد كلمة المرور يجب أن تكون متطابقة</p>",
-      });
-      return;
-    }
-
-    if (password.length < 8) {
-      Swal.fire({
-        title: "كلمة المرور يجب أن تكون على الأقل مكونة من 8 خانات",
-        icon: "error",
-        confirmButtonColor: "#fb9aa7",
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      });
-
-      return;
-    }
-
-    if (password.search(/[0-9]/) === -1) {
-      Swal.fire({
-        title: "كلمة المرور يجب ان تحتوي على الأقل رقم واحد",
-        icon: "error",
-        confirmButtonColor: "#fb9aa7",
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      });
-      return;
-    }
-    /*----------------------------x--------------------------*/
-
     register({
       username,
       email,
@@ -116,6 +68,72 @@ export default function RegisterForm() {
     });
   };
 
+  // Validations Rule for input
+  useEffect(() => {
+    ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
+      if (value.length > 10 || value.length < 10) {
+        return false;
+      }
+      return true;
+    });
+  });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("isLocalNumber", (value) => {
+      if (value.match("078") || value.match("079") || value.match("077")) {
+        return true;
+      }
+      return false;
+    });
+  });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("validUsername", (value) => {
+      if (value.search(/[0-9]/) === -1) {
+        return false;
+      }
+      return true;
+    });
+  });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("validUsername", (value) => {
+      if (value.search(/[0-9]/) === -1) {
+        return false;
+      }
+      return true;
+    });
+  });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("moreThan8Character", (value) => {
+      if (value.length > 8) {
+        return true;
+      }
+      return false;
+    });
+  });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("passwordContainANumbers", (value) => {
+      if (value.search(/[0-9]/) === -1) {
+        return false;
+      }
+      return true;
+    });
+  });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("matchPasswords", (value) => {
+      if (value === password) {
+        return true;
+      }
+      return false;
+    });
+  });
+
+  // xxxxxxxxxxxxxxxxxxxxxxxxx
+
   return (
     <Layout>
       <section className={styles.main}>
@@ -126,7 +144,7 @@ export default function RegisterForm() {
               <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <div className={"d-flex align-items-center my-4"}>
                   <p
-                    className={`text-center fw-bold mx-3 mb-0 ${styles.titleContactDetails}`}
+                    className={`text-center  mx-3 mb-0 ${styles.titleContactDetails}`}
                   >
                     بيانات المستخدم
                   </p>
@@ -141,8 +159,11 @@ export default function RegisterForm() {
                     fullWidth
                     variant="standard"
                     label="إسم المستخدم"
-                    validators={["required"]}
-                    errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
+                    validators={["required", "validUsername"]}
+                    errorMessages={[
+                      "!! لا يمكنك ترك هذا الحقل فارغاً",
+                      " إسم المستخدم يجب أن يحتوي على الأقل 3 أرقام  ",
+                    ]}
                   />
                 </div>
                 <div className="form-outline mb-3">
@@ -167,8 +188,16 @@ export default function RegisterForm() {
                       onChange={handleChangePassword}
                       variant="standard"
                       label="الرقم السري"
-                      validators={["required"]}
-                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
+                      validators={[
+                        "required",
+                        "moreThan8Character",
+                        "passwordContainANumbers",
+                      ]}
+                      errorMessages={[
+                        "!! لا يمكنك ترك هذا الحقل فارغاً",
+                        "لا يمكن أن يكون الرقم السري أقل من 8 خانات",
+                        "الرقم السري يجب ان يحتوي على الأقل رقم واحد",
+                      ]}
                     />
                   </div>
 
@@ -180,8 +209,11 @@ export default function RegisterForm() {
                       onChange={handleChangeConfirmPassword}
                       variant="standard"
                       label="تأكيد الرقم السري"
-                      validators={["required"]}
-                      errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
+                      validators={["required", "matchPasswords"]}
+                      errorMessages={[
+                        "!! لا يمكنك ترك هذا الحقل فارغاً",
+                        "كلمة المرور غير متطابقة",
+                      ]}
                     />
                     {showPassword === true ? (
                       <RiEyeLine
@@ -204,8 +236,12 @@ export default function RegisterForm() {
                     fullWidth
                     variant="standard"
                     label="رقم الهاتف"
-                    validators={["required"]}
-                    errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
+                    validators={["required", "isPhoneNumber", "isLocalNumber"]}
+                    errorMessages={[
+                      "!! لا يمكنك ترك هذا الحقل فارغاً",
+                      "!! رقم الهاتف يجب أن يتكون من 10 أرقام فقط",
+                      "(078 , 079, 077) رقم الهاتف يجب أن يبدأ ب",
+                    ]}
                   />
                 </div>
                 {/*-----------------------X------------------------*/}
@@ -217,7 +253,7 @@ export default function RegisterForm() {
                   className={`${styles.divider} d-flex align-items-center my-4`}
                 >
                   <p
-                    className={`text-center fw-bold mx-3 mb-0 ${styles.titleContactDetails}`}
+                    className={`text-center  mx-3 mb-0 ${styles.titleContactDetails}`}
                   >
                     بيانات التوصيل
                   </p>

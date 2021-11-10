@@ -48,7 +48,7 @@ export default function Header() {
               </li>
               <li>
                 <p>
-                  <Link href="/terms-policy/sales-policies">
+                  <Link href="/terms-policy/sales-policy">
                     <a className={styles.link}>سياسة المبيعات</a>
                   </Link>
                 </p>

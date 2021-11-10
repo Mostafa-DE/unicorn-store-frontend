@@ -6,12 +6,14 @@ import { API_URL } from "@/config/index";
 import CarouselDresses from "@/components/CarouselDresses";
 import { parseCookies } from "@/helpers/index";
 import SubscripeForm from "@/components/SubscripeForm";
+import PropertiesOurPage from "@/components/PropertiesOurPage";
 
 export default function Home({
   turkeyDresses,
   localAbayas,
   menPagamas,
   token,
+  userAccount
 }) {
   useEffect(() => {
     window.localStorage.removeItem("shippingInformation");
@@ -22,11 +24,14 @@ export default function Home({
     dots: true,
     overScan: 5,
     slidesPerRow: 2,
-    virtualList: true,
+    virtualList: true
   };
 
   return (
-    <Layout title="Unicorn Store | Shop Online For Fastions, Tools, Gifts & More">
+    <Layout
+      userAccount={userAccount}
+      title="Unicorn Store | Shop Online For Fastions, Tools, Gifts & More"
+    >
       <CategoriesPhoto />
 
       <CarouselDresses
@@ -36,9 +41,9 @@ export default function Home({
         menPagamas={menPagamas}
       />
 
-      <SubscripeForm />
+      <PropertiesOurPage />
 
-      {/* <CarouselBrand /> */}
+      <SubscripeForm />
     </Layout>
   );
 }
@@ -55,12 +60,22 @@ export async function getServerSideProps({ req }) {
   const menPagamasRes = await fetch(`${API_URL}/men-pajamas?_limit=5`);
   const menPagamas = await menPagamasRes.json();
 
+  const resAccount = await fetch(`${API_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  const userAccount = await resAccount.json();
+
   return {
     props: {
       turkeyDresses: turkeyDresses,
       localAbayas: localAbayas,
       menPagamas: menPagamas,
       token: token,
-    },
+      userAccount: userAccount
+    }
   };
 }

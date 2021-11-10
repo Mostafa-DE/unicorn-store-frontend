@@ -24,7 +24,7 @@ export default function CarouselDresses({
         disableArrowsOnEnd={false}
         className="carousel"
       >
-        {turkeyDresses.map((product) => (
+        {turkeyDresses?.map((product) => (
           <ProductItems
             pathname={product.productDetailsPage}
             key={product.id}
@@ -33,7 +33,7 @@ export default function CarouselDresses({
           />
         ))}
 
-        {localAbayas.map((product) => (
+        {localAbayas?.map((product) => (
           <ProductItems
             pathname={product.productDetailsPage}
             token={token}
@@ -42,7 +42,7 @@ export default function CarouselDresses({
           />
         ))}
 
-        {menPagamas.map((product) => (
+        {menPagamas?.map((product) => (
           <ProductItems
             pathname={product.productDetailsPage}
             token={token}

@@ -80,7 +80,7 @@ export default function CategoriesPhoto() {
                       <li>فساتين</li>
                     </Link>
                     <Link href="/categories/kids-fashions/all-products/other-products">
-                      <li> جميع المنتجات الأخرى </li>
+                      <li> جميع المنتجات </li>
                     </Link>
                   </ul>
                 </div>
@@ -105,7 +105,7 @@ export default function CategoriesPhoto() {
                       <li> البيجامات </li>
                     </Link>
                     <Link href="/categories/men-fashions/all-products/other-products">
-                      <li> جميع المنتجات الأخرى </li>
+                      <li> جميع المنتجات </li>
                     </Link>
                   </ul>
                 </div>

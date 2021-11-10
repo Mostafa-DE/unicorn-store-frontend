@@ -14,7 +14,6 @@ export default function DialogCompareProducts({
   closeCompareDialog,
 }) {
   const router = useRouter();
-
   // compare products context
   const { productsCompare, removeFromCompare, removeAllProducts } =
     useContext(CompareContext);
@@ -104,7 +103,7 @@ export default function DialogCompareProducts({
                   <td className={styles.titleTable}>التوفر</td>
                   {compareItems.map((product) => (
                     <td key={product.id} className={styles.borderBottomTitle}>
-                      {product.isAvaliable === true ? (
+                      {product.isAvailable === true ? (
                         <p className={styles.inStockText}>متوفر</p>
                       ) : (
                         <p className={styles.outOfStockText}>غير متوفر</p>
