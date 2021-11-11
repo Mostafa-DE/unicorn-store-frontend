@@ -31,7 +31,6 @@ export default function ChatBotComponent({ userAccount }) {
               toggleFloating={toggleFloating}
             />
           }
-          speechSynthesis={{ enable: true, lang: "ar" }}
           botAvatar="/images/avatar.svg"
           floatingIcon="/images/avatar.svg"
           botDelay={2000}

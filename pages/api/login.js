@@ -8,11 +8,12 @@ const loginApi = async (req, res) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({
         identifier,
-        password,
-      }),
+        password
+      })
     });
     const data = await strapiRes.json();
     if (strapiRes.ok) {
@@ -24,19 +25,17 @@ const loginApi = async (req, res) => {
           secure: process.env.NODE_ENV != "development",
           maxAge: 60 * 60 * 24 * 7, // for a week
           sameSite: "strict",
-          path: "/",
+          path: "/"
         })
       );
       /*----------X-----------*/
       res.status(200).json({ user: data.user });
       return;
     } else {
-      res
-        .status(data.statusCode)
-        .json({
-          message:
-            "البريد الإلكتروني أو كلمة المرور غير صحيحة, يرجى المحاولة مرة أخرى",
-        });
+      res.status(data.statusCode).json({
+        message:
+          "البريد الإلكتروني أو كلمة المرور غير صحيحة, يرجى المحاولة مرة أخرى"
+      });
     }
     res.status(200).json({});
   } else {

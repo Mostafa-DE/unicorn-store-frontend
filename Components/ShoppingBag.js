@@ -15,8 +15,9 @@ import { FaTrash } from "react-icons/fa";
 
 export default function ShoppingBag() {
   // shopping bag context
-  const { bag, increaseQty, decreaseQty, removeFromBag } =
-    useContext(BagContext);
+  const { bag, increaseQty, decreaseQty, removeFromBag } = useContext(
+    BagContext
+  );
   const { items = [] } = bag;
   // xxxxxxxxxxxxxxxxxxxxx
 
@@ -29,7 +30,7 @@ export default function ShoppingBag() {
       {items.length !== 0 ? (
         <>
           <TableContainer style={{ margin: "3.5rem 0 0 0" }}>
-            <Table data-aos="fade-right" className={styles.containerTable}>
+            <Table data-aos="fade-in" className={styles.containerTable}>
               <TableHead>
                 <TableRow>
                   <TableCell align="left">
@@ -47,7 +48,7 @@ export default function ShoppingBag() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {items.map((item) => (
+                {items.map(item => (
                   <TableRow key={item.id}>
                     <TableCell
                       sx={{ width: "23rem" }}
@@ -106,10 +107,7 @@ export default function ShoppingBag() {
             </Table>
           </TableContainer>
 
-          <div
-            data-aos="fade-left"
-            className={styles.containerBoxAmountDetails}
-          >
+          <div data-aos="fade-in" className={styles.containerBoxAmountDetails}>
             <div className={styles.totalAmountDetails}>
               <p className={styles.subTotalText}>
                 {bag.totalBag} JD :السعر الإجمالي

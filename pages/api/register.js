@@ -13,12 +13,13 @@ const registerApi = async (req, res) => {
       address,
       deliveryPhone,
       city,
-      building,
+      building
     } = req.body;
     const createUserInStrapi = await fetch(`${API_URL}/auth/local/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({
         username,
@@ -30,8 +31,8 @@ const registerApi = async (req, res) => {
         address,
         deliveryPhone,
         city,
-        building,
-      }),
+        building
+      })
     });
 
     const data = await createUserInStrapi.json();
@@ -44,7 +45,7 @@ const registerApi = async (req, res) => {
           secure: process.env.NODE_ENV !== "development",
           maxAge: 60 * 60 * 24 * 7,
           sameSite: "strict",
-          path: "/",
+          path: "/"
         })
       );
 
@@ -52,7 +53,7 @@ const registerApi = async (req, res) => {
     } else {
       res.status(data.statusCode).json({
         message:
-          "إسم المستخدم غير صالح أو البريد الإلكتروني مستخدم من قبل, إذا كنت متأكد من أن البريد الإلكتروني غير مستخدم من قبل, يرجى المحاولة بإستخدام إسم مستخدم آخر ",
+          "إسم المستخدم غير صالح أو البريد الإلكتروني مستخدم من قبل, إذا كنت متأكد من أن البريد الإلكتروني غير مستخدم من قبل, يرجى المحاولة بإستخدام إسم مستخدم آخر "
       });
     }
     res.status(200).json({});
