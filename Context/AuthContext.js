@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
       router.push("/account/my-account");
     } else {
       setError(data.message);
-      setError(null);
     }
   };
 
@@ -60,7 +59,6 @@ export const AuthProvider = ({ children }) => {
       router.push("/account/my-account");
     } else {
       setError(data.message);
-      setError(null);
     }
   };
 
