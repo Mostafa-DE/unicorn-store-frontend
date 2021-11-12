@@ -13,14 +13,16 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => checkIfUserLoggedIn(), []);
 
   /*--------------------Register------------------*/
-  const register = async (user) => {
+  const register = async user => {
     // console.log(user);
     const createUser = await fetch(`${NEXT_URL}/api/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(user)
     });
 
     const data = await createUser.json();
@@ -42,11 +44,13 @@ export const AuthProvider = ({ children }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
       },
       body: JSON.stringify({
         identifier,
-        password,
-      }),
+        password
+      })
     });
 
     const data = await loginUser.json();
@@ -65,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   /*----------------------logout------------------*/
   const logout = async () => {
     const logoutUser = await fetch(`${NEXT_URL}/api/logout`, {
-      method: "POST",
+      method: "POST"
     });
 
     if (logoutUser.ok) {
@@ -77,7 +81,7 @@ export const AuthProvider = ({ children }) => {
   /*------------------------X---------------------*/
 
   /*----------Check if user is logged in----------*/
-  const checkIfUserLoggedIn = async (user) => {
+  const checkIfUserLoggedIn = async user => {
     const userLoggedIn = await fetch(`${NEXT_URL}/api/user`);
     const data = await userLoggedIn.json();
 
