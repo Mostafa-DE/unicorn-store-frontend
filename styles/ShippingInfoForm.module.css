@@ -1,0 +1,212 @@
+.main {
+  margin: 8rem 0 0 0;
+  font-family: "Tajawal", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.containerShippingBox {
+  background-color: #fafafa;
+  padding: 2rem 6rem;
+  height: 50%;
+}
+
+.firstAndLastNameInput,
+.cityAndBuildingInput {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0.5rem 0 0 0;
+}
+
+.confirmOrderBtn,
+.discountBtn {
+  padding: 0.4rem 3rem;
+  margin: 1.5rem 0 0 0;
+  background-color: #333;
+  color: #fafafa;
+  border: 1px solid #333;
+  transition: all 0.3s ease-in;
+  font-weight: 600;
+}
+
+.discountBtn {
+  padding: 0.2rem 2rem;
+  margin: 0;
+}
+
+.textarea {
+  margin: 1.5rem 0 0 0;
+  width: 100%;
+  text-align: center;
+}
+
+.textarea:focus {
+  outline: 0.5px solid #333;
+  border-radius: 2px;
+}
+
+.confirmOrderBtn:hover,
+.discountBtn:hover {
+  background: none;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+.productContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0 0 0;
+  color: #333;
+}
+
+.productNameAndColor {
+  margin: 0.5rem 0 0 0.5rem;
+}
+
+.containerImgAndName {
+  display: flex;
+}
+
+.productPrice {
+  margin: 2rem 0 0 2rem;
+}
+
+.bagSummaryText,
+.shippingInfoText {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.containerColorAndSize {
+  margin: -1rem 0 0 0;
+}
+
+.ItemsCountText {
+  text-align: end;
+}
+
+.productName {
+  max-width: 60%;
+}
+
+.containetTotalAmountBox {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fafafa;
+  padding: 1rem;
+  margin: 1rem 0 0 0;
+}
+
+.editBagBtn {
+  background: none;
+  border: 1px solid #333;
+  padding: 0.3rem 3.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease-in;
+}
+
+.editBagBtn:hover {
+  background-color: #333;
+  color: #fafafa;
+  transition: all 0.3s ease-out;
+}
+
+.containerCoboneDiscount {
+  margin: 1rem 0 0 0;
+  display: flex;
+}
+
+.discountInput {
+  width: 100%;
+  margin: 0 0 0 0.2rem;
+  border: 1px solid #333;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.discountInput:focus {
+  background-color: #fafafa;
+  outline-color: rgba(51, 51, 51, 0.363);
+}
+
+.mainPageNav {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 2.5rem 0;
+}
+
+.containerPageNav {
+  display: flex;
+  font-size: 1.3rem;
+  list-style: none;
+}
+
+.containerPageNav li {
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.nextIcon {
+  margin: 0.3rem 0 0 0;
+}
+
+.LinkPage {
+  color: #fb9aa7;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.LinkPage:hover {
+  color: #fb9aa7;
+  opacity: 1;
+}
+
+.otherLink {
+  opacity: 0.4;
+}
+
+@media (max-width: 1010px) {
+  .container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .containerShippingBox {
+    width: 70%;
+    margin: 1rem 0 0 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .containerShippingBox {
+    width: 100%;
+  }
+}
+
+@media (max-width: 440px) {
+  .containerShippingBox {
+    width: 100%;
+  }
+
+  .containerShippingBox {
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width: 551px) {
+  .containerPageNav {
+    font-size: 0.9rem;
+  }
+
+  .containerPageNav li {
+    margin: 0 0.2rem 0 0;
+    text-align: center;
+  }
+
+  .nextIcon {
+    margin: 0.3rem 0 0 0;
+  }
+}

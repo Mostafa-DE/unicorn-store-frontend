@@ -1,0 +1,33 @@
+.containerBtn {
+  position: fixed;
+  bottom: 0;
+  right: 2.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.ButtonWhatsApp {
+  background-color: #25d365;
+  padding: 0.1rem 0.1rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin: 0 1rem 0.5rem 0;
+  border-radius: 100%;
+  opacity: 0.7;
+}
+
+.ButtonWhatsApp:hover {
+  opacity: 1;
+}
+
+.ButtonWhatsApp a {
+  color: #fafafa;
+  text-decoration: none;
+}
+
+.ButtonWhatsApp a:hover {
+  color: #fafafa;
+}
+
+.whatsAppIcon {
+  font-size: 1.9rem;
+}

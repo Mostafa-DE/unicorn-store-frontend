@@ -1,0 +1,68 @@
+.main {
+  margin: 8rem 0 0 0;
+  background-color: #fafafa;
+  padding: 2rem 0;
+  font-family: "Tajawal", sans-serif;
+}
+
+.iconShowPassword {
+  margin: 1.9rem 0 0 0;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.linkTermsAndConditions {
+  color: #fb9aa7;
+}
+
+.linkTermsAndConditions:hover {
+  color: #fb9aa7;
+}
+
+.containerSignInBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginBtn {
+  padding: 0.5rem 4rem;
+  background-color: #333;
+  color: #fafafa;
+  border: 1.5px solid #333;
+  transition: all 0.3s ease-in;
+  text-transform: uppercase;
+}
+
+.loginBtn:hover {
+  background: none;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+.linklogin {
+  color: #fb9aa7;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #fb9aa7;
+  padding: 0 0 0.05rem 0;
+  text-decoration: none;
+}
+
+.linklogin:hover {
+  color: #fb9aa7;
+}
+
+.sweetAlertBtn {
+  background-color: #fb9aa7;
+  color: #fafafa;
+  border: 1px solid #fb9aa7;
+}
+
+.sweetAlertBtn:hover {
+  background-color: #fb9aa7;
+}
+
+.titleContactDetails {
+  font-size: 1.3rem;
+}

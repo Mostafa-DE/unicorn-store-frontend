@@ -1,0 +1,107 @@
+.main {
+  margin: 8rem 0 0 0;
+  font-family: "Tajawal", sans-serif;
+}
+
+.containerWishList {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 5rem 0 0 5rem;
+  flex-flow: wrap;
+}
+
+.containerProducts {
+  margin: 0 0 0 2rem;
+  padding: 0 0 1rem 0;
+  max-width: 200px;
+}
+
+.name {
+  text-align: end;
+}
+
+.price {
+  margin: -1.1rem 0 0 0;
+  text-align: end;
+}
+
+.goToProductDetailsPage {
+  padding: 0.2rem 0;
+  width: 100%;
+  background-color: #333;
+  border: 1px solid #333;
+  color: #fafafa;
+  transition: all 0.2s ease-in;
+}
+
+.goToProductDetailsPage:hover {
+  background: none;
+  color: #333;
+  transition: all 0.4s ease-out;
+}
+
+.deleteBtn {
+  text-decoration: underline;
+  text-align: end;
+  margin: 0.5rem 0 0 0;
+  cursor: pointer;
+}
+
+.containerShoppingBagEmpty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem 2.5rem 2.5rem 2.5rem;
+  font-family: "Tajawal", sans-serif;
+  animation-name: zoomIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.containerShoppingBagEmpty h1 {
+  font-size: 1.7rem;
+  text-align: center;
+  font-weight: 600;
+  color: #fb9aa7;
+}
+
+.containerShoppingBagEmpty p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.continueShoppingBtn {
+  padding: 0.4rem 3rem;
+  background: none;
+  color: #333;
+  font-weight: 600;
+  border: 1.5px solid #333;
+  transition: all 0.3s ease-in;
+}
+
+.continueShoppingBtn:hover {
+  background-color: #333;
+  color: #fafafa;
+  transition: all 0.3s ease-out;
+}
+
+@media (max-width: 900px) {
+  .containerWishList {
+    margin: 5rem 0 0 0;
+    justify-content: center;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,281 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
+
+.main {
+  font-family: "Tajawal", sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+
+.containerWomenCard,
+.containerKidsCard,
+.containerMenCard,
+.containerAccessories,
+.containerMakeup,
+.containerHouseware {
+  background: url("../public/images/unicorn/womenCategory.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 25rem;
+  height: 18.5rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  position: relative;
+}
+
+.containerKidsCard {
+  background: url("../public/images/unicorn/kidsCategory.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerMenCard {
+  background: url("../public/images/unicorn/menCategory.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerAccessories {
+  background: url("../public/images/unicorn/accessories2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerMakeup {
+  background: url("../public/images/unicorn/makeUp.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerHouseware {
+  background: url("../public/images/unicorn/houseware.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.womenFashionText {
+  font-size: 1.7rem;
+}
+
+.menCardContent,
+.kidsCardContent,
+.womenCardContent,
+.housewareCardContent {
+  margin: 4rem 0 0 1rem;
+}
+
+.makeupCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8rem 0 0 0;
+}
+
+.housewareCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5rem 0 0 1rem;
+}
+
+.makeupText {
+  font-size: 1.5rem;
+  margin: 0 0 0 2rem;
+  text-align: center;
+}
+
+.accessoriesCardContent {
+  margin: 9rem 0 0 7rem;
+}
+
+.menFashionText {
+  color: #333;
+  font-size: 2rem;
+  margin: 0 0 1rem 11.5rem;
+}
+
+.kidsFashionText,
+.accessoriesText,
+.housewareText {
+  font-size: 1.8rem;
+}
+
+.kidsShopBtn,
+.accessoriesShopBtn,
+.WomenShopBtn,
+.menShopBtn,
+.makeupShopBtn,
+.housewareShopBtn {
+  background: none;
+  border: 1px solid #333;
+  color: #000;
+  padding: 0.4rem 2.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease-in;
+}
+
+.menShopBtn {
+  border: 1px solid #333;
+  color: #000;
+  margin: 0 0 0 11.5rem;
+}
+
+.accessoriesShopBtn {
+  margin: 0 0 0 0.5rem;
+}
+
+.makeupShopBtn {
+  margin: 0.5rem 0 0 2rem;
+}
+
+.makeupShopBtn:hover,
+.housewareShopBtn:hover {
+  background-color: #333;
+  color: #fafafa;
+  transition: all 0.3s ease-out;
+}
+
+/* Overlay when hover on photo */
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f8f8f8e7;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  transform: scale(0);
+  transition: 0.3s ease-in;
+}
+
+.containerWomenCard:hover .overlay {
+  transform: scale(1);
+  transition: all 0.3s ease-out;
+}
+
+.containerWomenCard:hover .WomenShopBtn {
+  display: none;
+}
+
+.containerKidsCard:hover .overlay {
+  transform: scale(1);
+  transition: all 0.3s ease-out;
+}
+
+.containerKidsCard:hover .kidsShopBtn {
+  display: none;
+}
+
+.containerMenCard:hover .overlay {
+  transform: scale(1);
+  transition: all 0.3s ease-out;
+}
+
+.containerMenCard:hover .menShopBtn {
+  display: none;
+}
+
+.containerAccessories:hover .overlay {
+  transform: scale(1);
+  transition: all 0.3s ease-out;
+}
+
+.containerAccessories:hover .accessoriesShopBtn {
+  display: none;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.containerCategories {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 3rem 2rem 0 0;
+}
+
+.allCategories ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.allCategories li {
+  list-style: none;
+  margin: 0.5rem 0 0 0;
+  color: #333;
+  transition: all 0.3s ease-in;
+}
+
+.allCategories li:hover {
+  color: #fb9aa7;
+  transition: all 0.3s ease-out;
+}
+
+.containerTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lineIcon {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #333;
+  margin: -2rem 0 0 0;
+  color: #fb9aa7;
+}
+
+.titleCategories,
+.titleCategoriesWomen {
+  font-size: 1.3rem;
+}
+
+.containerCategoriesAccessories {
+  display: flex;
+  text-align: center;
+  margin: 2.5rem 0 0 0;
+}
+
+.containerCategoriesAccessories ul {
+  list-style: none;
+}
+
+@media (max-width: 362px) {
+  .WomenUl li {
+    margin: 0.8rem -1.5rem 0 0;
+    text-align: center;
+    list-style: none;
+  }
+
+  .titleCategoriesWomen {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .menShopBtn {
+    margin: 0 0 0 7rem;
+  }
+
+  .menFashionText {
+    margin: 5rem 0 0 7.5rem;
+  }
+}
+
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */

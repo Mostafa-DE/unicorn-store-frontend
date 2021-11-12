@@ -1,0 +1,36 @@
+.main {
+  background-color: #fb9aa7;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+  color: #fafafa;
+}
+
+.closeIcon {
+  position: absolute;
+  left: 5px;
+  top: 0.6rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.closeIcon:hover {
+  transform: scale(1.4);
+  transition: all 0.2s ease-out;
+  color: #ffe3e7;
+}
+
+.welcomeText {
+  margin: 0.8rem 0.5rem 0 0;
+  font-size: 1.3rem;
+}
+
+.imgAvatar {
+  background-color: #fafafa;
+  padding: 0.3rem;
+  border-radius: 50%;
+  margin: 0.5rem 0.5rem 0 0;
+  width: 40px;
+}

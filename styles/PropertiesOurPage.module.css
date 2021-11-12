@@ -1,0 +1,53 @@
+.main {
+  margin: 8rem 0 8rem 0;
+  background-color: #fafafa;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.payMoneyIcon,
+.fastDeliveryIcon {
+  font-size: 3rem;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.returnIcon {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.containerCheckBeforeReceive,
+.containerFastDelivery,
+.containerPayWhenReceive {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerPayWhenReceive h4,
+.containerFastDelivery h4,
+.containerCheckBeforeReceive h4 {
+  color: #fb9aa7;
+}
+
+.containerPayWhenReceive p,
+.containerFastDelivery p,
+.containerCheckBeforeReceive p {
+  color: #333;
+  max-width: 13.5rem;
+}
+
+@media (max-width: 730px) {
+  .container {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,158 @@
+.main {
+  margin: 4rem 0 0 0;
+  background-color: #fafafa;
+  padding: 1rem;
+}
+
+.containerImgs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.containerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 5rem 0 0 7rem;
+  animation-name: fadeIn;
+  animation-duration: 4s;
+  animation-fill-mode: both;
+}
+
+.containerForm span {
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+}
+
+.containerForm p {
+  font-size: 1.3rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.containerInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerInput input {
+  width: 22rem;
+  height: 2.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+  border: 1px solid #333;
+  border-radius: 3px;
+}
+
+.containerInput input:focus {
+  outline: 1px solid #333;
+}
+
+.containerInput button {
+  margin: 1rem 0 0 0;
+  padding: 0.2rem 3rem;
+  background-color: #333;
+  color: #fafafa;
+  border: 1px solid #333;
+  font-weight: 600;
+  transition: all 0.3s ease-in;
+}
+
+.containerInput button:hover {
+  background: none;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+.womenImg {
+  /* animation-name: fadeInLeft;
+  animation-duration: 1.5s;
+  animation-fill-mode: both; */
+  width: 200px;
+}
+
+.manImg {
+  /* animation-name: fadeInRight;
+  animation-duration: 1.5s;
+  animation-fill-mode: both; */
+  width: 350px;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1040px) {
+  .manImg {
+    display: none;
+  }
+  .containerImgs {
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 710px) {
+  .womenImg {
+    width: 150px;
+  }
+
+  .containerForm {
+    margin: 3rem 0 0 0;
+  }
+
+  .containerInput input {
+    width: 15rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .womenImg {
+    width: 100px;
+  }
+
+  .containerForm {
+    margin: 0;
+  }
+
+  .containerInput input {
+    width: 100%;
+  }
+
+  .containerForm p {
+    font-size: 1rem;
+  }
+
+  .containerForm span {
+    font-size: 1.3rem;
+  }
+}

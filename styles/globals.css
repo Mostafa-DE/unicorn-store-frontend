@@ -1,0 +1,280 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: bodoni, ltc-bodoni-175, serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Tajawal", sans-serif;
+}
+
+/*----------------------Global Btns---------------------------*/
+.standardBtn {
+  background: linear-gradient(to right, #fb9aa7, #fac5cb);
+  border: none;
+  border-radius: 5px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.standardBtn:hover {
+  transition: all 0.3s ease-out;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.outlineBtn {
+  background: none;
+  border: 1px solid #fb9aa7;
+  border-radius: 5px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  color: #333;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease-in;
+}
+
+.outlineBtn:hover {
+  background: linear-gradient(to right, #fb9aa7, #fac5cb);
+  color: #fff;
+  border: 1px solid #fac5cb;
+  transition: all 0.4s ease-out;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+/*---------------------------X---------------------------------*/
+
+/*--Remove focus style from sweetAlert-*/
+.swal2-popup .swal2-styled:focus {
+  box-shadow: none !important;
+}
+/*------------------X------------------*/
+
+/*------Responsive card position-------*/
+.containerCardProducts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+/*------------------X------------------*/
+
+/*--------rate icons Five star---------*/
+.containerRateStarIcons {
+  display: flex;
+}
+
+.starIcon {
+  font-size: 1.3rem;
+  margin: 0.5rem 0 0 0;
+  color: #333;
+}
+/*------------------X------------------*/
+
+/*--------Title page Categories--------*/
+.containerTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 8rem 0 -3rem 0;
+  font-family: "Tajawal", sans-serif;
+}
+
+.h1Title {
+  padding: 0 0 0.5rem 0;
+  font-size: 2.6rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.lineIcon {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #333;
+  margin: -2rem 0 1rem 0;
+  color: #fb9aa7;
+}
+/*------------------X------------------*/
+
+/*------Text For Search Results--------*/
+.containerSearchResults {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Tajawal", sans-serif;
+  animation-name: zoomIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  margin: 4rem 0 0 0;
+}
+
+.h1Text {
+  font-size: 2.2rem;
+  text-align: center;
+}
+
+.pText {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+/*------------------X------------------*/
+
+/*---------Style For Carousel--------*/
+.carousel .rec .rec-arrow {
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  z-index: 1;
+}
+
+.carousel .rec .rec-arrow:hover {
+  background: none;
+  box-shadow: none;
+  color: black;
+}
+
+.carousel .rec .rec-arrow:focus {
+  background: none;
+  box-shadow: none;
+  color: black;
+}
+
+@media only screen and (max-width: 365px) {
+  .containerRateStarIcons {
+    display: none;
+  }
+}
+
+.carousel .rec-pagination {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+/* ---------------X---------------*/
+
+.rsc-float-button {
+  margin: 0 -1.5rem 1.5rem 0;
+}
+
+.rsc-container {
+  margin: 0 -1.3rem 1.5rem 0;
+}
+
+@media (max-width: 570px) {
+  .rsc-float-button {
+    margin: 0 0 1.5rem 0;
+  }
+
+  .rsc-container {
+    margin: 0;
+  }
+}
+
+/*  style all terms and policy */
+
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap");
+
+.containerAllText {
+  width: 50% !important;
+  margin: 3rem 0 0 0;
+}
+
+.h1Text {
+  text-align: center;
+  margin: 8rem 0 0 0;
+  font-family: "Roboto Slab", serif;
+  font-weight: 600;
+}
+
+.containerAllText h5 {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.containerAllText p {
+  font-family: "Lora", serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.containerAllText li {
+  font-family: "Lora", serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1000px) {
+  .containerAllText {
+    width: 100% !important;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: #fb9aa7;
+  font-weight: 600;
+}
+
+.link:hover {
+  color: #fac5cb;
+}
+
+/*  -------------X------------- */
+
+/* style for nProgress loading */
+#nprogress .bar {
+  background-color: #fb9aa7;
+  color: #fb9aa7;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #fb9aa7, 0 0 5px #fb9aa7;
+}
+
+#nprogress .spinner {
+  display: "block";
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: solid 2px transparent;
+  border-top-color: #fb9aa7;
+  border-left-color: #fb9aa7;
+  border-radius: 50%;
+  animation: nprogress-spinner 400ms linear infinite;
+}
+/*  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
