@@ -40,6 +40,7 @@ export default function InvoiceOrderPage({ token }) {
         " أنت لا تمتلك حساب أو غير مسجل دخولك لذلك لا يمكن عرض سجل الطلبات, إذا كنت تريد تتبع طلبك يرجى تحميل رقم الطلب من خلال الضغط على زر تحميل رقم الطلب وإرسالة لنا عبر أحد وسائل التواصل المعتمدة لدينا",
       icon: "error",
       confirmButtonColor: "#fb9aa7",
+      confirmButtonText: "حسناً",
       showClass: {
         popup: "animate__animated animate__flipInX"
       },

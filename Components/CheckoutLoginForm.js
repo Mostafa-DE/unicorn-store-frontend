@@ -20,6 +20,7 @@ export default function LoginForm() {
         title: error,
         icon: "error",
         confirmButtonColor: "#fb9aa7",
+        confirmButtonText: "حسناً"
       });
   }, [login, error]);
   // xxxxxxxxxxxx
@@ -30,7 +31,7 @@ export default function LoginForm() {
 
   const [showPassword, handleShowPassword] = useShowPassword(false);
 
-  const handleSubmit = (evnt) => {
+  const handleSubmit = evnt => {
     evnt.preventDefault();
     login({ email, password });
     resetPassword();

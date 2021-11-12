@@ -28,7 +28,8 @@ export default function RegisterForm() {
         title: "حدث خطأ أثناء عملية إنشاء الحساب",
         text: error,
         icon: "error",
-        confirmButtonColor: "#fb9aa7"
+        confirmButtonColor: "#fb9aa7",
+        confirmButtonText: "حسناً"
       });
   }, [register, error]);
 

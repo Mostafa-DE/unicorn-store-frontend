@@ -7,7 +7,9 @@ const loginApi = async (req, res) => {
     const strapiRes = await fetch(`${API_URL}/auth/local`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
       },
       body: JSON.stringify({
         identifier,

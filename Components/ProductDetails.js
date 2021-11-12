@@ -19,18 +19,18 @@ export default function ProductDetails({ product }) {
   const { addToBag } = useContext(BagContext);
 
   // xxxxxxxxxxxxxxxxxxxx
-  const AddToBag = async (product) => {
+  const AddToBag = async product => {
     await addToBag(product, size);
     router.push("/products/shopping-bag");
   };
 
   const [video, setvideo] = useState("");
   const [image, setImage] = useState(product.images[0].url);
-  const handleChangeVideo = (url) => {
+  const handleChangeVideo = url => {
     setvideo(url);
     setImage("");
   };
-  const handleChangeImage = (url) => {
+  const handleChangeImage = url => {
     setImage(url);
     setvideo("");
   };
@@ -38,12 +38,12 @@ export default function ProductDetails({ product }) {
   // state for chose right size
   const [length, setLength] = useState();
 
-  const handleChangeLength = (evnt) => {
+  const handleChangeLength = evnt => {
     setLength(evnt.target.value);
   };
 
   const [weight, setWeight] = useState();
-  const handleChangeWeight = (evnt) => {
+  const handleChangeWeight = evnt => {
     setWeight(evnt.target.value);
   };
 
@@ -112,16 +112,18 @@ export default function ProductDetails({ product }) {
 
   const alertErrorSize = () => {
     Swal.fire({
-      title:
+      title: "نعتذر لا يمكن تنفيذ طلبك",
+      text:
         " لا تستطيع إضافة المنتج إلى حقيبة التسوق الخاصة بك, يجب عليك إدخال الطول والوزن لتحديد القياس المناسب لك أولاً",
       icon: "error",
       confirmButtonColor: "#fb9aa7",
+      confirmButtonText: "حسناً",
       showClass: {
-        popup: "animate__animated animate__flipInX",
+        popup: "animate__animated animate__flipInX"
       },
       hideClass: {
-        popup: "animate__animated animate__flipOutX",
-      },
+        popup: "animate__animated animate__flipOutX"
+      }
     });
   };
 
@@ -130,7 +132,7 @@ export default function ProductDetails({ product }) {
       <div className={styles.container}>
         <div className={styles.containerImages}>
           <div className={styles.smallImagesProduct}>
-            {product.images?.map((image) => (
+            {product.images?.map(image => (
               <img
                 key={image.id}
                 onClick={() => handleChangeImage(image.url)}
@@ -138,7 +140,7 @@ export default function ProductDetails({ product }) {
                 src={image.url}
               />
             ))}
-            {product.videos?.map((video) => (
+            {product.videos?.map(video => (
               <img
                 key={video.id}
                 onClick={() => handleChangeVideo(video.url)}

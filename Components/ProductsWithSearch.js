@@ -32,7 +32,7 @@ export default function ProductsWithSearch({
       {allProductsFiltered.length === 0 ? (
         <div className="containerSearchResults">
           <h1>😔 لا شيء هنا</h1>
-          <p>
+          <p className="text-center">
             لم نتمكن من العثور على المنتج ، ربما لم يكن موجودًا أو غير متوفر
             حالياً
           </p>

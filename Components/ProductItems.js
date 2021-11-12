@@ -49,6 +49,7 @@ export default function ProductItems({ product, pathname, token }) {
         title: "تم إضافة المنتج إلى قائمة المفضلة لديك",
         icon: "success",
         confirmButtonColor: "#fb9aa7",
+        confirmButtonText: "حسناً",
         showClass: {
           popup: "animate__animated animate__fadeInDown"
         },

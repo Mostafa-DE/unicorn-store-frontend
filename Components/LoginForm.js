@@ -20,6 +20,7 @@ export default function LoginForm() {
         title: error,
         icon: "error",
         confirmButtonColor: "#fb9aa7",
+        confirmButtonText: "حسناً"
       });
   }, [login, error]);
   // xxxxxxxxxxxx
@@ -30,7 +31,7 @@ export default function LoginForm() {
 
   const [showPassword, handleShowPassword] = useShowPassword(false);
 
-  const handleSubmit = (evnt) => {
+  const handleSubmit = evnt => {
     evnt.preventDefault();
     login({ email, password });
     resetPassword();
@@ -61,7 +62,7 @@ export default function LoginForm() {
       icon: "info",
       confirmButtonText: "حسناً, لقد فهمت",
       confirmButtonColor: "#fb9aa7",
-      footer: `<a href="https://wa.me/message/HRQFZDWSM3EUH1">أنا بحاجة إلى المساعدة</a> لم تتضح الأمور بشكل جيد`,
+      footer: `<a href="https://wa.me/message/HRQFZDWSM3EUH1">أنا بحاجة إلى المساعدة</a> لم تتضح الأمور بشكل جيد`
     });
   };
 
@@ -71,7 +72,7 @@ export default function LoginForm() {
       title: "👋 مرحباً",
       confirmButtonColor: "#fb9aa7",
       confirmButtonText: "حسناً",
-      html: `<p>يرجى ملاحظة أننا نستخدم ملفات تعريف الارتباط للاحتفاظ بتسجيل الدخول الخاص بك لمدة أسبوع ، وبعد ذلك يتم تسجيل الخروج تلقائيًا ، إذا كنت لا تريد الاحتفاظ بتسجيل الدخول فيمكنك الضغط على خيار تسجيل الخروج من القائمة</p>`,
+      html: `<p>يرجى ملاحظة أننا نستخدم ملفات تعريف الارتباط للاحتفاظ بتسجيل الدخول الخاص بك لمدة أسبوع ، وبعد ذلك يتم تسجيل الخروج تلقائيًا ، إذا كنت لا تريد الاحتفاظ بتسجيل الدخول فيمكنك الضغط على خيار تسجيل الخروج من القائمة</p>`
     });
   };
 
