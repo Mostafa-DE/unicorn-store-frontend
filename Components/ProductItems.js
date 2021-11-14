@@ -111,7 +111,9 @@ export default function ProductItems({ product, pathname, token }) {
           <hr className={styles.hr} />
         </div>
         <div className={`${styles.compareItems} ${styles.price}`}>
-          <p className={styles.oldPrice}>{product.oldPrice} JD</p>
+          {product.oldPrice && (
+            <p className={styles.oldPrice}>{product.oldPrice} JD</p>
+          )}
           <p className={styles.newPrice}>{product.price} JD</p>
         </div>
         <div className={styles.quickview}>
