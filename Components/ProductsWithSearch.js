@@ -12,7 +12,7 @@ export default function ProductsWithSearch({
     } else if (products.name.toLowerCase().includes(searchTerm.toLowerCase())) {
       return products;
     } else if (
-      products.description.toLowerCase().includes(searchTerm.toLowerCase())
+      products.description?.toLowerCase().includes(searchTerm.toLowerCase())
     ) {
       return products;
     }

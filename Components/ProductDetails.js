@@ -175,7 +175,9 @@ export default function ProductDetails({ product }) {
           </div>
 
           <div className={styles.containerPriceProduct}>
-            <p className={styles.priceProduct}>اللون: {product.color} </p>
+            {product.color && (
+              <p className={styles.priceProduct}>اللون: {product.color} </p>
+            )}
           </div>
 
           {product.preOrder === true && (
@@ -246,7 +248,10 @@ export default function ProductDetails({ product }) {
           {/* xxxxxxxxxx */}
 
           <div className={styles.containerDescription}>
-            <p className={styles.descriptionTitle}> -: الوصف</p>
+            {product.description && (
+              <p className={styles.descriptionTitle}> -: الوصف</p>
+            )}
+
             <p className={styles.description}>{product.description}</p>
           </div>
 
