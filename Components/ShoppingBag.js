@@ -2,6 +2,7 @@ import styles from "@/styles/ShoppingBag.module.css";
 import React, { useContext } from "react";
 import { BagContext } from "@/context/BagContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,7 +14,8 @@ import { HiPlusSm } from "react-icons/hi";
 import { AiOutlineLine } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 
-export default function ShoppingBag() {
+export default function ShoppingBag({ token }) {
+  const router = useRouter();
   // shopping bag context
   const { bag, increaseQty, decreaseQty, removeFromBag } = useContext(
     BagContext
@@ -121,9 +123,21 @@ export default function ShoppingBag() {
                 أكمل التسوق
               </button>
             </Link>
-            <Link href="/payment/shipping-info">
-              <button className={styles.checkoutBtn}>اطلب الآن</button>
-            </Link>
+            {token !== null ? (
+              <button
+                className={styles.checkoutBtn}
+                onClick={() => router.push("/payment/shipping-info")}
+              >
+                اطلب الآن
+              </button>
+            ) : (
+              <button
+                onClick={() => router.push("/account/checkout-login")}
+                className={styles.checkoutBtn}
+              >
+                اطلب الآن
+              </button>
+            )}
           </div>
         </>
       ) : (
