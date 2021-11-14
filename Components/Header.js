@@ -87,13 +87,15 @@ export default function Header() {
   /*------------------------X-----------------------*/
 
   /*---state for handle shopping Bag (open/close)---*/
-  const [shoppingDialog, openShoppingDialog, closeShoppingDialog] =
-    useDrawer(false);
+  const [shoppingDialog, openShoppingDialog, closeShoppingDialog] = useDrawer(
+    false
+  );
   /*-------------------------X---------------------------*/
 
   /*--state for handle compare dialog (open/close)--*/
-  const [compareDialog, openCompareDialog, closeCompareDialog] =
-    useDrawer(false);
+  const [compareDialog, openCompareDialog, closeCompareDialog] = useDrawer(
+    false
+  );
   /*------------------------X-----------------------*/
 
   /*----------State scroll down for Navbar----------*/
@@ -101,8 +103,9 @@ export default function Header() {
   /*------------------------X-----------------------*/
 
   /*---------------State Login Dialog---------------*/
-  const [loginDialog, openLoginDialog, closeLoginDialog] =
-    useLoginDialog(false);
+  const [loginDialog, openLoginDialog, closeLoginDialog] = useLoginDialog(
+    false
+  );
   /*------------------------X-----------------------*/
 
   /*-------------State for Input Login--------------*/
@@ -111,7 +114,7 @@ export default function Header() {
   const [showPassword, handleShowPassword] = useShowPassword(false);
   /*------------------------X-----------------------*/
 
-  const handleSubmit = (evnt) => {
+  const handleSubmit = evnt => {
     evnt.preventDefault();
     login({ email, password });
   };
@@ -136,11 +139,10 @@ export default function Header() {
             style={{
               maxWidth: "20rem",
               textAlign: "center",
-              fontSize: "0.8rem",
+              fontSize: "0.8rem"
             }}
             variant="danger"
             onClose={handleCloseErrorMessage}
-            dismissible
             show={showErrorMessage}
           >
             نعتذر كلمة المرور أو البريد الإلكتروني غير صحيح يرجى المحاولة مرة
@@ -220,9 +222,8 @@ export default function Header() {
   return (
     <div className={styles.main}>
       <nav
-        className={`${styles.containerNav} ${
-          scrollState !== "top" && styles.backgroundNavWhenScroll
-        }`}
+        className={`${styles.containerNav} ${scrollState !== "top" &&
+          styles.backgroundNavWhenScroll}`}
       >
         <div className={styles.logo}>
           <Link href="/">
@@ -257,7 +258,7 @@ export default function Header() {
             showZero
             anchorOrigin={{
               vertical: "top",
-              horizontal: "right",
+              horizontal: "right"
             }}
             className={styles.badgCart}
           >
@@ -284,7 +285,7 @@ export default function Header() {
             color="error"
             anchorOrigin={{
               vertical: "top",
-              horizontal: "right",
+              horizontal: "right"
             }}
             className={styles.badgCompareProducts}
           >

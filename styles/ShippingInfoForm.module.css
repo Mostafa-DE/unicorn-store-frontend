@@ -168,6 +168,54 @@
   opacity: 0.4;
 }
 
+.inputSize,
+.inputColor,
+.inputName {
+  width: 2.2rem;
+  border: none;
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.inputName {
+  width: 8.9rem;
+  text-align: start;
+}
+
+.inputDeliveryFees,
+.inputSubTotal,
+.inputDiscount,
+.inputTotalAmount {
+  width: 2.5rem;
+  text-align: end;
+  border: none;
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.inputDiscount {
+  color: red;
+}
+
+.inputSize:focus,
+.inputColor:focus,
+.inputName:focus,
+.inputDeliveryFees:focus,
+.inputSubTotal:focus,
+.inputDiscount:focus,
+.inputTotalAmount:focus {
+  border: none;
+  outline: none;
+}
+
+.discountText {
+  max-width: 18rem;
+  color: red;
+  font-size: 0.8rem;
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+}
+
 @media (max-width: 1010px) {
   .container {
     flex-direction: column-reverse;

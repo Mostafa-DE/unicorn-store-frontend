@@ -81,7 +81,7 @@ export default function Layout({ title, description, children, userAccount }) {
 
 /*------------default title in case i forget to add title-----------*/
 Layout.defaultProps = {
-  title: "Unicorn Store | Shop Online For Fashions, Tools, Gifts & More",
+  title: "Unicorns Store | Shop Online For Fashions, Tools, Gifts & More",
   description:
     "Unicorn Store | Shop Online for Electronics, Toys, Beauty, Tools & More. Exclusive Products. Same Day Delivery. Cash on Delivery."
 };

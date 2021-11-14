@@ -13,6 +13,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMoreSharp";
 import { GrFormNext } from "react-icons/gr";
+import emailjs from "emailjs-com";
 
 /*----------------------Context--------------------------*/
 import { BagContext } from "@/context/BagContext";
@@ -21,12 +22,17 @@ import router from "next/router";
 /*-------------------------X-----------------------------*/
 
 export default function ShippingInfoForm({ currentUser, token, discounts }) {
-  const randNumbers = () =>
+  const [orderNumber, setOrderNumber] = useState(
     parseInt(Date.now() * Math.random())
       .toString()
-      .substring(0, 5);
+      .substring(0, 5)
+  );
+  // const randNumbers = () =>
+  //   parseInt(Date.now() * Math.random())
+  //     .toString()
+  //     .substring(0, 5);
 
-  const orderNumber = randNumbers();
+  // const orderNumber = randNumbers();
   const todayDate = new Date().toISOString().slice(0, 10);
 
   // shopping bag context
@@ -35,20 +41,19 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
   // xxxxxxxxxxxxxxxxxxxx
 
   // shipping infornation context
-  const { shippingInfo, addToShippingInfo } = useContext(ShippingInfoContext);
-  const { shippingItems = [] } = shippingInfo;
+  const { addToShippingInfo } = useContext(ShippingInfoContext);
   // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-  const idImageProducts = items.map((product) => product.images[0].id);
+  const idImageProducts = items.map(product => product.images[0].id);
   const detailsOrder = items.map(
-    (product) =>
+    product =>
       `{#Name: ${product.name} ${product.size !== undefined ? ", Size:" : ""} ${
         product.size !== undefined ? product.size : ""
       }} `
   );
 
   const [discountInput, setDiscountInput] = useState("");
-  const handleChangeDiscountInput = (evnt) => {
+  const handleChangeDiscountInput = evnt => {
     setDiscountInput(evnt.target.value);
   };
 
@@ -61,10 +66,10 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
     building: `${currentUser.building || ""}`,
     phone: `${currentUser.phone || ""}`,
     additionalInfo: "",
-    city: "",
+    city: ""
   });
 
-  const handleChangeInput = (evnt) => {
+  const handleChangeInput = evnt => {
     const { name, value } = evnt.target;
     setValues({ ...values, [name]: value });
   };
@@ -80,7 +85,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
   }
 
   let discountValue;
-  discounts.map((discountText) => {
+  discounts.map(discountText => {
     if (discountText.discount === discountInput) {
       discountValue = (discountText.discountValue / 100) * TotalBag;
     }
@@ -92,15 +97,24 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
 
   /*------------------------X-----------------------*/
 
-  const handleSubmit = (evnt) => {
+  const handleSubmit = evnt => {
     evnt.preventDefault();
+    emailjs
+      .sendForm(
+        "service_3c1s0le",
+        "template_a6sto4t",
+        evnt.target,
+        "user_y4snMVOIayDWYkwH6dS0G"
+      )
+      .catch(err => console.log(err));
+
     if (token !== null) {
       try {
         fetch(`${API_URL}/orders`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify({
             ...values,
@@ -113,8 +127,8 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
             orderNumber: `#${orderNumber}`,
             dateDelivered: `${todayDate}`,
             numberOfItems: `${bag.itemsCount}`,
-            discountValue: `${discountValue}`,
-          }),
+            discountValue: `${discountValue}`
+          })
         });
         addToShippingInfo(
           bag,
@@ -138,7 +152,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
         fetch(`${API_URL}/orders`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             ...values,
@@ -151,8 +165,8 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
             orderNumber: `#${orderNumber}`,
             DateDelivered: `${todayDate}`,
             numberOfItems: `${bag.itemsCount}`,
-            discountValue: `${discountValue}`,
-          }),
+            discountValue: `${discountValue}`
+          })
         });
         addToShippingInfo(
           bag,
@@ -332,7 +346,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
                 يوجد {bag.itemsCount} عناصر في حقيبة التسوق الخاصة بك{" "}
               </p>
               <div className={styles.containerOrderInfo}>
-                {items.map((item) => (
+                {items.map(item => (
                   <div key={item.id}>
                     <div className={styles.productContainer}>
                       <div className={styles.containerImgAndName}>
@@ -347,7 +361,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
                           <p className={styles.productName}>{item.name}</p>
                           <div className={styles.containerColorAndSize}>
                             <span className={styles.productSize}>
-                              {item.size}
+                              {item.size} /{" "}
                             </span>
                             <span className={styles.productColor}>
                               {item.color}
@@ -376,15 +390,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
             />
           </div>
           {discountValue === undefined && discountInput !== "" && (
-            <p
-              style={{
-                maxWidth: "18rem",
-                color: "red",
-                fontSize: "0.8rem",
-                textAlign: "center",
-                margin: "0.5rem 0 0 0",
-              }}
-            >
+            <p className={styles.discountText}>
               نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم من قبل
             </p>
           )}
@@ -399,13 +405,14 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
             <div className={styles.allPrices}>
               <p>{bag.totalBag} JD</p>
               <p>
-                {" "}
                 {values.city === "عمان" || values.city === "الزرقاء"
                   ? "3"
                   : "5"}{" "}
                 JD
               </p>
-              <p style={{ color: "red" }}> {discountValue || 0} JD</p>
+              <p>
+                <span style={{ color: "red" }}>{-discountValue || 0}</span> JD
+              </p>
               <p>{TotalBag} JD</p>
             </div>
           </div>

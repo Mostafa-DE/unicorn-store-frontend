@@ -11,12 +11,13 @@ import { FaTrash } from "react-icons/fa";
 
 export default function DialogCompareProducts({
   compareDialog,
-  closeCompareDialog,
+  closeCompareDialog
 }) {
   const router = useRouter();
   // compare products context
-  const { productsCompare, removeFromCompare, removeAllProducts } =
-    useContext(CompareContext);
+  const { productsCompare, removeFromCompare, removeAllProducts } = useContext(
+    CompareContext
+  );
   const { compareItems = [] } = productsCompare;
   // xxxxxxxxxxxxxxxxxxxxxxxx
 
@@ -51,7 +52,7 @@ export default function DialogCompareProducts({
               <tbody>
                 <tr>
                   <td className={styles.titleTable}>المنتجات</td>
-                  {compareItems.map((product) => (
+                  {compareItems.map(product => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       <div className={styles.containerProducts}>
                         <p
@@ -86,7 +87,7 @@ export default function DialogCompareProducts({
               <tbody style={{ maxWidth: "1rem" }}>
                 <tr>
                   <td className={styles.titleTable}>الوصف</td>
-                  {compareItems.map((product) => (
+                  {compareItems.map(product => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       <div className={styles.containerDescription}>
                         <p className={styles.description}>
@@ -101,7 +102,7 @@ export default function DialogCompareProducts({
               <tbody>
                 <tr>
                   <td className={styles.titleTable}>التوفر</td>
-                  {compareItems.map((product) => (
+                  {compareItems.map(product => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       {product.isAvailable === true ? (
                         <p className={styles.inStockText}>متوفر</p>
@@ -116,7 +117,7 @@ export default function DialogCompareProducts({
               <tbody>
                 <tr>
                   <td className={styles.titleTable}>نوع القسم</td>
-                  {compareItems.map((product) => (
+                  {compareItems.map(product => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       <p className={styles.productType}> {product.type} </p>
                     </td>
@@ -127,7 +128,7 @@ export default function DialogCompareProducts({
               <tbody>
                 <tr>
                   <td className={styles.titleTable}> بلد المنشأ </td>
-                  {compareItems.map((product) => (
+                  {compareItems.map(product => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       <p className={styles.productMade}>{product.madeIn}</p>
                     </td>
@@ -138,7 +139,7 @@ export default function DialogCompareProducts({
               <tbody>
                 <tr>
                   <td className={styles.titleTable}> الألوان </td>
-                  {compareItems.map((product) => (
+                  {compareItems.map(product => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       <p className={styles.productColors}> {product.color} </p>
                     </td>
@@ -149,7 +150,7 @@ export default function DialogCompareProducts({
               <tbody>
                 <tr>
                   <td className={styles.titleTable}> القياسات المتوفرة</td>
-                  {compareItems.map((product) => (
+                  {compareItems.map(product => (
                     <td key={product.id} className={styles.borderBottomTitle}>
                       <p className={styles.productColors}>
                         {product.S && "S , "} {product.M && "M , "}
@@ -163,7 +164,7 @@ export default function DialogCompareProducts({
               </tbody>
             </table>
           ) : (
-            <div className={styles.noProductsAddedText}>
+            <div data-aos="fade-out" className={styles.noProductsAddedText}>
               <h3>لا يوجد منتجات مضافة</h3>
               <p>أضف بعض المنتجات للمقارنة</p>
             </div>

@@ -55,7 +55,6 @@ const registerApi = async (req, res) => {
           "إسم المستخدم غير صالح أو البريد الإلكتروني مستخدم من قبل, إذا كنت متأكد من أن البريد الإلكتروني غير مستخدم من قبل, يرجى المحاولة بإستخدام إسم مستخدم آخر "
       });
     }
-    res.status(200).json({});
   } else {
     res.setHeader("Allow", ["POST"]);
     res.status(405).json({ message: `Method ${req.method} not allowed` });

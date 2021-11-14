@@ -30,7 +30,7 @@ export default function Home({
   return (
     <Layout
       userAccount={userAccount}
-      title="Unicorn Store | Shop Online For Fastions, Tools, Gifts & More"
+      title="Unicorns Store | Shop Online For Fastions, Tools, Gifts & More"
     >
       <CategoriesPhoto />
 

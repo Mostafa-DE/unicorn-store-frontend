@@ -84,7 +84,7 @@ export default function ChatBotComponent({ userAccount }) {
             },
             {
               id: "3",
-              message: "رائع, نحن بانتظار اتصالك على الرقم التالي 0700000000",
+              message: "رائع, نحن بانتظار اتصالك على الرقم التالي 0787834878",
               trigger: "4"
             },
             {
