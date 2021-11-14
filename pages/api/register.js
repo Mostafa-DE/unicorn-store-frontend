@@ -18,9 +18,7 @@ const registerApi = async (req, res) => {
     const createUserInStrapi = await fetch(`${API_URL}/auth/local/register`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": true
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         username,

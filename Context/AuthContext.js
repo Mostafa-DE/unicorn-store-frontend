@@ -18,9 +18,7 @@ export const AuthProvider = ({ children }) => {
     const createUser = await fetch(`${NEXT_URL}/api/register`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": true
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(user)
     });
@@ -42,9 +40,7 @@ export const AuthProvider = ({ children }) => {
     const loginUser = await fetch(`${NEXT_URL}/api/login`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": true
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         identifier,
