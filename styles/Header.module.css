@@ -59,6 +59,7 @@
 
 .logoImg {
   height: 100px;
+  width: 100%;
 }
 
 .logoImg2 {
@@ -323,6 +324,7 @@
   .logoImg2 {
     display: block;
     height: 110px;
+    width: 100%;
     margin: 0.5rem 0 0 0;
   }
 
