@@ -67,12 +67,10 @@
 
 .womenImg {
   width: 200px;
-  height: 100%;
 }
 
 .manImg {
   width: 350px;
-  height: 100%;
 }
 
 @keyframes fadeInLeft {
