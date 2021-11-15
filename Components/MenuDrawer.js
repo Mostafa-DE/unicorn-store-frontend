@@ -1,5 +1,6 @@
 import styles from "@/styles/MenuDrawer.module.css";
 import Link from "next/link";
+import { useContext } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import useOpenCategoryMenu from "@/Hooks/useOpenCategoryMenu";
 import { BsPlus } from "react-icons/bs";
@@ -8,26 +9,45 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Collapse from "@material-ui/core/Collapse";
+import { FaFacebookF } from "react-icons/fa";
+import { SiInstagram } from "react-icons/si";
+import { FaTwitter } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Example({ drawerMenu, closeDrawerMenu }) {
-  const [openCategoriesWomen, handleOpenCategoriesWomen] =
-    useOpenCategoryMenu(false);
-  const [openWomenTurkeyProducts, handleOpenWomenTurkeyProducts] =
-    useOpenCategoryMenu(false);
-  const [openWomenLocalProducts, handleOpenWomenLocalProducts] =
-    useOpenCategoryMenu(false);
+  const router = useRouter();
+  const { logout, user } = useContext(AuthContext);
+  const [openCategoriesWomen, handleOpenCategoriesWomen] = useOpenCategoryMenu(
+    false
+  );
+  const [
+    openWomenTurkeyProducts,
+    handleOpenWomenTurkeyProducts
+  ] = useOpenCategoryMenu(false);
+  const [
+    openWomenLocalProducts,
+    handleOpenWomenLocalProducts
+  ] = useOpenCategoryMenu(false);
   const [openMenProducts, handleOpenMenProducts] = useOpenCategoryMenu(false);
   const [openKidsProducts, handleOpenKidsProducts] = useOpenCategoryMenu(false);
-  const [openCategoriesAccessories, handleOpenCategoriesAccessories] =
-    useOpenCategoryMenu(false);
-  const [openWomenAccessories, handleOpenWomenAccessories] =
-    useOpenCategoryMenu(false);
-  const [openMenAccessories, handleOpenMenAccessories] =
-    useOpenCategoryMenu(false);
-  const [openKidsAccessories, handleOpenKidsAccessories] =
-    useOpenCategoryMenu(false);
-  const [openOtherCategories, handleOpenOtherCategories] =
-    useOpenCategoryMenu(false);
+  const [
+    openCategoriesAccessories,
+    handleOpenCategoriesAccessories
+  ] = useOpenCategoryMenu(false);
+  const [
+    openWomenAccessories,
+    handleOpenWomenAccessories
+  ] = useOpenCategoryMenu(false);
+  const [openMenAccessories, handleOpenMenAccessories] = useOpenCategoryMenu(
+    false
+  );
+  const [openKidsAccessories, handleOpenKidsAccessories] = useOpenCategoryMenu(
+    false
+  );
+  const [openOtherCategories, handleOpenOtherCategories] = useOpenCategoryMenu(
+    false
+  );
 
   const WomenTurkeyProducts = (
     <List component="div" disablePadding>
@@ -37,10 +57,10 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "100%",
+            width: "100%"
           }}
         >
-          <span className={styles.menuText}> المنتجات التركية </span>
+          <span> المنتجات التركية </span>
           {openWomenTurkeyProducts ? <AiOutlineMinus /> : <BsPlus />}
         </div>
       </ListItem>
@@ -49,7 +69,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/turkey-dresses/dresses">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>فساتين سهرة</span>
+                <span>فساتين سهرة</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -57,7 +77,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/turkey-lingeries/lingerie">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>ﻻنجري</span>
+                <span>ﻻنجري</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -65,7 +85,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/turkey-abayas/abaya">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>عبايات و قطافين</span>
+                <span>عبايات و قطافين</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -73,7 +93,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/turkey-all-products/other-products">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>جميع المنتجات</span>
+                <span>جميع المنتجات</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -90,10 +110,10 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "100%",
+            width: "100%"
           }}
         >
-          <span className={styles.menuText}> المنتجات المحلية </span>
+          <span> المنتجات المحلية </span>
           {openWomenLocalProducts ? <AiOutlineMinus /> : <BsPlus />}
         </div>
       </ListItem>
@@ -102,7 +122,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/local-dresses/dresses">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>فساتين سهرة</span>
+                <span>فساتين سهرة</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -110,7 +130,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/local-lingeries/lingerie">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>ﻻنجري</span>
+                <span>ﻻنجري</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -118,7 +138,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/local-abayas/abaya">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>عبايات و قطافين</span>
+                <span>عبايات و قطافين</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -126,7 +146,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/women-fashions/local-all-products/other-products">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>جميع المنتجات</span>
+                <span>جميع المنتجات</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -143,10 +163,10 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "100%",
+            width: "100%"
           }}
         >
-          <span className={styles.menuText}> قسم النساء </span>
+          <span> قسم النساء </span>
           {openWomenAccessories ? <AiOutlineMinus /> : <BsPlus />}
         </div>
       </ListItem>
@@ -155,7 +175,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/accessories/women/women-necklace/necklace">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>قلادات</span>
+                <span>قلادات</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -163,7 +183,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/accessories/women/women-rings/rings">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>خواتم</span>
+                <span>خواتم</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -171,7 +191,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/accessories/women/women-bracelets/bracelets">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>أساور</span>
+                <span>أساور</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -179,7 +199,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/accessories/women/all-products/other-products">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>جميع المنتجات</span>
+                <span>جميع المنتجات</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -196,10 +216,10 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "100%",
+            width: "100%"
           }}
         >
-          <span className={styles.menuText}> قسم الرجال </span>
+          <span> قسم الرجال </span>
           {openMenAccessories ? <AiOutlineMinus /> : <BsPlus />}
         </div>
       </ListItem>
@@ -208,7 +228,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/accessories/men/men-watches/watches">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>ساعات</span>
+                <span>ساعات</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -216,7 +236,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/accessories/men/all-products/other-products">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>جميع المنتجات</span>
+                <span>جميع المنتجات</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -233,10 +253,10 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "100%",
+            width: "100%"
           }}
         >
-          <span className={styles.menuText}> قسم الأطفال </span>
+          <span> قسم الأطفال </span>
           {openKidsAccessories ? <AiOutlineMinus /> : <BsPlus />}
         </div>
       </ListItem>
@@ -245,7 +265,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           <Link href="/categories/accessories/kids/all-products/products">
             <ListItem button>
               <ListItemIcon>
-                <span className={styles.menuText}>جميع المنتجات</span>
+                <span>جميع المنتجات</span>
               </ListItemIcon>
             </ListItem>
           </Link>
@@ -262,17 +282,17 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           {/*--------------------Women Categories---------------------*/}
-          <List className={styles.mainDrawer}>
+          <List>
             <ListItem button onClick={handleOpenCategoriesWomen}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  width: "100%",
+                  width: "100%"
                 }}
               >
-                <span className={styles.menuText}> قسم النساء</span>
+                <span> قسم النساء</span>
                 {openCategoriesWomen ? <AiOutlineMinus /> : <BsPlus />}
               </div>
             </ListItem>
@@ -284,17 +304,17 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           {/*---------------------------X------------------------------*/}
 
           {/*--------------------Men Categories---------------------*/}
-          <List className={styles.mainDrawer}>
+          <List>
             <ListItem button onClick={handleOpenMenProducts}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  width: "100%",
+                  width: "100%"
                 }}
               >
-                <span className={styles.menuText}> قسم الرجال</span>
+                <span> قسم الرجال</span>
                 {openMenProducts ? <AiOutlineMinus /> : <BsPlus />}
               </div>
             </ListItem>
@@ -302,7 +322,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/men-fashions/men-pajamas/pajamas">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>البيجامات</span>
+                    <span>البيجامات</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
@@ -310,7 +330,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/men-fashions/all-products/other-products">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>جميع المنتجات</span>
+                    <span>جميع المنتجات</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
@@ -319,17 +339,17 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           {/*---------------------------X------------------------------*/}
 
           {/*--------------------Kids Categories---------------------*/}
-          <List className={styles.mainDrawer}>
+          <List>
             <ListItem button onClick={handleOpenKidsProducts}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  width: "100%",
+                  width: "100%"
                 }}
               >
-                <span className={styles.menuText}> قسم الأطفال</span>
+                <span> قسم الأطفال</span>
                 {openKidsProducts ? <AiOutlineMinus /> : <BsPlus />}
               </div>
             </ListItem>
@@ -337,7 +357,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/kids-fashions/kids-pajamas/pajamas">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>البيجامات</span>
+                    <span>البيجامات</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
@@ -345,7 +365,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/kids-fashions/kids-dresses/dresses">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>فساتين</span>
+                    <span>فساتين</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
@@ -353,7 +373,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/kids-fashions/all-products/other-products">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>جميع المنتجات</span>
+                    <span>جميع المنتجات</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
@@ -362,17 +382,17 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           {/*---------------------------X------------------------------*/}
 
           {/*--------------------Accessories Categories---------------------*/}
-          <List className={styles.mainDrawer}>
+          <List>
             <ListItem button onClick={handleOpenCategoriesAccessories}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  width: "100%",
+                  width: "100%"
                 }}
               >
-                <span className={styles.menuText}> قسم الإكسسوارات</span>
+                <span> قسم الإكسسوارات</span>
                 {openCategoriesAccessories ? <AiOutlineMinus /> : <BsPlus />}
               </div>
             </ListItem>
@@ -389,17 +409,17 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
           {/*---------------------------X------------------------------*/}
 
           {/*--------------------Other Categories---------------------*/}
-          <List className={styles.mainDrawer}>
+          <List>
             <ListItem button onClick={handleOpenOtherCategories}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  width: "100%",
+                  width: "100%"
                 }}
               >
-                <span className={styles.menuText}> الأقسام الأخرى</span>
+                <span> الأقسام الأخرى</span>
                 {openOtherCategories ? <AiOutlineMinus /> : <BsPlus />}
               </div>
             </ListItem>
@@ -407,7 +427,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/makeup/products">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>قسم التجميل</span>
+                    <span>قسم التجميل</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
@@ -415,7 +435,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/packages/products">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>قسم الباكيجات</span>
+                    <span>قسم الباكيجات</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
@@ -423,14 +443,68 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <Link href="/categories/houseware/products">
                 <ListItem button>
                   <ListItemIcon>
-                    <span className={styles.menuText}>
-                      قسم الأدوات المنزلية
-                    </span>
+                    <span>قسم الأدوات المنزلية</span>
                   </ListItemIcon>
                 </ListItem>
               </Link>
             </Collapse>
           </List>
+
+          <div className={styles.containerLogin}>
+            <div className={styles.containerAllText}>
+              {!user && (
+                <p
+                  onClick={() => router.push("/account/login")}
+                  className={styles.loginText}
+                >
+                  تسجيل الدخول / إشتراك
+                </p>
+              )}
+              {user && (
+                <p onClick={logout} className={styles.loginText}>
+                  تسجيل الخروج
+                </p>
+              )}
+              <p
+                onClick={
+                  user
+                    ? () => router.push("/products/wish-list")
+                    : () => router.push("/account/login")
+                }
+                className={styles.wishListText}
+              >
+                قائمة المفضلة
+              </p>
+              <p className={styles.currencyText}>العملة | الدينار الأردني</p>
+            </div>
+
+            <div className={styles.containerSocial}>
+              <p className={styles.followUsText}>تابعنا عبر</p>
+              <div className={styles.containerSocialIcon}>
+                <a
+                  href="https://web.facebook.com/JoUnicornsStore"
+                  type="button"
+                  className={styles.social}
+                >
+                  <FaFacebookF />
+                </a>
+                <a
+                  href="https://www.instagram.com/unicornsstore_jo/"
+                  type="button"
+                  className={styles.social}
+                >
+                  <SiInstagram />
+                </a>
+                <a
+                  href="https://twitter.com/login"
+                  type="button"
+                  className={styles.social}
+                >
+                  <FaTwitter />
+                </a>
+              </div>
+            </div>
+          </div>
           {/*---------------------------X------------------------------*/}
         </Offcanvas.Body>
       </Offcanvas>

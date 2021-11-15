@@ -1,0 +1,46 @@
+/* .containerSocial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+.containerAllText {
+  background-color: #fafafa;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.containerLogin {
+  margin: 2rem 0 0 0;
+}
+
+.containerSocialIcon {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.followUsText {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.social {
+  font-size: 1.6rem;
+  color: #333;
+  transition: all 0.3s ease-in;
+}
+
+.social:hover {
+  color: #fb9aa7;
+  transition: all 0.3s ease-out;
+}
+
+.wishListText,
+.loginText {
+  cursor: pointer;
+}
+
+.wishListText {
+  color: #fb9aa7;
+}

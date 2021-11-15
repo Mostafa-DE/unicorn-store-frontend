@@ -17,7 +17,8 @@ export default function LoginForm() {
   useEffect(() => {
     error &&
       new Swal({
-        title: error,
+        title: "حدث خطأ أثناء عملية تسجيل الدخول",
+        text: error,
         icon: "error",
         confirmButtonColor: "#fb9aa7",
         confirmButtonText: "حسناً"

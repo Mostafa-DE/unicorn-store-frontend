@@ -1,4 +1,3 @@
-import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
 import { useEffect } from "react";
 import CategoriesPhoto from "@/components/CategoriesPhoto";

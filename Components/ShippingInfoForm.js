@@ -41,7 +41,8 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
   // xxxxxxxxxxxxxxxxxxxx
 
   // shipping infornation context
-  const { addToShippingInfo } = useContext(ShippingInfoContext);
+  const { shippingInfo, addToShippingInfo } = useContext(ShippingInfoContext);
+  const { shippingItems = [] } = shippingInfo;
   // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
   const idImageProducts = items.map(product => product.images[0].id);
@@ -74,6 +75,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
     setValues({ ...values, [name]: value });
   };
 
+  // add Delivery fees to Total Amount
   let TotalBag = 0;
   let DeliveryFees;
   if (values.city === "عمان" || values.city === "الزرقاء") {
@@ -83,18 +85,20 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
     DeliveryFees = 5;
     TotalBag = bag.totalBag + DeliveryFees;
   }
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-  let discountValue;
+  let discountValue = 0;
   discounts.map(discountText => {
     if (discountText.discount === discountInput) {
-      discountValue = (discountText.discountValue / 100) * TotalBag;
+      discountValue = ((discountText.discountValue / 100) * TotalBag).toFixed(
+        2
+      );
     }
   });
 
-  if (discountValue !== undefined) {
+  if (discountValue > 0) {
     TotalBag = TotalBag - discountValue;
   }
-
   /*------------------------X-----------------------*/
 
   const handleSubmit = evnt => {
@@ -177,6 +181,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
           `#${orderNumber}`,
           values.city,
           todayDate,
+          TotalBag,
           DeliveryFees,
           discountValue
         );

@@ -245,8 +245,8 @@ export default function Header() {
             <div>{AccessoriesCollections}</div>
 
             <div>{MoreCollections}</div>
-            {router.pathname ===
-            ("/account/login" || "/account/checkout-login") ? null : (
+            {router.pathname === "/account/login" ||
+            router.pathname === "/account/checkout-login" ? null : (
               <div className={styles.link}>{DialogLogin}</div>
             )}
           </ul>

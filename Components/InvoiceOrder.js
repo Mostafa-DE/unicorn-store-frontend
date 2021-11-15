@@ -18,6 +18,7 @@ export default function InvoiceOrderPage({ token }) {
   const router = useRouter();
   const { shippingInfo } = useContext(ShippingInfoContext);
   const { shippingItems = [] } = shippingInfo;
+  console.log(shippingItems);
 
   useEffect(() => {
     window.localStorage.removeItem("shoppingBag");
@@ -88,8 +89,8 @@ export default function InvoiceOrderPage({ token }) {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                {headBagInfo.map(item => (
-                  <TableCell align="center">
+                {headBagInfo.map((item, indx) => (
+                  <TableCell key={indx} align="center">
                     <span>{item}</span>
                   </TableCell>
                 ))}
@@ -112,7 +113,7 @@ export default function InvoiceOrderPage({ token }) {
                       <span>{product.qty}</span>
                     </TableCell>
                     <TableCell align="center">
-                      <span>{shippingItem.totalBag} JD</span>
+                      <span>{product.price * product.qty} JD</span>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -132,8 +133,8 @@ export default function InvoiceOrderPage({ token }) {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                {headShippingInfo.map(item => (
-                  <TableCell align="center">
+                {headShippingInfo.map((item, indx) => (
+                  <TableCell key={indx} align="center">
                     <span>{item}</span>
                   </TableCell>
                 ))}
@@ -164,7 +165,12 @@ export default function InvoiceOrderPage({ token }) {
                     <span>{shippingItem.discountValue || "0"} JD</span>
                   </TableCell>
                   <TableCell align="center">
-                    <span>{shippingItem.Totalbag} JD</span>
+                    <span>
+                      {shippingItem.totalBag +
+                        shippingItem.DeliveryFees -
+                        shippingItem.discountValue}{" "}
+                      JD
+                    </span>
                   </TableCell>
                 </TableRow>
               ))}
@@ -189,8 +195,7 @@ export default function InvoiceOrderPage({ token }) {
               }
               className={styles.historyBtn}
             >
-              {" "}
-              سجل الطلبات{" "}
+              سجل الطلبات
             </button>
           </div>
         </div>
