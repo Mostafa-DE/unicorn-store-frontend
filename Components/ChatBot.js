@@ -32,7 +32,14 @@ export default function ChatBotComponent({ userAccount }) {
             />
           }
           botAvatar="/images/avatar.svg"
-          floatingIcon="/images/avatar.svg"
+          floatingIcon={
+            <img
+              src="/images/avatar.svg"
+              width={45}
+              height={45}
+              alt="chatBot-img"
+            />
+          }
           botDelay={2000}
           placeholder="...أدخل رسالتك هنا"
           recognitionLang="ar"

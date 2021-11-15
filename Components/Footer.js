@@ -99,7 +99,11 @@ export default function Header() {
               <li>
                 <p>
                   <FaMobileAlt className={styles.socialContact} />{" "}
-                  <a className={styles.link} href="tel:0787834878">
+                  <a
+                    className={styles.link}
+                    href="tel:0787834878"
+                    target="_blank"
+                  >
                     0787834878
                   </a>
                 </p>
@@ -110,6 +114,7 @@ export default function Header() {
                   <a
                     className={styles.link}
                     href="https://wa.me/message/HRQFZDWSM3EUH1"
+                    target="_blank"
                   >
                     0787834878
                   </a>
@@ -118,7 +123,11 @@ export default function Header() {
               <li>
                 <p>
                   <SiMessenger className={styles.socialContact} />{" "}
-                  <a className={styles.link} href="http://m.me/JoUnicornsStore">
+                  <a
+                    className={styles.link}
+                    href="http://m.me/JoUnicornsStore"
+                    target="_blank"
+                  >
                     Unicorns Store
                   </a>
                 </p>
@@ -129,6 +138,7 @@ export default function Header() {
                   <a
                     className={styles.link}
                     href="https://mail.google.com/mail/?view=cm&source=mailto&to=aya551555.com"
+                    target="_blank"
                   >
                     unicornStore51@gmail.com
                   </a>
@@ -143,28 +153,27 @@ export default function Header() {
             <h5 className="font-weight-bold text-uppercase mb-4">تابعنا</h5>
             <a
               href="https://web.facebook.com/JoUnicornsStore"
+              target="_blank"
               type="button"
+              aria-label="Facebook"
               className={`btn-floating btn-fb ${styles.link} ${styles.social} `}
             >
               <FaFacebookF />
             </a>
             <a
               href="https://www.instagram.com/unicornsstore_jo/"
+              target="_blank"
               type="button"
+              aria-label="Instagram"
               className={`btn-floating btn-tw ${styles.link} ${styles.social} `}
             >
               <SiInstagram />
             </a>
             <a
-              href="https://github.com/Mostafa-DE"
-              type="button"
-              className={`btn-floating btn-gplus ${styles.link} ${styles.social} `}
-            >
-              <FaGithub />
-            </a>
-            <a
               href="https://twitter.com/login"
+              target="_blank"
               type="button"
+              aria-label="Twitter"
               className={`btn-floating btn-dribbble ${styles.link} ${styles.social}  `}
             >
               <FaTwitter />
@@ -176,9 +185,10 @@ export default function Header() {
       {/*-----------------Copy right & reserved----------------*/}
       <div className={styles.copyRight}>
         <p>
-          حقوق النشر والنسخ محفوظة || صنع بواسطة
-          <br />
-          <a href="https://www.linkedin.com/in/mostafa-de/">مصطفى فياض</a>
+          Copyright © Unicorns Store All rights reserved || Made By
+          <a href="https://www.linkedin.com/in/mostafa-de/" target="_blank">
+            MOSTAFA FAYYAD
+          </a>
         </p>
       </div>
 

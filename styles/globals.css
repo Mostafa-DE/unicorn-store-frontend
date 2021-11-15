@@ -278,3 +278,12 @@ a {
   animation: nprogress-spinner 400ms linear infinite;
 }
 /*  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+
+.btn-close {
+  font-size: 0.6rem;
+}
+
+.btn-close:focus {
+  outline: none;
+  box-shadow: none !important;
+}

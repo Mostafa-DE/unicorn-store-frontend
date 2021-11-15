@@ -13,7 +13,7 @@ export default function ButtonWhatsApp() {
         setIsVisible(false);
       }
     };
-    window.addEventListener("scroll", handleVisibility);
+    window.addEventListener("scroll", handleVisibility, { passive: true });
     return () => window.removeEventListener("scroll", handleVisibility);
   });
   return (

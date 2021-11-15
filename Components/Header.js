@@ -66,7 +66,7 @@ export default function Header() {
 
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const handleCloseErrorMessage = () => {
-    setShowErrorMessage(false);
+    setShowErrorMessage(!showErrorMessage);
   };
 
   useEffect(() => {
@@ -119,6 +119,13 @@ export default function Header() {
     login({ email, password });
   };
 
+  // show Remember Alert
+  const [showAlertRemember, setShowAlertRemember] = useState(false);
+  const handleShowAlertRemember = () => {
+    setShowAlertRemember(!showAlertRemember);
+  };
+  // xxxxxxxxxxxxxxxxxx
+
   const DialogLogin = (
     <div>
       {!user && <li onClick={openLoginDialog}>تسجيل الدخول / اشتراك</li>}
@@ -142,12 +149,32 @@ export default function Header() {
               fontSize: "0.8rem"
             }}
             variant="danger"
+            dismissible
             onClose={handleCloseErrorMessage}
             show={showErrorMessage}
           >
             نعتذر كلمة المرور أو البريد الإلكتروني غير صحيح يرجى المحاولة مرة
             أخرى
           </Alert>
+
+          <Alert
+            style={{
+              maxWidth: "20rem",
+              textAlign: "center",
+              fontSize: "0.8rem",
+              color: "#333"
+            }}
+            variant="secondary"
+            dismissible
+            onClose={handleShowAlertRemember}
+            show={showAlertRemember}
+          >
+            يرجى ملاحظة أننا نستخدم ملفات تعريف الارتباط للاحتفاظ بتسجيل الدخول
+            الخاص بك لمدة أسبوع ، وبعد ذلك يتم تسجيل الخروج تلقائيًا ، إذا كنت
+            لا تريد الاحتفاظ بتسجيل الدخول فيمكنك الضغط على خيار تسجيل الخروج من
+            القائمة
+          </Alert>
+
           <DialogContent>
             <div className={styles.containerInput}>
               <TextValidator
@@ -193,7 +220,10 @@ export default function Header() {
                 />
                 <label className="form-check-label" htmlFor="form2Example3">
                   تذكرني
-                  <FiAlertCircle className={styles.alertIcon} />
+                  <FiAlertCircle
+                    onClick={handleShowAlertRemember}
+                    className={styles.alertIcon}
+                  />
                 </label>
               </div>
               <button type="submit" className={styles.signInBtn}>
@@ -227,10 +257,18 @@ export default function Header() {
       >
         <div className={styles.logo}>
           <Link href="/">
-            <img src="/images/unicorn.png" className={styles.logoImg} />
+            <img
+              src="/images/unicorn.png"
+              alt="unicorns-logo"
+              className={styles.logoImg}
+            />
           </Link>
           <Link href="/">
-            <img src="/images/unicorn2.png" className={styles.logoImg2} />
+            <img
+              src="/images/unicorn2.png"
+              alt="unicorns-logo"
+              className={styles.logoImg2}
+            />
           </Link>
         </div>
 

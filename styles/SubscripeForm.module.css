@@ -66,17 +66,13 @@
 }
 
 .womenImg {
-  /* animation-name: fadeInLeft;
-  animation-duration: 1.5s;
-  animation-fill-mode: both; */
   width: 200px;
+  height: 100%;
 }
 
 .manImg {
-  /* animation-name: fadeInRight;
-  animation-duration: 1.5s;
-  animation-fill-mode: both; */
   width: 350px;
+  height: 100%;
 }
 
 @keyframes fadeInLeft {

@@ -27,6 +27,7 @@ export default function Test() {
             data-aos="fade-right"
             src="/images/unicorn/womenPng.png"
             className={styles.womenImg}
+            alt="women-subscribe-img"
           />
           <div data-aos="zoom-in" className={styles.containerForm}>
             <span>إشترك معنا الآن</span>
@@ -48,6 +49,7 @@ export default function Test() {
             data-aos="fade-left"
             src="/images/unicorn/manPng.png"
             className={styles.manImg}
+            alt="man-subscribe-img"
           />
         </div>
       </div>

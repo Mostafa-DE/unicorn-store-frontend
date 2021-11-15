@@ -49,6 +49,7 @@
 
 .linkProducts {
   color: #fb9aa7;
+  font-weight: 500;
 }
 
 .logo {
@@ -78,23 +79,26 @@
 }
 
 .bagIcon {
-  margin: 0 0.1rem 0 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
 }
 
 .badgCart,
 .badgCompareProducts {
-  margin: 0 0.7rem 0 0;
+  margin: 0 0.6rem 0 0;
   font-size: 0.5rem;
 }
 
+.badgCompareProducts {
+  margin: 0 0.9rem 0 0;
+}
+
 .badgWishBag {
-  margin: 0 0.5rem 0 0;
+  margin: 0 1rem 0 0.5rem;
 }
 
 .heartIcon {
-  margin: -0.1rem 0 0 0.1rem;
+  margin: -0.15rem 0 0 0.1rem;
   color: #fb9aa7;
 }
 

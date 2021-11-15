@@ -483,6 +483,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
               <div className={styles.containerSocialIcon}>
                 <a
                   href="https://web.facebook.com/JoUnicornsStore"
+                  target="_blank"
                   type="button"
                   className={styles.social}
                 >
@@ -490,6 +491,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
                 </a>
                 <a
                   href="https://www.instagram.com/unicornsstore_jo/"
+                  target="_blank"
                   type="button"
                   className={styles.social}
                 >
@@ -497,6 +499,7 @@ export default function Example({ drawerMenu, closeDrawerMenu }) {
                 </a>
                 <a
                   href="https://twitter.com/login"
+                  target="_blank"
                   type="button"
                   className={styles.social}
                 >
