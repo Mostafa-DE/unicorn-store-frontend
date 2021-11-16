@@ -29,15 +29,6 @@ export default function MyAccount({ userAccount, token }) {
     <div className={styles.main}>
       <div className={styles.container}>
         <div data-aos="zoom-in" className={styles.containerFirstBox}>
-          <div className={styles.containerImg}>
-            <img
-              data-aos="fade-down"
-              className={styles.img}
-              src="/images/unicorn/women fashions.jpg"
-              width={100}
-            />
-          </div>
-
           <div className={styles.containerText}>
             <h3 data-aos="fade-up">{userAccount.username} 👋 مرحباً</h3>
             <p data-aos="fade-up"> {getQuotation} </p>
