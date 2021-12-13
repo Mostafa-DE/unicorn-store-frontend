@@ -2,8 +2,9 @@ import Layout from "@/components/Layout";
 import DashboardUser from "@/components/DashboardUser";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
+import withAuthUserNotExist from "@/components/HOC/withAuthUserNotExist";
 
-export default function dashboardUserPage({ userOrders, token }) {
+function dashboardUserPage({ userOrders, token }) {
   return (
     <Layout title="Account_Register">
       <DashboardUser userOrders={userOrders} token={token} />
@@ -12,7 +13,7 @@ export default function dashboardUserPage({ userOrders, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
 
   const res = await fetch(`${API_URL}/orders/me`, {
     method: "GET",
@@ -30,3 +31,5 @@ export async function getServerSideProps({ req }) {
     }
   };
 }
+
+export default withAuthUserNotExist(dashboardUserPage);

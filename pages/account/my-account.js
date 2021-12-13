@@ -2,8 +2,9 @@ import Layout from "@/components/Layout";
 import MyAccount from "@/components/MyAccount";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
+import withAuthUserNotExist from "@/components/HOC/withAuthUserNotExist";
 
-export default function myAccount({ userAccount, token }) {
+function myAccount({ userAccount, token }) {
   return (
     <Layout title="Your_Account_Details">
       <MyAccount token={token} userAccount={userAccount} />
@@ -12,7 +13,7 @@ export default function myAccount({ userAccount, token }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token = null } = parseCookies(req);
 
   const res = await fetch(`${API_URL}/users/me`, {
     method: "GET",
@@ -30,3 +31,5 @@ export async function getServerSideProps({ req }) {
     }
   };
 }
+
+export default withAuthUserNotExist(myAccount);

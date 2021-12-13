@@ -1,10 +1,13 @@
 import RegisterForm from "@/components/RegisterForm";
 import Layout from "@/components/Layout";
+import withAuthUserExist from "@/components/HOC/withAuthUserExist";
 
-export default function register() {
+function register() {
   return (
     <Layout title="Account__Register">
       <RegisterForm />
     </Layout>
   );
 }
+
+export default withAuthUserExist(register);
