@@ -13,6 +13,7 @@ import TableRow from "@mui/material/TableRow";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import Swal from "sweetalert2";
+import ErrorComponent from "@/components/ErrorComponent";
 
 export default function InvoiceOrderPage({ token }) {
   const router = useRouter();
@@ -64,142 +65,165 @@ export default function InvoiceOrderPage({ token }) {
   ];
 
   return (
-    <div data-aos="fade-in" className={styles.main}>
-      <div className={styles.container}>
-        <div id="invoicePdf" className={styles.containerSuccessfully}>
-          <IoMdCheckmarkCircleOutline className={styles.checkIcon} />
-          <p className={styles.thnxText}>
-            شكراً لك !! لقد تم استلام طلبك بنجاح
-          </p>
-          <p className={styles.orderNumText}>رقم الطلب الخاص بك</p>
-          {shippingItems.map(product => (
-            <p
-              key={product.orderNumber}
-              className={styles.orderNumber}
-            >{`" ${product.orderNumber} "`}</p>
-          ))}
-
-          <p className={styles.deliveryNote}>
-            يرجى العلم أن التوصيل يحتاج إلى فترة عمل تتراوح ما بين 24-48 ساعة من
-            تاريخ تثبيت الطلب
-          </p>
-        </div>
-        <TableContainer sx={{ maxWidth: "1000px", backgroundColor: "#fafafa" }}>
-          <p className={styles.detailsBagText}>تفاصيل الحقيبة</p>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                {headBagInfo.map((item, indx) => (
-                  <TableCell key={indx} align="center">
-                    <span>{item}</span>
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            {shippingItems.map(shippingItem => (
-              <TableBody key={shippingItem.orderNumber}>
-                {shippingItem.items.map(product => (
-                  <TableRow
-                    key={product.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="center" component="th" scope="product">
-                      <span>{product.name}</span>
-                    </TableCell>
-                    <TableCell align="center">
-                      <span>{product.price} JD</span>
-                    </TableCell>
-                    <TableCell align="center">
-                      <span>{product.qty}</span>
-                    </TableCell>
-                    <TableCell align="center">
-                      <span>{product.price * product.qty} JD</span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            ))}
-          </Table>
-        </TableContainer>
-
-        <TableContainer
-          sx={{
-            maxWidth: "1000px",
-            backgroundColor: "#fafafa",
-            margin: "2rem 0 0 0"
-          }}
-        >
-          <p className={styles.detailsShippingText}>معلومات التوصيل</p>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                {headShippingInfo.map((item, indx) => (
-                  <TableCell key={indx} align="center">
-                    <span>{item}</span>
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {shippingItems.map(shippingItem => (
-                <TableRow
-                  key={shippingItem.orderNumber}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="center" component="th" scope="product">
-                    <span>{`${shippingItem.firstName} ${shippingItem.lastName}`}</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>{shippingItem.address}</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>{shippingItem.phone}</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>{shippingItem.city}</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>{shippingItem.DeliveryFees} JD</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>{shippingItem.discountValue || "0"} JD</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>
-                      {shippingItem.totalBag +
-                        shippingItem.DeliveryFees -
-                        shippingItem.discountValue}{" "}
-                      JD
-                    </span>
-                  </TableCell>
-                </TableRow>
+    <>
+      {shippingItems.length !== 0 ? (
+        <div data-aos="fade-in" className={styles.main}>
+          <div className={styles.container}>
+            <div id="invoicePdf" className={styles.containerSuccessfully}>
+              <IoMdCheckmarkCircleOutline className={styles.checkIcon} />
+              <p className={styles.thnxText}>
+                شكراً لك !! لقد تم استلام طلبك بنجاح
+              </p>
+              <p className={styles.orderNumText}>رقم الطلب الخاص بك</p>
+              {shippingItems.map(product => (
+                <p
+                  key={product.orderNumber}
+                  className={styles.orderNumber}
+                >{`" ${product.orderNumber} "`}</p>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <div className={styles.containerBtns}>
-          <div className={styles.containerHomeBtn}>
-            <Link href="/">
-              <button className={styles.homeBtn}> العودة إلى الرئيسية </button>
-            </Link>
-          </div>
-          <div className={styles.containerPdfAndHistoryBtns}>
-            <button onClick={printDocument} className={styles.pdfBtn}>
-              طباعة رقم الطلب
-            </button>
-            <button
-              onClick={
-                token !== null
-                  ? () => router.push("/account/dashboard-user")
-                  : () => alertMessageNotLoggedIn()
-              }
-              className={styles.historyBtn}
+
+              <p className={styles.deliveryNote}>
+                يرجى العلم أن التوصيل يحتاج إلى فترة عمل تتراوح ما بين 24-48
+                ساعة من تاريخ تثبيت الطلب
+              </p>
+            </div>
+            <TableContainer
+              sx={{ maxWidth: "1000px", backgroundColor: "#fafafa" }}
             >
-              سجل الطلبات
-            </button>
+              <p className={styles.detailsBagText}>تفاصيل الحقيبة</p>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    {headBagInfo.map((item, indx) => (
+                      <TableCell key={indx} align="center">
+                        <span>{item}</span>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                {shippingItems.map(shippingItem => (
+                  <TableBody key={shippingItem.orderNumber}>
+                    {shippingItem.items.map(product => (
+                      <TableRow
+                        key={product.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 }
+                        }}
+                      >
+                        <TableCell
+                          align="center"
+                          component="th"
+                          scope="product"
+                        >
+                          <span>{product.name}</span>
+                        </TableCell>
+                        <TableCell align="center">
+                          <span>{product.price} JD</span>
+                        </TableCell>
+                        <TableCell align="center">
+                          <span>{product.qty}</span>
+                        </TableCell>
+                        <TableCell align="center">
+                          <span>{product.price * product.qty} JD</span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                ))}
+              </Table>
+            </TableContainer>
+
+            <TableContainer
+              sx={{
+                maxWidth: "1000px",
+                backgroundColor: "#fafafa",
+                margin: "2rem 0 0 0"
+              }}
+            >
+              <p className={styles.detailsShippingText}>معلومات التوصيل</p>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    {headShippingInfo.map((item, indx) => (
+                      <TableCell key={indx} align="center">
+                        <span>{item}</span>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {shippingItems.map(shippingItem => (
+                    <TableRow
+                      key={shippingItem.orderNumber}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell align="center" component="th" scope="product">
+                        <span>{`${shippingItem.firstName} ${shippingItem.lastName}`}</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>{shippingItem.address}</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>{shippingItem.phone}</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>{shippingItem.city}</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>{shippingItem.DeliveryFees} JD</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>{shippingItem.discountValue || "0"} JD</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>
+                          {shippingItem.totalBag +
+                            shippingItem.DeliveryFees -
+                            shippingItem.discountValue}{" "}
+                          JD
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <div className={styles.containerBtns}>
+              <div className={styles.containerHomeBtn}>
+                <Link href="/">
+                  <button className={styles.homeBtn}>
+                    {" "}
+                    العودة إلى الرئيسية{" "}
+                  </button>
+                </Link>
+              </div>
+              <div className={styles.containerPdfAndHistoryBtns}>
+                <button onClick={printDocument} className={styles.pdfBtn}>
+                  طباعة رقم الطلب
+                </button>
+                <button
+                  onClick={
+                    token !== null
+                      ? () => router.push("/account/dashboard-user")
+                      : () => alertMessageNotLoggedIn()
+                  }
+                  className={styles.historyBtn}
+                >
+                  سجل الطلبات
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <ErrorComponent
+          reaction="OOPS!"
+          statusError="404 - Not Found"
+          ErrorMessage="نعتذر لا يوجد فواتير لعرضها الآن"
+          buttonTxt="الذهاب إلى سجل الطلبات"
+          buttonUrl="account/dashboard-user"
+        />
+      )}
+    </>
   );
 }

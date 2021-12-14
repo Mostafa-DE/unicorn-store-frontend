@@ -2,9 +2,8 @@ import Layout from "@/components/Layout";
 import DashboardUser from "@/components/DashboardUser";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
-import withAuthUserNotExist from "@/components/HOC/withAuthUserNotExist";
 
-function dashboardUserPage({ userOrders, token }) {
+export default function dashboardUserPage({ userOrders, token }) {
   return (
     <Layout title="Account_Register">
       <DashboardUser userOrders={userOrders} token={token} />
@@ -31,5 +30,3 @@ export async function getServerSideProps({ req }) {
     }
   };
 }
-
-export default withAuthUserNotExist(dashboardUserPage);

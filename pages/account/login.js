@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import LoginForm from "@/components/LoginForm";
-import withAuthUserExist from "@/components/HOC/withAuthUserExist";
+import withAuth from "@/components/HOC/withAuth";
 
 function loginPage() {
   return (
@@ -10,4 +10,4 @@ function loginPage() {
   );
 }
 
-export default withAuthUserExist(loginPage);
+export default withAuth(loginPage);

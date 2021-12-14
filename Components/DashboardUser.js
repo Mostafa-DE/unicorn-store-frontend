@@ -13,8 +13,9 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { AiOutlineLine } from "react-icons/ai";
 import { VscClose } from "react-icons/vsc";
+import ErrorComponent from "@/components/ErrorComponent";
 
-export default function DashboardUser({ userOrders }) {
+export default function DashboardUser({ userOrders, token }) {
   function Row({ order }) {
     const [open, setOpen] = React.useState(false);
 
@@ -137,61 +138,75 @@ export default function DashboardUser({ userOrders }) {
   }
 
   return (
-    <div className={styles.main}>
-      <div data-aos="fade-in" className="containerTitle">
-        <h1 className="h1Title"> سجل الطلبات</h1>
-        <AiOutlineLine className="lineIcon" />
-      </div>
-      {userOrders.length !== 0 ? (
-        <>
-          <TableContainer
-            style={{
-              backgroundColor: "#fafafa",
-            }}
-            className={styles.mainTableContainer}
-            component={Paper}
-          >
-            <Table aria-label="collapsible table">
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell align="center">
-                    <span>بواسطة</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>العنوان</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>رقم الطلب</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>تاريخ الطلب</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>التكلفة الكلية</span>
-                  </TableCell>
-                  <TableCell align="center">
-                    <span>حالة الطلب</span>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {userOrders.map((order) => (
-                  <Row key={order.id} order={order} />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </>
-      ) : (
-        <div className={styles.containerShoppingBagEmpty}>
-          <h1>يبدو انه لا يوجد لديك سجل للطلبات</h1>
-          <p>ستظهر هنا جميع الطلبات التي تقوم بها في المستقبل</p>
-          <Link href="/">
-            <button className={styles.continueShoppingBtn}>أكمل التسوق</button>
-          </Link>
+    <>
+      {token !== null ? (
+        <div className={styles.main}>
+          <div data-aos="fade-in" className="containerTitle">
+            <h1 className="h1Title"> سجل الطلبات</h1>
+            <AiOutlineLine className="lineIcon" />
+          </div>
+          {userOrders.length !== 0 ? (
+            <>
+              <TableContainer
+                style={{
+                  backgroundColor: "#fafafa"
+                }}
+                className={styles.mainTableContainer}
+                component={Paper}
+              >
+                <Table aria-label="collapsible table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell align="center">
+                        <span>بواسطة</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>العنوان</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>رقم الطلب</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>تاريخ الطلب</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>التكلفة الكلية</span>
+                      </TableCell>
+                      <TableCell align="center">
+                        <span>حالة الطلب</span>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {userOrders.map(order => (
+                      <Row key={order.id} order={order} />
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
+          ) : (
+            <div className={styles.containerShoppingBagEmpty}>
+              <h1>يبدو انه لا يوجد لديك سجل للطلبات</h1>
+              <p>ستظهر هنا جميع الطلبات التي تقوم بها في المستقبل</p>
+              <Link href="/">
+                <button className={styles.continueShoppingBtn}>
+                  أكمل التسوق
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
+      ) : (
+        <ErrorComponent
+          reaction="OOPS!"
+          statusError="401 - User Unauthorized"
+          ErrorMessage="نعتذر لا يمكن إظهار معلوماتك مالم تقم بتسجيل الدخول"
+          buttonTxt="تسجيل الدخول"
+          buttonUrl="account/login"
+        />
       )}
-    </div>
+    </>
   );
 }

@@ -2,9 +2,8 @@ import Layout from "@/components/Layout";
 import MyAccount from "@/components/MyAccount";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
-import withAuthUserNotExist from "@/components/HOC/withAuthUserNotExist";
 
-function myAccount({ userAccount, token }) {
+export default function myAccount({ userAccount, token }) {
   return (
     <Layout title="Your_Account_Details">
       <MyAccount token={token} userAccount={userAccount} />
@@ -31,5 +30,3 @@ export async function getServerSideProps({ req }) {
     }
   };
 }
-
-export default withAuthUserNotExist(myAccount);
