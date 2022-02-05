@@ -17,7 +17,7 @@
 .containerAccessories,
 .containerMakeup,
 .containerHouseware {
-  background: url("../public/images/unicorn/womenCategory.jpg");
+  background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088545/unicorn-store/womenCategory_le698n.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   width: 25rem;
@@ -28,31 +28,31 @@
 }
 
 .containerKidsCard {
-  background: url("../public/images/unicorn/kidsCategory.jpg");
+  background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088544/unicorn-store/kidsCategory_bvjcof.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .containerMenCard {
-  background: url("../public/images/unicorn/menCategory.jpg");
+  background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088544/unicorn-store/menCategory_tamiz8.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .containerAccessories {
-  background: url("../public/images/unicorn/accessories2.jpg");
+  background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088544/unicorn-store/accessories2_ugjmkp.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .containerMakeup {
-  background: url("../public/images/unicorn/makeUp.jpg");
+  background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088544/unicorn-store/makeUp_avi7fl.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .containerHouseware {
-  background: url("../public/images/unicorn/houseware.jpg");
+  background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088544/unicorn-store/houseware_yv9mfp.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
