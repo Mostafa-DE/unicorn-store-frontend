@@ -211,6 +211,7 @@ export default function ShippingInfoForm({ currentUser, token, discounts }) {
               <li className={styles.otherLink}>تأكيد الطلب</li>
             </ul>
           </nav>
+
           <div className={styles.container}>
             <div data-aos="fade-in" className={styles.containerShippingBox}>
               <p className={styles.shippingInfoText}>معلومات التوصيل</p>
