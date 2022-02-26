@@ -74,7 +74,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
     const isDiscountDateValid = (createdArray, expireArray) => {
         let isValid;
         for (let i = 0; i <= createdArray.length; i++) {
-            if (createdArray[i] < expireArray[i]) {
+            if (parseInt(createdArray[i]) < parseInt(expireArray[i])) {
                 return isValid = true
             }
             isValid = false
@@ -103,7 +103,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
             if (discountText.discount === discountInput) {
                 const createdDateArray = discountText.created_at.slice(0, 10).split("-")
                 const expireDateArray = discountText.expireDate.split("-")
-                if(isDiscountDateValid(createdDateArray, expireDateArray)) {
+                if (isDiscountDateValid(createdDateArray, expireDateArray)) {
                     currCode = discountText
                 }
 
