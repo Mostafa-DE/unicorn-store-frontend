@@ -71,10 +71,10 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
     };
 
     // check if the discount date valid
-    const isDiscountDateValid = (createdArray, expireArray) => {
+    const isDiscountDateValid = (currentDateArray, expireArray) => {
         let isValid;
-        for (let i = 0; i <= createdArray.length; i++) {
-            if (parseInt(createdArray[i]) < parseInt(expireArray[i])) {
+        for (let i = 0; i <= currentDateArray.length; i++) {
+            if (parseInt(currentDateArray[i]) < parseInt(expireArray[i])) {
                 return isValid = true
             }
             isValid = false
@@ -82,6 +82,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         return isValid
     }
     // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 
     const calculateDeliveryFees = () => {
         let DeliveryFees;
@@ -101,9 +102,9 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         let currCode;
         discounts.map(discountText => {
             if (discountText.discount === discountInput) {
-                const createdDateArray = discountText.created_at.slice(0, 10).split("-")
+                const currentDateArray = new Date().toISOString().slice(0, 10).split("-")
                 const expireDateArray = discountText.expireDate.split("-")
-                if (isDiscountDateValid(createdDateArray, expireDateArray)) {
+                if (isDiscountDateValid(currentDateArray, expireDateArray)) {
                     currCode = discountText
                 }
 
@@ -111,7 +112,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         })
         return currCode;
     }
-
+    
     const calculateDiscountValue = () => {
         let discountValue = 0;
         if (getCurrentDiscountCode()) {
