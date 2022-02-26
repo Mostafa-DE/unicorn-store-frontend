@@ -77,6 +77,10 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         } else {
             DeliveryFees = 5;
         }
+
+        if(values.city === ""){
+            return 0
+        }
         return DeliveryFees;
     }
 
@@ -441,9 +445,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                 <div className={styles.allPrices}>
                                     <p>{bag.totalBag} JD</p>
                                     <p>
-                                        {values.city === "عمان" || values.city === "الزرقاء"
-                                            ? "3"
-                                            : "5"}{" "}
+                                        {calculateDeliveryFees()}{" "}
                                         JD
                                     </p>
                                     <p>
