@@ -23,7 +23,6 @@ import router from "next/router";
 /*-------------------------X-----------------------------*/
 
 export default function ShippingInfoForm({currentUser, token, discounts}) {
-    console.log(discounts)
 
     const [orderNumber] = useState(
         parseInt(Date.now() * Math.random())
@@ -159,7 +158,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     calculateDeliveryFees(),
                     calculateDiscountValue()
                 );
-                router.push("/payment/invoice-order");
+                await router.push("/payment/invoice-order");
             } catch (err) {
                 console.log(err);
             }
@@ -197,7 +196,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     calculateDeliveryFees(),
                     calculateDiscountValue()
                 );
-                router.push("/payment/invoice-order");
+                await router.push("/payment/invoice-order");
             } catch (err) {
                 console.log(err);
             }
