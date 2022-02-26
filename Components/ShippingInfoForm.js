@@ -209,6 +209,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify({published_at: null})
                 })
