@@ -21,6 +21,8 @@ export default function shippingInformations({
 
 export async function getServerSideProps({ req }) {
   const { token = null } = parseCookies(req);
+
+  // Get current user
   const res = await fetch(`${API_URL}/users/me`, {
     method: "GET",
     headers: {
@@ -29,6 +31,7 @@ export async function getServerSideProps({ req }) {
   });
   const currentUser = await res.json();
 
+  // Get Discount
   const resDiscount = await fetch(`${API_URL}/discounts`);
   const discountData = await resDiscount.json();
 

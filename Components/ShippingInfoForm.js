@@ -71,34 +71,49 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         setValues({...values, [name]: value});
     };
 
-    // add Delivery fees to Total Amount
-    let TotalBag = 0;
-    let DeliveryFees;
-    if (values.city === "عمان" || values.city === "الزرقاء") {
-        DeliveryFees = 3;
-        TotalBag = bag.totalBag + DeliveryFees;
-    } else {
-        DeliveryFees = 5;
-        TotalBag = bag.totalBag + DeliveryFees;
-    }
-    // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-    let discountValue = 0;
-    discounts.map(discountText => {
-        if (discountText.discount === discountInput) {
-            discountValue = ((discountText.discountValue / 100) * TotalBag).toFixed(
-                2
-            );
+    const calculateDeliveryFees = () => {
+        let DeliveryFees;
+        if (values.city === "عمان" || values.city === "الزرقاء") {
+            DeliveryFees = 3;
+        } else {
+            DeliveryFees = 5;
         }
-    });
-
-
-    if (discountValue > 0) {
-        TotalBag = TotalBag - discountValue;
+        return DeliveryFees;
     }
+
+    const getCurrentDiscountCode = () => {
+        let currCode;
+        discounts.map(discountText => {
+            if (discountText.discount === discountInput) {
+                currCode = discountText
+            }
+        })
+        return currCode;
+    }
+
+    const calculateDiscountValue = () => {
+        let discountValue = 0;
+        if (getCurrentDiscountCode()) {
+            discountValue = (((getCurrentDiscountCode().discountValue) / 100) * (bag.totalBag + calculateDeliveryFees()))
+                .toFixed(
+                    2
+                );
+        }
+        return discountValue;
+    }
+
+    const TotalBag = () => {
+        if (calculateDiscountValue() === 0) {
+            return bag.totalBag + calculateDeliveryFees()
+        } else {
+            return (bag.totalBag + calculateDeliveryFees()) - calculateDiscountValue()
+        }
+    }
+
+
     /*------------------------X-----------------------*/
 
-    const handleSubmit = evnt => {
+    const handleSubmit = async (evnt) => {
         evnt.preventDefault();
         emailjs
             .sendForm(
@@ -111,7 +126,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
 
         if (token !== null) {
             try {
-                fetch(`${API_URL}/orders`, {
+                await fetch(`${API_URL}/orders`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -120,7 +135,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     body: JSON.stringify({
                         ...values,
                         detailsOrder: `${detailsOrder}`,
-                        orderTotal: `${TotalBag}`,
+                        orderTotal: `${TotalBag()}`,
                         image1: `${idImageProducts[0] || ""}`,
                         image2: `${idImageProducts[1] || ""}`,
                         image3: `${idImageProducts[2] || ""}`,
@@ -128,7 +143,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                         orderNumber: `#${orderNumber}`,
                         dateDelivered: `${todayDate}`,
                         numberOfItems: `${bag.itemsCount}`,
-                        discountValue: `${discountValue}`
+                        discountValue: `${calculateDiscountValue()}`
                     })
                 });
                 addToShippingInfo(
@@ -140,9 +155,9 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     `#${orderNumber}`,
                     values.city,
                     todayDate,
-                    TotalBag,
-                    DeliveryFees,
-                    discountValue
+                    TotalBag(),
+                    calculateDeliveryFees(),
+                    calculateDiscountValue()
                 );
                 router.push("/payment/invoice-order");
             } catch (err) {
@@ -150,7 +165,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
             }
         } else {
             try {
-                fetch(`${API_URL}/orders`, {
+                await fetch(`${API_URL}/orders`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -158,7 +173,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     body: JSON.stringify({
                         ...values,
                         detailsOrder: `${detailsOrder}`,
-                        orderTotal: `${TotalBag}`,
+                        orderTotal: `${TotalBag()}`,
                         image1: `${idImageProducts[0] || ""}`,
                         image2: `${idImageProducts[1] || ""}`,
                         image3: `${idImageProducts[2] || ""}`,
@@ -166,7 +181,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                         orderNumber: `#${orderNumber}`,
                         DateDelivered: `${todayDate}`,
                         numberOfItems: `${bag.itemsCount}`,
-                        discountValue: `${discountValue}`
+                        discountValue: `${calculateDiscountValue()}`
                     })
                 });
                 addToShippingInfo(
@@ -178,13 +193,28 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     `#${orderNumber}`,
                     values.city,
                     todayDate,
-                    TotalBag,
-                    DeliveryFees,
-                    discountValue
+                    TotalBag(),
+                    calculateDeliveryFees(),
+                    calculateDiscountValue()
                 );
                 router.push("/payment/invoice-order");
             } catch (err) {
                 console.log(err);
+            }
+        }
+
+        // turn discount to draft
+        if (getCurrentDiscountCode()) {
+            try {
+                await fetch(`${API_URL}/discounts/${getCurrentDiscountCode().id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({published_at: null})
+                })
+            } catch (err) {
+                console.log(err)
             }
         }
     };
@@ -327,7 +357,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                         className={styles.textarea}
                                         onChange={handleChangeInput}
                                         value={values.additionalInfo}
-                                    ></textarea>
+                                    />
 
                                     <button type="submit" className={styles.confirmOrderBtn}>
                                         تأكيد الطلب
@@ -394,7 +424,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                     className={styles.discountInput}
                                 />
                             </div>
-                            {discountValue === 0 && discountInput !== "" && (
+                            {calculateDiscountValue() === 0 && discountInput !== "" && (
                                 <p className={styles.discountText}>
                                     نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم من
                                     قبل
@@ -417,10 +447,10 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                         JD
                                     </p>
                                     <p>
-                                        <span style={{color: "red"}}>{-discountValue || 0}</span>{" "}
+                                        <span style={{color: "red"}}>{calculateDiscountValue()}</span>{" "}
                                         JD
                                     </p>
-                                    <p>{TotalBag} JD</p>
+                                    <p>{TotalBag()} JD</p>
                                 </div>
                             </div>
                         </div>
