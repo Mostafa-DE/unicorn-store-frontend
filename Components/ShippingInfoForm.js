@@ -78,7 +78,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
             DeliveryFees = 5;
         }
 
-        if(values.city === ""){
+        if (values.city === "") {
             return 0
         }
         return DeliveryFees;
@@ -419,15 +419,32 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                     </Link>
                                 </AccordionDetails>
                             </Accordion>
+
                             <div className={styles.containerCoboneDiscount}>
                                 <input
                                     type="text"
+                                    readOnly={!token && true}
                                     value={discountInput}
                                     onChange={handleChangeDiscountInput}
                                     placeholder="أدخل كود الخصم هنا"
                                     className={styles.discountInput}
                                 />
                             </div>
+                            {!token && (
+                                <>
+                                    <p className={styles.discountText}>
+                                        نعتذر لا يمكنك تطبيق الخصم ما لم تكن مسجل لدينا
+                                    </p>
+                                    <div style={{display: "flex", justifyContent: "center"}}>
+                                        <Link href={"/account/login"} passHref={true}>
+                                            <button className={styles.loginBtn}> تسجيل الدخول</button>
+                                        </Link>
+                                        <Link href={"/account/register"} passHref={true}>
+                                            <button className={styles.registerBtn}> إنشاء حساب</button>
+                                        </Link>
+                                    </div>
+                                </>
+                            )}
                             {calculateDiscountValue() === 0 && discountInput !== "" && (
                                 <p className={styles.discountText}>
                                     نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم من
