@@ -70,6 +70,19 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         setValues({...values, [name]: value});
     };
 
+    // check if the discount date valid
+    const isDiscountDateValid = (createdArray, expireArray) => {
+        let isValid;
+        for (let i = 0; i <= createdArray.length; i++) {
+            if (createdArray[i] < expireArray[i]) {
+                return isValid = true
+            }
+            isValid = false
+        }
+        return isValid
+    }
+    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
     const calculateDeliveryFees = () => {
         let DeliveryFees;
         if (values.city === "عمان" || values.city === "الزرقاء") {
@@ -88,7 +101,12 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         let currCode;
         discounts.map(discountText => {
             if (discountText.discount === discountInput) {
-                currCode = discountText
+                const createdDateArray = discountText.created_at.slice(0, 10).split("-")
+                const expireDateArray = discountText.expireDate.split("-")
+                if(isDiscountDateValid(createdDateArray, expireDateArray)) {
+                    currCode = discountText
+                }
+
             }
         })
         return currCode;
