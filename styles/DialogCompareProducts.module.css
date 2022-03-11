@@ -111,21 +111,6 @@
 }
 
 .noProductsAddedText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5rem 0 8rem 0;
-}
-
-.noProductsAddedText h3 {
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
-.noProductsAddedText p {
-  margin: 0;
-  padding: 0;
   text-align: center;
 }
 
@@ -160,10 +145,4 @@
   color: #fb9aa7;
   transform: scale(1.3);
   transition: all 0.3s ease-out;
-}
-
-@media (max-width: 400px) {
-  .noProductsAddedText {
-    padding: 0 1.5rem 0 0;
-  }
 }
