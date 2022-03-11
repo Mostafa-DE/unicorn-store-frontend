@@ -27,7 +27,7 @@
     "json-schema": "^0.4.0",
     "jspdf": "^2.4.0",
     "nanoid": "^3.2.0",
-    "next": "^12.0.10",
+    "next": "^12.1.0",
     "next-pwa": "^5.4.0",
     "nprogress": "^0.2.0",
     "qs": "^6.10.1",
@@ -37,7 +37,7 @@
     "react-elastic-carousel": "^0.11.5",
     "react-icons": "^4.2.0",
     "react-material-ui-form-validator": "^2.1.4",
-    "react-simple-chatbot": "^0.6.1",
+    "react-simple-chatbot": "^0.5.0",
     "styled-components": "^5.3.3",
     "sweetalert2": "^11.1.5"
   },
