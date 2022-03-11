@@ -490,7 +490,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                             {!token && (
                                 <>
                                     <p className={styles.discountText}>
-                                        نعتذر لا يمكنك تطبيق الخصم ما لم تكن مسجل لدينا
+                                        نعتذر لا يمكنك تطبيق الخصم ما لم تكن مسجل مسجل حساب لدينا
                                     </p>
                                     <div style={{display: "flex", justifyContent: "center"}}>
                                         <Link href={"/account/login"}
@@ -508,8 +508,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                             )}
                             {calculateDiscountValue() === 0 && discountInput !== "" && (
                                 <p className={styles.discountText}>
-                                    نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم من
-                                    قبل
+                                    نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم بالفعل
                                 </p>
                             )}
 
