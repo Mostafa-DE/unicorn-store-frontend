@@ -87,8 +87,8 @@ export default function ShoppingBag({token}) {
                                                         onClick={() => decreaseQty(item)}
                                                     />
                                                 ) : (
-                                                    <HiMinusSm
-                                                        className={styles.minus}
+                                                    <FaTrash
+                                                        className={styles.deleteBtnWhenQtyEqualsOne}
                                                         onClick={() => removeFromBag(item)}
                                                     />
                                                 )}

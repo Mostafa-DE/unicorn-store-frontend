@@ -71,6 +71,24 @@
   transition: all 0.1s ease-out;
 }
 
+.deleteBtnWhenQtyEqualsOne {
+    font-size: 1.5rem;
+    padding: 0.25rem;
+    border: 1px solid #333;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    width: 3rem;
+}
+
+.deleteBtnWhenQtyEqualsOne:hover {
+    box-shadow: 2.5px 2.5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s ease-out;
+}
+
 .deleteBtn {
   font-size: 1.1rem;
   cursor: pointer;
