@@ -1,5 +1,5 @@
 import styles from "@/styles/ShippingInfoForm.module.css";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
 import {API_URL} from "@/config/index";
 import Link from "next/link";
@@ -83,7 +83,6 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
     }
     // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-
     const calculateDeliveryFees = () => {
         let DeliveryFees;
         if (values.city === "عمان" || values.city === "الزرقاء") {
@@ -112,7 +111,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         })
         return currCode;
     }
-    
+
     const calculateDiscountValue = () => {
         let discountValue = 0;
         if (getCurrentDiscountCode()) {
@@ -242,11 +241,36 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         }
     };
 
+    // validation phone input
+    useEffect(() => {
+        ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
+            if (value.length > 10 || value.length < 10) {
+                return false;
+            }
+            return true;
+        });
+    });
+
+    useEffect(() => {
+        ValidatorForm.addValidationRule("isLocalNumber", (value) => {
+            let firstThreeNumber = value.slice(0, 3)
+            if (firstThreeNumber.match("078")
+                || firstThreeNumber.match("079")
+                || firstThreeNumber.match("077")) {
+                return true;
+            }
+            return false;
+        });
+    });
+    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
     return (
         <>
             {items.length !== 0 ? (
                 <div className={styles.main}>
-                    <nav data-aos="fade-right" className={styles.mainPageNav}>
+                    <nav data-aos="fade-right"
+                         className={styles.mainPageNav}
+                    >
                         <ul className={styles.containerPageNav}>
                             <li>
                                 <Link href="/products/shopping-bag">
@@ -269,7 +293,9 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                     </nav>
 
                     <div className={styles.container}>
-                        <div data-aos="fade-in" className={styles.containerShippingBox}>
+                        <div data-aos="fade-in"
+                             className={styles.containerShippingBox}
+                        >
                             <p className={styles.shippingInfoText}>معلومات التوصيل</p>
                             <div className={styles.containerAllInput}>
                                 <ValidatorForm onSubmit={handleSubmit}>
@@ -293,8 +319,16 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                         onChange={handleChangeInput}
                                         variant="standard"
                                         label="رقم الهاتف"
-                                        validators={["required"]}
-                                        errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
+                                        validators={[
+                                            "required",
+                                            "isPhoneNumber",
+                                            "isLocalNumber",
+                                        ]}
+                                        errorMessages={[
+                                            "!! لا يمكنك ترك هذا الحقل فارغاً",
+                                            "!! رقم الهاتف يجب أن يتكون من 10 أرقام فقط",
+                                            "(078 , 079, 077) رقم الهاتف يجب أن يبدأ ب",
+                                        ]}
                                     />
 
                                     <div className={styles.firstAndLastNameInput}>
@@ -382,17 +416,22 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                         value={values.additionalInfo}
                                     />
 
-                                    <button type="submit" className={styles.confirmOrderBtn}>
+                                    <button type="submit"
+                                            className={styles.confirmOrderBtn}
+                                    >
                                         تأكيد الطلب
                                     </button>
                                 </ValidatorForm>
                             </div>
                         </div>
 
-                        <div data-aos="fade-in" className={styles.containerSummaryBagBox}>
+                        <div data-aos="fade-in"
+                             className={styles.containerSummaryBagBox}
+                        >
                             <Accordion>
                                 <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon/>}
+                                    expandIcon={
+                                        <ExpandMoreIcon/>}
                                     aria-controls="panel1a-content"
                                     id="panel1a-header"
                                     style={{backgroundColor: "#fafafa"}}
@@ -408,7 +447,9 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                             <div key={item.id}>
                                                 <div className={styles.productContainer}>
                                                     <div className={styles.containerImgAndName}>
-                                                        <Badge badgeContent={item.qty} color="error">
+                                                        <Badge badgeContent={item.qty}
+                                                               color="error"
+                                                        >
                                                             <img
                                                                 src={item.images[0].url}
                                                                 width={60}
@@ -418,12 +459,12 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                                         <div className={styles.productNameAndColor}>
                                                             <p className={styles.productName}>{item.name}</p>
                                                             <div className={styles.containerColorAndSize}>
-                                <span className={styles.productSize}>
-                                  {item.size} /{" "}
-                                </span>
+                                                                <span className={styles.productSize}>
+                                                                    {item.size} /{" "}
+                                                                </span>
                                                                 <span className={styles.productColor}>
-                                  {item.color}
-                                </span>
+                                                                    {item.color}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -455,10 +496,14 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                         نعتذر لا يمكنك تطبيق الخصم ما لم تكن مسجل لدينا
                                     </p>
                                     <div style={{display: "flex", justifyContent: "center"}}>
-                                        <Link href={"/account/login"} passHref={true}>
+                                        <Link href={"/account/login"}
+                                              passHref={true}
+                                        >
                                             <button className={styles.loginBtn}> تسجيل الدخول</button>
                                         </Link>
-                                        <Link href={"/account/register"} passHref={true}>
+                                        <Link href={"/account/register"}
+                                              passHref={true}
+                                        >
                                             <button className={styles.registerBtn}> إنشاء حساب</button>
                                         </Link>
                                     </div>
