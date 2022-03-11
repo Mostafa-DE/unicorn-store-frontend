@@ -49,13 +49,11 @@ export default function ForgotPasswordForm() {
               <button type="submit" className={styles.btn}>
                 ارسل لي رابط تعيين كلمة المرور
               </button>
-              <div className={styles.contactText}>
-                إذا كان لديك أي مشكلة في إعادة تعيين كلمة المرور لا تتردد في{" "}
-                <br />
-                <Link href="/contact">
-                  <a className={styles.link}> التواصل معنا </a>
-                </Link>
-              </div>
+              <p className={styles.contactText}>
+                إذا كان لديك أي مشكلة في إعادة تعيين كلمة المرور لا تتردد في التواصل معنا عبر أحد طرق التواصل المتاحة لدينا{" "}
+                <div>
+                </div>
+              </p>
             </div>
           </div>
         </ValidatorForm>
