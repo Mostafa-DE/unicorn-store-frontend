@@ -71,15 +71,12 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
     };
 
     // check if the discount date valid
-    const isDiscountDateValid = (currentDateArray, expireArray) => {
+    const isDiscountDateValid = (currentDate, expireDate) => {
         let isValid;
-        for (let i = 0; i <= currentDateArray.length; i++) {
-            if (parseInt(currentDateArray[i]) < parseInt(expireArray[i])) {
+            if (currentDate < expireDate) {
                 return isValid = true
             }
-            isValid = false
-        }
-        return isValid
+        return isValid = false
     }
     // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
@@ -101,9 +98,9 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         let currCode;
         discounts.map(discountText => {
             if (discountText.discount === discountInput) {
-                const currentDateArray = new Date().toISOString().slice(0, 10).split("-")
-                const expireDateArray = discountText.expireDate.split("-")
-                if (isDiscountDateValid(currentDateArray, expireDateArray)) {
+                let currentDate = new Date().toISOString().slice(0, 10)
+                let expireDate = discountText.expireDate
+                if (isDiscountDateValid(currentDate, expireDate)) {
                     currCode = discountText
                 }
 
