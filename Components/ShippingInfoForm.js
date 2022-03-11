@@ -411,7 +411,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                     <textarea
                                         placeholder="أدخل ملاحظاتك هنا"
                                         name="additionalInfo"
-                                        className={styles.textarea}
+                                        className={styles.textArea}
                                         onChange={handleChangeInput}
                                         value={values.additionalInfo}
                                     />
