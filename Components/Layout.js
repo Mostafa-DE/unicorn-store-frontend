@@ -46,7 +46,7 @@ export default function Layout({ title, description, children, userAccount }) {
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#fb9aa7" />
-        <link rel="icon" href="/unicorn.svg" />
+        <link rel="icon" href="/images/unicorn.png" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
