@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import RefundPolicy from "@/components/RefundPolicy";
+import Layout from "@/components/Layout/Layout";
+import RefundPolicy from "@/components/OurPolicies/RefundPolicy";
 
 export default function refundPolicyPage() {
   return (

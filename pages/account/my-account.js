@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import MyAccount from "@/components/MyAccount";
+import Layout from "@/components/Layout/Layout";
+import MyAccount from "@/components/MyAccount/MyAccount";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
 

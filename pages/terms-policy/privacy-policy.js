@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import PrivacyPolicy from "@/components/PrivacyPolicy";
+import Layout from "@/components/Layout/Layout";
+import PrivacyPolicy from "@/components/OurPolicies/PrivacyPolicy";
 
 export default function privacyPolicyPage() {
   return (

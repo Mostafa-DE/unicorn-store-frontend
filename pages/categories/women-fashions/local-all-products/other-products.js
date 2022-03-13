@@ -1,8 +1,8 @@
 import { API_URL } from "@/config/index";
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import useSearch from "@/Hooks/useSearch";
-import SearchInput from "@/components/SearchInput";
-import ProductsWithSearch from "@/components/ProductsWithSearch";
+import SearchInput from "@/components/SearchInput/SearchInput";
+import ProductsWithSearch from "@/components/ProductsWithSearch/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
 import { parseCookies } from "@/helpers/index";
 

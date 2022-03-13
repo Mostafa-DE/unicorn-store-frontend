@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import ShoppingBag from "@/components/ShoppingBag";
+import Layout from "@/components/Layout/Layout";
+import ShoppingBag from "@/components/ShoppingBag/ShoppingBag";
 import { parseCookies } from "@/helpers/index";
 
 export default function shoppingBagListPage({ userAccount, token }) {

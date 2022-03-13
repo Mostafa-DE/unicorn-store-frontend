@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import LoginForm from "@/components/LoginForm";
+import Layout from "@/components/Layout/Layout";
+import LoginForm from "@/components/LoginForm/LoginForm";
 import withAuth from "@/components/HOC/withAuth";
 
 function loginPage() {

@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import InvoiceOrder from "@/components/InvoiceOrder";
+import Layout from "@/components/Layout/Layout";
+import InvoiceOrder from "@/components/InvoiceOrder/InvoiceOrder";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
 

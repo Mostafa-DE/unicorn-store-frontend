@@ -1,11 +1,11 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import { useEffect } from "react";
-import CategoriesPhoto from "@/components/CategoriesPhoto";
+import CategoriesPhoto from "@/components/CategoriesPhoto/CategoriesPhoto";
 import { API_URL } from "@/config/index";
-import CarouselDresses from "@/components/CarouselDresses";
+import CarouselDresses from "@/components/CarouselDresses/CarouselDresses";
 import { parseCookies } from "@/helpers/index";
-import SubscripeForm from "@/components/SubscripeForm";
-import PropertiesOurPage from "@/components/PropertiesOurPage";
+import SubscripeForm from "@/components/SubscripeForm/SubscripeForm";
+import PropertiesOurPage from "@/components/PropertiesOurPage/PropertiesOurPage";
 
 export default function Home({
   turkeyDresses,

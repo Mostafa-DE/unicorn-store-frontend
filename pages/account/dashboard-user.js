@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import DashboardUser from "@/components/DashboardUser";
+import Layout from "@/components/Layout/Layout";
+import DashboardUser from "@/components/DashboardUser/DashboardUser";
 import { parseCookies } from "@/helpers/index";
 import { API_URL } from "@/config/index";
 

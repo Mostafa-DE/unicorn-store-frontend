@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import ShippingInfoForm from "@/components/ShippingInfoForm";
+import Layout from "@/components/Layout/Layout";
+import ShippingInfoForm from "@/components/ShippingInfoForm/ShippingInfoForm";
 import { API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
 

@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import ShippingPolicy from "@/components/ShippingPolicy";
+import Layout from "@/components/Layout/Layout";
+import ShippingPolicy from "@/components/OurPolicies/ShippingPolicy";
 
 export default function shippingPolicyPage() {
   return (

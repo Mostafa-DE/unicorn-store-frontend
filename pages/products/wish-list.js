@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import WishList from "@/components/WishList";
+import Layout from "@/components/Layout/Layout";
+import WishList from "@/components/WishList/WishList";
 import { API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
 

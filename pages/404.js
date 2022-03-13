@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import ErrorComponent from "@/components/ErrorComponent";
+import Layout from "@/components/Layout/Layout";
+import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
 
 export default function NotFoundPage() {
   return (

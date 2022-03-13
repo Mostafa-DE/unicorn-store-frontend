@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import CheckoutLoginForm from "@/components/CheckoutLoginForm";
+import Layout from "@/components/Layout/Layout";
+import CheckoutLoginForm from "@/components/CheckoutLogin/CheckoutLoginForm";
 
 export default function loginPage() {
   return (

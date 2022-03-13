@@ -1,5 +1,5 @@
-import ForgotPasswordForm from "@/components/ForgotPasswordForm";
-import Layout from "@/components/Layout";
+import ForgotPasswordForm from "@/components/ForgotPasswordForm/ForgotPasswordForm";
+import Layout from "@/components/Layout/Layout";
 
 export default function forgotPassword() {
   return (

@@ -1,6 +1,6 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import { API_URL } from "@/config/index";
-import ProductDetails from "@/components/ProductDetails";
+import ProductDetails from "@/components/ProductDetails/ProductDetails";
 
 export default function ProductDetailsPage({ product }) {
   return (

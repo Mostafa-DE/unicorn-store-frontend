@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import TermsAndConditions from "@/components/TermsAndConditions";
+import Layout from "@/components/Layout/Layout";
+import TermsAndConditions from "@/components/OurPolicies/TermsAndConditions";
 
 export default function termsConditionsPage() {
   return (

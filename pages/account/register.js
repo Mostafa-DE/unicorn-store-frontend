@@ -1,5 +1,5 @@
-import RegisterForm from "@/components/RegisterForm";
-import Layout from "@/components/Layout";
+import RegisterForm from "@/components/RegisterForm/RegisterForm";
+import Layout from "@/components/Layout/Layout";
 import withAuth from "@/components/HOC/withAuth";
 
 function register() {
