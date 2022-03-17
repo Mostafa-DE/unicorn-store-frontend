@@ -40,6 +40,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
             {WomenCategoriesProducts.map(category => (
                 <List component="div"
                       disablePadding
+                      key={category.title}
                 >
                     <ListItem button
                               onClick={handleOpenWomenTurkeyProducts}
@@ -65,6 +66,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                         {category.productsData.map(data => (
                             <List component="div"
                                   disablePadding
+                                  key={data.title}
                             >
                                 <Link href={data.link}>
                                     <ListItem button>
@@ -85,7 +87,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
     const MenProducts = (
         <>
             {menProducts.map(category => (
-                <List>
+                <List key={category.title}>
                     <ListItem button
                               onClick={handleOpenMenProducts}
                     >
@@ -108,7 +110,9 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                               unmountOnExit
                     >
                         {category.productsData.map(data => (
-                            <Link href={data.link}>
+                            <Link href={data.link}
+                                  key={data.title}
+                            >
                                 <ListItem button>
                                     <ListItemIcon>
                                         <span>{data.title}</span>
@@ -125,7 +129,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
     const KidsProducts = (
         <>
             {kidsProducts.map(category => (
-                <List>
+                <List key={category.title}>
                     <ListItem button
                               onClick={handleOpenKidsProducts}
                     >
@@ -148,7 +152,9 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                               unmountOnExit
                     >
                         {category.productsData.map(data => (
-                            <Link href={data.link}>
+                            <Link href={data.link}
+                                  key={data.title}
+                            >
                                 <ListItem button>
                                     <ListItemIcon>
                                         <span>{data.title}</span>
@@ -168,6 +174,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                 category => (
                     <List component="div"
                           disablePadding
+                          key={category.title}
                     >
                         <ListItem button
                                   onClick={handleOpenWomenAccessories}
@@ -194,7 +201,9 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                                   disablePadding
                             >
                                 {category.productsData.map(data => (
-                                    <Link href={data.link}>
+                                    <Link href={data.link}
+                                          key={data.title}
+                                    >
                                         <ListItem button>
                                             <ListItemIcon>
                                                 <span>{data.title}</span>
@@ -215,6 +224,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
             {menAccessoriesProducts.map(category => (
                 <List component="div"
                       disablePadding
+                      key={category.title}
                 >
                     <ListItem button
                               onClick={handleOpenMenAccessories}
@@ -241,6 +251,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                             data => (
                                 <List component="div"
                                       disablePadding
+                                      key={data.title}
                                 >
                                     <Link href={data.link}>
                                         <ListItem button>
@@ -265,6 +276,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
             {kidsAccessoriesProducts.map(category => (
                 <List component="div"
                       disablePadding
+                      key={category.title}
                 >
                     <ListItem button
                               onClick={handleOpenKidsAccessories}
@@ -290,6 +302,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                         {category.productsData.map(data => (
                             <List component="div"
                                   disablePadding
+                                  key={data.title}
                             >
                                 <Link href={data.link}>
                                     <ListItem button>
@@ -309,7 +322,7 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
     const OtherProducts = (
         <>
             {otherProducts.map(category => (
-                <List>
+                <List key={category.title}>
                     <ListItem button
                               onClick={handleOpenOtherCategories}
                     >
@@ -332,7 +345,9 @@ export default function Example({drawerMenu, closeDrawerMenu}) {
                               unmountOnExit
                     >
                         {category.productsData.map(data => (
-                            <Link href={data.link}>
+                            <Link href={data.link}
+                                  key={data.title}
+                            >
                                 <ListItem button>
                                     <ListItemIcon>
                                         <span>{data.title}</span>
