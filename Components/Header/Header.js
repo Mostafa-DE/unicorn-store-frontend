@@ -50,6 +50,7 @@ import {RiEyeLine} from "react-icons/ri";
 import {RiEyeCloseLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import {GiScales} from "react-icons/gi";
+import {MdLanguage} from "react-icons/md";
 /*-------------------------X----------------------------*/
 
 /*------------------------transition for Dialog--------------------*/
@@ -302,6 +303,7 @@ export default function Header() {
                 </div>
 
                 <div className={styles.containerIcons}>
+                    <MdLanguage className={styles.languageIcon} />
                     <Badge
                         badgeContent={bag.itemsCount}
                         color="error"
@@ -350,12 +352,12 @@ export default function Header() {
                     {user ? (
                         <RiAccountPinCircleLine
                             onClick={() => router.push("/account/my-account")}
-                            className={styles.searchIcon}
+                            className={styles.accountIcon}
                         />
                     ) : (
                         <RiAccountPinCircleLine
                             onClick={() => router.push("/account/login")}
-                            className={styles.searchIcon}
+                            className={styles.accountIcon}
                         />
                     )}
                     <FiMenu className={styles.menuIcon}
