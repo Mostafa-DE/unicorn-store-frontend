@@ -265,13 +265,13 @@ export default function ProductDetails({product}) {
                     </div>
                     {/* xxxxxxxxxx */}
 
-                    <div>
-                        {size === "" && length !== "" && weight !== "" &&(
-                            <p className={styles.SizeNotAllowed}>
-                                نعتذر يبدو أنه لا يوجد مقاس مناسب للطول أو الوزن الذي أدخلته للتو
-                            </p>
-                        )}
-                    </div>
+                    {/*<div>*/}
+                    {/*    {(size === "") && (length !== "") && (weight !== "") && (*/}
+                    {/*        <p className={styles.SizeNotAllowed}>*/}
+                    {/*            نعتذر يبدو أنه لا يوجد مقاس مناسب للطول أو الوزن الذي أدخلته للتو*/}
+                    {/*        </p>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
 
                     <div className={styles.containerDescription}>
                         {product.description && (
