@@ -3,31 +3,31 @@ import {createContext, useEffect, useState} from "react";
 export const LanguageContext = createContext();
 
 export const LanguageProvider = ({children}) => {
-    const [language, setLanguage] = useState("english");
+    const [language, setLanguage] = useState("arabic");
 
     /*---------Save Product Cart in localStorage-----------*/
 
-    // useEffect(() => {
-    //   setLanguage(window.localStorage.getItem("language"));
-    // }, []);
-    //
-    // useEffect(() => {
-    //   window.localStorage.setItem("language", language);
-    // }, [language]);
-    //
+    useEffect(() => {
+      setLanguage(window.localStorage.getItem("language"));
+    }, []);
+
+    useEffect(() => {
+      window.localStorage.setItem("language", language);
+    }, [language]);
+
     // /*-----------------------X----------------------------*/
 
-    const ChangeToEnglishLanguage = () => {
+    const ChangeLanguageToEnglish= () => {
         setLanguage("english");
     };
 
-    const ChangeToArabicLanguage = () => {
+    const ChangeLanguageToArabic = () => {
         setLanguage("arabic");
     };
 
     return (
         <LanguageContext.Provider
-            value={{language, ChangeToEnglishLanguage, ChangeToArabicLanguage}}
+            value={{language, ChangeLanguageToEnglish, ChangeLanguageToArabic}}
         >
             {children}
         </LanguageContext.Provider>
