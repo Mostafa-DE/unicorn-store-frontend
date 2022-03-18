@@ -8,16 +8,18 @@ export const LanguageProvider = ({children}) => {
     /*---------Save Product Cart in localStorage-----------*/
 
     useEffect(() => {
-      setLanguage(window.localStorage.getItem("language"));
+        if (window.localStorage.getItem("language") !== null) {
+            setLanguage(window.localStorage.getItem("language"));
+        }
     }, []);
 
     useEffect(() => {
-      window.localStorage.setItem("language", language);
+        window.localStorage.setItem("language", language);
     }, [language]);
 
     // /*-----------------------X----------------------------*/
 
-    const ChangeLanguageToEnglish= () => {
+    const ChangeLanguageToEnglish = () => {
         setLanguage("english");
     };
 
