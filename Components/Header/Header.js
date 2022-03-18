@@ -25,12 +25,15 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Slide from "@material-ui/core/Slide";
 import Badge from "@mui/material/Badge";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 /*-------------------------X-----------------------------*/
 
 /*----------------------Context--------------------------*/
 import {AuthContext} from "@/context/AuthContext";
 import {BagContext} from "@/context/BagContext";
 import {CompareContext} from "@/context/CompareContext";
+import {LanguageContext} from "@/context/LanguageContext";
 /*-------------------------X-----------------------------*/
 
 /*-----------------------Hooks---------------------------*/
@@ -51,6 +54,7 @@ import {RiEyeCloseLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import {GiScales} from "react-icons/gi";
 import {MdLanguage} from "react-icons/md";
+import {languages} from "@/components/Header/TranslateText";
 /*-------------------------X----------------------------*/
 
 /*------------------------transition for Dialog--------------------*/
@@ -84,6 +88,11 @@ export default function Header() {
     const {productsCompare} = useContext(CompareContext);
     /*---------------------X---------------------*/
 
+    /*--------------context Language--------------*/
+    const {language, ChangeLanguageToEnglish, ChangeLanguageToArabic} = useContext(LanguageContext)
+    /*---------------------X---------------------*/
+
+
     /*---state for handle drawer menu (open/close)----*/
     const [drawerMenu, openDrawer, closeDrawer] = useDrawer(false);
     /*------------------------X-----------------------*/
@@ -92,7 +101,19 @@ export default function Header() {
     const [shoppingDialog, openShoppingDialog, closeShoppingDialog] = useDrawer(
         false
     );
-    /*-------------------------X---------------------------*/
+    /*------------------------X-----------------------*/
+
+    /*---state for handle language dropDown (open/close)---*/
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClickLanguage = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleCloseLanguage = () => {
+        setAnchorEl(null);
+    };
+
+    /*----------------------X-------------------------*/
 
     /*--state for handle compare dialog (open/close)--*/
     const [compareDialog, openCompareDialog, closeCompareDialog] = useDrawer(
@@ -128,12 +149,57 @@ export default function Header() {
     };
     // xxxxxxxxxxxxxxxxxx
 
+    // translate dialog login (move it to separate file)
+
+    const {titleLogin, titleLogout} = languages[language];
+
+    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+    const dropLanguageMenu = (
+        <div>
+            <MdLanguage
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClickLanguage}
+                className={styles.languageIcon}
+            />
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleCloseLanguage}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
+                transformOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            >
+                <MenuItem onClick={() => {
+                    ChangeLanguageToArabic()
+                    handleCloseLanguage()
+                }}
+                >
+                    عربي
+                </MenuItem>
+                <MenuItem onClick={() => {
+                    ChangeLanguageToEnglish()
+                    handleCloseLanguage()
+                }}
+                >
+                    English
+                </MenuItem>
+            </Menu>
+        </div>
+    )
+
     const DialogLogin = (
         <div>
             {!user &&
-                <li onClick={openLoginDialog}>تسجيل الدخول / اشتراك</li>}
+                <li onClick={openLoginDialog}>{titleLogin}</li>}
             {user &&
-                <li onClick={logout}>تسجيل الخروج</li>}
+                <li onClick={logout}>{titleLogout}</li>}
 
             <Dialog
                 open={loginDialog}
@@ -286,15 +352,26 @@ export default function Header() {
                     <ul data-aos="fade-out"
                         className={styles.containerLink}
                     >
-                        <div>{WomanCollections}</div>
+                        <div>
+                            <WomanCollections language={language}/>
+                        </div>
 
-                        <div>{MenCollections}</div>
+                        <div>
+                            <MenCollections language={language}/>
+                        </div>
 
-                        <div>{KidsCollections}</div>
+                        <div>
+                            <KidsCollections language={language}/>
+                        </div>
 
-                        <div>{AccessoriesCollections}</div>
+                        <div>
+                            <AccessoriesCollections language={language}/>
+                        </div>
 
-                        <div>{MoreCollections}</div>
+                        <div>
+                            <MoreCollections language={language}/>
+                        </div>
+
                         {router.pathname === "/account/login" ||
                         router.pathname === "/account/checkout-login" ? null : (
                             <div className={styles.link}>{DialogLogin}</div>
@@ -303,7 +380,7 @@ export default function Header() {
                 </div>
 
                 <div className={styles.containerIcons}>
-                    <MdLanguage className={styles.languageIcon} />
+                    {dropLanguageMenu}
                     <Badge
                         badgeContent={bag.itemsCount}
                         color="error"
