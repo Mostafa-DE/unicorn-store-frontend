@@ -47,12 +47,17 @@ export default function ProductDetails({product}) {
         setWeight(evnt.target.value);
     };
 
+
     // logic for detect the best size for user
     const [size, setSize] = useState("");
     useEffect(() => {
-        if (length !== "") {
+            if (length === "" || length < 50 || length > 172) {
+                setSize("");
+                return;
+            }
+
             if (length >= 158 && length <= 165) {
-                if (weight <= 50 && weight > 0) {
+                if (weight >= 40 && weight <= 50) {
                     setSize("S");
                 } else if (weight >= 51 && weight <= 57) {
                     setSize("M");
@@ -68,7 +73,21 @@ export default function ProductDetails({product}) {
                     setSize("");
                 }
             } else if (length > 165) {
-                if (weight <= 50 && weight > 0) {
+                if (weight >= 40 && weight <= 50) {
+                    setSize("S");
+                } else if (weight >= 51 && weight <= 57) {
+                    setSize("M");
+                } else if (weight >= 58 && weight <= 64) {
+                    setSize("L");
+                } else if (weight >= 65 && weight <= 75) {
+                    setSize("XL");
+                } else if (weight >= 76) {
+                    setSize("2XL");
+                } else {
+                    setSize("");
+                }
+            } else if (length < 158) {
+                if (weight >= 40 && weight <= 50) {
                     setSize("M");
                 } else if (weight >= 51 && weight <= 57) {
                     setSize("L");
@@ -81,27 +100,14 @@ export default function ProductDetails({product}) {
                 } else {
                     setSize("");
                 }
-            } else if (length < 158) {
-                if (weight <= 57 && weight > 0) {
-                    setSize("S");
-                } else if (weight >= 58 && weight <= 64) {
-                    setSize("M");
-                } else if (weight >= 65 && weight <= 75) {
-                    setSize("L");
-                } else if (weight >= 76 && weight <= 80) {
-                    setSize("XL");
-                } else if (weight >= 81) {
-                    setSize("2XL");
-                } else {
-                    setSize("");
-                }
             }
-        } else {
-            setSize("")
         }
-
-    }, [length, weight]);
-    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ,
+        [length, weight, size]
+    )
+    ;
+    console.log(size)
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     const SizeNotExist = (
         <>
@@ -258,6 +264,14 @@ export default function ProductDetails({product}) {
                         )}
                     </div>
                     {/* xxxxxxxxxx */}
+
+                    <div>
+                        {size === "" && length !== "" && weight !== "" &&(
+                            <p className={styles.SizeNotAllowed}>
+                                نعتذر يبدو أنه لا يوجد مقاس مناسب للطول أو الوزن الذي أدخلته للتو
+                            </p>
+                        )}
+                    </div>
 
                     <div className={styles.containerDescription}>
                         {product.description && (

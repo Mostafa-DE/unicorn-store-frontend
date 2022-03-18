@@ -193,6 +193,11 @@
   color: #333;
 }
 
+.SizeNotAllowed {
+  text-align: center;
+  color: red;
+}
+
 @media (max-width: 1115px) {
   .container {
     flex-direction: column;
