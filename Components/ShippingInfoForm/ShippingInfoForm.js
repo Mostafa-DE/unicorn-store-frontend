@@ -1,6 +1,6 @@
 import styles from "@/components/ShippingInfoForm/ShippingInfoForm.module.css";
 import {useContext, useEffect, useState} from "react";
-import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import {API_URL} from "@/config/index";
 import Link from "next/link";
 import InputLabel from "@mui/material/InputLabel";
@@ -13,8 +13,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMoreSharp";
 import {GrFormNext} from "react-icons/gr";
+import {CgSpinnerTwoAlt} from "react-icons/cg"
 import emailjs from "emailjs-com";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
+import qs from "qs";
 
 /*----------------------Context--------------------------*/
 import {BagContext} from "@/context/BagContext";
@@ -22,7 +24,7 @@ import {ShippingInfoContext} from "@/context/ShippingInfoContext";
 import router from "next/router";
 /*-------------------------X-----------------------------*/
 
-export default function ShippingInfoForm({currentUser, token, discounts}) {
+export default function ShippingInfoForm({currentUser, token}) {
 
     const [orderNumber] = useState(
         parseInt(Date.now() * Math.random())
@@ -36,7 +38,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
     const {items = []} = bag;
     // xxxxxxxxxxxxxxxxxxxx
 
-    // shipping infornation context
+    // shipping information context
     const {addToShippingInfo} = useContext(ShippingInfoContext);
     // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
@@ -48,7 +50,9 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
             }} `
     );
 
+    const [isLoading, setIsLoading] = useState(false)
     const [discountInput, setDiscountInput] = useState("");
+    const [discount, setDiscount] = useState("")
     const handleChangeDiscountInput = evnt => {
         setDiscountInput(evnt.target.value);
     };
@@ -69,16 +73,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         const {name, value} = evnt.target;
         setValues({...values, [name]: value});
     };
-
-    // check if the discount date valid
-    const isDiscountDateValid = (currentDate, expireDate) => {
-        let isValid;
-            if (currentDate < expireDate) {
-                return isValid = true
-            }
-        return isValid = false
-    }
-    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    /*------------------------X-------------------------*/
 
     const calculateDeliveryFees = () => {
         let DeliveryFees;
@@ -94,42 +89,57 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         return DeliveryFees;
     }
 
-    const getCurrentDiscountCode = () => {
-        let currCode;
-        discounts.map(discountText => {
-            if (discountText.discount === discountInput) {
-                let currentDate = new Date().toISOString().slice(0, 10)
-                let expireDate = discountText.expireDate
-                if (isDiscountDateValid(currentDate, expireDate)) {
-                    currCode = discountText
-                }
-
-            }
-        })
-        return currCode;
-    }
-
     const calculateDiscountValue = () => {
-        let discountValue = 0;
-        if (getCurrentDiscountCode()) {
-            discountValue = (((getCurrentDiscountCode().discountValue) / 100) * (bag.totalBag + calculateDeliveryFees()))
-                .toFixed(
-                    2
-                );
+        if (!discount) {
+            return;
         }
-        return discountValue;
+        if (new Date().toISOString().slice(0, 10) > discount.expireDate) { // discount expired
+            return;
+        }
+        return (((discount.discountValue) / 100) * (bag.totalBag + calculateDeliveryFees())).toFixed(2);
     }
 
-    const TotalBag = () => {
-        if (calculateDiscountValue() === 0) {
-            return bag.totalBag + calculateDeliveryFees()
-        } else {
-            return (bag.totalBag + calculateDeliveryFees()) - calculateDiscountValue()
+    const getDiscount = async () => {
+        if(discountInput === "") {
+            return;
         }
+        setIsLoading(true);
+        const query = qs.stringify({
+            _where: {
+                _or: [
+                    {discount: discountInput},
+                ],
+            },
+        });
+        const res = await fetch(`${API_URL}/discounts?${query}`);
+        const product = await res.json();
+        setDiscount(product[0]);
+        setIsLoading(false);
     }
 
 
-    /*------------------------X-----------------------*/
+    // validation phone input
+    useEffect(() => {
+        ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
+            if (value.length > 10 || value.length < 10) {
+                return false;
+            }
+            return true;
+        });
+    });
+
+    useEffect(() => {
+        ValidatorForm.addValidationRule("isLocalNumber", (value) => {
+            let firstThreeNumber = value.slice(0, 3)
+            if (firstThreeNumber.match("078")
+                || firstThreeNumber.match("079")
+                || firstThreeNumber.match("077")) {
+                return true;
+            }
+            return false;
+        });
+    });
+    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
@@ -222,9 +232,9 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         }
 
         // turn discount to draft
-        if (getCurrentDiscountCode()) {
+        if (discount) {
             try {
-                await fetch(`${API_URL}/discounts/${getCurrentDiscountCode().id}`, {
+                await fetch(`${API_URL}/discounts/${discount.id}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -238,28 +248,13 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
         }
     };
 
-    // validation phone input
-    useEffect(() => {
-        ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
-            if (value.length > 10 || value.length < 10) {
-                return false;
-            }
-            return true;
-        });
-    });
-
-    useEffect(() => {
-        ValidatorForm.addValidationRule("isLocalNumber", (value) => {
-            let firstThreeNumber = value.slice(0, 3)
-            if (firstThreeNumber.match("078")
-                || firstThreeNumber.match("079")
-                || firstThreeNumber.match("077")) {
-                return true;
-            }
-            return false;
-        });
-    });
-    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    const TotalBag = () => {
+        if (calculateDiscountValue() === undefined) {
+            return bag.totalBag + calculateDeliveryFees()
+        } else {
+            return (bag.totalBag + calculateDeliveryFees()) - calculateDiscountValue()
+        }
+    }
 
     return (
         <>
@@ -451,6 +446,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                                                 src={item.images[0].url}
                                                                 width={60}
                                                                 height={70}
+                                                                alt="product-image"
                                                             />
                                                         </Badge>
                                                         <div className={styles.productNameAndColor}>
@@ -477,7 +473,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                 </AccordionDetails>
                             </Accordion>
 
-                            <div className={styles.containerCoboneDiscount}>
+                            <div className={styles.containerCouponDiscount}>
                                 <input
                                     type="text"
                                     readOnly={!token && true}
@@ -486,6 +482,14 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                     placeholder="أدخل كود الخصم هنا"
                                     className={styles.discountInput}
                                 />
+                                {isLoading === true ? (
+                                    <CgSpinnerTwoAlt className={styles.rotating}/>
+                                ) : (
+                                    <button onClick={() => getDiscount()}
+                                            className={styles.discountBtn}
+                                    >تطبيق
+                                    </button>
+                                )}
                             </div>
                             {!token && (
                                 <>
@@ -506,7 +510,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                     </div>
                                 </>
                             )}
-                            {calculateDiscountValue() === 0 && discountInput !== "" && (
+                            {discount === undefined && discountInput !== "" && (
                                 <p className={styles.discountText}>
                                     نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم بالفعل
                                 </p>
@@ -526,7 +530,7 @@ export default function ShippingInfoForm({currentUser, token, discounts}) {
                                         JD
                                     </p>
                                     <p>
-                                        <span style={{color: "red"}}>{calculateDiscountValue()}</span>{" "}
+                                        <span style={{color: "red"}}>{calculateDiscountValue() || 0}</span>{" "}
                                         JD
                                     </p>
                                     <p>{TotalBag()} JD</p>

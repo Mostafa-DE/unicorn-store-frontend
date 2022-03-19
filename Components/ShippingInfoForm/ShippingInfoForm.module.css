@@ -58,17 +58,6 @@
     transition: all 0.3s ease-out;
 }
 
-/*.textarea {*/
-/*    margin: 1.5rem 0 0 0;*/
-/*    width: 100%;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.textarea:focus {*/
-/*    outline: 0.5px solid #333;*/
-/*    border-radius: 2px;*/
-/*}*/
-
 .textArea {
     width: 100%;
     margin: 1.5rem 0 0 0;
@@ -156,9 +145,22 @@
     transition: all 0.3s ease-out;
 }
 
-.containerCoboneDiscount {
+.containerCouponDiscount {
     margin: 1rem 0 0 0;
     display: flex;
+}
+
+.discountBtn {
+    background-color: #333;
+    border: 1px solid #333;
+    color: #fafafa;
+    transition: all 0.3s ease-in;
+}
+
+.discountBtn:hover {
+    background-color: #fafafa;
+    color: #333;
+    transition: all 0.3s ease-out;
 }
 
 .discountInput {
@@ -298,4 +300,19 @@
     .nextIcon {
         margin: 0.3rem 0 0 0;
     }
+}
+
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    font-size: 1.5rem;
+    animation: rotating 2s linear infinite;
 }
