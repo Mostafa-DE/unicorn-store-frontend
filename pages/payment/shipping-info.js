@@ -7,7 +7,6 @@ export default function shippingInformation({currentUser, token}) {
     return (
         <Layout title="Shipping_Information">
             <ShippingInfoForm
-                discounts={discounts}
                 token={token}
                 currentUser={currentUser}
             />
