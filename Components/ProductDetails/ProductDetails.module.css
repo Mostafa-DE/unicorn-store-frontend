@@ -87,8 +87,7 @@
 .description {
   display: block;
   max-width: 400px;
-  margin: -1rem 0 0 0;
-  text-align: end;
+  margin: 1rem 0 2rem 0;
 }
 
 .containerAllBtns {
@@ -191,6 +190,10 @@
   text-align: end;
   margin: 0.5rem 0 0 0;
   color: #333;
+}
+
+.preOrderText span {
+  font-weight: 600;
 }
 
 .SizeNotAllowed {

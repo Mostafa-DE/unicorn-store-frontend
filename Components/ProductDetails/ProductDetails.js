@@ -37,7 +37,6 @@ export default function ProductDetails({product}) {
 
     // state for chose right size
     const [length, setLength] = useState();
-
     const handleChangeLength = evnt => {
         setLength(evnt.target.value);
     };
@@ -188,18 +187,30 @@ export default function ProductDetails({product}) {
                         <AiOutlineLine className="lineIcon"/>
                     </div>
 
+                    {/* description section */}
+                    <div>
+                        {product.description && (
+                            <p className={styles.descriptionTitle}> -: الوصف</p>
+                        )}
+                        <p className={styles.description}>{product.description}</p>
+                    </div>
+
+                    {/* price section */}
                     <div className={styles.containerPriceProduct}>
                         <p className={styles.priceProduct}> {product.price} JD :السعر </p>
                     </div>
 
+                    {/* color section */}
                     <div className={styles.containerPriceProduct}>
                         {product.color && (
                             <p className={styles.priceProduct}>اللون: {product.color} </p>
                         )}
                     </div>
 
+                    {/* pre-order message */}
                     {product.preOrder === true && (
                         <div className={styles.preOrderText}>
+                            <span>: ملاحظة</span>
                             <p>
                                 يرجى العلم أن المنتج متوفر فقط عند الطلب المسبق, مع العلم أن بعض
                                 المنتجات قد تستغرق وقت لحين الشحن قد تستمر إلى أسابيع, لذا عند
@@ -247,6 +258,7 @@ export default function ProductDetails({product}) {
                         </>
                     )}
 
+                    {/* error message when size not available */}
                     <div>
                         {size === "S" && product.S !== true && SizeNotExist}
                         {size === "M" && product.M !== true && SizeNotExist}
@@ -263,23 +275,7 @@ export default function ProductDetails({product}) {
                             </p>
                         )}
                     </div>
-                    {/* xxxxxxxxxx */}
-
-                    {/*<div>*/}
-                    {/*    {(size === "") && (length !== "") && (weight !== "") && (*/}
-                    {/*        <p className={styles.SizeNotAllowed}>*/}
-                    {/*            نعتذر يبدو أنه لا يوجد مقاس مناسب للطول أو الوزن الذي أدخلته للتو*/}
-                    {/*        </p>*/}
-                    {/*    )}*/}
-                    {/*</div>*/}
-
-                    <div className={styles.containerDescription}>
-                        {product.description && (
-                            <p className={styles.descriptionTitle}> -: الوصف</p>
-                        )}
-
-                        <p className={styles.description}>{product.description}</p>
-                    </div>
+                    {/* xxxxxxxxxxxxxxxx */}
 
                     <div className={styles.containerAllBtns}>
                         <button
