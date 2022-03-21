@@ -1,18 +1,19 @@
 import styles from "@/components/ProductItems/ProductItems.module.css";
 import "../../node_modules/animate.css/animate.css";
 import Link from "next/link";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "@/context/AuthContext";
 import {CompareContext} from "@/context/CompareContext";
 import {WishBagContext} from "@/context/WishBagContext";
-import {IoMdHeartEmpty} from "react-icons/io";
-import {IoMdHeart} from "react-icons/io";
+import {IoMdHeartEmpty, IoMdHeart} from "react-icons/io";
 import RateStarIcons from "../RateStarIcons/RateStarIcons";
 import {useRouter} from "next/router";
 import {GiScales} from "react-icons/gi";
 import {HiCheckCircle} from "react-icons/hi";
+import {BiShareAlt} from "react-icons/bi"
 import {API_URL} from "@/config/index";
 import Swal from "sweetalert2";
+import DialogSocialShare from "@/components/DialogSocialShare"
 
 export default function ProductItems({product, pathname, token}) {
     const router = useRouter();
@@ -73,6 +74,18 @@ export default function ProductItems({product, pathname, token}) {
         element => element.slug === product.slug
     );
 
+    // state for share social dialog
+    const [shareDialog, setShareDialog] = useState(false)
+    const openShareDialog = () => {
+        setShareDialog(true)
+    }
+
+    const closeShareDialog = () => {
+        setShareDialog(false)
+    }
+
+    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
     return (
         <div data-aos="fade-right"
              className={styles.container}
@@ -80,6 +93,12 @@ export default function ProductItems({product, pathname, token}) {
             <img className={styles.imgs}
                  src={product.images[0]?.url}
                  alt="product-image"
+            />
+            <DialogSocialShare
+                shareDialog={shareDialog}
+                openShareDialog={openShareDialog}
+                closeShareDialog={closeShareDialog}
+                product={product}
             />
             <div className={styles.overlay}>
                 <div>
@@ -108,6 +127,7 @@ export default function ProductItems({product, pathname, token}) {
                             onClick={() => addToCompare(product)}
                             className={styles.compareProductsIcon}
                         />
+                        <BiShareAlt onClick={openShareDialog}  className={styles.shareIcon}/>
                     </div>
                     <RateStarIcons/>
                 </div>
