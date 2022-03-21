@@ -6,7 +6,6 @@ import {AuthContext} from "@/context/AuthContext";
 import {CompareContext} from "@/context/CompareContext";
 import {WishBagContext} from "@/context/WishBagContext";
 import {IoMdHeartEmpty, IoMdHeart} from "react-icons/io";
-import RateStarIcons from "../RateStarIcons/RateStarIcons";
 import {useRouter} from "next/router";
 import {GiScales} from "react-icons/gi";
 import {HiCheckCircle} from "react-icons/hi";
@@ -129,7 +128,6 @@ export default function ProductItems({product, pathname, token}) {
                         />
                         <BiShareAlt onClick={openShareDialog}  className={styles.shareIcon}/>
                     </div>
-                    <RateStarIcons/>
                 </div>
                 <div className={styles.head}>
                     <p className={styles.nameText}>{product.name}</p>

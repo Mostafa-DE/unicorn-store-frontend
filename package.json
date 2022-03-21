@@ -28,7 +28,7 @@
     "jspdf": "^2.4.0",
     "nanoid": "^3.2.0",
     "next": "^12.1.0",
-    "next-pwa": "^5.4.0",
+    "next-pwa": "^5.0.3",
     "nprogress": "^0.2.0",
     "qs": "^6.10.1",
     "react": "^17.0.2",
@@ -44,6 +44,6 @@
   },
   "devDependencies": {
     "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2"
+    "eslint-config-next": "^0.2.4"
   }
 }
