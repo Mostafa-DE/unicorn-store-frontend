@@ -19,7 +19,6 @@ export default function InvoiceOrderPage({token}) {
     const router = useRouter();
     const {shippingInfo} = useContext(ShippingInfoContext);
     const {shippingItems = []} = shippingInfo;
-    console.log(shippingInfo)
 
     useEffect(() => {
         window.localStorage.removeItem("shoppingBag");

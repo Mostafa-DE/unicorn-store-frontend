@@ -103,9 +103,7 @@ export default function ProductDetails({product}) {
         }
         ,
         [length, weight, size]
-    )
-    ;
-    console.log(size)
+    );
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     const SizeNotExist = (
