@@ -77,32 +77,19 @@ export default function ShippingInfoForm({currentUser, token}) {
 
     const calculateDeliveryFees = () => {
         let DeliveryFees;
-        if (values.city === "عمان" || values.city === "الزرقاء") {
-            DeliveryFees = 3;
-        } else {
-            DeliveryFees = 5;
-        }
-
-        if (values.city === "") {
-            return 0
-        }
+        (values.city === "عمان" || values.city === "الزرقاء") ? DeliveryFees = 3 : DeliveryFees = 5;
+        if (values.city === "") return 0;
         return DeliveryFees;
     }
 
     const calculateDiscountValue = () => {
-        if (!discount) {
-            return;
-        }
-        if (new Date().toISOString().slice(0, 10) > discount.expireDate) { // discount expired
-            return;
-        }
+        if (!discount) return;
+        if (new Date().toISOString().slice(0, 10) >= discount.expireDate) return; // discount expired
         return (((discount.discountValue) / 100) * (bag.totalBag + calculateDeliveryFees())).toFixed(2);
     }
 
     const getDiscount = async () => {
-        if(discountInput === "") {
-            return;
-        }
+        if (discountInput === "") return;
         setIsLoading(true);
         const query = qs.stringify({
             _where: {
@@ -121,22 +108,16 @@ export default function ShippingInfoForm({currentUser, token}) {
     // validation phone input
     useEffect(() => {
         ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
-            if (value.length > 10 || value.length < 10) {
-                return false;
-            }
-            return true;
+            return !(value.length > 10 || value.length < 10);
         });
     });
 
     useEffect(() => {
         ValidatorForm.addValidationRule("isLocalNumber", (value) => {
             let firstThreeNumber = value.slice(0, 3)
-            if (firstThreeNumber.match("078")
+            return !!(firstThreeNumber.match("078")
                 || firstThreeNumber.match("079")
-                || firstThreeNumber.match("077")) {
-                return true;
-            }
-            return false;
+                || firstThreeNumber.match("077"));
         });
     });
     // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

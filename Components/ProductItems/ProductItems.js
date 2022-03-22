@@ -126,12 +126,16 @@ export default function ProductItems({product, pathname, token}) {
                             onClick={() => addToCompare(product)}
                             className={styles.compareProductsIcon}
                         />
-                        <BiShareAlt onClick={openShareDialog}  className={styles.shareIcon}/>
+                        <BiShareAlt onClick={openShareDialog}
+                                    className={styles.shareIcon}
+                        />
                     </div>
                 </div>
                 <div className={styles.head}>
                     <p className={styles.nameText}>{product.name}</p>
-                    <p className={styles.saveText}>Save {product.discount}%</p>
+                    {product.discount && (
+                        <p className={styles.saveText}>Save {product.discount}%</p>
+                    )}
                     <hr className={styles.hr}/>
                 </div>
                 <div className={styles.price}>
