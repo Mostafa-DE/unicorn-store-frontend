@@ -21,7 +21,7 @@ const loginApi = async (req, res) => {
                 "Set-Cookie",
                 cookie.serialize("token", data.jwt, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV != "development",
+                    secure: process.env.NODE_ENV !== "development",
                     maxAge: 60 * 60 * 24 * 7, // for a week
                     sameSite: "strict",
                     path: "/"
