@@ -98,7 +98,11 @@ export default function ShippingInfoForm({currentUser, token}) {
                 ],
             },
         });
-        const res = await fetch(`${API_URL}/discounts?${query}`);
+        const res = await fetch(`${API_URL}/discounts?${query}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         const product = await res.json();
         setDiscount(product[0]);
         setIsLoading(false);
@@ -253,7 +257,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                             <GrFormNext className={styles.nextIcon}/>
 
                             <li>
-                                <Link href="/account/login">
+                                <Link href="/account/checkout-login">
                                     <a className={styles.LinkPage}>تسجيل الدخول</a>
                                 </Link>
                             </li>
@@ -478,12 +482,12 @@ export default function ShippingInfoForm({currentUser, token}) {
                                         نعتذر لا يمكنك تطبيق الخصم ما لم تكن مسجل مسجل حساب لدينا
                                     </p>
                                     <div style={{display: "flex", justifyContent: "center"}}>
-                                        <Link href={"/account/login"}
+                                        <Link href="/account/checkout-login"
                                               passHref={true}
                                         >
                                             <button className={styles.loginBtn}> تسجيل الدخول</button>
                                         </Link>
-                                        <Link href={"/account/register"}
+                                        <Link href="/account/register"
                                               passHref={true}
                                         >
                                             <button className={styles.registerBtn}> إنشاء حساب</button>

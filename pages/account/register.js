@@ -1,6 +1,5 @@
 import RegisterForm from "@/components/RegisterForm/RegisterForm";
 import Layout from "@/components/Layout/Layout";
-import withAuth from "@/components/HOC/withAuth";
 
 function register() {
   return (
@@ -10,4 +9,4 @@ function register() {
   );
 }
 
-export default withAuth(register);
+export default register;

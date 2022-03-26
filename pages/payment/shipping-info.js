@@ -19,7 +19,6 @@ export async function getServerSideProps({req}) {
 
     // Get current user
     const res = await fetch(`${API_URL}/users/me`, {
-        method: "GET",
         headers: {
             Authorization: `Bearer ${token}`
         }

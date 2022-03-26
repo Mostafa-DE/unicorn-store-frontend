@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout/Layout";
 import DashboardUser from "@/components/DashboardUser/DashboardUser";
 import {parseCookies} from "@/helpers/index";
+import {API_URL} from "@/config/index";
 
 export default function dashboardUserPage({userOrders}) {
     return (
@@ -11,8 +12,13 @@ export default function dashboardUserPage({userOrders}) {
 }
 
 export async function getServerSideProps({req}) {
-    const {AllUserOrder} = parseCookies(req);
-    const userOrders = await JSON.parse(AllUserOrder)
+    const {token = null} = parseCookies(req);
+    const getOrdersUser = await fetch(`${API_URL}/orders/me`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    const userOrders = await getOrdersUser.json();
     return {
         props: {
             userOrders,

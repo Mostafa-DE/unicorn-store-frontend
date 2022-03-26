@@ -2,7 +2,7 @@ import Layout from "@/components/Layout/Layout";
 import MyAccount from "@/components/MyAccount/MyAccount";
 import {parseCookies} from "@/helpers/index";
 
-export default function index({userAccount}) {
+export default function myAccount({userAccount}) {
     return (
         <Layout title="Your_Account_Details">
             <MyAccount userAccount={userAccount}/>
