@@ -91,7 +91,6 @@ export default function ProductItems({product, pathname, token}) {
         >
             <img className={styles.imgs}
                  src={product.images[0]?.url}
-                 alt="product-image"
             />
             <DialogSocialShare
                 shareDialog={shareDialog}

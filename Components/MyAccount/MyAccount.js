@@ -34,11 +34,11 @@ export default function MyAccount({userAccount}) {
                          className={styles.containerFirstBox}
                     >
                         <div className={styles.containerText}>
-                            <h3 data-aos="fade-up">{userAccount.username} 👋 مرحباً</h3>
-                            <p data-aos="fade-up"> {getQuotation} </p>
+                            <h3 data-aos="fade-out">{userAccount.username} 👋 مرحباً</h3>
+                            <p data-aos="fade-out"> {getQuotation} </p>
                         </div>
 
-                        <div data-aos="fade-right"
+                        <div data-aos="fade-out"
                              className={styles.containerBtns}
                         >
                             <Link href="/account/dashboard-user">
