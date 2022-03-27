@@ -12,7 +12,7 @@ import usePagination from "@/Hooks/usePagination"
 export default function Dresses({turkeyDresses, token, totalPages}) {
     const pathname = "/categories/women-fashions/turkey-dresses";
     const [searchTerm, handleChange] = useSearch("");
-    const [ page, handleChangePage ] = usePagination(1);
+    const [page, handleChangePage] = usePagination(1);
 
     return (
         <Layout title="Women_Turkey_Dresses">
@@ -34,11 +34,13 @@ export default function Dresses({turkeyDresses, token, totalPages}) {
                     token={token}
                 />
             </div>
-            <Pagination
-                page={page}
-                totalPages={totalPages}
-                handleChangePage={handleChangePage}
-            />
+            {turkeyDresses.length !== 0 && (
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    handleChangePage={handleChangePage}
+                />
+            )}
         </Layout>
     );
 }

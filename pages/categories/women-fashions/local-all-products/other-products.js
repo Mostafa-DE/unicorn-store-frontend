@@ -33,11 +33,13 @@ export default function OtherProducts({localWomenProducts, token, totalPages}) {
                     token={token}
                 />
             </div>
-            <Pagination
-                page={page}
-                totalPages={totalPages}
-                handleChangePage={handleChangePage}
-            />
+            {localWomenProducts.length !== 0 && (
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    handleChangePage={handleChangePage}
+                />
+            )}
         </Layout>
     );
 }

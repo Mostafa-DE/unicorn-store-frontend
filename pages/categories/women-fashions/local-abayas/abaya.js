@@ -33,11 +33,13 @@ export default function Abaya({localAbayas, token, totalPages}) {
                     token={token}
                 />
             </div>
-            <Pagination
-                page={page}
-                totalPages={totalPages}
-                handleChangePage={handleChangePage}
-            />
+            {localAbayas.length !== 0 && (
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    handleChangePage={handleChangePage}
+                />
+            )}
         </Layout>
     );
 }

@@ -34,11 +34,13 @@ export default function Abaya({turkeyAbayas, token, totalPages}) {
                     token={token}
                 />
             </div>
-            <Pagination
-                page={page}
-                totalPages={totalPages}
-                handleChangePage={handleChangePage}
-            />
+            {turkeyAbayas.length !== 0 && (
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    handleChangePage={handleChangePage}
+                />
+            )}
         </Layout>
     );
 }

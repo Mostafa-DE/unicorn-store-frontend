@@ -33,11 +33,13 @@ export default function Lingeries({localLingeries, token, totalPages}) {
                     token={token}
                 />
             </div>
-            <Pagination
-                page={page}
-                totalPages={totalPages}
-                handleChangePage={handleChangePage}
-            />
+            {localLingeries.length !== 0 && (
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    handleChangePage={handleChangePage}
+                />
+            )}
         </Layout>
     );
 }
