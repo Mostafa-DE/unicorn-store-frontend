@@ -14,7 +14,7 @@ import {API_URL} from "@/config/index";
 import Swal from "sweetalert2";
 import DialogSocialShare from "@/components/DialogSocialShare"
 
-export default function ProductItems({product, pathname, token}) {
+export default function ProductItems({product, token}) {
     const router = useRouter();
 
     // Auth Context
@@ -39,7 +39,7 @@ export default function ProductItems({product, pathname, token}) {
                     price: `${product.price}`,
                     image: `${product.images[0].id}`,
                     slug: `${product.slug}`,
-                    productDetailsPage: `${pathname}`,
+                    productDetailsPage: `/${product.productDetailsPage}/${product.slug}`,
                     IdProductExist: `${product.id}`,
                     qty: product.qty || 1
                 })
