@@ -9,18 +9,38 @@ import usePagination from "@/Hooks/usePagination"
 
 export default function SearchPage({products, token, totalPages}) {
     const [page, handleChangePage] = usePagination(1);
+
+    const isProductExist = (products) => {
+        for (let product of products) {
+            if (product.length !== 0) return true
+        }
+        return false
+    }
+
     return (
         <Layout title="Search_Page">
             <Search products={products}
                     token={token}
             />
-            {products.length !== 0 && (
+            {!isProductExist(products) && (
+                <div className="containerSearchResults">
+                    <h1>😔 لا شيء هنا</h1>
+                    <p className="text-center">
+                        لم نتمكن من العثور على المنتج ، ربما لم يكن موجودًا أو غير متوفر
+                        حالياً
+                    </p>
+                </div>
+            )}
+
+            {isProductExist(products) && (
                 <Pagination
                     page={page}
                     totalPages={totalPages}
                     handleChangePage={handleChangePage}
                 />
             )}
+
+
         </Layout>
     );
 }
