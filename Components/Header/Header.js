@@ -7,9 +7,10 @@ import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
 import Alert from "react-bootstrap/Alert";
 
 /*--------------------Components-------------------------*/
-import MenuDrawer from "../DrawerMenu/MenuDrawer";
-import DialogShoppingBag from "@/components/DialogShoppingBag/DialogShoppingBag";
-import DialogCompareProducts from "../DialogCompareProducts/DialogCompareProducts";
+import MenuDrawer from "@/components/DrawerMenu";
+import DialogShoppingBag from "@/components/DialogShoppingBag";
+import DialogCompareProducts from "@/components/DialogCompareProducts/DialogCompareProducts";
+import DialogSearchProducts from "@/components/DialogSearchProducts";
 /*-------------------------X-----------------------------*/
 
 /*--------------------Categories-------------------------*/
@@ -46,14 +47,12 @@ import useShowPassword from "@/Hooks/useShowPassword";
 
 /*--------------------React Icons------------------------*/
 import {HiOutlineShoppingBag} from "react-icons/hi";
-import {RiAccountPinCircleLine} from "react-icons/ri";
-import {FiMenu} from "react-icons/fi";
+import {RiAccountPinCircleLine, RiEyeLine, RiEyeCloseLine} from "react-icons/ri";
+import {FiMenu, FiAlertCircle} from "react-icons/fi";
 import {ImHeart} from "react-icons/im";
-import {RiEyeLine} from "react-icons/ri";
-import {RiEyeCloseLine} from "react-icons/ri";
-import {FiAlertCircle} from "react-icons/fi";
 import {GiScales} from "react-icons/gi";
 import {MdLanguage} from "react-icons/md";
+import {BsSearch} from "react-icons/bs"
 import {languages} from "@/components/Header/TranslateText";
 /*-------------------------X----------------------------*/
 
@@ -99,6 +98,12 @@ export default function Header() {
 
     /*---state for handle shopping Bag (open/close)---*/
     const [shoppingDialog, openShoppingDialog, closeShoppingDialog] = useDrawer(
+        false
+    );
+    /*------------------------X-----------------------*/
+
+    /*---state for handle Search dialog (open/close)---*/
+    const [searchDialog, openSearchDialog, closeSearchDialog] = useDrawer(
         false
     );
     /*------------------------X-----------------------*/
@@ -380,6 +385,7 @@ export default function Header() {
                 </div>
 
                 <div className={styles.containerIcons}>
+                    <BsSearch onClick={openSearchDialog} className={styles.searchIcon}/>
                     {dropLanguageMenu}
                     <Badge
                         badgeContent={bag.itemsCount}
@@ -451,6 +457,10 @@ export default function Header() {
                     <DialogCompareProducts
                         compareDialog={compareDialog}
                         closeCompareDialog={closeCompareDialog}
+                    />
+                    <DialogSearchProducts
+                        searchDialog={searchDialog}
+                        closeSearchDialog={closeSearchDialog}
                     />
                 </div>
             </nav>

@@ -80,8 +80,14 @@
     cursor: pointer;
 }
 
-.languageIcon  {
-    margin: 0 0.6rem 0 0;
+.languageIcon,
+.searchIcon{
+    margin: 0.1rem 0.6rem 0 0;
+}
+
+.searchIcon {
+    font-size: 1.3rem;
+    cursor: pointer;
 }
 
 .menuIcon {
