@@ -1,9 +1,13 @@
-
 .main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.dialogContent {
+    width: 25rem;
+    height: 7rem;
 }
 
 .containerTitle {
@@ -16,6 +20,7 @@
 .titleShoppingBag {
     font-size: 1.5rem;
     font-family: "Tajawal", sans-serif;
+    text-align: center;
 }
 
 .closeIcon {
@@ -28,10 +33,10 @@
 }
 
 .lineIcon {
-  font-size: 3rem;
-  font-weight: 400;
-  margin: -2rem 0 -0.5rem 0;
-  color: #fb9aa7;
+    font-size: 3rem;
+    font-weight: 400;
+    margin: -2rem 0 -0.5rem 0;
+    color: #fb9aa7;
 }
 
 .searchInput {
@@ -58,4 +63,18 @@
     background-color: #fafafa;
     color: #333;
     transition: all 0.3s ease-out;
+}
+
+@media (max-width: 465px) {
+    .dialogContent {
+        width: 100%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+
+    .closeIcon {
+        display: none;
+    }
 }

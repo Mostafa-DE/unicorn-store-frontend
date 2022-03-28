@@ -28,6 +28,7 @@
 .containerIcons {
     display: flex;
     align-items: center;
+
 }
 
 .link,
@@ -81,7 +82,7 @@
 }
 
 .languageIcon,
-.searchIcon{
+.searchIcon {
     margin: 0.1rem 0.6rem 0 0;
 }
 
@@ -357,9 +358,20 @@
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 375px) {
     .logoImg2 {
         height: 100px;
-        width: 60%;
+        width: 90%;
+    }
+
+}
+
+@media (max-width: 340px) {
+    .logoImg2 {
+        display: none;
+    }
+
+    .containerIcons {
+        margin: 3rem 0 1rem 0;
     }
 }

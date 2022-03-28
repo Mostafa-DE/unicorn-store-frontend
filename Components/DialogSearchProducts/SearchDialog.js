@@ -35,7 +35,7 @@ export default function DialogShoppingBag({searchDialog, closeSearchDialog}) {
                         <VscClose onClick={closeSearchDialog}/>
                     </div>
                 </DialogTitle>
-                <DialogContent sx={{width: "25rem", height: "7rem"}}>
+                <DialogContent className={styles.dialogContent}>
                     <div className={styles.main}>
                         <input
                             type="text"
