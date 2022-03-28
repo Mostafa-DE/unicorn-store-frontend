@@ -70,6 +70,13 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
     const resKidsProducts = await fetch(`${API_URL}/kids-products`);
     const resKidsDresses = await fetch(`${API_URL}/kids-dresses`);
     const resKidsPajamas = await fetch(`${API_URL}/kids-pajamas`);
+    const resKidsAccessories = await fetch(`${API_URL}/kids-accessories`);
+    const resMenProductsAccessories = await fetch(`${API_URL}/men-accessories`);
+    const resMenWatches = await fetch(`${API_URL}/men-watches`);
+    const resWomenAccessories = await fetch(`${API_URL}/women-accessories`);
+    const resBracelets = await fetch(`${API_URL}/bracelets`);
+    const resNecklaces = await fetch(`${API_URL}/necklaces`);
+    const resRings = await fetch(`${API_URL}/rings`);
 
 
     const AllProductsArray = [];
@@ -87,6 +94,13 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
         await resKidsProducts.json(),
         await resKidsDresses.json(),
         await resKidsPajamas.json(),
+        await resKidsAccessories.json(),
+        await resMenProductsAccessories.json(),
+        await resMenWatches.json(),
+        await resWomenAccessories.json(),
+        await resBracelets.json(),
+        await resNecklaces.json(),
+        await resRings.json()
     );
 
     getStartAndEndValueForPagination(AllProductsArray, page);
