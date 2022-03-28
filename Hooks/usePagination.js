@@ -7,6 +7,9 @@ export default function useLoginDialog() {
     const handleChangePage = async (event, value) => {
         event.preventDefault();
         setPage(value);
+        if(router.pathname === "/products/search"){
+            return router.push(`?term=${router.query.term}&page=${value}`)
+        }
         await router.push(`?page=${value}`);
     };
 

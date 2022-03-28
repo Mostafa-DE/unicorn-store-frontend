@@ -11,6 +11,7 @@ export default function SearchPage({products, token, totalPages}) {
     const [page, handleChangePage] = usePagination(1);
 
     const isProductExist = (products) => {
+        if(!products) return;
         for (let product of products) {
             if (product.length !== 0) return true
         }
@@ -45,7 +46,7 @@ export default function SearchPage({products, token, totalPages}) {
     );
 }
 
-export async function getServerSideProps({req, query: {term = "", page = 1}}) {
+export async function getServerSideProps({req, query: {term, page = 1}}) {
     const {token = null} = parseCookies(req);
     const query = qs.stringify({
         _where: {
@@ -55,6 +56,7 @@ export async function getServerSideProps({req, query: {term = "", page = 1}}) {
             ],
         },
     });
+    if(!term) return {props:{}};
     const resTurkeyDresses = await fetch(`${API_URL}/turkey-dresses?${query}`);
     const resTurkeyWomenProducts = await fetch(`${API_URL}/turkey-women-products?${query}`);
     const resTurkeyLingeries = await fetch(`${API_URL}/turkey-lingeries?${query}`);

@@ -19,7 +19,7 @@ export default function SearchComponent({products, token}) {
 
 
             <Box className="containerCardProducts">
-                {products.map(productArrayData => (
+                {products?.map(productArrayData => (
                     productArrayData.map(product => (
                         <ProductItems
                             key={product.id}
