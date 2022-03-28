@@ -11,7 +11,7 @@ export default function SearchPage({products, token, totalPages}) {
     const [page, handleChangePage] = usePagination(1);
 
     const isProductExist = (products) => {
-        if(!products) return;
+        if (!products) return;
         for (let product of products) {
             if (product.length !== 0) return true
         }
@@ -56,7 +56,7 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
             ],
         },
     });
-    if(!term) return {props:{}};
+    if (!term) return {props: {}};
     const resTurkeyDresses = await fetch(`${API_URL}/turkey-dresses?${query}`);
     const resTurkeyWomenProducts = await fetch(`${API_URL}/turkey-women-products?${query}`);
     const resTurkeyLingeries = await fetch(`${API_URL}/turkey-lingeries?${query}`);
@@ -65,6 +65,8 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
     const resLocalDresses = await fetch(`${API_URL}/local-dresses?${query}`);
     const resLocalWomenProducts = await fetch(`${API_URL}/local-women-products?${query}`);
     const resLocalAbayas = await fetch(`${API_URL}/local-abayas?${query}`);
+    const resMenProducts = await fetch(`${API_URL}/men-products`);
+    const resMenPagamas = await fetch(`${API_URL}/men-pajamas`);
 
 
     const AllProductsArray = [];
@@ -77,6 +79,8 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
         await resLocalDresses.json(),
         await resLocalWomenProducts.json(),
         await resLocalAbayas.json(),
+        await resMenProducts.json(),
+        await resMenPagamas.json(),
     );
 
     getStartAndEndValueForPagination(AllProductsArray, page);
