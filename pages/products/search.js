@@ -67,6 +67,9 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
     const resLocalAbayas = await fetch(`${API_URL}/local-abayas?${query}`);
     const resMenProducts = await fetch(`${API_URL}/men-products`);
     const resMenPagamas = await fetch(`${API_URL}/men-pajamas`);
+    const resKidsProducts = await fetch(`${API_URL}/kids-products`);
+    const resKidsDresses = await fetch(`${API_URL}/kids-dresses`);
+    const resKidsPajamas = await fetch(`${API_URL}/kids-pajamas`);
 
 
     const AllProductsArray = [];
@@ -81,6 +84,9 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
         await resLocalAbayas.json(),
         await resMenProducts.json(),
         await resMenPagamas.json(),
+        await resKidsProducts.json(),
+        await resKidsDresses.json(),
+        await resKidsPajamas.json(),
     );
 
     getStartAndEndValueForPagination(AllProductsArray, page);
