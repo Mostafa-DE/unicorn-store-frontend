@@ -33,13 +33,13 @@ export default function SearchPage({products, token, totalPages}) {
                 </div>
             )}
 
-            {isProductExist(products) && (
-                <Pagination
-                    page={page}
-                    totalPages={totalPages}
-                    handleChangePage={handleChangePage}
-                />
-            )}
+            {/*{isProductExist(products) && (*/}
+            {/*    <Pagination*/}
+            {/*        page={page}*/}
+            {/*        totalPages={totalPages}*/}
+            {/*        handleChangePage={handleChangePage}*/}
+            {/*    />*/}
+            {/*)}*/}
 
 
         </Layout>
@@ -57,57 +57,38 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
         },
     });
     if (!term) return {props: {}};
-    const resTurkeyDresses = await fetch(`${API_URL}/turkey-dresses?${query}`);
-    const resTurkeyWomenProducts = await fetch(`${API_URL}/turkey-women-products?${query}`);
-    const resTurkeyLingeries = await fetch(`${API_URL}/turkey-lingeries?${query}`);
-    const resTurkeyAbayas = await fetch(`${API_URL}/turkey-abayas?${query}`);
-    const resLocalLingeries = await fetch(`${API_URL}/local-lingeries?${query}`);
-    const resLocalDresses = await fetch(`${API_URL}/local-dresses?${query}`);
-    const resLocalWomenProducts = await fetch(`${API_URL}/local-women-products?${query}`);
-    const resLocalAbayas = await fetch(`${API_URL}/local-abayas?${query}`);
-    const resMenProducts = await fetch(`${API_URL}/men-products`);
-    const resMenPagamas = await fetch(`${API_URL}/men-pajamas`);
-    const resKidsProducts = await fetch(`${API_URL}/kids-products`);
-    const resKidsDresses = await fetch(`${API_URL}/kids-dresses`);
-    const resKidsPajamas = await fetch(`${API_URL}/kids-pajamas`);
-    const resKidsAccessories = await fetch(`${API_URL}/kids-accessories`);
-    const resMenProductsAccessories = await fetch(`${API_URL}/men-accessories`);
-    const resMenWatches = await fetch(`${API_URL}/men-watches`);
-    const resWomenAccessories = await fetch(`${API_URL}/women-accessories`);
-    const resBracelets = await fetch(`${API_URL}/bracelets`);
-    const resNecklaces = await fetch(`${API_URL}/necklaces`);
-    const resRings = await fetch(`${API_URL}/rings`);
-
-
+    const urls = [
+        `${API_URL}/turkey-dresses?${query}`,
+        `${API_URL}/turkey-women-products?${query}`,
+        `${API_URL}/turkey-lingeries?${query}`,
+        `${API_URL}/turkey-abayas?${query}`,
+        `${API_URL}/local-lingeries?${query}`,
+        `${API_URL}/local-dresses?${query}`,
+        `${API_URL}/local-women-products?${query}`,
+        `${API_URL}/local-abayas?${query}`,
+        `${API_URL}/men-products?${query}`,
+        `${API_URL}/men-pajamas?${query}`,
+        `${API_URL}/kids-products?${query}`,
+        `${API_URL}/kids-dresses?${query}`,
+        `${API_URL}/kids-pajamas?${query}`,
+        `${API_URL}/kids-accessories?${query}`,
+        `${API_URL}/men-watches?${query}`,
+        `${API_URL}/women-accessories?${query}`,
+        `${API_URL}/bracelets?${query}`,
+        `${API_URL}/necklaces?${query}`,
+        `${API_URL}/rings?${query}`
+    ]
     const AllProductsArray = [];
-    AllProductsArray.push(
-        await resTurkeyDresses.json(),
-        await resTurkeyWomenProducts.json(),
-        await resTurkeyLingeries.json(),
-        await resTurkeyAbayas.json(),
-        await resLocalLingeries.json(),
-        await resLocalDresses.json(),
-        await resLocalWomenProducts.json(),
-        await resLocalAbayas.json(),
-        await resMenProducts.json(),
-        await resMenPagamas.json(),
-        await resKidsProducts.json(),
-        await resKidsDresses.json(),
-        await resKidsPajamas.json(),
-        await resKidsAccessories.json(),
-        await resMenProductsAccessories.json(),
-        await resMenWatches.json(),
-        await resWomenAccessories.json(),
-        await resBracelets.json(),
-        await resNecklaces.json(),
-        await resRings.json()
-    );
 
-    getStartAndEndValueForPagination(AllProductsArray, page);
+    await Promise.all(
+        urls.map(url => fetch(url).then(res => res.json()).then(product => AllProductsArray.push(product))
+        ))
+
+    // getStartAndEndValueForPagination(AllProductsArray, page);
 
     return {
         props: {
-            products: AllProductsArray.slice(values.start, values.end),
+            products: AllProductsArray,
             token: token,
             totalPages: values.totalPages
         },
