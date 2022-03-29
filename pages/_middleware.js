@@ -2,40 +2,12 @@ import {NextResponse} from "next/server";
 import {API_URL, NEXT_URL} from "@/config/index";
 
 export async function middleware(req) {
-    const protectedRoutes = {
-        Login: "/account/login",
-        Register: "/account/register",
-        CheckoutLogin: "/account/checkout-login",
-        MyAccount: "/account/my-account",
-        DashboardUser: "/account/dashboard-user",
-        ForgotPassword: "/account/forgot-password",
-        WishList: "/products/wish-list"
-    }
     const token = req.cookies['token']
     const pageName = req.page.name
+    const handleRoute =
+        (postfix = '') => token ? NextResponse.redirect(`${NEXT_URL}${postfix}`) : NextResponse.next()
 
-    if (pageName === protectedRoutes.Login ||
-        pageName === protectedRoutes.Register ||
-        pageName === protectedRoutes.ForgotPassword
-    ) {
-        if (token) {
-            return NextResponse.redirect(NEXT_URL);
-        }
-        return NextResponse.next()
-    }
-
-    if (pageName === protectedRoutes.CheckoutLogin) {
-        if (token) {
-            return NextResponse.redirect(`${NEXT_URL}/payment/shipping-info`);
-        }
-        return NextResponse.next()
-    }
-
-    if (
-        pageName === protectedRoutes.MyAccount ||
-        pageName === protectedRoutes.DashboardUser ||
-        pageName === protectedRoutes.WishList
-    ) {
+    const handleRouteWithUser = async () => {
         if (token) {
             const res = NextResponse.next();
             const getCurrentUser = await fetch(`${API_URL}/users/me`, {
@@ -51,4 +23,17 @@ export async function middleware(req) {
         }
         return NextResponse.redirect(NEXT_URL);
     }
+
+    const protectedRoutes = {
+        "/account/login": () => handleRoute(),
+        "/account/register": () => handleRoute(),
+        "/account/checkout-login": () => handleRoute('/payment/shipping-info'),
+        "/account/my-account": () => handleRouteWithUser(),
+        "/account/dashboard-user": () => handleRouteWithUser(),
+        "/account/forgot-password": () => handleRoute(),
+        "/products/wish-list": () => handleRouteWithUser(),
+    }
+    const protectedRoute = protectedRoutes[pageName]
+    //check if the route was in protectedRoutes Obj
+    return protectedRoute ? protectedRoute() : NextResponse.next();
 }
