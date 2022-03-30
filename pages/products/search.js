@@ -58,30 +58,30 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
     });
     if (!term) return {props: {}};
     const urls = [
-        `${API_URL}/turkey-dresses?${query}`,
-        `${API_URL}/turkey-women-products?${query}`,
-        `${API_URL}/turkey-lingeries?${query}`,
-        `${API_URL}/turkey-abayas?${query}`,
-        `${API_URL}/local-lingeries?${query}`,
-        `${API_URL}/local-dresses?${query}`,
-        `${API_URL}/local-women-products?${query}`,
-        `${API_URL}/local-abayas?${query}`,
-        `${API_URL}/men-products?${query}`,
-        `${API_URL}/men-pajamas?${query}`,
-        `${API_URL}/kids-products?${query}`,
-        `${API_URL}/kids-dresses?${query}`,
-        `${API_URL}/kids-pajamas?${query}`,
-        `${API_URL}/kids-accessories?${query}`,
-        `${API_URL}/men-watches?${query}`,
-        `${API_URL}/women-accessories?${query}`,
-        `${API_URL}/bracelets?${query}`,
-        `${API_URL}/necklaces?${query}`,
-        `${API_URL}/rings?${query}`
+        `turkey-dresses`,
+        `turkey-women-products`,
+        `turkey-lingeries`,
+        `turkey-abayas`,
+        `local-lingeries`,
+        `local-dresses`,
+        `local-women-products`,
+        `local-abayas`,
+        `men-products`,
+        `men-pajamas`,
+        `kids-products`,
+        `kids-dresses`,
+        `kids-pajamas`,
+        `kids-accessories`,
+        `men-watches`,
+        `women-accessories`,
+        `bracelets`,
+        `necklaces`,
+        `rings`
     ]
     const AllProductsArray = [];
 
     await Promise.all(
-        urls.map(url => fetch(url).then(res => res.json()).then(product => AllProductsArray.push(product))
+        urls.map(url => fetch(`${API_URL}/${url}?${query}`).then(res => res.json()).then(product => AllProductsArray.push(product))
         ))
 
     // getStartAndEndValueForPagination(AllProductsArray, page);
