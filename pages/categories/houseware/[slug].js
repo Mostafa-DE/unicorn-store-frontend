@@ -17,7 +17,7 @@ export default function ProductDetailsPage({product, token}) {
     );
 }
 
-export async function getServerSideProps(req, {query: {slug}}) {
+export async function getServerSideProps({req, query: {slug}}) {
     const { token = null } = parseCookies(req)
     const res = await fetch(`${API_URL}/house-wares?slug=${slug}`);
     const product = await res.json();
