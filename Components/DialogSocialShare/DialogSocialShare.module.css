@@ -1,89 +1,89 @@
 .fontFamily {
-  font-family: "Tajawal", sans-serif;
+    font-family: "Tajawal", sans-serif;
 }
 
 .containerTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .titleShoppingBag {
-  font-size: 1rem;
-  font-family: "Tajawal", sans-serif;
+    font-size: 1rem;
+    font-family: "Tajawal", sans-serif;
 }
 
 .closeIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 1.2rem;
-  margin: 0 0.5rem 0 0;
-  cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.2rem;
+    margin: 0 0.5rem 0 0;
+    cursor: pointer;
 }
 
 .containerIcons {
-  display: flex;
-  justify-content: space-between;
-  width: 18rem;
-  margin: 0 0 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    width: 18rem;
+    margin: 0 0 1.5rem 0;
 }
 
 .lineIcon {
-  font-size: 3rem;
-  font-weight: 400;
-  margin: -2rem 0 0 0;
-  color: #fb9aa7;
+    font-size: 3rem;
+    font-weight: 400;
+    margin: -2rem 0 0 0;
+    color: #fb9aa7;
 }
 
 .facebookIcon,
 .whatsappIcon,
 .emailIcon {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .telegramIcon,
-.twitterIcon {
-  font-size: 1.3rem;
+.copyIcon {
+    font-size: 1.3rem;
 }
 
 .containerFacebook,
 .containerWhatsaap,
 .containerEmail,
 .containerTelegram,
-.containerTwitter {
-  color: #fafafa;
-  background-color: #28589c;
-  padding: 0.5rem;
-  border: 1px solid #28589c;
-  border-radius: 50%;
-  transition: all 0.3s ease-in;
+.containerCopyIcon {
+    color: #fafafa;
+    background-color: #28589c;
+    padding: 0.5rem;
+    border: 1px solid #28589c;
+    border-radius: 50%;
+    transition: all 0.3s ease-in;
 }
 
 .containerFacebook:hover,
 .containerWhatsaap:hover,
 .containerEmail:hover,
 .containerTelegram:hover,
-.containerTwitter:hover {
-  background-color: #fafafa;
-  color: #28589c;
-  transition: all 0.3s ease-out;
+.containerCopyIcon:hover {
+    background-color: #fafafa;
+    color: #28589c;
+    transition: all 0.3s ease-out;
 }
 
 .containerWhatsaap {
-  background-color: #25d366;
-  border: 1px solid #25d366;
+    background-color: #25d366;
+    border: 1px solid #25d366;
 }
 
 .containerWhatsaap:hover {
-  color: #25d366;
+    color: #25d366;
 }
 
 .containerEmail {
-  color: #EA4335;
-  background-color: #eeeded;
-  border: 1px solid #fafafa;
+    color: #EA4335;
+    background-color: #eeeded;
+    border: 1px solid #fafafa;
 }
 
 .containerEmail:hover {
@@ -91,19 +91,22 @@
 }
 
 .containerTelegram {
-  background-color: #2AABEE;
-  border: 1px solid #2AABEE;
+    background-color: #2AABEE;
+    border: 1px solid #2AABEE;
 }
 
 .containerTelegram:hover {
-  color: #2AABEE;
+    color: #2AABEE;
 }
 
-.containerTwitter {
-  background-color: #00aaee;
-  border: 1px solid #00aaee;
+.containerCopyIcon {
+    background-color: #eeeded;
+    border: 1px solid #eeeded;
+    color: #fb9aa7;
+    cursor: pointer;
+
 }
 
-.containerTwitter:hover {
-  color: #00aaee;
+.containerCopyIcon:hover {
+    color: #fb9aa7;
 }

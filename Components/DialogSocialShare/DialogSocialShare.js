@@ -8,18 +8,35 @@ import {VscClose} from "react-icons/vsc";
 import {FiFacebook} from "react-icons/fi"
 import {ImWhatsapp} from "react-icons/im"
 import {SiGmail} from "react-icons/si"
-import {FaTwitter, FaTelegramPlane} from "react-icons/fa"
+import {MdContentCopy} from "react-icons/md"
+import {FaTelegramPlane} from "react-icons/fa"
 import {
     EmailShareButton,
     FacebookShareButton,
     TelegramShareButton,
-    TwitterShareButton,
     WhatsappShareButton,
 } from "react-share";
 import {NEXT_URL} from "@/config/index";
+import Swal from "sweetalert2";
 
 
 export default function DialogShoppingBag({shareDialog, closeShareDialog, product}) {
+
+    const alertCopyToClipBoard = () => {
+        Swal.fire({
+            title: "تهانينا لقد تم حفظ رابط المنتج إلى الحافظة الخاصة بك, تستطيع اﻵن مشاركة الرابط مع اﻵخرين",
+            icon: "success",
+            confirmButtonColor: "#fb9aa7",
+            confirmButtonText: "حسناً",
+            showClass: {
+                popup: "animate__animated animate__fadeInDown"
+            },
+            hideClass: {
+                popup: "animate__animated animate__fadeOutUp"
+            }
+        });
+    }
+
     return (
         <div>
             <Dialog
@@ -65,11 +82,17 @@ export default function DialogShoppingBag({shareDialog, closeShareDialog, produc
                                 <FaTelegramPlane className={styles.telegramIcon}/>
                             </div>
                         </TelegramShareButton>
-                        <TwitterShareButton url={`${NEXT_URL}/${product.productDetailsPage}/${product.slug}`}>
-                            <div className={styles.containerTwitter}>
-                                <FaTwitter className={styles.twitterIcon}/>
-                            </div>
-                        </TwitterShareButton>
+
+                        <div className={styles.containerCopyIcon}
+                             onClick={() => {
+                                 navigator.clipboard.writeText(`${NEXT_URL}/${product.productDetailsPage}/${product.slug}`);
+                                 alertCopyToClipBoard();
+                                 closeShareDialog();
+                             }}
+                        >
+                            <MdContentCopy className={styles.copyIcon}/>
+                        </div>
+
                     </div>
                 </DialogContent>
             </Dialog>
