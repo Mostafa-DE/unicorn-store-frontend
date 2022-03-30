@@ -1,24 +1,31 @@
 import Layout from "@/components/Layout/Layout";
-import { API_URL } from "@/config/index";
+import {API_URL} from "@/config/index";
 import ProductDetails from "@/components/ProductDetails/ProductDetails";
+import {parseCookies} from "@/helpers/index";
 
-export default function ProductDetailsPage({ product }) {
-  return (
-    <Layout>
-      {product.map((product) => (
-        <ProductDetails key={product.id} product={product} />
-      ))}
-    </Layout>
-  );
+export default function ProductDetailsPage({product, token}) {
+    return (
+        <Layout>
+            {product.map((product) => (
+                <ProductDetails
+                    token={token}
+                    key={product.id}
+                    product={product}
+                />
+            ))}
+        </Layout>
+    );
 }
 
-export async function getServerSideProps({ query: { slug } }) {
-  const res = await fetch(`${API_URL}/turkey-abayas?slug=${slug}`);
-  const product = await res.json();
+export async function getServerSideProps({req, query: {slug}}) {
+    const { token = null } = parseCookies(req)
+    const res = await fetch(`${API_URL}/turkey-abayas?slug=${slug}`);
+    const product = await res.json();
 
-  return {
-    props: {
-      product,
-    },
-  };
+    return {
+        props: {
+            product,
+            token
+        },
+    };
 }
