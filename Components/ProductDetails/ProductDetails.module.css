@@ -1,277 +1,294 @@
 @import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
 
 .main {
-  margin: 10rem 0 0 0;
-  font-family: "Tajawal", sans-serif;
+    margin: 10rem 0 0 0;
+    font-family: "Tajawal", sans-serif;
 }
 
 .container {
-  display: flex;
-  justify-content: space-between;
-  background-color: #fafafa;
-  padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fafafa;
+    padding: 1rem;
 }
 
 .containerDetails {
-  margin: 0 1rem 0 0;
-  padding: 0 0 0 8rem;
-  width: 70%;
+    margin: 0 1rem 0 0;
+    padding: 0 0 0 8rem;
+    width: 70%;
 }
 
 .containerImages {
-  display: flex;
-  width: 100%;
+    display: flex;
+    width: 100%;
 }
 
 .smallImagesProduct {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .widthMainImage {
-  width: 400px;
+    width: 400px;
 }
 
 .smallImage {
-  width: 120px;
-  height: 100px;
-  margin: 0 1rem 1rem 0;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
+    width: 120px;
+    height: 100px;
+    margin: 0 1rem 1rem 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
 }
 
 .video {
-  width: 98%;
-  height: 500px;
+    width: 98%;
+    height: 500px;
 }
 
 .smallVideo {
-  width: 120px;
-  height: 100px;
-  margin: 0 1rem 1rem 0;
-  cursor: pointer;
+    width: 120px;
+    height: 100px;
+    margin: 0 1rem 1rem 0;
+    cursor: pointer;
 }
 
 .containerTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .nameProduct {
-  font-size: 2.5rem;
-  text-align: center;
+    font-size: 2.5rem;
+    text-align: center;
 }
 
 .d {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .containerPriceProduct {
-  display: flex;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .priceProduct {
-  font-size: 1.3rem;
-  margin: 0;
+    font-size: 1.3rem;
+    margin: 0;
 }
 
 .descriptionTitle {
-  font-size: 1.4rem;
-  text-align: end;
-  color: #fb9aa7;
+    font-size: 1.4rem;
+    text-align: end;
+    color: #fb9aa7;
 }
 
 .description {
-  display: block;
-  max-width: 400px;
-  margin: 1rem 0 2rem 0;
+    display: block;
+    max-width: 400px;
+    margin: 1rem 0 2rem 0;
 }
 
 .containerAllBtns {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .addToBagBtn {
-  margin: 1rem 0 0 0;
-  padding: 0.6rem 4rem;
-  background-color: #333;
-  color: #fafafa;
-  border: 1px solid #333;
-  transition: all 0.4s ease-in;
-  font-weight: 600;
+    margin: 1rem 0 0 0;
+    padding: 0.6rem 4rem;
+    background-color: #333;
+    color: #fafafa;
+    border: 1px solid #333;
+    transition: all 0.4s ease-in;
+    font-weight: 600;
 }
 
 .addToBagBtn:hover {
-  background: none;
-  color: #333;
-  transition: all 0.4s ease-out;
+    background: none;
+    color: #333;
+    transition: all 0.4s ease-out;
 }
 
 .continueShoppingBtn {
-  padding: 0.5rem 4rem;
-  background: none;
-  color: #333;
-  border: 1px solid #333;
-  transition: all 0.4s ease-in;
-  font-weight: 600;
-  margin: 0.5rem 0 0 0;
+    padding: 0.5rem 4rem;
+    background: none;
+    color: #333;
+    border: 1px solid #333;
+    transition: all 0.4s ease-in;
+    font-weight: 600;
+    margin: 0.5rem 0 0 0;
 }
 
 .continueShoppingBtn:hover {
-  background-color: #333;
-  color: #fafafa;
-  transition: all 0.4s ease-out;
+    background-color: #333;
+    color: #fafafa;
+    transition: all 0.4s ease-out;
 }
 
 .containerRateAndWishList {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 1.5rem 0;
 }
 
 .heartIcon {
-  font-size: 1.6rem;
-  margin: 0.8rem 0 0 0;
-  color: #fb9aa7;
+    font-size: 1.6rem;
+    margin: 0.8rem 0 0 0;
+    color: #fb9aa7;
+    cursor: pointer;
+}
+
+.shareIcon,
+.compareIcon {
+    font-size: 1.5rem;
+    margin: 0.6rem 0.8rem 0 0;
+    color: #333;
+    cursor: pointer;
 }
 
 .sizeNotExistText {
-  text-align: center;
-  font-size: 1.1rem;
-  color: red;
+    text-align: center;
+    font-size: 1.1rem;
+    color: red;
 }
 
 .sizeNotExistText a {
-  text-decoration: none;
-  font-size: 1.2rem;
-  color: #333;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #333;
 }
 
 .sizeNotExistText a:hover {
-  color: #000;
+    color: #000;
 }
 
 .titleText {
-  text-align: end;
-  font-size: 1.2rem;
-  color: #333;
-  margin: 2rem 0 0 0;
+    text-align: end;
+    font-size: 1.2rem;
+    color: #333;
+    margin: 2rem 0 0 0;
 }
 
 .sizeNotFitText {
-  text-align: center;
-  color: #333;
-  font-size: 1.1rem;
+    text-align: center;
+    color: #333;
+    font-size: 1.1rem;
 }
 
 .containerInputLengthAndWeight {
-  display: flex;
-  align-items: center;
-  margin: 0.5rem 0 2rem 5rem;
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0 2rem 5rem;
 }
 
 .buttonDisabled {
-  display: none;
+    display: none;
 }
 
 .notAvaliableText {
-  color: red;
-  font-weight: 600;
-  text-align: center;
-  margin: 1rem 0 1rem 0;
+    color: red;
+    font-weight: 600;
+    text-align: center;
+    margin: 1rem 0 1rem 0;
 }
 
 .preOrderText {
-  text-align: end;
-  margin: 0.5rem 0 0 0;
-  color: #333;
+    text-align: end;
+    margin: 0.5rem 0 0 0;
+    color: #333;
 }
 
 .preOrderText span {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .SizeNotAllowed {
-  text-align: center;
-  color: red;
+    text-align: center;
+    color: red;
+}
+
+.checkIcon {
+    margin: 0 0.4rem 0.4rem -1.2rem;
+}
+
+.displayNone {
+    display: none;
 }
 
 @media (max-width: 1115px) {
-  .container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+    .container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-  .containerDetails {
-    width: 75%;
-    margin: 2rem 0 0 0;
-    padding: 0;
-  }
+    .containerDetails {
+        width: 75%;
+        margin: 2rem 0 0 0;
+        padding: 0;
+    }
 
-  .containerAllBtns {
-    align-items: center;
-  }
+    .containerAllBtns {
+        align-items: center;
+    }
 
-  .description {
-    max-width: 100%;
-  }
+    .description {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 660px) {
-  .containerDetails {
-    width: 100%;
-    padding: 0;
-  }
+    .containerDetails {
+        width: 100%;
+        padding: 0;
+    }
 
-  .containerImages {
-    flex-direction: column-reverse;
-    width: 100%;
-  }
+    .containerImages {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
 
-  .smallImagesProduct {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-flow: wrap;
-  }
+    .smallImagesProduct {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-flow: wrap;
+    }
 
-  .smallImage {
-    margin: 1rem 0.5rem 0 0;
-    width: 5rem;
-    height: 4rem;
-  }
+    .smallImage {
+        margin: 1rem 0.5rem 0 0;
+        width: 5rem;
+        height: 4rem;
+    }
 
-  .video {
-    height: 100%;
-  }
+    .video {
+        height: 100%;
+    }
 }
 
 @media (max-width: 480px) {
-  .containerOtherBtns {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+    .containerOtherBtns {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-  .addToWishlistbtn {
-    margin: 0 0 1rem 0;
-  }
+    .addToWishlistbtn {
+        margin: 0 0 1rem 0;
+    }
 
-  .continueShoppingBtn {
-    padding: 0.7rem 3.5rem;
-  }
+    .continueShoppingBtn {
+        padding: 0.7rem 3.5rem;
+    }
 }
 
 @media (max-width: 370px) {
-  .containerColorsAndSizes {
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
+    .containerColorsAndSizes {
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
 }

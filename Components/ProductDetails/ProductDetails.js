@@ -5,23 +5,95 @@ import Link from "next/link";
 import {BagContext} from "@/context/BagContext";
 import ImageMagnifier from "../ImageMagnifier/ImageMagnifier";
 import {AiOutlineLine} from "react-icons/ai";
-import {IoMdHeartEmpty} from "react-icons/io";
+import {IoMdHeartEmpty, IoMdHeart} from "react-icons/io";
 import {ImWhatsapp} from "react-icons/im";
+import {BiShareAlt} from "react-icons/bi"
+import {HiCheckCircle} from "react-icons/hi"
+import {GiScales} from "react-icons/gi";
 import RateStarIcons from "../RateStarIcons/RateStarIcons";
 import {useRouter} from "next/router";
 import TextField from "@mui/material/TextField";
 import Swal from "sweetalert2";
+import {WishBagContext} from "@/context/WishBagContext";
+import {API_URL} from "@/config/index";
+import {CompareContext} from "@/context/CompareContext";
+import DialogSocialShare from "@/components/DialogSocialShare/DialogSocialShare";
 
-export default function ProductDetails({product}) {
+export default function ProductDetails({product, token}) {
     const router = useRouter();
 
     // shopping bag context
     const {addToBag} = useContext(BagContext);
-
     // xxxxxxxxxxxxxxxxxxxx
+
+    // wish bag context
+    const {wishBag, addToWishBag} = useContext(WishBagContext);
+    const {wishItems = []} = wishBag;
+    // xxxxxxxxxxxxxxxxx
+
+    // Compare Context
+    const {productsCompare, addToCompare} = useContext(CompareContext);
+    const {compareItems = []} = productsCompare;
+    // xxxxxxxxxxxxxxxx
+
+    const wishBagProduct = wishItems.find(element => element.id === product.id);
+
+    const productCompare = compareItems.find(
+        element => element.slug === product.slug
+    );
+
+    // state for share social dialog
+    const [shareDialog, setShareDialog] = useState(false)
+    const openShareDialog = () => {
+        setShareDialog(true)
+    }
+
+    const closeShareDialog = () => {
+        setShareDialog(false)
+    }
+
+    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+    const addToWishList = async product => {
+        try {
+            await fetch(`${API_URL}/wishes`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    name: `${product.name}`,
+                    price: `${product.price}`,
+                    image: `${product.images[0].id}`,
+                    slug: `${product.slug}`,
+                    productDetailsPage: `/${product.productDetailsPage}/${product.slug}`,
+                    IdProductExist: `${product.id}`,
+                    qty: product.qty || 1
+                })
+            });
+            if (token === null) return;
+            addToWishBag(product);
+            await Swal.fire({
+                title: "تم إضافة المنتج إلى قائمة المفضلة لديك",
+                icon: "success",
+                confirmButtonColor: "#fb9aa7",
+                confirmButtonText: "حسناً",
+                showClass: {
+                    popup: "animate__animated animate__fadeInDown"
+                },
+                hideClass: {
+                    popup: "animate__animated animate__fadeOutUp"
+                }
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     const AddToBag = async product => {
         await addToBag(product, size);
-        router.push("/products/shopping-bag");
+        await router.push("/products/shopping-bag");
     };
 
     const [video, setvideo] = useState("");
@@ -140,6 +212,12 @@ export default function ProductDetails({product}) {
              className={styles.main}
         >
             <div className={styles.container}>
+                <DialogSocialShare
+                    shareDialog={shareDialog}
+                    openShareDialog={openShareDialog}
+                    closeShareDialog={closeShareDialog}
+                    product={product}
+                />
                 <div className={styles.containerImages}>
                     <div className={styles.smallImagesProduct}>
                         {product.images?.map(image => (
@@ -177,7 +255,35 @@ export default function ProductDetails({product}) {
                 <div className={styles.containerDetails}>
                     <div className={styles.containerRateAndWishList}>
                         <RateStarIcons/>
-                        <IoMdHeartEmpty className={styles.heartIcon}/>
+                        <div>
+                            <BiShareAlt
+                                onClick={openShareDialog}
+                                className={styles.shareIcon}
+                            />
+                            <GiScales
+                                onClick={() => addToCompare(product)}
+                                className={styles.compareIcon}
+                            />
+                            <HiCheckCircle
+                                className={
+                                    productCompare?.isProductExist === true
+                                        ? styles.checkIcon
+                                        : styles.displayNone
+                                }
+                            />
+                            {wishBagProduct?.isProductExist === true ? (
+                                <IoMdHeart className={styles.heartIcon}/>
+                            ) : (
+                                <IoMdHeartEmpty
+                                    onClick={
+                                        token === null
+                                            ? () => router.push("/account/login")
+                                            : () => addToWishList(product)
+                                    }
+                                    className={styles.heartIcon}
+                                />
+                            )}
+                        </div>
                     </div>
 
                     <div className={styles.containerTitle}>
