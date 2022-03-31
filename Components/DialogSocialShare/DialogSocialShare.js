@@ -24,17 +24,18 @@ export default function DialogShoppingBag({shareDialog, closeShareDialog, produc
 
     const alertCopyToClipBoard = () => {
         Swal.fire({
-            title: "تهانينا لقد تم حفظ رابط المنتج إلى الحافظة الخاصة بك, تستطيع اﻵن مشاركة الرابط مع اﻵخرين",
-            icon: "success",
-            confirmButtonColor: "#fb9aa7",
-            confirmButtonText: "حسناً",
+            position: 'center',
+            icon: 'success',
+            title: 'تم حفظ رابط المنتج إلى الحافظة الخاصة بك',
+            showConfirmButton: false,
+            timer: 1500,
             showClass: {
                 popup: "animate__animated animate__fadeInDown"
             },
             hideClass: {
                 popup: "animate__animated animate__fadeOutUp"
             }
-        });
+        })
     }
 
     return (
