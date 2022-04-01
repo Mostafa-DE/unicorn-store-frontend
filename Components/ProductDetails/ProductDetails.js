@@ -184,7 +184,7 @@ export default function ProductDetails({product, token}) {
                 نعتذر يبدو أن القياس المطلوب غير متوفر حالياً لمعرفة إن كان سيتوفر بعد
                 مدة معينة يرجى مراسلتنا عبر{" "}
                 <a href="https://wa.me/message/HRQFZDWSM3EUH1">
-                    <ImWhatsapp/> الواتس
+                    <ImWhatsapp/>
                 </a>
             </p>
         </>
@@ -238,16 +238,19 @@ export default function ProductDetails({product, token}) {
                         ))}
                     </div>
                     {video !== "" ? (
-                        <video className={styles.video}
-                               controls
+                        <video
+                            controlsList="nodownload"
+                            className={styles.video}
+                            controls
                         >
                             <source src={video}/>
                         </video>
                     ) : null}
                     {image !== "" ? (
-                        <ImageMagnifier src={image}
-                                        width={"100%"}
-                                        height={"600px"}
+                        <ImageMagnifier
+                            src={image}
+                            width={"100%"}
+                            height={"600px"}
                         />
                     ) : null}
                 </div>
