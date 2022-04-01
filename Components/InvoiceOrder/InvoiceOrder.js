@@ -29,7 +29,7 @@ export default function InvoiceOrderPage({token}) {
         html2canvas(input).then(canvas => {
             const imgData = canvas.toDataURL("image/png");
             const pdf = new jsPDF();
-            pdf.addImage(imgData, "PNG", 15, 0, 180, 150);
+            pdf.addImage(imgData, "PNG", 15, 0, 180, 90);
             pdf.save("رقم الطلب.pdf");
         });
     };
@@ -53,15 +53,7 @@ export default function InvoiceOrderPage({token}) {
 
     const headBagInfo = ["معلومات الطلب", "القياس", "السعر", "الكمية", "المجموع"];
 
-    const headShippingInfo = [
-        "الإسم",
-        "العنوان",
-        "الهاتف",
-        "المحافظة",
-        "التوصيل",
-        "الخصم",
-        "المجموع"
-    ];
+    const headShippingInfo = ["الإسم", "العنوان", "الهاتف", "المحافظة", "التوصيل", "الخصم", "المجموع"];
 
     return (
         <>

@@ -337,12 +337,12 @@ export default function ProductDetails({product, token}) {
                             </div>
                             <div className={styles.containerInputLengthAndWeight}>
                                 <TextField
-                                    type="text"
-                                    label="القياس"
-                                    variant="standard"
-                                    value={size}
-                                    readOnly
                                     fullWidth
+                                    type="number"
+                                    label="(الطول (سم"
+                                    variant="standard"
+                                    value={length}
+                                    onChange={handleChangeLength}
                                 />
                                 <TextField
                                     type="number"
@@ -354,12 +354,12 @@ export default function ProductDetails({product, token}) {
                                     fullWidth
                                 />
                                 <TextField
-                                    fullWidth
-                                    type="number"
-                                    label="(الطول (سم"
+                                    type="text"
+                                    label="القياس"
                                     variant="standard"
-                                    value={length}
-                                    onChange={handleChangeLength}
+                                    value={size}
+                                    readOnly
+                                    fullWidth
                                 />
                             </div>
                         </>
