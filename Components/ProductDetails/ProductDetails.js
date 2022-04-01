@@ -18,6 +18,8 @@ import {WishBagContext} from "@/context/WishBagContext";
 import {API_URL} from "@/config/index";
 import {CompareContext} from "@/context/CompareContext";
 import DialogSocialShare from "@/components/DialogSocialShare/DialogSocialShare";
+import Popover from "@/components/PopOver";
+import Box from "@mui/material/Box";
 
 export default function ProductDetails({product, token}) {
     const router = useRouter();
@@ -208,10 +210,10 @@ export default function ProductDetails({product, token}) {
     };
 
     return (
-        <div data-aos="fade-in"
+        <Box data-aos="fade-in"
              className={styles.main}
         >
-            <div className={styles.container}>
+            <Box className={styles.container}>
                 <DialogSocialShare
                     shareDialog={shareDialog}
                     openShareDialog={openShareDialog}
@@ -255,17 +257,27 @@ export default function ProductDetails({product, token}) {
                     ) : null}
                 </div>
 
-                <div className={styles.containerDetails}>
-                    <div className={styles.containerRateAndWishList}>
+                <Box className={styles.containerDetails}>
+                    <Box className={styles.containerRateAndWishList}>
                         <RateStarIcons/>
-                        <div>
-                            <BiShareAlt
-                                onClick={openShareDialog}
-                                className={styles.shareIcon}
+                        <Box display="flex">
+                            <Popover
+                                text="Share This Product"
+                                icon={
+                                    <BiShareAlt
+                                        onClick={openShareDialog}
+                                        className={styles.shareIcon}
+                                    />
+                                }
                             />
-                            <GiScales
-                                onClick={() => addToCompare(product)}
-                                className={styles.compareIcon}
+                            <Popover
+                                text="Add This Product To Compare products"
+                                icon={
+                                    <GiScales
+                                        onClick={() => addToCompare(product)}
+                                        className={styles.compareIcon}
+                                    />
+                                }
                             />
                             <HiCheckCircle
                                 className={
@@ -277,46 +289,51 @@ export default function ProductDetails({product, token}) {
                             {wishBagProduct?.isProductExist === true ? (
                                 <IoMdHeart className={styles.heartIcon}/>
                             ) : (
-                                <IoMdHeartEmpty
-                                    onClick={
-                                        token === null
-                                            ? () => router.push("/account/login")
-                                            : () => addToWishList(product)
+                                <Popover
+                                    text="Add This Product To Wish List"
+                                    icon={
+                                        <IoMdHeartEmpty
+                                            onClick={
+                                                token === null
+                                                    ? () => router.push("/account/login")
+                                                    : () => addToWishList(product)
+                                            }
+                                            className={styles.heartIcon}
+                                        />
                                     }
-                                    className={styles.heartIcon}
                                 />
                             )}
-                        </div>
-                    </div>
+                        </Box>
+                    </Box>
 
-                    <div className={styles.containerTitle}>
+                    <Box className={styles.containerTitle}>
                         <p className={styles.nameProduct}> {product.name} </p>
                         <AiOutlineLine className="lineIcon"/>
-                    </div>
+                    </Box>
 
                     {/* description section */}
-                    <div>
+                    <Box>
                         {product.description && (
                             <p className={styles.descriptionTitle}> -: الوصف</p>
                         )}
                         <p className={styles.description}>{product.description}</p>
-                    </div>
+                    </Box>
 
                     {/* price section */}
-                    <div className={styles.containerPriceProduct}>
+                    <Box className={styles.containerPriceProduct}>
                         <p className={styles.priceProduct}> {product.price} JD :السعر </p>
-                    </div>
+                    </Box>
 
                     {/* color section */}
-                    <div className={styles.containerPriceProduct}>
+                    <Box className={styles.containerPriceProduct}>
                         {product.color && (
                             <p className={styles.priceProduct}>اللون: {product.color} </p>
                         )}
-                    </div>
+                    </Box>
 
                     {/* pre-order message */}
                     {product.preOrder === true && (
-                        <div className={styles.preOrderText}>
+                        <Box className={styles.preOrderText}>
                             <span>: ملاحظة</span>
                             <p>
                                 يرجى العلم أن المنتج متوفر فقط عند الطلب المسبق, مع العلم أن بعض
@@ -324,18 +341,18 @@ export default function ProductDetails({product, token}) {
                                 الطلب احتفظ برقم الطلب لكي تستطيع الاستفسار عنه بسهولة في وقت
                                 لاحق
                             </p>
-                        </div>
+                        </Box>
                     )}
 
                     {/* size input */}
                     {product.isAvailable === true && (
                         <>
-                            <div className={styles.containerTitleText}>
+                            <Box className={styles.containerTitleText}>
                                 <p className={styles.titleText}>
                                     يرجى إدخال الطول و الوزن لتحديد القياس المناسب لك
                                 </p>
-                            </div>
-                            <div className={styles.containerInputLengthAndWeight}>
+                            </Box>
+                            <Box className={styles.containerInputLengthAndWeight}>
                                 <TextField
                                     fullWidth
                                     type="number"
@@ -361,30 +378,30 @@ export default function ProductDetails({product, token}) {
                                     readOnly
                                     fullWidth
                                 />
-                            </div>
+                            </Box>
                         </>
                     )}
 
                     {/* error message when size not available */}
-                    <div>
+                    <Box>
                         {size === "S" && product.S !== true && SizeNotExist}
                         {size === "M" && product.M !== true && SizeNotExist}
                         {size === "L" && product.L !== true && SizeNotExist}
                         {size === "XL" && product.XL !== true && SizeNotExist}
                         {size === "2XL" && product.XXL !== true && SizeNotExist}
                         {size === "3XL" && product.XXXL !== true && SizeNotExist}
-                    </div>
-                    <div>
+                    </Box>
+                    <Box>
                         {size !== "" && (
                             <p className={styles.sizeNotFitText}>
                                 إذا كنت تعتقد أن القياس لا يناسبك يرجى ترك ملاحظة عند الطلب
                                 وسنتواصل معك بأسرع وقت ممكن
                             </p>
                         )}
-                    </div>
+                    </Box>
                     {/* xxxxxxxxxxxxxxxx */}
 
-                    <div className={styles.containerAllBtns}>
+                    <Box className={styles.containerAllBtns}>
                         <button
                             onClick={
                                 size === "" ? () => alertErrorSize() : () => AddToBag(product)
@@ -411,9 +428,9 @@ export default function ProductDetails({product, token}) {
                                 أكمل التسوق
                             </button>
                         </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
     );
 }

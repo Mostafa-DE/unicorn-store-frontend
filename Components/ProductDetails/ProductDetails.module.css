@@ -136,7 +136,7 @@
 
 .heartIcon {
     font-size: 1.6rem;
-    margin: 0.8rem 0 0 0;
+    margin: 0.6rem 0 0 0;
     color: #fb9aa7;
     cursor: pointer;
 }
@@ -211,7 +211,7 @@
 }
 
 .checkIcon {
-    margin: 0 0.4rem 0.4rem -1.2rem;
+    margin: 0.3rem 0.4rem 0.4rem -1.2rem;
 }
 
 .displayNone {
