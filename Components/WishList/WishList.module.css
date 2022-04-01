@@ -7,7 +7,7 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
-  margin: 5rem 0 0 5rem;
+  margin: 3rem 0 0 0;
   flex-flow: wrap;
 }
 
@@ -46,6 +46,20 @@
   text-align: end;
   margin: 0.5rem 0 0 0;
   cursor: pointer;
+}
+
+.deleteAllProductBtn {
+  background-color: #333;
+  color: #fafafa;
+  border: 1px solid #333;
+  margin: 3rem 0 0 0;
+  transition: all 0.2s ease-in;
+}
+
+.deleteAllProductBtn:hover {
+  background-color: #fafafa;
+  color: #333;
+  transition: all 0.2s ease-out;
 }
 
 .containerShoppingBagEmpty {
@@ -91,7 +105,7 @@
 
 @media (max-width: 900px) {
   .containerWishList {
-    margin: 5rem 0 0 0;
+    margin: 3rem 0 0 0;
     justify-content: center;
   }
 }
