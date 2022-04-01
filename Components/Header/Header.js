@@ -11,6 +11,7 @@ import MenuDrawer from "@/components/DrawerMenu";
 import DialogShoppingBag from "@/components/DialogShoppingBag";
 import DialogCompareProducts from "@/components/DialogCompareProducts/DialogCompareProducts";
 import DialogSearchProducts from "@/components/DialogSearchProducts";
+import PopOver from "@/components/PopOver";
 /*-------------------------X-----------------------------*/
 
 /*--------------------Categories-------------------------*/
@@ -54,6 +55,7 @@ import {GiScales} from "react-icons/gi";
 import {MdLanguage} from "react-icons/md";
 import {BsSearch} from "react-icons/bs"
 import {languages} from "@/components/Header/TranslateText";
+
 /*-------------------------X----------------------------*/
 
 /*------------------------transition for Dialog--------------------*/
@@ -162,13 +164,18 @@ export default function Header() {
 
     const dropLanguageMenu = (
         <div>
-            <MdLanguage
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClickLanguage}
-                className={styles.languageIcon}
+            <PopOver
+                text="Language"
+                icon={
+                    <MdLanguage
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClickLanguage}
+                        className={styles.languageIcon}
+                    />
+                }
             />
             <Menu
                 id="basic-menu"
@@ -385,7 +392,16 @@ export default function Header() {
                 </div>
 
                 <div className={styles.containerIcons}>
-                    <BsSearch onClick={openSearchDialog} className={styles.searchIcon}/>
+                    <PopOver
+                        text="Search For Products"
+                        icon={
+                            <BsSearch
+                                onClick={openSearchDialog}
+                                className={styles.searchIcon}
+                            />
+                        }
+                    />
+
                     {dropLanguageMenu}
                     <Badge
                         badgeContent={bag.itemsCount}
@@ -397,26 +413,31 @@ export default function Header() {
                         }}
                         className={styles.badgCart}
                     >
-                        <HiOutlineShoppingBag
-                            onClick={openShoppingDialog}
-                            className={styles.bagIcon}
+                        <PopOver
+                            text="Shopping Bag"
+                            icon={
+                                <HiOutlineShoppingBag
+                                    onClick={openShoppingDialog}
+                                    className={styles.bagIcon}
+                                />
+                            }
                         />
                     </Badge>
                     <Badge color="error"
                            variant="dot"
                            className={styles.badgWishBag}
                     >
-                        {user !== null ? (
-                            <ImHeart
-                                onClick={() => router.push("/products/wish-list")}
-                                className={styles.heartIcon}
-                            />
-                        ) : (
-                            <ImHeart
-                                onClick={() => router.push("/account/login")}
-                                className={styles.heartIcon}
-                            />
-                        )}
+                        <PopOver
+                            text="Wish List"
+                            icon={
+                                <ImHeart
+                                    onClick={
+                                        user ? () => router.push("/products/wish-list") :
+                                            () => router.push("/account/login")}
+                                    className={styles.heartIcon}
+                                />
+                            }
+                        />
                     </Badge>
                     <Badge
                         badgeContent={productsCompare.itemsCount}
@@ -427,22 +448,25 @@ export default function Header() {
                         }}
                         className={styles.badgCompareProducts}
                     >
-                        <GiScales
-                            onClick={openCompareDialog}
-                            className={styles.compareIcon}
+                        <PopOver
+                            text="Compare Products"
+                            icon={
+                                <GiScales
+                                    onClick={openCompareDialog}
+                                    className={styles.compareIcon}
+                                />
+                            }
                         />
                     </Badge>
-                    {user ? (
-                        <RiAccountPinCircleLine
-                            onClick={() => router.push("/account/my-account")}
-                            className={styles.accountIcon}
-                        />
-                    ) : (
-                        <RiAccountPinCircleLine
-                            onClick={() => router.push("/account/login")}
-                            className={styles.accountIcon}
-                        />
-                    )}
+                    <PopOver
+                        text="My Account"
+                        icon={
+                            <RiAccountPinCircleLine
+                                onClick={user ? () => router.push("/account/my-account") : () => router.push("/account/login")}
+                                className={styles.accountIcon}
+                            />
+                        }
+                    />
                     <FiMenu className={styles.menuIcon}
                             onClick={openDrawer}
                     />
