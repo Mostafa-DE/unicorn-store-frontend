@@ -1,0 +1,116 @@
+.containerReviews {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-flow: wrap;
+    color: #333;
+}
+
+.containerCardReview {
+    margin: 3.5rem 4rem 0 0;
+}
+
+.containerTabsHeader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.username {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.created_at,
+.update_at {
+    font-size: 0.65rem;
+}
+
+.created_at {
+    margin: -0.3rem 0 0 0;
+}
+
+.textArea {
+    resize: none;
+    border: 1px solid #333;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0.5rem 0 0 0;
+    width: 100%;
+}
+
+.textArea:focus {
+    outline: 1px solid #333;
+}
+
+.submitBtn {
+    margin: 1rem 0 0 0;
+    padding: 0.5rem 2rem;
+    background-color: #333;
+    color: #fafafa;
+    border: 1px solid #333;
+    transition: all 0.3s ease-in;
+}
+
+.submitBtn:hover {
+    background-color: #fafafa;
+    color: #333;
+    transition: all 0.3s ease-out;
+}
+
+.divider {
+    display: none;
+}
+
+.editIcon,
+.removeIcon {
+    margin: 0 1rem 0 0;
+    color: #333;
+    transition: all 0.3s ease-in;
+}
+
+.editIcon:hover,
+.removeIcon:hover {
+    color: #fb9aa7;
+    transition: all 0.3s ease-out;
+    transform: scale(1.2);
+}
+
+.cancelBtn {
+    background-color: #fafafa;
+    color: #333;
+    border: 1px solid #333;
+    transition: all 0.3s ease-in;
+    margin: 0 1rem 0 0;
+}
+
+.cancelBtn:hover {
+    background-color: #333;
+    color: #fafafa;
+    transition: all 0.3s ease-out;
+}
+
+.editBtn {
+    background-color: #333;
+    color: #fafafa;
+    border: 1px solid #333;
+    transition: all 0.3s ease-in;
+}
+
+.editBtn:hover {
+    background-color: #fafafa;
+    color: #333;
+    transition: all 0.3s ease-out;
+}
+
+@media (max-width: 675px) {
+    .divider {
+        display: block;
+    }
+}
+
+@media (max-width: 560px) {
+    .containerCardReview {
+        margin: 3.5rem 0.5rem 0 0;
+    }
+}

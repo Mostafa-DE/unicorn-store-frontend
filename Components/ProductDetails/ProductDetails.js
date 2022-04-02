@@ -20,8 +20,9 @@ import {CompareContext} from "@/context/CompareContext";
 import DialogSocialShare from "@/components/DialogSocialShare/DialogSocialShare";
 import Popover from "@/components/PopOver";
 import Box from "@mui/material/Box";
+import Reviews from "@/components/Reviews";
 
-export default function ProductDetails({product, token}) {
+export default function ProductDetails({product, token, reviews}) {
     const router = useRouter();
 
     // shopping bag context
@@ -49,11 +50,9 @@ export default function ProductDetails({product, token}) {
     const openShareDialog = () => {
         setShareDialog(true)
     }
-
     const closeShareDialog = () => {
         setShareDialog(false)
     }
-
     // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     const addToWishList = async product => {
@@ -311,14 +310,6 @@ export default function ProductDetails({product, token}) {
                         <AiOutlineLine className="lineIcon"/>
                     </Box>
 
-                    {/* description section */}
-                    <Box>
-                        {product.description && (
-                            <p className={styles.descriptionTitle}> -: الوصف</p>
-                        )}
-                        <p className={styles.description}>{product.description}</p>
-                    </Box>
-
                     {/* price section */}
                     <Box className={styles.containerPriceProduct}>
                         <p className={styles.priceProduct}> {product.price} JD :السعر </p>
@@ -431,6 +422,9 @@ export default function ProductDetails({product, token}) {
                     </Box>
                 </Box>
             </Box>
+
+            {/* Reviews Section */}
+            <Reviews product={product} reviews={reviews} token={token} />
         </Box>
     );
 }
