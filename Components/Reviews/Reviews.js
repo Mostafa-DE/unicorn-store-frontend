@@ -100,8 +100,6 @@ export default function Reviews({product, reviews, token}) {
                     <Tabs
                         value={tabs}
                         onChange={handleChangeTabs}
-                        textColor="secondary"
-                        indicatorColor="secondary"
                         variant="fullWidth"
                         aria-label="secondary tabs example"
                     >
@@ -149,8 +147,9 @@ export default function Reviews({product, reviews, token}) {
                                                     }}
                                                     className={styles.editIcon}
                                                 />
-                                                <FaTrash className={styles.removeIcon}
-                                                         onClick={() => deleteReview(review)}
+                                                <FaTrash
+                                                    className={styles.removeIcon}
+                                                    onClick={() => deleteReview(review)}
                                                 />
                                             </Box>
                                         </Box>
@@ -160,10 +159,10 @@ export default function Reviews({product, reviews, token}) {
                                              height={60}
                                              width={60}
                                         />
-                                        <Box sx={{margin: "0 0 0 0.4rem"}}>
-                                            <Typography className={styles.username}>{review.user.username}</Typography>
-                                            <Typography className={styles.created_at}>Created: {reverseString(review.created_at)}</Typography>
-                                            <Typography className={styles.update_at}>Last Update: {reverseString(review.updated_at)}</Typography>
+                                        <Box display="flex" flexDirection="column" sx={{margin: "0 0 0 0.4rem"}}>
+                                            <span className={styles.username}>{review.user.username}</span>
+                                            <span className={styles.created_at}>Created: {reverseString(review.created_at)}</span>
+                                            <span className={styles.update_at}>Last Update: {reverseString(review.updated_at)}</span>
                                         </Box>
                                     </Box>
                                     <RateStarIcons/>
