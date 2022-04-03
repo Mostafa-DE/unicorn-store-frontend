@@ -10,9 +10,9 @@ export default function ProductDetailsPage({product, token, reviews}) {
         <Layout>
             {product.map((product) => (
                 <ProductDetails
-                    token={token}
                     key={product.id}
                     product={product}
+                    token={token}
                     reviews={reviews}
                 />
             ))}

@@ -52,7 +52,7 @@ export default function Reviews({product, reviews, token}) {
 
         })
         reset()
-        await router.push(`${NEXT_URL}${collectionName}${router.query.slug}`)
+        await router.replace(router.asPath);
         await setTabs("2")
     }
 
@@ -64,7 +64,7 @@ export default function Reviews({product, reviews, token}) {
                 Authorization: `Bearer ${token}`
             }
         })
-        await router.push(`${NEXT_URL}${collectionName}${router.query.slug}`)
+        await router.replace(router.asPath);
     }
 
     const updateReview = async (review) => {
@@ -80,7 +80,7 @@ export default function Reviews({product, reviews, token}) {
             })
         })
         setEditReview({isEditing: false, id: 0})
-        await router.push(`${NEXT_URL}${collectionName}${router.query.slug}`)
+        await router.replace(router.asPath);
     }
 
     // prevent the user from add multiple review in the same product

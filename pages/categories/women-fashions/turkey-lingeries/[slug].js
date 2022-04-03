@@ -1,24 +1,44 @@
 import Layout from "@/components/Layout/Layout";
-import { API_URL } from "@/config/index";
+import {API_URL} from "@/config/index";
 import ProductDetails from "@/components/ProductDetails/ProductDetails";
+import {parseCookies} from "@/helpers/index";
+import qs from "qs";
 
-export default function ProductDetailsPage({ product }) {
-  return (
-    <Layout>
-      {product.map((product) => (
-        <ProductDetails key={product.id} product={product} />
-      ))}
-    </Layout>
-  );
+export default function ProductDetailsPage({product, token, reviews}) {
+    return (
+        <Layout>
+            {product.map((product) => (
+                <ProductDetails
+                    key={product.id}
+                    product={product}
+                    token={token}
+                    reviews={reviews}
+                />
+            ))}
+        </Layout>
+    );
 }
 
-export async function getServerSideProps({ query: { slug } }) {
-  const res = await fetch(`${API_URL}/turkey-lingeries?slug=${slug}`);
-  const product = await res.json();
+export async function getServerSideProps({req, query: {slug}}) {
+    const {token = null} = parseCookies(req)
 
-  return {
-    props: {
-      product,
-    },
-  };
+    const res = await fetch(`${API_URL}/turkey-lingeries?slug=${slug}`);
+    const product = await res.json();
+
+    const query = qs.stringify({
+        _where: [
+            {product: `/categories/women-fashions/turkey-lingeries/${slug}`},
+        ],
+    });
+
+    const resReviews = await fetch(`${API_URL}/reviews?${query}`)
+    const reviews = await resReviews.json()
+
+    return {
+        props: {
+            product,
+            token,
+            reviews
+        },
+    };
 }
