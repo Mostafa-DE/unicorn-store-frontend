@@ -103,6 +103,14 @@
     transition: all 0.3s ease-out;
 }
 
+.noReviewsText,
+.userAlreadyAddedReviewText,
+.noDescriptionText {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+
 @media (max-width: 675px) {
     .divider {
         display: block;

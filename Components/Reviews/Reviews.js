@@ -120,7 +120,12 @@ export default function Reviews({product, reviews, token}) {
                     <Box display="flex"
                          justifyContent="center"
                     >
-                        <p className={styles.description}>{product.description}</p>
+                        {product.description ? (
+                            <p className={styles.description}>{product.description}</p>
+                        ) : (
+                            <p className={styles.noDescriptionText}>Sorry, there is no description to show right now 🙂</p>
+                        )}
+
                     </Box>
                 </TabPanel>
 
@@ -159,7 +164,10 @@ export default function Reviews({product, reviews, token}) {
                                              height={60}
                                              width={60}
                                         />
-                                        <Box display="flex" flexDirection="column" sx={{margin: "0 0 0 0.4rem"}}>
+                                        <Box display="flex"
+                                             flexDirection="column"
+                                             sx={{margin: "0 0 0 0.4rem"}}
+                                        >
                                             <span className={styles.username}>{review.user.username}</span>
                                             <span className={styles.created_at}>Created: {reverseString(review.created_at)}</span>
                                             <span className={styles.update_at}>Last Update: {reverseString(review.updated_at)}</span>
@@ -208,7 +216,7 @@ export default function Reviews({product, reviews, token}) {
 
                         </Box>
                     ) : (
-                        <p>There are no reviews to show for now 😞</p>)}
+                        <p className={styles.noReviewsText}>There are no reviews to show for now 😞</p>)}
 
                 </TabPanel>
 
@@ -238,7 +246,7 @@ export default function Reviews({product, reviews, token}) {
                                 </button>
                             </Box>
                         ) : (
-                            <p style={{fontSize: "1.2rem", fontWeight: "600", color: "#333"}}>Sorry you already added a review on this product 😉</p>)}
+                            <p className={styles.userAlreadyAddedReviewText}>Sorry you already added a review on this product 😉</p>)}
 
                     </Box>
                 </TabPanel>

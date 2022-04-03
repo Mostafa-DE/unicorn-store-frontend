@@ -286,12 +286,3 @@ a {
   outline: none;
   box-shadow: none !important;
 }
-
-/*change the color tabs in product details */
-.css-1aquho2-MuiTabs-indicator {
-  background-color: #333;
-}
-
-.css-1ujykiq-MuiButtonBase-root-MuiTab-root.Mui-selected {
-  color: #333;
-}
