@@ -160,9 +160,10 @@ export default function Reviews({product, reviews, token}) {
                                         </Box>
                                     )}
                                     <Box display="flex">
-                                        <img src="/images/unicorn.png"
-                                             height={60}
-                                             width={60}
+                                        <img src="/images/user.png"
+                                             height={35}
+                                             width={35}
+                                             alt="user-logo"
                                         />
                                         <Box display="flex"
                                              flexDirection="column"
