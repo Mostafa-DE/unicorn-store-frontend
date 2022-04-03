@@ -111,6 +111,11 @@
     color: #333;
 }
 
+.bodyReviewText {
+    color: #fb9aa7;
+    font-weight: 500;
+}
+
 
 @media (max-width: 675px) {
     .divider {

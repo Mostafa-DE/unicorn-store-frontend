@@ -174,8 +174,7 @@ export default function Reviews({product, reviews, token}) {
                                             <span className={styles.update_at}>Last Update: {reverseString(review.updated_at)}</span>
                                         </Box>
                                     </Box>
-                                    <RateStarIcons/>
-                                    <Box width="15rem"
+rem                                    <Box width="15rem"
                                          sx={{margin: "0.6rem 0 0 0"}}
                                     >
                                         {(editReview.isEditing
@@ -208,7 +207,7 @@ export default function Reviews({product, reviews, token}) {
                                                 </Box>
                                             </Box>
                                         ) : (
-                                            <Typography variant="caption">{review.body}</Typography>
+                                            <span className={styles.bodyReviewText}>{review.body}</span>
                                         )}
                                     </Box>
                                     <Divider className={styles.divider}/>
