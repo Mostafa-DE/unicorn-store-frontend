@@ -194,8 +194,8 @@ export default function ProductDetails({product, token, reviews}) {
 
     // hide size section in some pages
     const hideSizeSection = () => {
-        for(let pageUrl of pagesWithoutSize) {
-            if(pageUrl === router.pathname) return true
+        for (let pageUrl of pagesWithoutSize) {
+            if (pageUrl === router.pathname) return true
         }
         return false
     }
@@ -405,7 +405,7 @@ export default function ProductDetails({product, token, reviews}) {
                     <Box className={styles.containerAllBtns}>
                         <button
                             onClick={
-                                size === "" ? () => alertErrorSize() : () => AddToBag(product)
+                                (size === "" && !hideSizeSection()) ? () => alertErrorSize() : () => AddToBag(product)
                             }
                             className={
                                 product.isAvailable === true
