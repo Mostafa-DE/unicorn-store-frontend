@@ -1,16 +1,18 @@
 import Layout from "@/components/Layout/Layout";
 import {API_URL} from "@/config/index";
-import ProductDetailsWithoutSize from "@/components/ProductDetailsWithoutSize/ProductDetailsWithoutSize";
+import ProductDetails from "@/components/ProductDetails";
 import {parseCookies} from "@/helpers/index";
+import qs from "qs";
 
-export default function ProductDetailsPage({product, token}) {
+export default function ProductDetailsPage({product, token, reviews}) {
     return (
         <Layout>
             {product.map((product) => (
-                <ProductDetailsWithoutSize
+                <ProductDetails
                     token={token}
                     key={product.id}
                     product={product}
+                    reviews={reviews}
                 />
             ))}
         </Layout>
@@ -23,10 +25,20 @@ export async function getServerSideProps({req, query: {slug}}) {
     const res = await fetch(`${API_URL}/rings?slug=${slug}`);
     const product = await res.json();
 
+    const query = qs.stringify({
+        _where: [
+            {product: `/categories/accessories/women/women-rings/${slug}`},
+        ],
+    });
+
+    const resReviews = await fetch(`${API_URL}/reviews?${query}`)
+    const reviews = await resReviews.json()
+
     return {
         props: {
             product,
-            token
+            token,
+            reviews
         },
     };
 }

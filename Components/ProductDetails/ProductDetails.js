@@ -21,6 +21,7 @@ import DialogSocialShare from "@/components/DialogSocialShare/DialogSocialShare"
 import Popover from "@/components/PopOver";
 import Box from "@mui/material/Box";
 import Reviews from "@/components/Reviews";
+import {pagesWithoutSize} from "./urlsPagesWithoutSize"
 
 export default function ProductDetails({product, token, reviews}) {
     const router = useRouter();
@@ -191,6 +192,15 @@ export default function ProductDetails({product, token, reviews}) {
         </>
     );
 
+    // hide size section in some pages
+    const hideSizeSection = () => {
+        for(let pageUrl of pagesWithoutSize) {
+            if(pageUrl === router.pathname) return true
+        }
+        return false
+    }
+
+
     const alertErrorSize = () => {
         Swal.fire({
             title: "نعتذر لا يمكن تنفيذ طلبك",
@@ -336,7 +346,7 @@ export default function ProductDetails({product, token, reviews}) {
                     )}
 
                     {/* size input */}
-                    {product.isAvailable === true && (
+                    {product.isAvailable && !hideSizeSection() && (
                         <>
                             <Box className={styles.containerTitleText}>
                                 <p className={styles.titleText}>
@@ -424,7 +434,10 @@ export default function ProductDetails({product, token, reviews}) {
             </Box>
 
             {/* Reviews Section */}
-            <Reviews product={product} reviews={reviews} token={token} />
+            <Reviews product={product}
+                     reviews={reviews}
+                     token={token}
+            />
         </Box>
     );
 }
