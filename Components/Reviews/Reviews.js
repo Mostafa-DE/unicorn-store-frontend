@@ -5,9 +5,7 @@ import {Divider, Tabs} from "@mui/material";
 import Tab from "@mui/material/Tab";
 import TabPanel from "@mui/lab/TabPanel";
 import {useContext, useState} from "react";
-import Typography from "@mui/material/Typography";
-import RateStarIcons from "@/components/RateStarIcons"
-import {API_URL, NEXT_URL} from "@/config/index";
+import {API_URL} from "@/config/index";
 import {useRouter} from "next/router";
 import {AuthContext} from "@/context/AuthContext";
 import {FaTrash, FaEdit} from "react-icons/fa";
@@ -52,7 +50,7 @@ export default function Reviews({product, reviews, token}) {
 
         })
         reset()
-        await router.replace(router.asPath);
+        await router.reload()
         await setTabs("2")
     }
 
@@ -64,7 +62,7 @@ export default function Reviews({product, reviews, token}) {
                 Authorization: `Bearer ${token}`
             }
         })
-        await router.replace(router.asPath);
+        await router.reload()
     }
 
     const updateReview = async (review) => {
@@ -80,7 +78,7 @@ export default function Reviews({product, reviews, token}) {
             })
         })
         setEditReview({isEditing: false, id: 0})
-        await router.replace(router.asPath);
+        await router.reload()
     }
 
     // prevent the user from add multiple review in the same product

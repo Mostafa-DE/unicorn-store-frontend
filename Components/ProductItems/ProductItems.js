@@ -101,17 +101,18 @@ export default function ProductItems({product, token}) {
             <div className={styles.overlay}>
                 <div>
                     <div className={styles.containerIcons}>
-                        <div
-                            onClick={
-                                user === null
-                                    ? () => router.push("/account/login")
-                                    : () => addToWishList(product)
-                            }
-                        >
+                        <div>
                             {wishBagProduct?.isProductExist === true ? (
                                 <IoMdHeart className={styles.wishIconFilled}/>
                             ) : (
-                                <IoMdHeartEmpty className={styles.wishIconOutline}/>
+                                <IoMdHeartEmpty
+                                    onClick={
+                                        user === null
+                                            ? () => router.push("/account/login")
+                                            : () => addToWishList(product)
+                                    }
+                                    className={styles.wishIconOutline}
+                                />
                             )}
                         </div>
                         <HiCheckCircle
