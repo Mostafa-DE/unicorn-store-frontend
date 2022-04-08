@@ -38,10 +38,10 @@ export const CompareProvider = ({children}) => {
     const addToCompare = product => {
         const {compareItems = []} = productsCompare;
         const isProductExist = compareItems.findIndex(
-            item => item.slug === product.slug
+            item =>
+                `${item.productDetailsPage}/${item.slug}` === `${product.productDetailsPage}/${product.slug}`
         );
         if (isProductExist === -1) {
-            // false then do ==>
             compareItems.push({
                 ...product,
                 qty: 1,

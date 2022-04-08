@@ -67,10 +67,16 @@ export default function ProductItems({product, token}) {
     const {compareItems = []} = productsCompare;
     // xxxxxxxxxxxxxxxx
 
-    const wishBagProduct = wishItems.find(element => element.id === product.id);
+    // check or hide wish icon
+    const wishBagProduct = wishItems.find(
+        element =>
+            `${element.productDetailsPage}/${element.slug}` === `${product.productDetailsPage}/${product.slug}`
+    )
 
+    // hide or show check icon on compare product
     const productCompare = compareItems.find(
-        element => element.slug === product.slug
+        element =>
+            `${element.productDetailsPage}/${element.slug}` === `${product.productDetailsPage}/${product.slug}`
     );
 
     // state for share social dialog

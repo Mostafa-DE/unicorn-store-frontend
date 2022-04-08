@@ -40,7 +40,8 @@ export const WishBagProvider = ({children}) => {
     const addToWishBag = (product) => {
         const {wishItems = []} = wishBag;
         const isProductExist = wishItems.findIndex(
-            (item) => item.name === product.name
+            (item) =>
+                `${item.productDetailsPage}/${item.slug}` === `${product.productDetailsPage}/${product.slug}`
         );
         if (isProductExist === -1) {
             wishItems.push({
