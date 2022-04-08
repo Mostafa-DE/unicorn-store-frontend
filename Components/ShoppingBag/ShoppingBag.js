@@ -72,7 +72,7 @@ export default function ShoppingBag({token}) {
                                                     <p>{item.color}</p>
                                                     <p>
                                                         {item.size}{" "}
-                                                        {item.size !== undefined ? ":القياس" : null}
+                                                        {item.size !== "" ? ":القياس" : null}
                                                     </p>
                                                 </div>
                                             </div>

@@ -18,18 +18,15 @@ import {FaTrash} from "react-icons/fa";
 import {VscClose} from "react-icons/vsc";
 import {useRouter} from "next/router";
 
-export default function DialogShoppingBag
-    ({
-         shoppingDialog,
-         closeShoppingDialog,
-         user,
-     }) {
+export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, user}) {
     const router = useRouter();
 
     // shopping bag context
     const {bag, increaseQty, decreaseQty, removeFromBag} =
         useContext(BagContext);
     const {items = []} = bag;
+
+    console.log(items)
 
     return (
         <div>
@@ -88,7 +85,7 @@ export default function DialogShoppingBag
                                                         className={styles.fontFamily}
                                                     >
                                                         <div className={styles.containerItemCell}>
-                                                            <div className={styles.containerImage}>
+                                                            <div>
                                                                 <img
                                                                     src={item.images[0].url}
                                                                     width={100}
@@ -96,12 +93,12 @@ export default function DialogShoppingBag
                                                                     alt="Item Image.."
                                                                 />
                                                             </div>
-                                                            <div className={styles.itemDetails}>
+                                                            <div>
                                                                 <p className={styles.nameItem}>{item.name}</p>
                                                                 <p>{item.color}</p>
                                                                 <p>
                                                                     {item.size}{" "}
-                                                                    {item.size !== undefined ? ":القياس" : null}
+                                                                    {item.size !== "" ? ":القياس" : null}
                                                                 </p>
                                                             </div>
                                                         </div>
