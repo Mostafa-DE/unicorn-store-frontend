@@ -70,11 +70,22 @@
 
 .containerPriceProduct {
     display: flex;
-    justify-content: flex-end;
 }
 
 .priceProduct {
-    font-size: 1.3rem;
+    font-size: 1.7rem;
+    margin: 0;
+}
+
+.oldPriceProduct {
+    font-size: 1.4rem;
+    margin: 0.1rem 0 0 0.6rem;
+    text-decoration: red line-through;
+}
+
+.discountPriceProduct {
+    font-size: 1.4rem;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -216,6 +227,14 @@
 
 .displayNone {
     display: none;
+}
+
+.colorProduct {
+    width: 1rem;
+    height: 1rem;
+    margin: 0.2rem 0.5rem 0.5rem 0;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 @media (max-width: 1115px) {

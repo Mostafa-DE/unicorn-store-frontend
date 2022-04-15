@@ -224,6 +224,12 @@ export default function ProductDetails({product, token, reviews}) {
         });
     };
 
+    const getColorProduct = (product) => {
+        return product.color.split('-').map(color => (
+            <div style={{backgroundColor: `${color}`}} className={styles.colorProduct}/>
+        ))
+    }
+
     return (
         <Box data-aos="fade-in"
              className={styles.main}
@@ -326,17 +332,28 @@ export default function ProductDetails({product, token, reviews}) {
                         <AiOutlineLine className="lineIcon"/>
                     </Box>
 
+                    {/* Discount percentage */}
+                    {product.discount && (
+                        <Box>
+                            <p className={styles.discountPriceProduct}> Save {product.discount}% </p>
+                            <hr style={{width: "21%", margin: "0 0 1rem 0"}}/>
+                        </Box>
+                    )}
+
                     {/* price section */}
                     <Box className={styles.containerPriceProduct}>
-                        <p className={styles.priceProduct}> {product.price} JD :السعر </p>
+                        <p className={styles.priceProduct}> {product.price} JD </p>
+                        {product.oldPrice && (
+                            <p className={styles.oldPriceProduct}> {product.oldPrice} JD </p>
+                        )}
                     </Box>
 
                     {/* color section */}
-                    <Box className={styles.containerPriceProduct}>
-                        {product.color && (
-                            <p className={styles.priceProduct}>اللون: {product.color} </p>
-                        )}
-                    </Box>
+                    {product.color && (
+                        <Box className={styles.containerPriceProduct}>
+                            {getColorProduct(product)}
+                        </Box>
+                    )}
 
                     {/* pre-order message */}
                     {product.preOrder === true && (
@@ -398,16 +415,18 @@ export default function ProductDetails({product, token, reviews}) {
                         {size === "2XL" && product.XXL !== true && SizeNotExist}
                         {size === "3XL" && product.XXXL !== true && SizeNotExist}
                     </Box>
-                    <Box>
-                        {size !== "" && (
+
+                    {/* reminder for the users if the size not fit */}
+                    {size !== "" && (
+                        <Box>
                             <p className={styles.sizeNotFitText}>
                                 إذا كنت تعتقد أن القياس لا يناسبك يرجى ترك ملاحظة عند الطلب
                                 وسنتواصل معك بأسرع وقت ممكن
                             </p>
-                        )}
-                    </Box>
-                    {/* xxxxxxxxxxxxxxxx */}
+                        </Box>
+                    )}
 
+                    {/* Btns section */}
                     <Box className={styles.containerAllBtns}>
                         <button
                             onClick={

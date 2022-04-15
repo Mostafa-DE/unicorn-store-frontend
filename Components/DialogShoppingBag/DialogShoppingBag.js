@@ -26,8 +26,6 @@ export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, 
         useContext(BagContext);
     const {items = []} = bag;
 
-    console.log(items)
-
     return (
         <div>
             <Dialog
