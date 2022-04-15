@@ -6,76 +6,80 @@ import CarouselDresses from "@/components/CarouselDresses/CarouselDresses";
 import {parseCookies} from "@/helpers/index";
 import SubscripeForm from "@/components/SubscripeForm/SubscripeForm";
 import PropertiesOurPage from "@/components/PropertiesOurPage/PropertiesOurPage";
+import ErrorComponent from "@/components/ErrorComponent"
 
-export default function
-    Home({
-             turkeyDresses,
-             localAbayas,
-             menPagamas,
-             token,
-             userAccount
-         }) {
+export default function Home({products, token, userAccount, isServerDown}) {
+
     useEffect(() => {
         window.localStorage.removeItem("shippingInformation");
     }, []);
 
-    const settings = {
-        centerPadding: 10,
-        dots: true,
-        overScan: 5,
-        slidesPerRow: 2,
-        virtualList: true
-    };
-
     return (
-        <Layout
-            userAccount={userAccount}
-            title="Unicorns Store | Shop Online For Fastions, Tools, Gifts & More"
-        >
-            <CategoriesPhoto/>
+        <>
+            {!isServerDown ? (
+                <Layout
+                    userAccount={userAccount}
+                    title="Unicorns Store | Shop Online For Fastions, Tools, Gifts & More"
+                >
+                    <CategoriesPhoto/>
 
-            <CarouselDresses
-                token={token}
-                localAbayas={localAbayas}
-                turkeyDresses={turkeyDresses}
-                menPagamas={menPagamas}
-            />
+                    <CarouselDresses
+                        token={token}
+                        products={products}
+                    />
 
-            <PropertiesOurPage/>
+                    <PropertiesOurPage/>
 
-            <SubscripeForm/>
-        </Layout>
+                    <SubscripeForm/>
+                </Layout>
+            ) : (
+                <ErrorComponent
+                    reaction="OOPS!"
+                    statusError="503 - Service Unavailable"
+                    ErrorMessage="The server is temporarily unavailable, Please try again later!!"
+                    hideBackButton={true}
+                />
+            )}
+        </>
     );
 }
 
 export async function getServerSideProps({req}) {
-    const {token = null} = parseCookies(req);
+    try {
+        const {token = null} = parseCookies(req);
+        const urls = [
+            `turkey-dresses`,
+            `local-abayas`,
+            `men-pajamas`,
+        ]
+        const AllProductsArray = [];
 
-    const turkeyDressesRes = await fetch(`${API_URL}/turkey-dresses?_limit=5`);
-    const turkeyDresses = await turkeyDressesRes.json();
+        await Promise.all(
+            urls.map(url => fetch(`${API_URL}/${url}?_limit=5`).then(res => res.json()).then(product => AllProductsArray.push(product))
+            ))
 
-    const localAbayasRes = await fetch(`${API_URL}/local-abayas?_limit=5`);
-    const localAbayas = await localAbayasRes.json();
+        const resAccount = await fetch(`${API_URL}/users/me`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
 
-    const menPagamasRes = await fetch(`${API_URL}/men-pajamas?_limit=5`);
-    const menPagamas = await menPagamasRes.json();
+        const userAccount = await resAccount.json();
 
-    const resAccount = await fetch(`${API_URL}/users/me`, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`
+        return {
+            props: {
+                products: AllProductsArray,
+                token: token,
+                userAccount: userAccount,
+            }
         }
-    });
-
-    const userAccount = await resAccount.json();
-
-    return {
-        props: {
-            turkeyDresses: turkeyDresses,
-            localAbayas: localAbayas,
-            menPagamas: menPagamas,
-            token: token,
-            userAccount: userAccount
+    } catch (err) {
+        let isServerDown = true
+        return {
+            props: {
+                isServerDown
+            }
         }
-    };
+    }
 }
