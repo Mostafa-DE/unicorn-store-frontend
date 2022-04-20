@@ -33,13 +33,13 @@ export default function SearchPage({products, token, totalPages}) {
                 </div>
             )}
 
-            {/*{isProductExist(products) && (*/}
-            {/*    <Pagination*/}
-            {/*        page={page}*/}
-            {/*        totalPages={totalPages}*/}
-            {/*        handleChangePage={handleChangePage}*/}
-            {/*    />*/}
-            {/*)}*/}
+            {isProductExist(products) && (
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    handleChangePage={handleChangePage}
+                />
+            )}
 
 
         </Layout>
@@ -84,11 +84,11 @@ export async function getServerSideProps({req, query: {term, page = 1}}) {
         urls.map(url => fetch(`${API_URL}/${url}?${query}`).then(res => res.json()).then(product => AllProductsArray.push(product))
         ))
 
-    // getStartAndEndValueForPagination(AllProductsArray, page);
+    getStartAndEndValueForPagination(AllProductsArray.flat(), page);
 
     return {
         props: {
-            products: AllProductsArray,
+            products: AllProductsArray.flat().slice(values.start, values.end),
             token: token,
             totalPages: values.totalPages
         },
