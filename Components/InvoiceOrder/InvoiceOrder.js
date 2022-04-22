@@ -53,7 +53,7 @@ export default function InvoiceOrderPage({token}) {
 
     const headBagInfo = ["معلومات الطلب", "القياس", "السعر", "الكمية", "المجموع"];
 
-    const headShippingInfo = ["الإسم", "العنوان", "الهاتف", "المحافظة", "التوصيل", "الخصم", "المجموع"];
+    const headShippingInfo = ["الإسم", "العنوان", "الهاتف", "المحافظة", "كلفة الطلب", "كلفة التوصيل", "قيمة الخصم", "الكلفة الكلية"];
 
     return (
         <>
@@ -179,6 +179,9 @@ export default function InvoiceOrderPage({token}) {
                                                 <span>{shippingItem.city}</span>
                                             </TableCell>
                                             <TableCell align="center">
+                                                <span>{shippingItem.totalBag} JD</span>
+                                            </TableCell>
+                                            <TableCell align="center">
                                                 <span>{shippingItem.DeliveryFees} JD</span>
                                             </TableCell>
                                             <TableCell align="center">
@@ -186,9 +189,7 @@ export default function InvoiceOrderPage({token}) {
                                             </TableCell>
                                             <TableCell align="center">
                                                 <span>
-                                                    {shippingItem.totalBag +
-                                                        shippingItem.DeliveryFees -
-                                                        shippingItem.discountValue}{" "}
+                                                    {shippingItem.Totalbag}{" "}
                                                     JD
                                                 </span>
                                             </TableCell>

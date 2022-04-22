@@ -33,14 +33,10 @@ export default function ShippingInfoForm({currentUser, token}) {
     );
     const todayDate = new Date().toISOString().slice(0, 10);
 
-    // shopping bag context
     const {bag} = useContext(BagContext);
     const {items = []} = bag;
-    // xxxxxxxxxxxxxxxxxxxx
 
-    // shipping information context
     const {addToShippingInfo} = useContext(ShippingInfoContext);
-    // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     const idImageProducts = items.map(product => product.images[0].id);
     const detailsOrder = items.map(
@@ -57,7 +53,7 @@ export default function ShippingInfoForm({currentUser, token}) {
         setDiscountInput(evnt.target.value);
     };
 
-    /*-------------State for Input register--------------*/
+
     const [values, setValues] = useState({
         email: `${currentUser.email || ""}`,
         firstName: `${currentUser.firstName || ""}`,
@@ -73,7 +69,6 @@ export default function ShippingInfoForm({currentUser, token}) {
         const {name, value} = evnt.target;
         setValues({...values, [name]: value});
     };
-    /*------------------------X-------------------------*/
 
     const calculateDeliveryFees = () => {
         let DeliveryFees;
@@ -108,8 +103,6 @@ export default function ShippingInfoForm({currentUser, token}) {
         setIsLoading(false);
     }
 
-
-    // validation phone input
     useEffect(() => {
         ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
             return !(value.length > 10 || value.length < 10);
@@ -124,10 +117,20 @@ export default function ShippingInfoForm({currentUser, token}) {
                 || firstThreeNumber.match("077"));
         });
     });
-    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-    const handleSubmit = async (evnt) => {
-        evnt.preventDefault();
+    const getHeaders = () => {
+        if (token)
+            return {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        return {
+            "Content-Type": "application/json"
+        }
+    }
+
+
+    const sendEmail = (evnt) => {
         emailjs
             .sendForm(
                 "service_3c1s0le",
@@ -136,101 +139,68 @@ export default function ShippingInfoForm({currentUser, token}) {
                 "user_y4snMVOIayDWYkwH6dS0G"
             )
             .catch(err => console.log(err));
-
-        if (token !== null) {
-            try {
-                await fetch(`${API_URL}/orders`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        ...values,
-                        detailsOrder: `${detailsOrder}`,
-                        orderTotal: `${TotalBag()}`,
-                        image1: `${idImageProducts[0] || ""}`,
-                        image2: `${idImageProducts[1] || ""}`,
-                        image3: `${idImageProducts[2] || ""}`,
-                        image4: `${idImageProducts[3] || ""}`,
-                        orderNumber: `UN${orderNumber}`,
-                        dateDelivered: `${todayDate}`,
-                        numberOfItems: `${bag.itemsCount}`,
-                        discountValue: `${calculateDiscountValue()}`
-                    })
-                });
-                addToShippingInfo(
-                    bag,
-                    values.firstName,
-                    values.lastName,
-                    values.address,
-                    values.phone,
-                    `UN${orderNumber}`,
-                    values.city,
-                    todayDate,
-                    TotalBag(),
-                    calculateDeliveryFees(),
-                    calculateDiscountValue()
-                );
-                await router.push("/payment/invoice-order");
-            } catch (err) {
-                console.log(err);
-            }
-        } else {
-            try {
-                await fetch(`${API_URL}/orders`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        ...values,
-                        detailsOrder: `${detailsOrder}`,
-                        orderTotal: `${TotalBag()}`,
-                        image1: `${idImageProducts[0] || ""}`,
-                        image2: `${idImageProducts[1] || ""}`,
-                        image3: `${idImageProducts[2] || ""}`,
-                        image4: `${idImageProducts[3] || ""}`,
-                        orderNumber: `UN${orderNumber}`,
-                        DateDelivered: `${todayDate}`,
-                        numberOfItems: `${bag.itemsCount}`,
-                        discountValue: `${calculateDiscountValue()}`
-                    })
-                });
-                addToShippingInfo(
-                    bag,
-                    values.firstName,
-                    values.lastName,
-                    values.address,
-                    values.phone,
-                    `UN${orderNumber}`,
-                    values.city,
-                    todayDate,
-                    TotalBag(),
-                    calculateDeliveryFees(),
-                    calculateDiscountValue()
-                );
-                await router.push("/payment/invoice-order");
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        // turn discount to draft
-        if (discount) {
-            try {
-                await fetch(`${API_URL}/discounts/${discount.id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
-                    },
-                    body: JSON.stringify({published_at: null})
+    }
+    const addOrderToShippingInfo = async () => {
+        addToShippingInfo(
+            bag,
+            values.firstName,
+            values.lastName,
+            values.address,
+            values.phone,
+            `UN${orderNumber}`,
+            values.city,
+            todayDate,
+            TotalBag(),
+            calculateDeliveryFees(),
+            calculateDiscountValue()
+        );
+        await router.push("/payment/invoice-order");
+    }
+    const createNewOrder = async () => {
+        try {
+            await fetch(`${API_URL}/orders`, {
+                method: "POST",
+                headers: getHeaders(),
+                body: JSON.stringify({
+                    ...values,
+                    detailsOrder: `${detailsOrder}`,
+                    orderTotal: `${TotalBag()}`,
+                    image1: `${idImageProducts[0] || ""}`,
+                    image2: `${idImageProducts[1] || ""}`,
+                    image3: `${idImageProducts[2] || ""}`,
+                    image4: `${idImageProducts[3] || ""}`,
+                    orderNumber: `UN${orderNumber}`,
+                    dateDelivered: `${todayDate}`,
+                    numberOfItems: `${bag.itemsCount}`,
+                    discountValue: `${calculateDiscountValue()}`
                 })
-            } catch (err) {
-                console.log(err)
-            }
+            });
+        } catch (err) {
+            console.log(err)
         }
+
+    }
+    const turnDiscountIntoExpired = async () => {
+        try {
+            await fetch(`${API_URL}/discounts/${discount.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({published_at: null})
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handleSubmit = async (evnt) => {
+        evnt.preventDefault();
+        sendEmail(evnt)
+        await createNewOrder()
+        await addOrderToShippingInfo()
+        if (discount) await turnDiscountIntoExpired()
     };
 
     const TotalBag = () => {
