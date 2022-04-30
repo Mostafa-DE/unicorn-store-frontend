@@ -6,39 +6,56 @@ import {BagContext} from "@/context/BagContext";
 import ImageMagnifier from "../ImageMagnifier/ImageMagnifier";
 import {AiOutlineLine} from "react-icons/ai";
 import {IoMdHeartEmpty, IoMdHeart} from "react-icons/io";
-import {ImWhatsapp} from "react-icons/im";
 import {BiShareAlt} from "react-icons/bi"
 import {HiCheckCircle} from "react-icons/hi"
 import {GiScales} from "react-icons/gi";
 import RateStarIcons from "../RateStarIcons/RateStarIcons";
 import {useRouter} from "next/router";
 import TextField from "@mui/material/TextField";
-import Swal from "sweetalert2";
 import {WishBagContext} from "@/context/WishBagContext";
-import {API_URL} from "@/config/index";
 import {CompareContext} from "@/context/CompareContext";
 import DialogSocialShare from "@/components/DialogSocialShare/DialogSocialShare";
 import Popover from "@/components/PopOver";
 import Box from "@mui/material/Box";
 import Reviews from "@/components/Reviews";
 import {pagesWithoutSize} from "./urlsPagesWithoutSize"
+import {AlertSizeNotExist, AlertErrorSize} from "@/components/ProductDetails/helpers";
+import {addProductToWishList} from "@/helpers/addProductToWishList"
 
 export default function ProductDetails({product, token, reviews}) {
     const router = useRouter();
-
-    // shopping bag context
     const {addToBag} = useContext(BagContext);
-    // xxxxxxxxxxxxxxxxxxxx
-
-    // wish bag context
     const {wishBag, addToWishBag} = useContext(WishBagContext);
     const {wishItems = []} = wishBag;
-    // xxxxxxxxxxxxxxxxx
-
-    // Compare Context
     const {productsCompare, addToCompare} = useContext(CompareContext);
     const {compareItems = []} = productsCompare;
-    // xxxxxxxxxxxxxxxx
+
+    const [shareDialog, setShareDialog] = useState(false)
+    const [video, setvideo] = useState("");
+    const [image, setImage] = useState(product.images[0].url);
+    const [length, setLength] = useState();
+    const [weight, setWeight] = useState();
+    const [size, setSize] = useState("");
+    const openShareDialog = () => {
+        setShareDialog(true)
+    }
+    const closeShareDialog = () => {
+        setShareDialog(false)
+    }
+    const handleChangeVideo = url => {
+        setvideo(url);
+        setImage("");
+    };
+    const handleChangeImage = url => {
+        setImage(url);
+        setvideo("");
+    };
+    const handleChangeLength = evnt => {
+        setLength(evnt.target.value);
+    };
+    const handleChangeWeight = evnt => {
+        setWeight(evnt.target.value);
+    };
 
     // check or hide wish icon
     const wishBagProduct = wishItems.find(
@@ -52,151 +69,59 @@ export default function ProductDetails({product, token, reviews}) {
             `${element.productDetailsPage}/${element.slug}` === `${product.productDetailsPage}/${product.slug}`
     );
 
-    // state for share social dialog
-    const [shareDialog, setShareDialog] = useState(false)
-    const openShareDialog = () => {
-        setShareDialog(true)
-    }
-    const closeShareDialog = () => {
-        setShareDialog(false)
-    }
-    // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-    const addToWishList = async product => {
-        try {
-            await fetch(`${API_URL}/wishes`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    name: `${product.name}`,
-                    price: `${product.price}`,
-                    image: `${product.images[0].id}`,
-                    slug: `${product.slug}`,
-                    productDetailsPage: `/${product.productDetailsPage}/${product.slug}`,
-                    IdProductExist: `${product.id}`,
-                    qty: product.qty || 1
-                })
-            });
-            if (token === null) return;
-            addToWishBag(product);
-            await Swal.fire({
-                title: "تم إضافة المنتج إلى قائمة المفضلة لديك",
-                icon: "success",
-                confirmButtonColor: "#fb9aa7",
-                confirmButtonText: "حسناً",
-                showClass: {
-                    popup: "animate__animated animate__fadeInDown"
-                },
-                hideClass: {
-                    popup: "animate__animated animate__fadeOutUp"
-                }
-            });
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
     const AddToBag = async product => {
         await addToBag(product, size);
         await router.push("/products/shopping-bag");
     };
 
-    const [video, setvideo] = useState("");
-    const [image, setImage] = useState(product.images[0].url);
-    const handleChangeVideo = url => {
-        setvideo(url);
-        setImage("");
-    };
-    const handleChangeImage = url => {
-        setImage(url);
-        setvideo("");
-    };
-
-    // state for chose right size
-    const [length, setLength] = useState();
-    const handleChangeLength = evnt => {
-        setLength(evnt.target.value);
-    };
-
-    const [weight, setWeight] = useState();
-    const handleChangeWeight = evnt => {
-        setWeight(evnt.target.value);
-    };
-
-
-    // logic for detect the best size for user
-    const [size, setSize] = useState("");
-    useEffect(() => {
-            if (length === "" || length < 50 || length > 172) {
-                setSize("");
-                return;
-            }
-
-            if (length >= 158 && length <= 165) {
-                if (weight >= 40 && weight <= 50) {
-                    setSize("S");
-                } else if (weight >= 51 && weight <= 57) {
-                    setSize("M");
-                } else if (weight >= 58 && weight <= 64) {
-                    setSize("L");
-                } else if (weight >= 65 && weight <= 75) {
-                    setSize("XL");
-                } else if (weight >= 76 && weight <= 80) {
-                    setSize("2XL");
-                } else if (weight >= 81) {
-                    setSize("3XL");
-                } else {
-                    setSize("");
-                }
-            } else if (length > 165) {
-                if (weight >= 40 && weight <= 50) {
-                    setSize("S");
-                } else if (weight >= 51 && weight <= 57) {
-                    setSize("M");
-                } else if (weight >= 58 && weight <= 64) {
-                    setSize("L");
-                } else if (weight >= 65 && weight <= 75) {
-                    setSize("XL");
-                } else if (weight >= 76) {
-                    setSize("2XL");
-                } else {
-                    setSize("");
-                }
-            } else if (length < 158) {
-                if (weight >= 40 && weight <= 50) {
-                    setSize("M");
-                } else if (weight >= 51 && weight <= 57) {
-                    setSize("L");
-                } else if (weight >= 58 && weight <= 64) {
-                    setSize("XL");
-                } else if (weight >= 65 && weight <= 75) {
-                    setSize("2XL");
-                } else if (weight >= 76) {
-                    setSize("3XL");
-                } else {
-                    setSize("");
-                }
-            }
+    const commonSize = {
+        small: weight >= 40 && weight <= 50,
+        medium: weight >= 51 && weight <= 57,
+        large: weight >= 58 && weight <= 64,
+        xLarge: weight >= 65 && weight <= 75,
+    }
+    const sizeForShortPerson = {
+        medium: weight >= 40 && weight <= 50,
+        large: weight >= 51 && weight <= 57,
+        xLarge: weight >= 58 && weight <= 64,
+        xxLarge: weight >= 65 && weight <= 75,
+        xxxLarge: weight >= 76
+    }
+    const determineBestSize = () => {
+        const {small, medium, large, xLarge} = commonSize
+        if (length >= 158 && length <= 165) {
+            if (small) return setSize("S");
+            if (medium) return setSize("M");
+            if (large) return setSize("L");
+            if (xLarge) return setSize("XL");
+            if (weight >= 76 && weight <= 80) return setSize("2XL");
+            if (weight >= 81) return setSize("3XL");
         }
-        ,
-        [length, weight, size]
-    );
-// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-    const SizeNotExist = (
-        <>
-            <p className={styles.sizeNotExistText}>
-                نعتذر يبدو أن القياس المطلوب غير متوفر حالياً لمعرفة إن كان سيتوفر بعد
-                مدة معينة يرجى مراسلتنا عبر{" "}
-                <a href="https://wa.me/message/HRQFZDWSM3EUH1">
-                    <ImWhatsapp/>
-                </a>
-            </p>
-        </>
-    );
+        if (length > 165) {
+            if (small) return setSize("S");
+            if (medium) return setSize("M");
+            if (large) return setSize("L");
+            if (xLarge) return setSize("XL");
+            if (weight >= 76) return setSize("2XL");
+        }
+
+        if (length < 158) {
+            const {medium, large, xLarge, xxLarge, xxxLarge} = sizeForShortPerson
+            if (medium) return setSize("M");
+            if (large) return setSize("L");
+            if (xLarge) return setSize("XL");
+            if (xxLarge) return setSize("2XL");
+            if (xxxLarge) return setSize("3XL");
+        }
+        setSize("")
+    }
+
+    // logic to determine the best size for user
+    useEffect(() => {
+        if (length === "" || length < 50 || length > 172) return setSize("");
+        determineBestSize()
+    }, [length, weight, size]);
 
     // hide size section in some pages
     const hideSizeSection = () => {
@@ -206,27 +131,11 @@ export default function ProductDetails({product, token, reviews}) {
         return false
     }
 
-
-    const alertErrorSize = () => {
-        Swal.fire({
-            title: "نعتذر لا يمكن تنفيذ طلبك",
-            text:
-                " لا تستطيع إضافة المنتج إلى حقيبة التسوق الخاصة بك, يجب عليك إدخال الطول والوزن لتحديد القياس المناسب لك أولاً",
-            icon: "error",
-            confirmButtonColor: "#fb9aa7",
-            confirmButtonText: "حسناً",
-            showClass: {
-                popup: "animate__animated animate__flipInX"
-            },
-            hideClass: {
-                popup: "animate__animated animate__flipOutX"
-            }
-        });
-    };
-
     const getColorProduct = (product) => {
         return product.color.split('-').map(color => (
-            <div style={{backgroundColor: `${color}`}} className={styles.colorProduct}/>
+            <div style={{backgroundColor: `${color}`}}
+                 className={styles.colorProduct}
+            />
         ))
     }
 
@@ -317,7 +226,7 @@ export default function ProductDetails({product, token, reviews}) {
                                             onClick={
                                                 token === null
                                                     ? () => router.push("/account/login")
-                                                    : () => addToWishList(product)
+                                                    : () => addProductToWishList(product, token, addToWishBag)
                                             }
                                             className={styles.heartIcon}
                                         />
@@ -408,12 +317,12 @@ export default function ProductDetails({product, token, reviews}) {
 
                     {/* error message when size not available */}
                     <Box>
-                        {size === "S" && product.S !== true && SizeNotExist}
-                        {size === "M" && product.M !== true && SizeNotExist}
-                        {size === "L" && product.L !== true && SizeNotExist}
-                        {size === "XL" && product.XL !== true && SizeNotExist}
-                        {size === "2XL" && product.XXL !== true && SizeNotExist}
-                        {size === "3XL" && product.XXXL !== true && SizeNotExist}
+                        {size === "S" && product.S !== true && AlertSizeNotExist}
+                        {size === "M" && product.M !== true && AlertSizeNotExist}
+                        {size === "L" && product.L !== true && AlertSizeNotExist}
+                        {size === "XL" && product.XL !== true && AlertSizeNotExist}
+                        {size === "2XL" && product.XXL !== true && AlertSizeNotExist}
+                        {size === "3XL" && product.XXXL !== true && AlertSizeNotExist}
                     </Box>
 
                     {/* reminder for the users if the size not fit */}
@@ -430,7 +339,7 @@ export default function ProductDetails({product, token, reviews}) {
                     <Box className={styles.containerAllBtns}>
                         <button
                             onClick={
-                                (size === "" && !hideSizeSection()) ? () => alertErrorSize() : () => AddToBag(product)
+                                (size === "" && !hideSizeSection()) ? () => AlertErrorSize() : () => AddToBag(product)
                             }
                             className={
                                 product.isAvailable === true
