@@ -8,7 +8,7 @@ export function WomanCollections({language}) {
     return (
         <div className={styles.dropDown}>
             <li className={styles.linkProducts}>
-                {titleWomen}<IoIosArrowDown/>
+                {titleWomen}<IoIosArrowDown className={styles.icon} />
             </li>
             <div className={styles.dropDownContent}>
                 <div className={styles.containerDropDownContent}>
