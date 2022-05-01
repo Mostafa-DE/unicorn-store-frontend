@@ -5,7 +5,7 @@
 }
 
 .coverHome {
-  background: url("../../public/images/coverHome.jpg");
+  background: url("../../public/images/coverHome2.png");
   height: 25rem;
   width: 100%;
   margin: 6rem 0 0 0;
@@ -17,7 +17,7 @@
 .containerCoverText {
   position: absolute;
   top: 30%;
-  right: 43%;
+  right: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,11 +26,12 @@
 }
 
 .containerCoverText p {
-  font-size: 2rem;
+  font-size: 2.6rem;
   animation: fadeInDown 2s;
 }
 
 .containerCoverText span {
+  font-size: 1.5rem;
   animation: fadeInLeft 2s;
 }
 
@@ -50,15 +51,15 @@
   transition: all 0.3s ease-out;
 }
 
-@media (max-width: 485px) {
+@media (max-width: 850px) {
   .coverHome {
-    background: url("../../public/images/coverHome.jpg");
-    background-position: right 35% bottom 100%;
+    background: url("../../public/images/coverHome2.png");
+    background-position: right 20% bottom 100%;
   }
 }
 
 .fixedImage {
-  background-image: url("../../public/images/coverHome.jpg");
+  background-image: url("../../public/images/coverHome2.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right 35% bottom 100%;

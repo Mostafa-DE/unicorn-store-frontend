@@ -259,8 +259,8 @@ export default function ProductDetails({product, token, reviews}) {
 
                     {/* color section */}
                     {product.color && (
-                        <Box className={styles.containerPriceProduct}>
-                            {getColorProduct(product)}
+                        <Box className={styles.containerColorProduct}>
+                                {getColorProduct(product)}
                         </Box>
                     )}
 
