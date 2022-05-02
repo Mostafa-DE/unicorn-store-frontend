@@ -14,7 +14,8 @@
     background-repeat: no-repeat;
 }
 
-.containerCoverText {
+.containerCoverText,
+.containerCoverTextArabic {
     position: absolute;
     top: 30%;
     right: 30%;
@@ -25,12 +26,18 @@
     text-align: center;
 }
 
-.containerCoverText p {
+.containerCoverTextArabic {
+    right: 34%;
+}
+
+.containerCoverText p,
+.containerCoverTextArabic p {
     font-size: 2.6rem;
     animation: fadeInDown 2s;
 }
 
-.containerCoverText span {
+.containerCoverText span,
+.containerCoverTextArabic span {
     font-size: 1.5rem;
     animation: fadeInLeft 2s;
 }
@@ -62,30 +69,46 @@
 }
 
 
+@media (max-width: 1050px) {
+    .containerCoverText,
+    .containerCoverTextArabic {
+        right: 25%;
+    }
+}
+
+
 @media (max-width: 850px) {
     .coverHome {
         background: url("../../public/images/coverHome2.png");
-        background-position: right 20% bottom 100%;
+        background-position: right 22% bottom 100%;
     }
 
     .exploreBtn {
         margin: 1rem 0 0 0;
     }
+
+    .containerCoverText,
+    .containerCoverTextArabic {
+        right: 30%;
+    }
 }
 
 @media (max-width: 600px) {
-    .containerCoverText p {
+    .containerCoverText p,
+    .containerCoverTextArabic p {
         font-size: 2rem;
         margin: 0;
     }
 
-    .containerCoverText span {
+    .containerCoverText span,
+    .containerCoverTextArabic span {
         font-size: 1.2rem;
     }
 }
 
 @media (max-width: 425px) {
-    .containerCoverText p {
+    .containerCoverText p,
+    .containerCoverTextArabic p {
         font-size: 1.6rem;
     }
 
