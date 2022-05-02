@@ -1,4 +1,3 @@
-import styles from '@/components/Search/Search.module.css'
 import ProductItems from "@/components/ProductItems/ProductItems";
 import Box from "@mui/material/Box";
 import {useRouter} from "next/router"

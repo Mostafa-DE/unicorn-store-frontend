@@ -184,7 +184,7 @@ export default function CategoriesPhoto() {
         <div className={styles.containerHouseware}>
           <div className={styles.housewareCardContent}>
             <p className={styles.housewareText}> الأدوات المنزلية</p>
-            <Link href="/categories/makeup/products">
+            <Link href="/categories/houseware/products">
               <button className={styles.housewareShopBtn}>تسوق الآن</button>
             </Link>
           </div>
