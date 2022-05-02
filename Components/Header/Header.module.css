@@ -141,13 +141,11 @@
     border: none;
     cursor: pointer;
     letter-spacing: 0.5px;
-    transition: all 0.5s ease-in;
 }
 
 .dropDown {
     position: relative;
     display: inline-block;
-    transition: all 0.5s ease-in;
 }
 
 .dropDownContent {
@@ -160,7 +158,9 @@
     min-width: 700px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    transition: all 0.5s ease-in;
+    animation-name: fadeIn;
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
 }
 
 .containerDropDownContent {
@@ -174,12 +174,16 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.5px;;
 }
 
 .dropDown:hover .dropDownContent {
     display: block;
     transition: all 0.5s ease-out;
+}
+
+.dropDown:hover .icon {
+    transform: rotate(180deg);
 }
 
 .collectionsDiv {
@@ -373,5 +377,14 @@
 
     .containerIcons {
         margin: 3rem 0 1rem 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

@@ -9,7 +9,7 @@ export function MoreCollections({language}) {
         <div className={styles.dropDown}>
             <li className={styles.linkProducts}>
                 {titleOther}
-                <IoIosArrowDown/>
+                <IoIosArrowDown className={styles.icon}/>
             </li>
             <div className={styles.dropDownContent}>
                 <div className={styles.containerDropDownContent}>
@@ -45,7 +45,8 @@ export function MoreCollections({language}) {
                     </div>
                     <div className={styles.img}>
                         <img src="/images/unicorn2.png"
-                             width={400}
+                             width={350}
+                             style={{margin: "0 2rem 0 0"}}
                              className={styles.img}
                              alt="unicorns-logo"
                         />

@@ -11,7 +11,7 @@ export function AccessoriesCollections({language}) {
         <div className={styles.dropDown}>
             <li className={styles.linkProducts}>
                 {titleAccessories}
-                <IoIosArrowDown/>
+                <IoIosArrowDown className={styles.icon}/>
             </li>
             <div className={styles.dropDownContent}>
                 <div className={styles.containerDropDownContent}>
