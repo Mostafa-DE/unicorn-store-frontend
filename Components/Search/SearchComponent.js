@@ -18,9 +18,9 @@ export default function SearchComponent({products, token}) {
 
 
             <Box className="containerCardProducts">
-                {products?.map(product => (
+                {products?.map((product, idx) => (
                     <ProductItems
-                        key={product.id}
+                        key={idx}
                         product={product}
                         token={token}
                     />
