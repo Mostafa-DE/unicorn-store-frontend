@@ -68,7 +68,8 @@
     text-decoration: none;
 }
 
-.containerPriceProduct {
+.containerPriceProduct,
+.containerColorProduct {
     display: flex;
 }
 

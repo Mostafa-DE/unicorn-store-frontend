@@ -69,10 +69,10 @@ export default function Layout({title, description, children, userAccount}) {
                      className={styles.coverHome}
                 >
                     <div className={styles.containerCoverText}>
-                        <p> أيام أكثر إشراقاً</p>
-                        <span>تسوق عروض الموسم الجديد</span>
+                        <p>The New Standard Of Modern Luxe </p>
+                        <span>Shop The New Season Offers</span>
                         <Link href="/categories/women-fashions/turkey-dresses/dresses">
-                            <button className={styles.exploreBtn}>إكتشف الآن</button>
+                            <button className={styles.exploreBtn}>Find Out Now</button>
                         </Link>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: 5rem 0 0 7rem;
+  margin: 5rem 4rem 0 0;
   animation-name: fadeIn;
   animation-duration: 4s;
   animation-fill-mode: both;
@@ -66,11 +66,11 @@
 }
 
 .womenImg {
-  width: 200px;
+  width: 250px;
 }
 
 .manImg {
-  width: 350px;
+  width: 280px;
 }
 
 @keyframes fadeInLeft {

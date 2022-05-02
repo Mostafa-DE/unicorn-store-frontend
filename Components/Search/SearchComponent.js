@@ -1,4 +1,3 @@
-import styles from '@/components/Search/Search.module.css'
 import ProductItems from "@/components/ProductItems/ProductItems";
 import Box from "@mui/material/Box";
 import {useRouter} from "next/router"
@@ -19,9 +18,9 @@ export default function SearchComponent({products, token}) {
 
 
             <Box className="containerCardProducts">
-                {products?.map(product => (
+                {products?.map((product, idx) => (
                     <ProductItems
-                        key={product.id}
+                        key={idx}
                         product={product}
                         token={token}
                     />
