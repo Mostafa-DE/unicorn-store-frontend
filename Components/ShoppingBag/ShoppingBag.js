@@ -13,15 +13,22 @@ import {HiMinusSm} from "react-icons/hi";
 import {HiPlusSm} from "react-icons/hi";
 import {AiOutlineLine} from "react-icons/ai";
 import {FaTrash} from "react-icons/fa";
+import { DialogAlert } from "@/helpers/DialogAlert"
 
 export default function ShoppingBag({token}) {
     const router = useRouter();
-    // shopping bag context
-    const {bag, increaseQty, decreaseQty, removeFromBag} = useContext(
-        BagContext
-    );
+
+    const {bag, increaseQty, decreaseQty, removeFromBag} = useContext(BagContext);
     const {items = []} = bag;
-    // xxxxxxxxxxxxxxxxxxxxx
+
+    const showDeleteIcon = (qty) => {
+        return qty === 1;
+    }
+
+    const handleIncreaseQty = (item) => {
+        if (item.qty >= 2) return DialogAlert()
+        increaseQty(item)
+    }
 
     return (
         <div className={styles.main}>
@@ -34,9 +41,7 @@ export default function ShoppingBag({token}) {
             {items.length !== 0 ? (
                 <>
                     <TableContainer style={{margin: "3.5rem 0 0 0"}}>
-                        <Table data-aos="fade-in"
-                               className={styles.containerTable}
-                        >
+                        <Table data-aos="fade-in">
                             <TableHead>
                                 <TableRow>
                                     <TableCell align="left">
@@ -69,7 +74,7 @@ export default function ShoppingBag({token}) {
                                                 />
                                                 <div className={styles.itemDetails}>
                                                     <p className={styles.nameItem}>{item.name}</p>
-                                                    <p>{item.color}</p>
+                                                    {/*<p>{item.color}</p>*/}
                                                     <p>
                                                         {item.size}{" "}
                                                         {item.size !== "" ? ":القياس" : null}
@@ -81,20 +86,23 @@ export default function ShoppingBag({token}) {
                                         <TableCell align="center">
                                             {item.qty}
                                             <div className={styles.addOrRemoveQty}>
-                                                {item.qty !== 1 ? (
-                                                    <HiMinusSm
-                                                        className={styles.minus}
-                                                        onClick={() => decreaseQty(item)}
-                                                    />
-                                                ) : (
-                                                    <FaTrash
-                                                        className={styles.deleteBtnWhenQtyEqualsOne}
-                                                        onClick={() => removeFromBag(item)}
-                                                    />
-                                                )}
+                                                {showDeleteIcon(item.qty) ?
+                                                    (
+                                                        <FaTrash
+                                                            className={styles.deleteBtnWhenQtyEqualsOne}
+                                                            onClick={() => removeFromBag(item)}
+                                                        />)
+                                                    :
+                                                    (
+                                                        <HiMinusSm
+                                                            className={styles.minus}
+                                                            onClick={() => decreaseQty(item)}
+                                                        />
+                                                    )
+                                                }
                                                 <HiPlusSm
                                                     className={styles.plus}
-                                                    onClick={() => increaseQty(item)}
+                                                    onClick={() => handleIncreaseQty(item)}
                                                 />
                                             </div>
                                         </TableCell>

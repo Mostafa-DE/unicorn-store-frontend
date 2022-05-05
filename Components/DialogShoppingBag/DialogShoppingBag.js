@@ -1,5 +1,5 @@
 import styles from "@/components/DialogShoppingBag/DialogShoppingBag.module.css";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import Link from "next/link";
 import {BagContext} from "@/context/BagContext";
 import Dialog from "@mui/material/Dialog";
@@ -17,14 +17,25 @@ import {AiOutlineLine} from "react-icons/ai";
 import {FaTrash} from "react-icons/fa";
 import {VscClose} from "react-icons/vsc";
 import {useRouter} from "next/router";
+import {TextAlert} from "@/helpers/TextAlert";
 
 export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, user}) {
     const router = useRouter();
 
-    // shopping bag context
-    const {bag, increaseQty, decreaseQty, removeFromBag} =
-        useContext(BagContext);
+    const [showAlert, setShowAlert] = useState(false);
+    const handleShowAlert = () => setShowAlert(!showAlert)
+
+    const {bag, increaseQty, decreaseQty, removeFromBag} = useContext(BagContext);
     const {items = []} = bag;
+
+    const showDeleteIcon = (qty) => {
+        return qty === 1;
+    }
+
+    const handleIncreaseQty = (item) => {
+        if (item.qty >= 2) return setShowAlert(true)
+        increaseQty(item)
+    }
 
     return (
         <div>
@@ -41,6 +52,7 @@ export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, 
                         <p className={styles.titleShoppingBag}> حقيبة التسوق </p>
                         <AiOutlineLine className="lineIcon"/>
                     </div>
+                    {TextAlert(showAlert, handleShowAlert)}
                     <div className={styles.closeIcon}>
                         <VscClose onClick={closeShoppingDialog}/>
                     </div>
@@ -48,7 +60,7 @@ export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, 
                 <DialogContent>
                     {items.length !== 0 ? (
                         <>
-                            <div className={styles.containerTableDetails}>
+                            <div>
                                 <TableContainer>
                                     <Table
                                         data-aos="fade-in"
@@ -93,7 +105,7 @@ export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, 
                                                             </div>
                                                             <div>
                                                                 <p className={styles.nameItem}>{item.name}</p>
-                                                                <p>{item.color}</p>
+                                                                {/*<p>{item.color}</p>*/}
                                                                 <p>
                                                                     {item.size}{" "}
                                                                     {item.size !== "" ? ":القياس" : null}
@@ -105,20 +117,23 @@ export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, 
                                                     <TableCell align="center">
                                                         {item.qty}
                                                         <div className={styles.addOrRemoveQty}>
-                                                            {item.qty !== 1 ? (
-                                                                <HiMinusSm
-                                                                    className={styles.minus}
-                                                                    onClick={() => decreaseQty(item)}
-                                                                />
-                                                            ) : (
-                                                                <FaTrash
-                                                                    className={styles.deleteBtnWhenQtyEqualsOne}
-                                                                    onClick={() => removeFromBag(item)}
-                                                                />
-                                                            )}
+                                                            {showDeleteIcon(item.qty) ?
+                                                                (
+                                                                    <FaTrash
+                                                                        className={styles.deleteBtnWhenQtyEqualsOne}
+                                                                        onClick={() => removeFromBag(item)}
+                                                                    />)
+                                                                :
+                                                                (
+                                                                    <HiMinusSm
+                                                                        className={styles.minus}
+                                                                        onClick={() => decreaseQty(item)}
+                                                                    />
+                                                                )
+                                                            }
                                                             <HiPlusSm
                                                                 className={styles.plus}
-                                                                onClick={() => increaseQty(item)}
+                                                                onClick={() => handleIncreaseQty(item)}
                                                             />
                                                         </div>
                                                     </TableCell>
@@ -138,7 +153,7 @@ export default function DialogShoppingBag({shoppingDialog, closeShoppingDialog, 
                                 </TableContainer>
                             </div>
                             <div className={styles.mainBoxAmountDetails}>
-                                <div className={styles.containerBoxAmountDetails}>
+                                <div>
                                     <p data-aos="fade-in"
                                        className={styles.totalAmount}
                                     >
