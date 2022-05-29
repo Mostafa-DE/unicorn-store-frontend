@@ -13,7 +13,7 @@ import {HiMinusSm} from "react-icons/hi";
 import {HiPlusSm} from "react-icons/hi";
 import {AiOutlineLine} from "react-icons/ai";
 import {FaTrash} from "react-icons/fa";
-import { DialogAlert } from "@/helpers/DialogAlert"
+import {DialogAlert} from "@/helpers/DialogAlert"
 
 export default function ShoppingBag({token}) {
     const router = useRouter();
@@ -26,7 +26,7 @@ export default function ShoppingBag({token}) {
     }
 
     const handleIncreaseQty = (item) => {
-        if (item.qty >= 2) return DialogAlert()
+        if (item.qty >= 2) return DialogAlert("Sorry 😔", "OK", "The maximum quantity that can be ordered is 2.", "error")
         increaseQty(item)
     }
 

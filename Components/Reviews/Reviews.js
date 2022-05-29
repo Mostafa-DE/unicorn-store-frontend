@@ -238,7 +238,7 @@ export default function Reviews({product, reviews, token}) {
                             />
                                 <button
                                     className={styles.submitBtn}
-                                    onClick={() => createReview()}
+                                    onClick={createReview}
                                 >
                                     أضف اﻵن
                                 </button>

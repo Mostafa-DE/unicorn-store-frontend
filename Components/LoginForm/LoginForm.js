@@ -142,7 +142,7 @@ export default function LoginForm({rememberEmailUser}) {
                                 >
                                     تذكرني
                                     <FiAlertCircle
-                                        onClick={() => alertRememberMe()}
+                                        onClick={alertRememberMe}
                                         className={styles.alertIcon}
                                     />
                                 </label>

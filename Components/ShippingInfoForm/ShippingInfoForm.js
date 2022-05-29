@@ -25,18 +25,15 @@ import router from "next/router";
 /*-------------------------X-----------------------------*/
 
 export default function ShippingInfoForm({currentUser, token}) {
-
-    const [orderNumber] = useState(
-        parseInt(Date.now() * Math.random())
-            .toString()
-            .substring(0, 5)
-    );
+    const unauthorizedUser = currentUser.statusCode;
+    const orderNumber = (Date.now() * Math.random()).toString().substring(0, 6);
     const todayDate = new Date().toISOString().slice(0, 10);
 
+
     const {bag} = useContext(BagContext);
+    const {addToShippingInfo} = useContext(ShippingInfoContext);
     const {items = []} = bag;
 
-    const {addToShippingInfo} = useContext(ShippingInfoContext);
 
     const idImageProducts = items.map(product => product.images[0].id);
     const detailsOrder = items.map(
@@ -46,14 +43,10 @@ export default function ShippingInfoForm({currentUser, token}) {
             }} `
     );
 
-    const [isLoading, setIsLoading] = useState(false)
+
+    const [isLoading, setIsLoading] = useState(false);
     const [discountInput, setDiscountInput] = useState("");
     const [discount, setDiscount] = useState("")
-    const handleChangeDiscountInput = evnt => {
-        setDiscountInput(evnt.target.value);
-    };
-
-
     const [values, setValues] = useState({
         email: `${currentUser.email || ""}`,
         firstName: `${currentUser.firstName || ""}`,
@@ -65,23 +58,33 @@ export default function ShippingInfoForm({currentUser, token}) {
         city: ""
     });
 
+
+    const handleChangeDiscountInput = evnt => {
+        setDiscountInput(evnt.target.value);
+    };
+
     const handleChangeInput = evnt => {
         const {name, value} = evnt.target;
         setValues({...values, [name]: value});
     };
 
+
     const calculateDeliveryFees = () => {
-        let DeliveryFees;
-        (values.city === "عمان" || values.city === "الزرقاء") ? DeliveryFees = 3 : DeliveryFees = 5;
+        const {city} = values;
+        const DeliveryFees = (city === "عمان" || city === "الزرقاء") ? 3 : 5;
         if (values.city === "") return 0;
         return DeliveryFees;
     }
 
+
     const calculateDiscountValue = () => {
+        const expireDate = discount?.expireDate;
+        const totalDiscount = (((discount?.discountValue) / 100) * (bag.totalBag + calculateDeliveryFees())).toFixed(2);
         if (!discount) return;
-        if (new Date().toISOString().slice(0, 10) >= discount.expireDate) return; // discount expired
-        return (((discount.discountValue) / 100) * (bag.totalBag + calculateDeliveryFees())).toFixed(2);
+        if (todayDate >= expireDate) return;
+        return totalDiscount;
     }
+
 
     const getDiscount = async () => {
         if (discountInput === "") return;
@@ -103,11 +106,13 @@ export default function ShippingInfoForm({currentUser, token}) {
         setIsLoading(false);
     }
 
+
     useEffect(() => {
         ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
             return !(value.length > 10 || value.length < 10);
         });
     });
+
 
     useEffect(() => {
         ValidatorForm.addValidationRule("isLocalNumber", (value) => {
@@ -117,6 +122,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                 || firstThreeNumber.match("077"));
         });
     });
+
 
     const getHeaders = () => {
         if (token)
@@ -140,6 +146,7 @@ export default function ShippingInfoForm({currentUser, token}) {
             )
             .catch(err => console.log(err));
     }
+
     const addOrderToShippingInfo = async () => {
         addToShippingInfo(
             bag,
@@ -156,6 +163,7 @@ export default function ShippingInfoForm({currentUser, token}) {
         );
         await router.push("/payment/invoice-order");
     }
+
     const createNewOrder = async () => {
         try {
             await fetch(`${API_URL}/orders`, {
@@ -178,8 +186,9 @@ export default function ShippingInfoForm({currentUser, token}) {
         } catch (err) {
             console.log(err)
         }
-
     }
+
+
     const turnDiscountIntoExpired = async () => {
         try {
             await fetch(`${API_URL}/discounts/${discount.id}`, {
@@ -431,7 +440,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                             <div className={styles.containerCouponDiscount}>
                                 <input
                                     type="text"
-                                    readOnly={!token && true}
+                                    readOnly={unauthorizedUser && true}
                                     value={discountInput}
                                     onChange={handleChangeDiscountInput}
                                     placeholder="أدخل كود الخصم هنا"
@@ -440,13 +449,13 @@ export default function ShippingInfoForm({currentUser, token}) {
                                 {isLoading === true ? (
                                     <CgSpinnerTwoAlt className={styles.rotating}/>
                                 ) : (
-                                    <button onClick={() => getDiscount()}
+                                    <button onClick={getDiscount}
                                             className={styles.discountBtn}
                                     >تطبيق
                                     </button>
                                 )}
                             </div>
-                            {!token && (
+                            {unauthorizedUser && (
                                 <>
                                     <p className={styles.discountText}>
                                         نعتذر لا يمكنك تطبيق الخصم ما لم تكن مسجل مسجل حساب لدينا
