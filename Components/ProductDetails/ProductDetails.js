@@ -32,7 +32,7 @@ export default function ProductDetails({product, token, reviews}) {
 
     const [shareDialog, setShareDialog] = useState(false)
     const [video, setvideo] = useState("");
-    const [image, setImage] = useState(product.images[0].url);
+    const [image, setImage] = useState(product.images[0]?.url);
     const [length, setLength] = useState();
     const [weight, setWeight] = useState();
     const [size, setSize] = useState("");

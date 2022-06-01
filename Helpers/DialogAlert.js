@@ -1,11 +1,11 @@
 import Swal from "sweetalert2";
 
-export const DialogAlert = () => {
+export const DialogAlert = (title, textBtn, body, icon) => {
     return Swal.fire({
-        icon: "error",
-        title: "Sorry 😔",
+        icon: icon,
+        title: title,
         confirmButtonColor: "#fb9aa7",
-        confirmButtonText: "حسناً",
-        html: `<p> The maximum quantity that can be ordered is 2. </p>`
+        confirmButtonText: textBtn,
+        html: `<p> ${body} </p>`
     });
 }

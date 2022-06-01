@@ -99,6 +99,7 @@
 
 .containerImgAndName {
     display: flex;
+    margin: 1rem 0 0 0;
 }
 
 .productPrice {
@@ -116,11 +117,21 @@
 }
 
 .ItemsCountText {
-    text-align: end;
+    width: 19rem;
+    text-align: center;
 }
 
 .productName {
     max-width: 60%;
+    font-size: 1.1rem;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.productName:hover {
+    color: #fb9aa7;
+    transition: all 0.3s ease-out;
 }
 
 .containetTotalAmountBox {
@@ -129,6 +140,12 @@
     background-color: #fafafa;
     padding: 1rem;
     margin: 1rem 0 0 0;
+}
+
+.containerEditBtn {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 0 0;
 }
 
 .editBagBtn {
@@ -252,11 +269,15 @@
     outline: none;
 }
 
-.discountText {
+.discountNotFoundText, .discountFoundText {
     color: red;
     font-size: 0.8rem;
     text-align: center;
     margin: 0.5rem 0 0 0;
+}
+
+.discountFoundText {
+    color: #25d366;
 }
 
 @media (max-width: 1010px) {

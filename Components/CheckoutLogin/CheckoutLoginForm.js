@@ -146,7 +146,7 @@ export default function LoginForm() {
                                 <label className="form-check-label" htmlFor="form2Example4">
                                     تذكرني
                                     <FiAlertCircle
-                                        onClick={() => alertRememberMe()}
+                                        onClick={alertRememberMe}
                                         className={styles.alertIcon}
                                     />
                                 </label>
@@ -179,7 +179,7 @@ export default function LoginForm() {
                             </Link>
                             <p className={styles.textMoreFeatures}>
                                 سجل الآن لتحصل على ميزات إضافية, لمعرفة الميزات إضغط{" "}
-                                <span onClick={() => alertBenefitsLogin()}>{"هنا"}</span>
+                                <span onClick={alertBenefitsLogin}>{"هنا"}</span>
                             </p>
                         </div>
                     </div>
