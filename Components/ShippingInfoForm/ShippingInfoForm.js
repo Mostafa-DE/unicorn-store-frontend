@@ -17,6 +17,7 @@ import {CgSpinnerTwoAlt} from "react-icons/cg"
 import emailjs from "emailjs-com";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
 import qs from "qs";
+import {cities} from "@/components/ShippingInfoForm/Cities";
 
 /*----------------------Context--------------------------*/
 import {BagContext} from "@/context/BagContext";
@@ -60,6 +61,7 @@ export default function ShippingInfoForm({currentUser, token}) {
 
 
     const handleChangeDiscountInput = evnt => {
+        setDiscount("")
         setDiscountInput(evnt.target.value);
     };
 
@@ -72,8 +74,7 @@ export default function ShippingInfoForm({currentUser, token}) {
     const calculateDeliveryFees = () => {
         const {city} = values;
         const DeliveryFees = (city === "عمان" || city === "الزرقاء") ? 3 : 5;
-        if (values.city === "") return 0;
-        return DeliveryFees;
+        return values.city === "" ? 0 : DeliveryFees;
     }
 
 
@@ -101,9 +102,15 @@ export default function ShippingInfoForm({currentUser, token}) {
                 Authorization: `Bearer ${token}`
             }
         });
-        const product = await res.json();
-        setDiscount(product[0]);
+        const discount = await res.json();
+        setDiscount(discount[0]);
         setIsLoading(false);
+        if(discount[0]?.user_discount?.id !== currentUser.id) return setDiscount(undefined);
+    }
+
+    const handleDiscountBtn = () => {
+        if (discount) return setDiscount("")
+        getDiscount();
     }
 
 
@@ -111,7 +118,7 @@ export default function ShippingInfoForm({currentUser, token}) {
         ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
             return !(value.length > 10 || value.length < 10);
         });
-    });
+    }, [values.phone]);
 
 
     useEffect(() => {
@@ -121,7 +128,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                 || firstThreeNumber.match("079")
                 || firstThreeNumber.match("077"));
         });
-    });
+    }, [values.phone]);
 
 
     const getHeaders = () => {
@@ -173,10 +180,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                     ...values,
                     detailsOrder: `${detailsOrder}`,
                     orderTotal: `${TotalBag()}`,
-                    image1: `${idImageProducts[0] || ""}`,
-                    image2: `${idImageProducts[1] || ""}`,
-                    image3: `${idImageProducts[2] || ""}`,
-                    image4: `${idImageProducts[3] || ""}`,
+                    image1: idImageProducts,
                     orderNumber: `UN${orderNumber}`,
                     dateDelivered: `${todayDate}`,
                     numberOfItems: `${bag.itemsCount}`,
@@ -253,7 +257,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                              className={styles.containerShippingBox}
                         >
                             <p className={styles.shippingInfoText}>معلومات التوصيل</p>
-                            <div className={styles.containerAllInput}>
+                            <div>
                                 <ValidatorForm onSubmit={handleSubmit}>
                                     <TextValidator
                                         type="email"
@@ -327,16 +331,13 @@ export default function ShippingInfoForm({currentUser, token}) {
                                                 name="city"
                                                 required
                                             >
-                                                <MenuItem value={"عمان"}>عمان</MenuItem>
-                                                <MenuItem value={"الزرقاء"}>الزرقاء</MenuItem>
-                                                <MenuItem value={"البلقاء"}>البلقاء</MenuItem>
-                                                <MenuItem value={"جرش"}>جرش</MenuItem>
-                                                <MenuItem value={"الطفيلة"}>الطفيلة</MenuItem>
-                                                <MenuItem value={"عجلون"}>عجلون</MenuItem>
-                                                <MenuItem value={"العقبة"}>العقبة</MenuItem>
-                                                <MenuItem value={"الكرك"}>الكرك</MenuItem>
-                                                <MenuItem value={"معان"}>معان</MenuItem>
-                                                <MenuItem value={"المفرق"}>المفرق</MenuItem>
+                                                {cities.map((city, idx) => (
+                                                    <MenuItem key={idx}
+                                                              value={city}
+                                                    >
+                                                        {city}
+                                                    </MenuItem>
+                                                ))}
                                             </Select>
                                         </FormControl>
                                         <TextValidator
@@ -381,9 +382,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                             </div>
                         </div>
 
-                        <div data-aos="fade-in"
-                             className={styles.containerSummaryBagBox}
-                        >
+                        <div data-aos="fade-in">
                             <Accordion>
                                 <AccordionSummary
                                     expandIcon={
@@ -392,17 +391,18 @@ export default function ShippingInfoForm({currentUser, token}) {
                                     id="panel1a-header"
                                     style={{backgroundColor: "#fafafa"}}
                                 >
-                                    محتوى الحقيبة
+                                    ({bag.itemsCount}) محتوى الحقيبة
                                 </AccordionSummary>
                                 <AccordionDetails style={{backgroundColor: "#fafafa"}}>
                                     <p className={styles.ItemsCountText}>
-                                        يوجد {bag.itemsCount} عناصر في حقيبة التسوق الخاصة بك{" "}
+                                        حقيبة التسوق الخاصة بك
                                     </p>
-                                    <div className={styles.containerOrderInfo}>
-                                        {items.map(item => (
-                                            <div key={item.id}>
+                                    <div>
+                                        {items.map((item, idx) => (
+                                            <div key={idx}>
                                                 <div className={styles.productContainer}>
                                                     <div className={styles.containerImgAndName}>
+
                                                         <Badge badgeContent={item.qty}
                                                                color="error"
                                                         >
@@ -413,15 +413,18 @@ export default function ShippingInfoForm({currentUser, token}) {
                                                                 alt="product-image"
                                                             />
                                                         </Badge>
+
                                                         <div className={styles.productNameAndColor}>
-                                                            <p className={styles.productName}>{item.name}</p>
+                                                            <Link href={`/${item.productDetailsPage}/${item.slug}`}>
+                                                                <p className={styles.productName}>{item.name}</p>
+                                                            </Link>
                                                             <div className={styles.containerColorAndSize}>
-                                                                <span className={styles.productSize}>
-                                                                    {item.size} /{" "}
+                                                                <span>
+                                                                    {item.size}
                                                                 </span>
-                                                                <span className={styles.productColor}>
-                                                                    {item.color}
-                                                                </span>
+                                                                {/*<span>*/}
+                                                                {/*    {item.color}*/}
+                                                                {/*</span>*/}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -431,16 +434,18 @@ export default function ShippingInfoForm({currentUser, token}) {
                                             </div>
                                         ))}
                                     </div>
-                                    <Link href="/products/shopping-bag">
-                                        <button className={styles.editBagBtn}>تعديل الحقيبة</button>
-                                    </Link>
+                                    <div className={styles.containerEditBtn}>
+                                        <Link href="/products/shopping-bag">
+                                            <button className={styles.editBagBtn}>تعديل الحقيبة</button>
+                                        </Link>
+                                    </div>
                                 </AccordionDetails>
                             </Accordion>
 
                             <div className={styles.containerCouponDiscount}>
                                 <input
                                     type="text"
-                                    readOnly={unauthorizedUser && true}
+                                    readOnly={(unauthorizedUser || discount) && true}
                                     value={discountInput}
                                     onChange={handleChangeDiscountInput}
                                     placeholder="أدخل كود الخصم هنا"
@@ -449,15 +454,16 @@ export default function ShippingInfoForm({currentUser, token}) {
                                 {isLoading === true ? (
                                     <CgSpinnerTwoAlt className={styles.rotating}/>
                                 ) : (
-                                    <button onClick={getDiscount}
+                                    <button onClick={handleDiscountBtn}
                                             className={styles.discountBtn}
-                                    >تطبيق
+                                    >
+                                        {discount ? "إلغاء" : "تطبيق"}
                                     </button>
                                 )}
                             </div>
                             {unauthorizedUser && (
                                 <>
-                                    <p className={styles.discountText}>
+                                    <p className={styles.discountNotFoundText}>
                                         نعتذر لا يمكنك تطبيق الخصم ما لم تكن مسجل مسجل حساب لدينا
                                     </p>
                                     <div style={{display: "flex", justifyContent: "center"}}>
@@ -475,19 +481,25 @@ export default function ShippingInfoForm({currentUser, token}) {
                                 </>
                             )}
                             {discount === undefined && discountInput !== "" && (
-                                <p className={styles.discountText}>
+                                <p className={styles.discountNotFoundText}>
                                     نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم بالفعل
                                 </p>
                             )}
 
+                            {discount && discountInput !== "" && (
+                                <p className={styles.discountFoundText}>
+                                    {"🤩"}   تم تطبيق الخصم بنجاح {" "}{currentUser.username} تهانينا
+                                </p>
+                            )}
+
                             <div className={styles.containetTotalAmountBox}>
-                                <div className={styles.allTotalPrices}>
+                                <div>
                                     <p>السعر الفرعي</p>
                                     <p>أجور التوصيل</p>
                                     <p> قيمة الخصم</p>
                                     <p>السعر الإجمالي</p>
                                 </div>
-                                <div className={styles.allPrices}>
+                                <div>
                                     <p>{bag.totalBag} JD</p>
                                     <p>
                                         {calculateDeliveryFees()}{" "}
