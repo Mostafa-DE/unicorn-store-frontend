@@ -14,6 +14,7 @@ import useLoginDialog from "@/Hooks/useLoginDialog";
 import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
 import {LanguageContext} from "@/context/LanguageContext";
+import {CgSpinnerTwoAlt} from "react-icons/cg";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide
@@ -30,6 +31,7 @@ export default function DialogLogin() {
     const [showPassword, handleShowPassword] = useShowPassword(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [showAlertRememberCookies, setShowAlertRememberCookies] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {login, logout, user, error} = useContext(AuthContext);
     const {language} = useContext(LanguageContext)
@@ -40,9 +42,11 @@ export default function DialogLogin() {
 
     const {titleLogin, titleLogout} = languages[language];
 
-    const handleSubmit = evnt => {
+    const handleSubmit = async(evnt) => {
         evnt.preventDefault();
-        login({email, password});
+        setIsLoading(true);
+        await login({email, password});
+        setIsLoading(false);
     };
     const handleCloseErrorMessage = () => {
         setShowErrorMessage(!showErrorMessage);
@@ -155,11 +159,17 @@ export default function DialogLogin() {
                                     />
                                 </label>
                             </div>
-                            <button type="submit"
-                                    className={styles.signInBtn}
-                            >
-                                تسجيل الدخول
-                            </button>
+                            {isLoading === true ? (
+                                <div className={styles.containerSpinner}>
+                                    <CgSpinnerTwoAlt className={styles.rotating}/>
+                                </div>
+                            ) : (
+                                <button type="submit"
+                                        className={styles.signInBtn}
+                                >
+                                    تسجيل الدخول
+                                </button>
+                            )}
                             <Link href="/account/forgot-password">
                                 <a className={styles.forgotPassword}>
                                     هل نسيت كلمة المرور الخاصة بك ؟؟

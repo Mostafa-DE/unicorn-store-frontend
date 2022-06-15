@@ -280,6 +280,20 @@
     color: #25d366;
 }
 
+.containerSpinner {
+    margin: 1rem 0;
+}
+
+.spinnerIcon {
+    font-size: 2rem;
+    animation: rotating 2s linear infinite;
+}
+
+.rotating {
+    font-size: 1.5rem;
+    animation: rotating 2s linear infinite;
+}
+
 @media (max-width: 1010px) {
     .container {
         flex-direction: column-reverse;
@@ -323,7 +337,6 @@
     }
 }
 
-
 @keyframes rotating {
     from {
         transform: rotate(0deg);
@@ -331,9 +344,4 @@
     to {
         transform: rotate(360deg);
     }
-}
-
-.rotating {
-    font-size: 1.5rem;
-    animation: rotating 2s linear infinite;
 }

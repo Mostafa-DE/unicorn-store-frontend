@@ -1,6 +1,6 @@
 import styles from "@/components/CheckoutLogin/CheckoutLoginForm.module.css";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import Link from "next/link";
 import {AuthContext} from "@/context/AuthContext";
 import useInputField from "@/Hooks/useInputField";
@@ -9,68 +9,25 @@ import {RiEyeLine} from "react-icons/ri";
 import {RiEyeCloseLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import {GrFormNext} from "react-icons/gr";
-import Swal from "sweetalert2";
+import {CgSpinnerTwoAlt} from "react-icons/cg";
+import {alertBenefitsToLogin, alertRememberMe, alertLoginFailed} from "@/components/CheckoutLogin/Alerts";
 
 export default function LoginForm() {
-    // Auth context
     const {login, error} = useContext(AuthContext);
     useEffect(() => {
-        error &&
-        new Swal({
-            title: error,
-            icon: "error",
-            confirmButtonColor: "#fb9aa7",
-            confirmButtonText: "حسناً"
-        });
-    }, [login, error]);
-    // xxxxxxxxxxxx
+        error && alertLoginFailed(error);
+    }, [error]);
 
-    const [email, handleChangeEmail, resetEmail] = useInputField("");
-
-    const [password, handleChangePassword, resetPassword] = useInputField("");
-
+    const [email, handleChangeEmail] = useInputField("");
+    const [password, handleChangePassword] = useInputField("");
     const [showPassword, handleShowPassword] = useShowPassword(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = evnt => {
+    const handleSubmit = async(evnt) => {
         evnt.preventDefault();
-        login({email, password});
-        resetPassword();
-        resetEmail();
-    };
-
-
-    const alertBenefitsLogin = () => {
-        Swal.fire({
-            title: "الميزات التي ستتمتع بها بمجرد إنشاء حساب ",
-            html: `
-             <p> الطلب بشكل أسرع في المستقبل دون الحاجة لإدخال البيانات في كل مرة تنوي بها الطلب</p>
-            <hr />
-            <p>سجل الطلبات لتتبع طلباتك في المستقبل في أي وقت تريده</p>
-            <hr />
-            <p>الوصول لقائمة المفضلة لديك وإمكانية حفظ المنتجات التي تنوي شرائها في المستقبل</p>
-            <hr />
-             <p>الحصول على متابعة أسهل من قبل الفريق المختص لدينا في حال واجهتك أي مشاكل في الموقع</p>
-             <hr />
-            <p>الحصول على خصومات مميزة خاصة</p>
-            <hr />
-            <p>إخطارك في  حال توفر عروض وخصومات حصرية على الموقع</p>
-             `,
-            customClass: "",
-            icon: "info",
-            confirmButtonText: "حسناً, لقد فهمت",
-            confirmButtonColor: "#fb9aa7",
-            footer: `<a href="https://wa.me/message/HRQFZDWSM3EUH1">أنا بحاجة إلى المساعدة</a> لم تتضح الأمور بشكل جيد`
-        });
-    };
-
-    const alertRememberMe = () => {
-        Swal.fire({
-            icon: "warning",
-            title: "👋 مرحباً",
-            confirmButtonColor: "#fb9aa7",
-            confirmButtonText: "حسناً",
-            html: `<p>يرجى ملاحظة أننا نستخدم ملفات تعريف الارتباط للاحتفاظ بتسجيل الدخول الخاص بك لمدة أسبوع ، وبعد ذلك يتم تسجيل الخروج تلقائيًا ، إذا كنت لا تريد الاحتفاظ بتسجيل الدخول فيمكنك الضغط على خيار تسجيل الخروج من القائمة</p>`
-        });
+        setIsLoading(true);
+        await login({email, password});
+        setIsLoading(false);
     };
 
     return (
@@ -143,7 +100,9 @@ export default function LoginForm() {
                                     checked
                                     readOnly
                                 />
-                                <label className="form-check-label" htmlFor="form2Example4">
+                                <label className="form-check-label"
+                                       htmlFor="form2Example4"
+                                >
                                     تذكرني
                                     <FiAlertCircle
                                         onClick={alertRememberMe}
@@ -152,13 +111,19 @@ export default function LoginForm() {
                                 </label>
                             </div>
 
-                            <div className={styles.containerLoginBtn}>
+                            {isLoading === true ? (
+                                <div className={styles.containerSpinner}>
+                                    <CgSpinnerTwoAlt className={styles.rotating}/>
+                                </div>
+                            ) : (
+                            <div>
                                 <button type="submit" className={styles.loginBtn}>
                                     تسجيل الدخول
                                 </button>
                             </div>
+                            )}
 
-                            <div className={styles.containerForgottenPassword}>
+                            <div>
                                 <Link href="/account/forgot-password">
                                     <a className={styles.forgottenPassword}>
                                         نسيت كلمة المرور ؟؟
@@ -179,7 +144,7 @@ export default function LoginForm() {
                             </Link>
                             <p className={styles.textMoreFeatures}>
                                 سجل الآن لتحصل على ميزات إضافية, لمعرفة الميزات إضغط{" "}
-                                <span onClick={alertBenefitsLogin}>{"هنا"}</span>
+                                <span onClick={alertBenefitsToLogin}>{"هنا"}</span>
                             </p>
                         </div>
                     </div>
