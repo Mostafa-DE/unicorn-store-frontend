@@ -375,7 +375,7 @@ export default function ShippingInfoForm({currentUser, token}) {
                                         onChange={handleChangeInput}
                                         value={values.additionalInfo}
                                     />
-                                    {isSpinnerLoading === true ? (
+                                    {isSpinnerLoading ? (
                                         <div className={styles.containerSpinner}>
                                             <CgSpinnerTwoAlt className={styles.spinnerIcon}/>
                                         </div>
@@ -491,13 +491,13 @@ export default function ShippingInfoForm({currentUser, token}) {
                                     </div>
                                 </>
                             )}
-                            {discount === undefined && discountInput !== "" && (
+                            {discount === undefined && (
                                 <p className={styles.discountNotFoundText}>
                                     نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم بالفعل
                                 </p>
                             )}
 
-                            {discount && discountInput !== "" && (
+                            {discount && (
                                 <p className={styles.discountFoundText}>
                                     {"🤩"} تم تطبيق الخصم بنجاح {" "}{currentUser.username} تهانينا
                                 </p>
