@@ -6,6 +6,7 @@ import {useRouter} from "next/dist/client/router";
 import ButtonScrollUp from "../ButtonScrollUp/ButtonScrollUp";
 import ButtonWhatsApp from "../ButtonWhatsapp/ButtonWhatsApp";
 import NProgress from "nprogress";
+import BootomNavigation from "@/components/BottomNavigation"
 
 /*-------------components--------------*/
 import Header from "../Header/Header";
@@ -72,6 +73,7 @@ export default function Layout({title, description, children, userAccount}) {
             )}
 
             <div className={styles.container}> {children} </div>
+            <BootomNavigation />
             <Footer/>
 
             <ChatBot userAccount={userAccount}/>

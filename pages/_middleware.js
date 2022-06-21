@@ -10,7 +10,7 @@ export async function middleware(req) {
         const handleRoute =
             (postfix = '') => token ? NextResponse.redirect(`${NEXT_URL}${postfix}`) : NextResponse.next()
 
-        const handleRouteWithUser = async () => {
+        const handleRouteWithUser = async (postfix) => {
             if (token) {
                 const res = NextResponse.next();
                 const getCurrentUser = await fetch(`${API_URL}/users/me`, {
@@ -19,25 +19,23 @@ export async function middleware(req) {
                     }
                 })
                 const currentUser = await getCurrentUser.json();
-                // check if user token correct
                 if (currentUser.statusCode === 401) return NextResponse.redirect(NEXT_URL);
                 res.cookie("user", JSON.stringify(currentUser))
                 return res
             }
-            return NextResponse.redirect(NEXT_URL);
+            return NextResponse.redirect(`${NEXT_URL}${postfix}`);
         }
 
         const protectedRoutes = {
             "/account/login": () => handleRoute(),
             "/account/register": () => handleRoute(),
             "/account/checkout-login": () => handleRoute('/payment/shipping-info'),
-            "/account/my-account": () => handleRouteWithUser(),
-            "/account/dashboard-user": () => handleRouteWithUser(),
+            "/account/my-account": () => handleRouteWithUser('/account/login'),
+            "/account/dashboard-user": () => handleRouteWithUser('/account/login'),
             "/account/forgot-password": () => handleRoute(),
-            "/products/wish-list": () => handleRouteWithUser(),
+            "/products/wish-list": () => handleRouteWithUser('/account/login'),
         }
         const protectedRoute = protectedRoutes[pageName]
-        //check if the route was in protectedRoutes Obj
         return protectedRoute ? protectedRoute() : NextResponse.next();
     } catch (err) {
         return NextResponse.rewrite(`${NEXT_URL}/503`)

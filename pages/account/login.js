@@ -3,7 +3,6 @@ import LoginForm from "@/components/LoginForm/LoginForm";
 import {parseCookies} from "@/helpers/index";
 
 function loginPage({userEmail}) {
-    console.log(userEmail)
     return (
         <Layout title="Account_Login">
             <LoginForm rememberEmailUser={userEmail?.email} />
