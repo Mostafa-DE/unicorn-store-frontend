@@ -46,6 +46,7 @@ export default function ShippingInfoForm({currentUser, token}) {
 
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isSpinnerLoading, setIsSpinnerLoading] = useState(false);
     const [discountInput, setDiscountInput] = useState("");
     const [discount, setDiscount] = useState("")
     const [values, setValues] = useState({
@@ -105,7 +106,7 @@ export default function ShippingInfoForm({currentUser, token}) {
         const discount = await res.json();
         setDiscount(discount[0]);
         setIsLoading(false);
-        if(discount[0]?.user_discount?.id !== currentUser.id) return setDiscount(undefined);
+        if (discount[0]?.user_discount?.id !== currentUser.id) return setDiscount(undefined);
     }
 
     const handleDiscountBtn = () => {
@@ -210,10 +211,12 @@ export default function ShippingInfoForm({currentUser, token}) {
 
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
-        sendEmail(evnt)
+        setIsSpinnerLoading(true);
+        await sendEmail(evnt)
         await createNewOrder()
         await addOrderToShippingInfo()
         if (discount) await turnDiscountIntoExpired()
+        setIsSpinnerLoading(false);
     };
 
     const TotalBag = () => {
@@ -372,12 +375,20 @@ export default function ShippingInfoForm({currentUser, token}) {
                                         onChange={handleChangeInput}
                                         value={values.additionalInfo}
                                     />
+                                    {isSpinnerLoading ? (
+                                        <div className={styles.containerSpinner}>
+                                            <CgSpinnerTwoAlt className={styles.spinnerIcon}/>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <button type="submit"
+                                                    className={styles.confirmOrderBtn}
+                                            >
+                                                تأكيد الطلب
+                                            </button>
+                                        </div>
+                                    )}
 
-                                    <button type="submit"
-                                            className={styles.confirmOrderBtn}
-                                    >
-                                        تأكيد الطلب
-                                    </button>
                                 </ValidatorForm>
                             </div>
                         </div>
@@ -480,15 +491,15 @@ export default function ShippingInfoForm({currentUser, token}) {
                                     </div>
                                 </>
                             )}
-                            {discount === undefined && discountInput !== "" && (
+                            {discount === undefined && (
                                 <p className={styles.discountNotFoundText}>
                                     نعتذر يبدو أن كود الخصم الذي أدخلته غير صالح أو أنه مستخدم بالفعل
                                 </p>
                             )}
 
-                            {discount && discountInput !== "" && (
+                            {discount && (
                                 <p className={styles.discountFoundText}>
-                                    {"🤩"}   تم تطبيق الخصم بنجاح {" "}{currentUser.username} تهانينا
+                                    {"🤩"} تم تطبيق الخصم بنجاح {" "}{currentUser.username} تهانينا
                                 </p>
                             )}
 

@@ -1,186 +1,218 @@
 @import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
 
 .main {
-  margin: 3rem 0 0 0;
-  font-family: "Tajawal", sans-serif;
+    margin: 3rem 0 0 0;
+    font-family: "Tajawal", sans-serif;
 }
 
 .mainPageNav {
-  margin: 8rem 0 -2rem 0;
-  display: flex;
-  justify-content: center;
+    margin: 8rem 0 -2rem 0;
+    display: flex;
+    justify-content: center;
 }
 
 .containerPageNav {
-  display: flex;
-  font-size: 1.3rem;
-  list-style: none;
+    display: flex;
+    font-size: 1.3rem;
+    list-style: none;
 }
 
 .containerPageNav li {
-  margin: 0 0.5rem 0 0.5rem;
+    margin: 0 0.5rem 0 0.5rem;
 }
 
 .nextIcon {
-  margin: 0.5rem 0 0 0;
+    margin: 0.5rem 0 0 0;
 }
 
 .LinkPage {
-  color: #fb9aa7;
-  opacity: 0.7;
+    color: #fb9aa7;
+    opacity: 0.7;
 }
 
 .LinkPage:hover {
-  color: #fb9aa7;
-  opacity: 1;
+    color: #fb9aa7;
+    opacity: 1;
 }
 
 .otherLink {
-  opacity: 0.4;
+    opacity: 0.4;
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .containerLoginForms {
-  margin: 0 5rem 0 0;
-  padding: 5rem 5rem 2rem 5rem;
+    margin: 0 5rem 0 0;
+    padding: 5rem 5rem 2rem 5rem;
 }
 
 .passwordInput {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .iconShowPassword {
-  margin: 2.1rem 0 0 0.4rem;
-  cursor: pointer;
+    margin: 2.1rem 0 0 0.4rem;
+    cursor: pointer;
+    animation-name: fadeIn;
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
 }
 
 .containerLoginForms {
-  background-color: #fafafa;
+    background-color: #fafafa;
 }
 
 .containerRegisterForm {
-  background-color: #fafafa;
-  padding: 5rem 5rem 3rem 5rem;
-  margin: -4.5rem 0 0 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    background-color: #fafafa;
+    padding: 5rem 5rem 3rem 5rem;
+    margin: -4.5rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .orText {
-  display: flex;
-  justify-content: center;
-  margin: 0.5rem 0 -0.5rem 0;
-  font-weight: 600;
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem 0 -0.5rem 0;
+    font-weight: 600;
 }
 
 .alertIcon {
-  font-size: 1.1rem;
-  margin: 0 0 0.2rem 0.3rem;
-  cursor: pointer;
+    font-size: 1.1rem;
+    margin: 0 0 0.2rem 0.3rem;
+    cursor: pointer;
 }
 
 .checkBox {
-  margin: 1rem 0 0 0;
+    margin: 1rem 0 0 0;
 }
 
 .signUpBtn {
-  margin: 1rem 0 0 0;
-  padding: 0.4rem 0;
-  background: none;
-  color: #333;
-  border: 1px solid #333;
-  transition: all 0.4s ease-in;
-  font-weight: 600;
+    margin: 1rem 0 0 0;
+    padding: 0.4rem 0;
+    background: none;
+    color: #333;
+    border: 1px solid #333;
+    transition: all 0.4s ease-in;
+    font-weight: 600;
 }
 
 .signUpBtn:hover {
-  background-color: #333;
-  color: #fafafa;
-  transition: all 0.4s ease-out;
+    background-color: #333;
+    color: #fafafa;
+    transition: all 0.4s ease-out;
 }
 
 .loginBtn {
-  margin: 2rem 0 0.8rem 0;
-  padding: 0.4rem 3rem;
-  background-color: #333;
-  color: #fafafa;
-  border: 1px solid #333;
-  transition: all 0.4s ease-in;
-  font-weight: 600;
+    margin: 2rem 0 0.8rem 0;
+    padding: 0.4rem 3rem;
+    background-color: #333;
+    color: #fafafa;
+    border: 1px solid #333;
+    transition: all 0.4s ease-in;
+    font-weight: 600;
 }
 
 .loginBtn:hover {
-  background: none;
-  color: #333;
-  transition: all 0.4s ease-out;
+    background: none;
+    color: #333;
+    transition: all 0.4s ease-out;
 }
 
 .textInformation {
-  max-width: 12rem;
-  text-align: center;
+    max-width: 12rem;
+    text-align: center;
 }
 
 .textMoreFeatures {
-  margin: 1rem 0 0 0;
-  max-width: 12rem;
-  text-align: center;
+    margin: 1rem 0 0 0;
+    max-width: 12rem;
+    text-align: center;
 }
 
 .textMoreFeatures span {
-  color: #fb9aa7;
-  cursor: pointer;
-  font-size: 1.2rem;
+    color: #fb9aa7;
+    cursor: pointer;
+    font-size: 1.2rem;
 }
 
 .textMoreFeatures span:hover {
-  border-bottom: 1px solid #fb9aa7;
+    border-bottom: 1px solid #fb9aa7;
 }
 
 .dontHaveAccountText {
-  text-align: center;
+    text-align: center;
 }
 
 .forgottenPassword {
-  color: #333;
+    color: #333;
 }
 
 .forgottenPassword:hover {
-  color: #000;
+    color: #000;
+}
+
+.containerSpinner {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.rotating {
+    font-size: 2rem;
+    animation: rotating 2s linear infinite;
 }
 
 @media (max-width: 803px) {
-  .container {
-    flex-direction: column-reverse;
-  }
+    .container {
+        flex-direction: column-reverse;
+    }
 
-  .containerRegisterForm {
-    margin: 0;
-  }
+    .containerRegisterForm {
+        margin: 0;
+    }
 
-  .containerLoginForms {
-    margin: 2rem 0 0 0;
-  }
+    .containerLoginForms {
+        margin: 2rem 0 0 0;
+    }
 }
 
 @media (max-width: 551px) {
-  .containerPageNav {
-    font-size: 0.9rem;
-  }
+    .containerPageNav {
+        font-size: 0.9rem;
+    }
 
-  .containerPageNav li {
-    margin: 0 0.2rem 0 0;
-    text-align: center;
-  }
+    .containerPageNav li {
+        margin: 0 0.2rem 0 0;
+        text-align: center;
+    }
 
-  .nextIcon {
-    margin: 0.3rem 0 0 0;
-  }
+    .nextIcon {
+        margin: 0.3rem 0 0 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

@@ -268,6 +268,9 @@
     cursor: pointer;
     color: #333;
     font-size: 1.3rem;
+    animation-name: fadeIn;
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
 }
 
 .containerInput {
@@ -333,6 +336,17 @@
     transition: all 0.3s ease-out;
 }
 
+.containerSpinner {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.rotating {
+    font-size: 2rem;
+    animation: rotating 2s linear infinite;
+}
+
 @media (max-width: 1200px) {
     .containerLink {
         display: none;
@@ -386,5 +400,14 @@
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

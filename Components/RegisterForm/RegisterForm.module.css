@@ -66,3 +66,23 @@
 .titleContactDetails {
   font-size: 1.3rem;
 }
+
+.containerSpinner {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.rotating {
+    font-size: 2rem;
+    animation: rotating 2s linear infinite;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
