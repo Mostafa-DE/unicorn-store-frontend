@@ -35,7 +35,7 @@ import {LanguageContext} from "@/context/LanguageContext";
 
 /*-----------------------Hooks---------------------------*/
 import useScrollNavbar from "@/Hooks/useScrollNavbar";
-import useDrawer from "@/Hooks/useDrawer";
+import useToggle from "@/Hooks/useToggle";
 /*-------------------------X-----------------------------*/
 
 /*--------------------React Icons------------------------*/
@@ -55,10 +55,10 @@ export default function Header() {
     const {productsCompare} = useContext(CompareContext);
     const {user} = useContext(AuthContext);
 
-    const [drawerMenu, openDrawer, closeDrawer] = useDrawer(false);
-    const [shoppingDialog, openShoppingDialog, closeShoppingDialog] = useDrawer(false);
-    const [searchDialog, openSearchDialog, closeSearchDialog] = useDrawer(false);
-    const [compareDialog, openCompareDialog, closeCompareDialog] = useDrawer(false);
+    const [drawerMenu, openDrawer, closeDrawer] = useToggle(false);
+    const [shoppingDialog, openShoppingDialog, closeShoppingDialog] = useToggle(false);
+    const [searchDialog, openSearchDialog, closeSearchDialog] = useToggle(false);
+    const [compareDialog, openCompareDialog, closeCompareDialog] = useToggle(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [scrollState] = useScrollNavbar("");
 

@@ -8,9 +8,9 @@ export async function middleware(req) {
         const token = req.cookies['token']
         const pageName = req.page.name
         const handleRoute =
-            (postfix = '') => token ? NextResponse.redirect(`${NEXT_URL}${postfix}`) : NextResponse.next()
+            (suffix = '') => token ? NextResponse.redirect(`${NEXT_URL}${suffix}`) : NextResponse.next()
 
-        const handleRouteWithUser = async (postfix) => {
+        const handleRouteWithUser = async (suffix) => {
             if (token) {
                 const res = NextResponse.next();
                 const getCurrentUser = await fetch(`${API_URL}/users/me`, {
@@ -23,7 +23,7 @@ export async function middleware(req) {
                 res.cookie("user", JSON.stringify(currentUser))
                 return res
             }
-            return NextResponse.redirect(`${NEXT_URL}${postfix}`);
+            return NextResponse.redirect(`${NEXT_URL}${suffix}`);
         }
 
         const protectedRoutes = {
