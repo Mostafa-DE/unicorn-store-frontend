@@ -83,7 +83,7 @@
 }
 
 .textInformation {
-    max-width: 12rem;
+    max-width: 14rem;
     text-align: center;
 }
 
@@ -114,7 +114,6 @@
 .containerGoogleAndFacebookBtn {
     display: flex;
     justify-content: space-evenly;
-
 }
 
 .googleBtn, .facebookBtn {

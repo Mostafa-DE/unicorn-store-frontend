@@ -127,8 +127,9 @@
 }
 
 .textInformation {
-    max-width: 12rem;
+    max-width: 14rem;
     text-align: center;
+    margin: 0 0 1.5rem 0;
 }
 
 .textMoreFeatures {
@@ -168,6 +169,32 @@
 .rotating {
     font-size: 2rem;
     animation: rotating 2s linear infinite;
+}
+
+.containerGoogleAndFacebookBtn {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.googleBtn, .facebookBtn {
+    background-color: #333;
+    border: 1px solid #333;
+    padding: 0.4rem 0.7rem;
+    border-radius: 50%;
+    color: #fafafa;
+    transition: all 0.3s ease-in;
+}
+
+.googleBtn:hover, .facebookBtn:hover {
+    background-color: #fafafa;
+    color: #333;
+    transition: all 0.3s ease-out;
+}
+
+.orText {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 0 0;
 }
 
 @media (max-width: 803px) {

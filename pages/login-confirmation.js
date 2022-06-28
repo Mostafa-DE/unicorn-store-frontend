@@ -1,11 +1,7 @@
 import {API_URL} from "@/config/index";
 
 export default function LoginConfirmationPage() {
-    return (
-        <div style={{margin: "15rem 0 10rem 0", textAlign: "center"}}>
-            <h1>Please wait while we log you in...</h1>
-        </div>
-    );
+    return <></>;
 }
 
 export async function getServerSideProps({req, res}) {
