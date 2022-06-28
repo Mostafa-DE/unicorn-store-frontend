@@ -1,0 +1,19 @@
+.main {
+    opacity: 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #fafafa;
+}
+
+.icon {
+    color: #333;
+}
+
+@media (max-width: 650px) {
+    .main {
+        opacity: 1;
+    }
+}

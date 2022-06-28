@@ -1,7 +1,7 @@
 .scrollUpContainer {
   position: fixed;
-  bottom: 0;
-  right: 0;
+  bottom: 3.5rem;
+  right: 0rem;
   transition: all 0.3s ease-in-out;
 }
 

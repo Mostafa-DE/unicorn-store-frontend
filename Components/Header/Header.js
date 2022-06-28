@@ -2,7 +2,7 @@ import styles from "@/components/Header/Header.module.css";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import "../../node_modules/animate.css/animate.css";
-import React, {useContext} from "react";
+import {useContext, useState} from "react";
 
 /*--------------------Components-------------------------*/
 import MenuDrawer from "@/components/DrawerMenu";
@@ -35,7 +35,7 @@ import {LanguageContext} from "@/context/LanguageContext";
 
 /*-----------------------Hooks---------------------------*/
 import useScrollNavbar from "@/Hooks/useScrollNavbar";
-import useDrawer from "@/Hooks/useDrawer";
+import useToggle from "@/Hooks/useToggle";
 /*-------------------------X-----------------------------*/
 
 /*--------------------React Icons------------------------*/
@@ -55,25 +55,27 @@ export default function Header() {
     const {productsCompare} = useContext(CompareContext);
     const {user} = useContext(AuthContext);
 
+    const [drawerMenu, openDrawer, closeDrawer] = useToggle(false);
+    const [shoppingDialog, openShoppingDialog, closeShoppingDialog] = useToggle(false);
+    const [searchDialog, openSearchDialog, closeSearchDialog] = useToggle(false);
+    const [compareDialog, openCompareDialog, closeCompareDialog] = useToggle(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [scrollState] = useScrollNavbar("");
 
-    const [drawerMenu, openDrawer, closeDrawer] = useDrawer(false);
-    const [shoppingDialog, openShoppingDialog, closeShoppingDialog] = useDrawer(false);
-    const [searchDialog, openSearchDialog, closeSearchDialog] = useDrawer(false);
-    const [compareDialog, openCompareDialog, closeCompareDialog] = useDrawer(false);
-
-
-    /*---state for handle language dropDown (open/close)---*/
-    const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
     const handleClickLanguage = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleCloseLanguage = () => {
         setAnchorEl(null);
     };
 
-    /*----------State scroll down for Navbar----------*/
-    const [scrollState] = useScrollNavbar("");
+    const showLoginLink = () => {
+        const path = router.pathname
+        return !( path === "/account/login" || path === "/account/checkout-login");
+    }
 
     return (
         <div className={styles.main}>
@@ -102,16 +104,15 @@ export default function Header() {
                     <ul data-aos="fade-out"
                         className={styles.containerLink}
                     >
-                            <WomanCollections language={language}/>
-                            <MenCollections language={language}/>
-                            <KidsCollections language={language}/>
-                            <AccessoriesCollections language={language}/>
-                            <MoreCollections language={language}/>
+                        <WomanCollections language={language}/>
+                        <MenCollections language={language}/>
+                        <KidsCollections language={language}/>
+                        <AccessoriesCollections language={language}/>
+                        <MoreCollections language={language}/>
 
-                        {router.pathname === "/account/login" ||
-                        router.pathname === "/account/checkout-login" ? null : (
+                        {showLoginLink() && (
                             <div className={styles.link}>
-                                <DialogLogin />
+                                <DialogLogin/>
                             </div>
                         )}
                     </ul>
@@ -163,9 +164,7 @@ export default function Header() {
                             text="Wish List"
                             icon={
                                 <ImHeart
-                                    onClick={
-                                        user ? () => router.push("/products/wish-list") :
-                                            () => router.push("/account/login")}
+                                    onClick={() => router.push("/products/wish-list")}
                                     className={styles.heartIcon}
                                 />
                             }
@@ -190,20 +189,13 @@ export default function Header() {
                             }
                         />
                     </Badge>
-                    <PopOver
-                        text="My Account"
-                        icon={
-                            <RiAccountPinCircleLine
-                                onClick={user ? () => router.push("/account/my-account") : () => router.push("/account/login")}
-                                className={styles.accountIcon}
-                            />
-                        }
+                    <FiMenu
+                        className={styles.menuIcon}
+                        onClick={openDrawer}
                     />
-                    <FiMenu className={styles.menuIcon}
-                            onClick={openDrawer}
-                    />
-                    <MenuDrawer closeDrawerMenu={closeDrawer}
-                                drawerMenu={drawerMenu}
+                    <MenuDrawer
+                        closeDrawerMenu={closeDrawer}
+                        drawerMenu={drawerMenu}
                     />
                     <DialogShoppingBag
                         shoppingDialog={shoppingDialog}
