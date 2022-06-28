@@ -9,10 +9,16 @@ import {RiEyeLine} from "react-icons/ri";
 import {RiEyeCloseLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import {AiOutlineLine} from "react-icons/ai";
+import {alertBenefitsLogin, alertRememberMe} from "@/components/LoginForm/Alert";
+import {useRouter} from "next/router";
+import {FaGoogle, FaFacebookF} from "react-icons/fa";
+
 import Swal from "sweetalert2";
+import {API_URL} from "@/config/index";
 
 export default function LoginForm({rememberEmailUser}) {
-    // Auth context
+    const router = useRouter();
+
     const {login, error} = useContext(AuthContext);
     useEffect(() => {
         error &&
@@ -24,7 +30,6 @@ export default function LoginForm({rememberEmailUser}) {
             confirmButtonText: "حسناً"
         });
     }, [login, error]);
-    // xxxxxxxxxxxx
 
     const [email, setEmail] = useState(rememberEmailUser);
     const handleChangeEmail = (evnt) => {
@@ -32,7 +37,6 @@ export default function LoginForm({rememberEmailUser}) {
     }
 
     const [password, handleChangePassword, resetPassword] = useInputField("");
-
     const [showPassword, handleShowPassword] = useShowPassword(false);
 
     const handleSubmit = evnt => {
@@ -42,43 +46,13 @@ export default function LoginForm({rememberEmailUser}) {
         setEmail("")
     };
 
+    const handleLoginGoogle = async () => {
+        await router.push(`${API_URL}/connect/google`);
+    }
+
     useEffect(() => {
         window.localStorage.removeItem("wishBag");
     }, []);
-
-    const alertBenefitsLogin = () => {
-        Swal.fire({
-            title: "الميزات التي ستتمتع بها بمجرد إنشاء حساب ",
-            html: `
-      <p> الطلب بشكل أسرع في المستقبل دون الحاجة لإدخال البيانات في كل مرة تنوي بها الطلب</p>
-      <hr />
-      <p>سجل الطلبات لتتبع طلباتك في المستقبل في أي وقت تريده</p>
-      <hr />
-      <p>الوصول لقائمة المفضلة لديك وإمكانية حفظ المنتجات التي تنوي شرائها في المستقبل</p>
-      <hr />
-      <p>الحصول على متابعة أسهل من قبل الفريق المختص لدينا في حال واجهتك أي مشاكل في الموقع</p>
-      <hr />
-      <p>الحصول على خصومات مميزة خاصة</p>
-      <hr />
-      <p>إخطارك في  حال توفر عروض وخصومات حصرية على الموقع</p>
-      `,
-            customClass: "",
-            icon: "info",
-            confirmButtonText: "حسناً, لقد فهمت",
-            confirmButtonColor: "#fb9aa7",
-            footer: `<a href="https://wa.me/message/HRQFZDWSM3EUH1">أنا بحاجة إلى المساعدة</a> لم تتضح الأمور بشكل جيد`
-        });
-    };
-
-    const alertRememberMe = () => {
-        Swal.fire({
-            icon: "warning",
-            title: "👋 مرحباً",
-            confirmButtonColor: "#fb9aa7",
-            confirmButtonText: "حسناً",
-            html: `<p>يرجى ملاحظة أننا نستخدم ملفات تعريف الارتباط للاحتفاظ بتسجيل الدخول الخاص بك لمدة أسبوع ، وبعد ذلك يتم تسجيل الخروج تلقائيًا ، إذا كنت لا تريد الاحتفاظ بتسجيل الدخول فيمكنك الضغط على خيار تسجيل الخروج من القائمة</p>`
-        });
-    };
 
     return (
         <>
@@ -90,6 +64,24 @@ export default function LoginForm({rememberEmailUser}) {
                 <ValidatorForm onSubmit={handleSubmit}>
                     <div className={styles.container}>
                         <div className={styles.containerLoginForms}>
+                            <div className={styles.containerGoogleAndFacebookBtn}>
+                                <button
+                                    type="button"
+                                    className={styles.googleBtn}
+                                    onClick={handleLoginGoogle}
+                                >
+                                    <FaGoogle/>
+                                </button>
+                                <button
+                                    type="button"
+                                    className={styles.facebookBtn}
+                                >
+                                    <FaFacebookF/>
+                                </button>
+                            </div>
+                            <div className={styles.orText}>
+                                <p>أو</p>
+                            </div>
                             <div>
                                 <p className={styles.textInformation}>
                                     الرجاء إدخال التفاصيل الخاصة بك أدناه لتسجيل الدخول إلى حسابك
@@ -148,7 +140,7 @@ export default function LoginForm({rememberEmailUser}) {
                                 </label>
                             </div>
 
-                            <div className={styles.containerLoginBtn}>
+                            <div>
                                 <button type="submit"
                                         className={styles.loginBtn}
                                 >
@@ -156,7 +148,7 @@ export default function LoginForm({rememberEmailUser}) {
                                 </button>
                             </div>
 
-                            <div className={styles.containerForgottenPassword}>
+                            <div>
                                 <Link href="/account/forgot-password">
                                     <a className={styles.forgottenPassword}>
                                         نسيت كلمة المرور ؟؟

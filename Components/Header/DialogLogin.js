@@ -7,6 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import Link from "next/link";
+import {useRouter} from "next/router";
 import Slide from "@material-ui/core/Slide";
 import {AuthContext} from "@/context/AuthContext";
 import {languages} from "@/components/Header/TranslateText";
@@ -15,6 +16,8 @@ import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
 import {LanguageContext} from "@/context/LanguageContext";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
+import {FaFacebookF, FaGoogle} from "react-icons/fa";
+import {API_URL} from "@/config/index";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide
@@ -25,6 +28,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function DialogLogin() {
+    const router = useRouter();
+
     const [loginDialog, openLoginDialog, closeLoginDialog] = useLoginDialog(false);
     const [email, handleChangeEmail] = useInputField("");
     const [password, handleChangePassword] = useInputField("");
@@ -42,7 +47,7 @@ export default function DialogLogin() {
 
     const {titleLogin, titleLogout} = languages[language];
 
-    const handleSubmit = async(evnt) => {
+    const handleSubmit = async (evnt) => {
         evnt.preventDefault();
         setIsLoading(true);
         await login({email, password});
@@ -54,6 +59,9 @@ export default function DialogLogin() {
     const handleShowAlertRemember = () => {
         setShowAlertRememberCookies(!showAlertRememberCookies);
     };
+    const handleLoginGoogle = async () => {
+        await router.push(`${API_URL}/connect/google`);
+    }
 
     return (
         <div>
@@ -72,6 +80,22 @@ export default function DialogLogin() {
             >
                 <ValidatorForm onSubmit={handleSubmit}>
                     <p className={styles.titleDialog}>تسجيل الدخول</p>
+
+                    <div className={styles.containerGoogleAndFacebookBtn}>
+                        <button
+                            type="button"
+                            className={styles.googleBtn}
+                            onClick={handleLoginGoogle}
+                        >
+                            <FaGoogle/>
+                        </button>
+                        <button
+                            type="button"
+                            className={styles.facebookBtn}
+                        >
+                            <FaFacebookF/>
+                        </button>
+                    </div>
 
                     <Alert
                         style={{
