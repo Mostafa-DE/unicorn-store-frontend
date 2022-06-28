@@ -64,6 +64,11 @@ export default function LoginForm({rememberEmailUser}) {
                 <ValidatorForm onSubmit={handleSubmit}>
                     <div className={styles.container}>
                         <div className={styles.containerLoginForms}>
+                            <div>
+                                <p className={styles.textInformation}>
+                                    الرجاء إدخال التفاصيل الخاصة بك أدناه لتسجيل الدخول إلى حسابك
+                                </p>
+                            </div>
                             <div className={styles.containerGoogleAndFacebookBtn}>
                                 <button
                                     type="button"
@@ -72,20 +77,9 @@ export default function LoginForm({rememberEmailUser}) {
                                 >
                                     <FaGoogle/>
                                 </button>
-                                <button
-                                    type="button"
-                                    className={styles.facebookBtn}
-                                >
-                                    <FaFacebookF/>
-                                </button>
                             </div>
                             <div className={styles.orText}>
                                 <p>أو</p>
-                            </div>
-                            <div>
-                                <p className={styles.textInformation}>
-                                    الرجاء إدخال التفاصيل الخاصة بك أدناه لتسجيل الدخول إلى حسابك
-                                </p>
                             </div>
                             <TextValidator
                                 type="email"

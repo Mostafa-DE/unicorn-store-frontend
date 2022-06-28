@@ -1,6 +1,7 @@
 import styles from "@/components/CheckoutLogin/CheckoutLoginForm.module.css";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
 import {useContext, useEffect, useState} from "react";
+import {useRouter} from "next/router";
 import Link from "next/link";
 import {AuthContext} from "@/context/AuthContext";
 import useInputField from "@/Hooks/useInputField";
@@ -11,8 +12,11 @@ import {FiAlertCircle} from "react-icons/fi";
 import {GrFormNext} from "react-icons/gr";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
 import {alertBenefitsToLogin, alertRememberMe, alertLoginFailed} from "@/components/CheckoutLogin/Alerts";
+import {API_URL} from "@/config/index";
+import {FaGoogle} from "react-icons/fa";
 
 export default function LoginForm() {
+    const router = useRouter();
     const {login, error} = useContext(AuthContext);
     useEffect(() => {
         error && alertLoginFailed(error);
@@ -23,12 +27,15 @@ export default function LoginForm() {
     const [showPassword, handleShowPassword] = useShowPassword(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async(evnt) => {
+    const handleSubmit = async (evnt) => {
         evnt.preventDefault();
         setIsLoading(true);
         await login({email, password});
         setIsLoading(false);
     };
+    const handleLoginGoogle = async () => {
+        await router.push(`${API_URL}/connect/google`);
+    }
 
     return (
         <>
@@ -57,6 +64,18 @@ export default function LoginForm() {
                                     يبدو أنك غير مسجل كمستخدم لدينا قم بتسجيل الدخول الآن للطلب
                                     بشكل أسرع
                                 </p>
+                            </div>
+                            <div className={styles.containerGoogleAndFacebookBtn}>
+                                <button
+                                    type="button"
+                                    className={styles.googleBtn}
+                                    onClick={handleLoginGoogle}
+                                >
+                                    <FaGoogle/>
+                                </button>
+                            </div>
+                                                        <div className={styles.orText}>
+                                <p>أو</p>
                             </div>
                             <TextValidator
                                 type="email"
@@ -116,11 +135,11 @@ export default function LoginForm() {
                                     <CgSpinnerTwoAlt className={styles.rotating}/>
                                 </div>
                             ) : (
-                            <div>
-                                <button type="submit" className={styles.loginBtn}>
-                                    تسجيل الدخول
-                                </button>
-                            </div>
+                                <div>
+                                    <button type="submit" className={styles.loginBtn}>
+                                        تسجيل الدخول
+                                    </button>
+                                </div>
                             )}
 
                             <div>

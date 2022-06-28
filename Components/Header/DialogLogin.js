@@ -89,12 +89,6 @@ export default function DialogLogin() {
                         >
                             <FaGoogle/>
                         </button>
-                        <button
-                            type="button"
-                            className={styles.facebookBtn}
-                        >
-                            <FaFacebookF/>
-                        </button>
                     </div>
 
                     <Alert
