@@ -6,6 +6,9 @@ An online store with integrated CMS.
 * Authentication (staff and users).
 * Review and rating system.
 
+## Demo
+https://unicorns-store.com/
+
 ## Getting Started
 
 First, run the development server:
