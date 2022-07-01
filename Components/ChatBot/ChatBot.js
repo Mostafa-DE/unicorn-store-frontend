@@ -40,7 +40,7 @@ export default function ChatBotComponent({userAccount}) {
                             alt="chatBot-img"
                         />
                     }
-                    floatingStyle={{bottom: "5.2rem", right: "0.8rem"}}
+                    floatingStyle={{bottom: "5.2rem", right: "1.9rem"}}
                     botDelay={2000}
                     placeholder="...أدخل رسالتك هنا"
                     recognitionLang="ar"

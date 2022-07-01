@@ -422,6 +422,12 @@
     }
 }
 
+@media (max-width: 650px) {
+    .accountIcon {
+        display: none;
+    }
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

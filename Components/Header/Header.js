@@ -74,7 +74,7 @@ export default function Header() {
 
     const showLoginLink = () => {
         const path = router.pathname
-        return !( path === "/account/login" || path === "/account/checkout-login");
+        return !(path === "/account/login" || path === "/account/checkout-login");
     }
 
     return (
@@ -189,6 +189,15 @@ export default function Header() {
                             }
                         />
                     </Badge>
+                    <PopOver
+                        text="My Account"
+                        icon={
+                            <RiAccountPinCircleLine
+                                onClick={user ? () => router.push("/account/my-account") : () => router.push("/account/login")}
+                                className={styles.accountIcon}
+                            />
+                        }
+                    />
                     <FiMenu
                         className={styles.menuIcon}
                         onClick={openDrawer}
