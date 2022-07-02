@@ -1,132 +1,152 @@
 @import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
 
 .main {
-  margin: 6rem 0 0 0;
-  font-family: "Tajawal", sans-serif;
+    margin: 6rem 0 0 0;
+    font-family: "Tajawal", sans-serif;
 }
 
 .container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .containerFirstBox {
-  border: 1px solid rgba(190, 190, 190, 0.431);
-  padding: 3rem 4rem;
-  margin: 0 0 10.5rem 0;
+    border: 1px solid rgba(190, 190, 190, 0.431);
+    padding: 3rem 4rem;
+    margin: 0 0 10.5rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .containerImg {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .img {
-  border-radius: 50%;
-  height: 95px;
+    border-radius: 50%;
+    height: 95px;
 }
 
 .containerText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0 0 0;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 0 0;
+    text-align: center;
 }
 
 .containerBtns {
-  display: flex;
+    display: flex;
 }
 
 .orderHistoryBtn {
-  background-color: #333;
-  border: 1px solid #333;
-  padding: 0.25rem 1rem;
-  margin: 0 0.5rem 0 0;
-  color: #fafafa;
-  transition: all 0.4s ease-in;
+    background-color: #333;
+    border: 1px solid #333;
+    padding: 0.25rem 1rem;
+    margin: 0 0.5rem 0 0;
+    color: #fafafa;
+    transition: all 0.4s ease-in;
 }
 
 .orderHistoryBtn:hover {
-  background: none;
-  color: #333;
-  transition: all 0.4s ease-out;
+    background: none;
+    color: #333;
+    transition: all 0.4s ease-out;
 }
 
 .shoppingBagBtn {
-  background: none;
-  border: 1px solid #333;
-  padding: 0.25rem 1rem;
-  margin: 0 0.5rem 0 0;
-  color: #333;
-  transition: all 0.4s ease-in;
+    background: none;
+    border: 1px solid #333;
+    padding: 0.25rem 1rem;
+    margin: 0 0.5rem 0 0;
+    color: #333;
+    transition: all 0.4s ease-in;
 }
 
 .shoppingBagBtn:hover {
-  background-color: #333;
-  color: #fafafa;
-  transition: all 0.4s ease-out;
+    background-color: #333;
+    color: #fafafa;
+    transition: all 0.4s ease-out;
 }
 
 .containerSecondBox {
-  display: flex;
-  justify-content: space-around;
-  padding: 1.5rem 0;
-  width: 40%;
+    display: flex;
+    justify-content: space-around;
+    padding: 1.5rem 0;
+    width: 40%;
 }
 
 .titleTable {
-  font-family: "Tajawal", sans-serif;
-  font-size: 1.2rem;
-}
-
-.fontFamily {
-  font-family: "Tajawal", sans-serif;
+    font-size: 1.2rem;
 }
 
 .accountActive {
-  color: rgb(22, 195, 22);
+    color: rgb(22, 195, 22);
 }
 
-.editBtn {
-  background-color: #333;
-  font-size: 0.8rem;
-  color: #fafafa;
-  border: 1px solid #333;
-  margin: 0.5rem 0 0 0;
-  transition: all 0.3s ease-in;
+.editBtn, .cancelBtn {
+    background-color: #333;
+    color: #fafafa;
+    border: 1px solid #333;
+    margin: 0.5rem 0 0 0;
+    padding: 0.1rem 1rem;
+    transition: all 0.3s ease-in;
+}
+
+.cancelBtn {
+    background-color: #fafafa;
+    color: #333;
+    margin: 0 0 0 1rem;
+}
+
+.editBtn:hover, .cancelBtn:hover {
+    background: #fafafa;
+    color: #333;
+    transition: all 0.3s ease-out;
+}
+
+.cancelBtn:hover {
+    background: #333;
+    color: #fafafa;
 }
 
 .containerTable {
-  min-width: 420px;
+    min-width: 420px;
+}
+
+.editInput {
+    width: 60%;
 }
 
 @media (max-width: 985px) {
-  .container {
-    flex-direction: column;
-  }
+    .container {
+        flex-direction: column;
+    }
 
-  .containerSecondBox {
-    width: 100%;
-  }
+    .containerSecondBox {
+        width: 100%;
+    }
 
-  .containerFirstBox {
-    margin: 0;
-  }
+    .containerFirstBox {
+        margin: 0;
+    }
 }
 
 @media (max-width: 416px) {
-  .containerBtns {
-    flex-direction: column;
-  }
+    .containerBtns {
+        flex-direction: column;
+    }
 
-  .orderHistoryBtn {
-    margin: 0 0 0.4rem 0;
-  }
+    .orderHistoryBtn {
+        margin: 0 0 0.4rem 0;
+    }
 
-  .shoppingBagBtn {
-    margin: 0.4rem 0 0 0;
-  }
+    .shoppingBagBtn {
+        margin: 0.4rem 0 0 0;
+    }
 }

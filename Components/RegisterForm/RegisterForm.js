@@ -3,37 +3,43 @@ import "../../node_modules/animate.css/animate.css";
 import {useContext, useEffect, useState} from "react";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
 import Link from "next/link";
-
-/*----------------------Context--------------------------*/
 import {AuthContext} from "@/context/AuthContext";
-/*-------------------------X-----------------------------*/
-
-/*-----------------------Hooks---------------------------*/
-import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
-/*-------------------------X-----------------------------*/
-
-/*--------------------React Icons------------------------*/
 import {RiEyeLine} from "react-icons/ri";
 import {RiEyeCloseLine} from "react-icons/ri";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
 import {alertLoginFailed} from "@/components/CheckoutLogin/Alerts";
-/*-------------------------X-----------------------------*/
+
 
 export default function RegisterForm() {
     const {register, error} = useContext(AuthContext);
 
-    const [email, handleChangeEmail] = useInputField("");
-    const [password, handleChangePassword] = useInputField("");
-    const [confirmPassword, handleChangeConfirmPassword] = useInputField("");
-    const [username, handleChangeUsername] = useInputField("");
-    const [phone, handleChangePhone] = useInputField("");
-    const [firstName, handleChangeFirstName] = useInputField("");
-    const [lastName, handleChangeLastName] = useInputField("");
-    const [deliveryPhone, handleChangeDeliveryPhone] = useInputField("");
-    const [address, handleChangeAddress] = useInputField("");
-    const [city, handleChangeCity] = useInputField("");
-    const [building, handleChangeBuilding] = useInputField("");
+    const [values, setValues] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        address: "",
+        city: "",
+        building: "",
+        deliveryPhone: ""
+    });
+
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setValues({...values, [name]: value});
+    }
+
+    const {
+        username,
+        email,
+        password,
+        confirmPassword,
+    } = values;
+
     const [showPassword, handleShowPassword] = useShowPassword(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -44,13 +50,6 @@ export default function RegisterForm() {
             username,
             email,
             password,
-            phone,
-            firstName,
-            lastName,
-            address,
-            deliveryPhone,
-            city,
-            building
         });
         setIsLoading(false);
     };
@@ -80,7 +79,7 @@ export default function RegisterForm() {
     });
     useEffect(() => {
         ValidatorForm.addValidationRule("moreThan8Character", value => {
-            return (value.length > 8 || value === "");
+            return (value.length >= 8 || value === "");
         });
     });
     useEffect(() => {
@@ -101,17 +100,16 @@ export default function RegisterForm() {
                     <div className="container-fluid">
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                                <div className={"d-flex align-items-center my-4"}>
-                                    <p
-                                        className={`text-center  mx-3 mb-0 ${styles.titleContactDetails}`}
-                                    >
-                                        بيانات المستخدم
+                                <div className="d-flex justify-content-center align-items-center my-4">
+                                    <p className={`text-center  mx-3 mb-0 ${styles.titleContactDetails}`}>
+                                        إنشاء حساب جديد
                                     </p>
                                 </div>
                                 <div className="form-outline mb-3">
                                     <TextValidator
                                         type="username"
-                                        onChange={handleChangeUsername}
+                                        name="username"
+                                        onChange={handleChange}
                                         value={username}
                                         fullWidth
                                         variant="standard"
@@ -126,7 +124,8 @@ export default function RegisterForm() {
                                 <div className="form-outline mb-3">
                                     <TextValidator
                                         type="email"
-                                        onChange={handleChangeEmail}
+                                        name="email"
+                                        onChange={handleChange}
                                         value={email}
                                         fullWidth
                                         variant="standard"
@@ -141,7 +140,7 @@ export default function RegisterForm() {
                                             type={showPassword === true ? "text" : "password"}
                                             name="password"
                                             value={password}
-                                            onChange={handleChangePassword}
+                                            onChange={handleChange}
                                             variant="standard"
                                             label="الرقم السري"
                                             validators={[
@@ -161,7 +160,7 @@ export default function RegisterForm() {
                                             type={showPassword === true ? "text" : "password"}
                                             name="confirmPassword"
                                             value={confirmPassword}
-                                            onChange={handleChangeConfirmPassword}
+                                            onChange={handleChange}
                                             variant="standard"
                                             label="تأكيد الرقم السري"
                                             validators={["required", "matchPasswords"]}
@@ -183,117 +182,8 @@ export default function RegisterForm() {
                                         )}
                                     </div>
                                 </div>
-                                <div className="form-outline mb-3">
-                                    <TextValidator
-                                        type="number"
-                                        onChange={handleChangePhone}
-                                        value={phone}
-                                        fullWidth
-                                        variant="standard"
-                                        label="رقم الهاتف"
-                                        validators={["required", "isPhoneNumber", "isLocalNumber"]}
-                                        errorMessages={[
-                                            "!! لا يمكنك ترك هذا الحقل فارغاً",
-                                            "!! رقم الهاتف يجب أن يتكون من 10 أرقام فقط",
-                                            "(078 , 079, 077) رقم الهاتف يجب أن يبدأ ب"
-                                        ]}
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                                <div
-                                    className="d-flex align-items-center my-4"
-                                >
-                                    <p
-                                        className={`text-center  mx-3 mb-0 ${styles.titleContactDetails}`}
-                                    >
-                                        بيانات التوصيل
-                                    </p>
-                                </div>
-                                <div className="col d-flex justify-content-evenly">
-                                    <div className="mb-4">
-                                        <TextValidator
-                                            type="text"
-                                            name="firstName"
-                                            value={firstName}
-                                            onChange={handleChangeFirstName}
-                                            variant="standard"
-                                            label="الإسم الأول"
-                                            validators={["required"]}
-                                            errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
-                                        />
-                                    </div>
-                                    <div className="mb-4 mx-3 d-flex">
-                                        <TextValidator
-                                            type="text"
-                                            name="lastName"
-                                            value={lastName}
-                                            onChange={handleChangeLastName}
-                                            variant="standard"
-                                            label="الإسم الأخير"
-                                            validators={["required"]}
-                                            errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col d-flex justify-content-evenly">
-                                    <div className="mb-4">
-                                        <TextValidator
-                                            type="text"
-                                            name="city"
-                                            value={city}
-                                            onChange={handleChangeCity}
-                                            variant="standard"
-                                            label="المحافظة"
-                                            validators={["required"]}
-                                            errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
-                                        />
-                                    </div>
-                                    <div className="mb-4 mx-3 d-flex">
-                                        <TextValidator
-                                            type="number"
-                                            name="lastName"
-                                            value={building}
-                                            onChange={handleChangeBuilding}
-                                            variant="standard"
-                                            label="رقم العمارة"
-                                            validators={["required"]}
-                                            errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="d-flex flex-row align-items-center mb-4">
-                                    <div className="form-outline flex-fill mb-4">
-                                        <TextValidator
-                                            type="text"
-                                            value={address}
-                                            onChange={handleChangeAddress}
-                                            fullWidth
-                                            variant="standard"
-                                            label="العنوان كامل"
-                                            validators={["required"]}
-                                            errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="d-flex flex-row align-items-center mb-4">
-                                    <div className="form-outline flex-fill mb-4">
-                                        <TextValidator
-                                            type="number"
-                                            value={deliveryPhone}
-                                            onChange={handleChangeDeliveryPhone}
-                                            fullWidth
-                                            variant="standard"
-                                            label="رقم هاتف للتوصيل (اختياري)"
-                                            validators={["isPhoneNumber", "isLocalNumber"]}
-                                            errorMessages={[
-                                                "!! رقم الهاتف يجب أن يتكون من 10 أرقام فقط",
-                                                "(078 , 079, 077) رقم الهاتف يجب أن يبدأ ب"
-                                            ]}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="d-flex justify-content-between align-items-center">
+
+                                <div className="d-flex justify-content-center align-items-center">
                                     <div className="form-check d-flex justify-content-center mb-3">
                                         <div className="mb-3 form-check">
                                             <input
