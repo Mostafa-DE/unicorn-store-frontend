@@ -290,3 +290,7 @@ a {
 .MuiBottomNavigationAction-label, .Mui-selected {
   color: #333;
 }
+
+.MuiTableCell-root {
+  font-family: 'Tajawal', sans-serif;
+}

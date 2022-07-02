@@ -7,13 +7,6 @@ const registerApi = async (req, res) => {
       username,
       email,
       password,
-      phone,
-      firstName,
-      lastName,
-      address,
-      deliveryPhone,
-      city,
-      building
     } = req.body;
     const createUserInStrapi = await fetch(`${API_URL}/auth/local/register`, {
       method: "POST",
@@ -23,14 +16,7 @@ const registerApi = async (req, res) => {
       body: JSON.stringify({
         username,
         email,
-        password,
-        phone,
-        firstName,
-        lastName,
-        address,
-        deliveryPhone,
-        city,
-        building
+        password
       })
     });
 
