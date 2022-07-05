@@ -25,8 +25,12 @@ import {ShippingInfoContext} from "@/context/ShippingInfoContext";
 import router from "next/router";
 /*-------------------------X-----------------------------*/
 
-export default function ShippingInfoForm({currentUser, token}) {
-    const unauthorizedUser = currentUser.statusCode;
+export default function ShippingInfoForm({user, userProfile, token}) {
+    console.log(userProfile);
+    const {firstName, lastName, phone, building, address} = userProfile[0] || {};
+    const { email, username, id } = user || {};
+
+    const unauthorizedUser = userProfile.statusCode;
     const orderNumber = (Date.now() * Math.random()).toString().substring(0, 6);
     const todayDate = new Date().toISOString().slice(0, 10);
 
@@ -50,12 +54,12 @@ export default function ShippingInfoForm({currentUser, token}) {
     const [discountInput, setDiscountInput] = useState("");
     const [discount, setDiscount] = useState("")
     const [values, setValues] = useState({
-        email: `${currentUser.email || ""}`,
-        firstName: `${currentUser.firstName || ""}`,
-        lastName: `${currentUser.lastName || ""}`,
-        address: `${currentUser.address || ""}`,
-        building: `${currentUser.building || ""}`,
-        phone: `${currentUser.phone || ""}`,
+        email: `${email || ""}`,
+        firstName: `${firstName || ""}`,
+        lastName: `${lastName || ""}`,
+        address: `${address || ""}`,
+        building: `${building || ""}`,
+        phone: `${phone || ""}`,
         additionalInfo: "",
         city: ""
     });
@@ -106,12 +110,12 @@ export default function ShippingInfoForm({currentUser, token}) {
         const discount = await res.json();
         setDiscount(discount[0]);
         setIsLoading(false);
-        if (discount[0]?.user_discount?.id !== currentUser.id) return setDiscount(undefined);
+        if (discount[0]?.user_discount?.id !== id) return setDiscount(undefined);
     }
 
-    const handleDiscountBtn = () => {
+    const handleDiscountBtn = async () => {
         if (discount) return setDiscount("")
-        getDiscount();
+        await getDiscount();
     }
 
 
@@ -499,7 +503,7 @@ export default function ShippingInfoForm({currentUser, token}) {
 
                             {discount && (
                                 <p className={styles.discountFoundText}>
-                                    {"🤩"} تم تطبيق الخصم بنجاح {" "}{currentUser.username} تهانينا
+                                    {"🤩"} تم تطبيق الخصم بنجاح {" "}{username} تهانينا
                                 </p>
                             )}
 
