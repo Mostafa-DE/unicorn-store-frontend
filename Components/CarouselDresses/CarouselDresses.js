@@ -4,6 +4,7 @@ import {breakPoints} from "@/helpers/breakPointCarousel";
 import {AiOutlineLine} from "react-icons/ai";
 
 export default function CarouselDresses({token, products}) {
+    if (products.length === 0) return;
     return (
         <div>
             <div className="containerTitle">
@@ -16,12 +17,13 @@ export default function CarouselDresses({token, products}) {
             </div>
             <Carousel
                 enableAutoPlay
-                autoPlaySpeed={5000}
+                autoPlaySpeed={10000}
                 breakPoints={breakPoints}
                 disableArrowsOnEnd={false}
                 className="carousel"
+                isRTL={false}
             >
-                {products?.map((product) => (
+                {products.map((product) => (
                     product.map(productArrayData => (
                         <ProductItems
                             pathname={productArrayData.productDetailsPage}

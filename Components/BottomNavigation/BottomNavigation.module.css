@@ -14,6 +14,6 @@
 
 @media (max-width: 650px) {
     .main {
-        display: inline-flex;
+        display: inline;
     }
 }

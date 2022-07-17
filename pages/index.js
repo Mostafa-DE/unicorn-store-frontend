@@ -44,7 +44,13 @@ export async function getServerSideProps({req}) {
     const AllProductsArray = [];
 
     await Promise.all(
-        urls.map(url => fetch(`${API_URL}/${url}?_limit=5`).then(res => res.json()).then(product => AllProductsArray.push(product))
+        urls.map(url => fetch(`${API_URL}/${url}?_limit=5`)
+            .then(res => res.json())
+            .then(product => {
+                if (product.length > 0 && product[0].error === undefined) {
+                    AllProductsArray.push(product);
+                }
+            })
         ))
 
     const resAccount = await fetch(`${API_URL}/users/me`, {

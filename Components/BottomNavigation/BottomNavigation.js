@@ -18,49 +18,48 @@ export default function LabelBottomNavigation() {
 
     useEffect(() => {
         if (router.pathname === '/') setState('home');
-        if(router.pathname === '/products/shopping-bag') setState('shoppingbag')
-        if(router.pathname === '/products/wish-list') setState('favorites')
-        if(router.pathname === '/account/my-account') setState('person')
-    }, [])
+        if (router.pathname === '/products/shopping-bag') setState('shoppingbag')
+        if (router.pathname === '/products/wish-list') setState('favorites')
+        if (router.pathname === '/account/my-account') setState('person')
+    }, [router.pathname])
 
     return (
-        <BottomNavigation
-            value={state}
-            className={styles.main}
-        >
-            <BottomNavigationAction
-                label="Home"
-                value="home"
-                icon={
-                    <HomeIcon className={styles.icon}/>
-                }
-                onClick={() => handleClick('/', 'home')}
-            />
+        <div className={styles.main}>
+            <BottomNavigation value={state}>
+                <BottomNavigationAction
+                    label="Home"
+                    value="home"
+                    icon={
+                        <HomeIcon className={styles.icon}/>
+                    }
+                    onClick={() => handleClick('/', 'home')}
+                />
 
-            <BottomNavigationAction
-                label="Your Bag"
-                value="shoppingbag"
-                icon={
-                    <ShoppingBagIcon className={styles.icon}/>
-                }
-                onClick={() => handleClick('/products/shopping-bag', 'shoppingbag')}
-            />
-            <BottomNavigationAction
-                label="Wish List"
-                value="favorites"
-                icon={
-                    <FavoriteIcon className={styles.icon}/>
-                }
-                onClick={() => handleClick('/products/wish-list', 'favorites')}
-            />
-            <BottomNavigationAction
-                label="Account"
-                value="person"
-                icon={
-                    <PersonIcon className={styles.icon}/>
-                }
-                onClick={() => handleClick('/account/my-account', 'person')}
-            />
-        </BottomNavigation>
+                <BottomNavigationAction
+                    label="Your Bag"
+                    value="shoppingbag"
+                    icon={
+                        <ShoppingBagIcon className={styles.icon}/>
+                    }
+                    onClick={() => handleClick('/products/shopping-bag', 'shoppingbag')}
+                />
+                <BottomNavigationAction
+                    label="Wish List"
+                    value="favorites"
+                    icon={
+                        <FavoriteIcon className={styles.icon}/>
+                    }
+                    onClick={() => handleClick('/products/wish-list', 'favorites')}
+                />
+                <BottomNavigationAction
+                    label="Account"
+                    value="person"
+                    icon={
+                        <PersonIcon className={styles.icon}/>
+                    }
+                    onClick={() => handleClick('/account/my-account', 'person')}
+                />
+            </BottomNavigation>
+        </div>
     );
 }
