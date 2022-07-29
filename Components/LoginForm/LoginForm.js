@@ -9,26 +9,19 @@ import {RiEyeLine} from "react-icons/ri";
 import {RiEyeCloseLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import {AiOutlineLine} from "react-icons/ai";
-import {alertBenefitsLogin, alertRememberMe} from "@/components/LoginForm/Alert";
+import {alertBenefitsLogin, alertRememberMe, alertLoginFailed} from "@/components/LoginForm/Alert";
 import {useRouter} from "next/router";
-import {FaGoogle, FaFacebookF} from "react-icons/fa";
-
-import Swal from "sweetalert2";
+import {FaGoogle} from "react-icons/fa";
 import {API_URL} from "@/config/index";
+import {CgSpinnerTwoAlt} from "react-icons/cg";
 
 export default function LoginForm({rememberEmailUser}) {
     const router = useRouter();
 
     const {login, error} = useContext(AuthContext);
     useEffect(() => {
-        error &&
-        new Swal({
-            title: "حدث خطأ أثناء عملية تسجيل الدخول",
-            text: error,
-            icon: "error",
-            confirmButtonColor: "#fb9aa7",
-            confirmButtonText: "حسناً"
-        });
+        error && alertLoginFailed(error);
+
     }, [login, error]);
 
     const [email, setEmail] = useState(rememberEmailUser);
@@ -38,12 +31,14 @@ export default function LoginForm({rememberEmailUser}) {
 
     const [password, handleChangePassword, resetPassword] = useInputField("");
     const [showPassword, handleShowPassword] = useShowPassword(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = evnt => {
+    const handleSubmit = async (evnt) => {
         evnt.preventDefault();
-        login({email, password});
+        setIsLoading(true);
+        await login({email, password});
         resetPassword();
-        setEmail("")
+        setIsLoading(false);
     };
 
     const handleLoginGoogle = async () => {
@@ -134,13 +129,17 @@ export default function LoginForm({rememberEmailUser}) {
                                 </label>
                             </div>
 
-                            <div>
-                                <button type="submit"
-                                        className={styles.loginBtn}
-                                >
-                                    تسجيل الدخول
-                                </button>
-                            </div>
+                            {isLoading === true ? (
+                                <div className={styles.containerSpinner}>
+                                    <CgSpinnerTwoAlt className={styles.rotating}/>
+                                </div>
+                            ) : (
+                                <div>
+                                    <button type="submit" className={styles.loginBtn}>
+                                        تسجيل الدخول
+                                    </button>
+                                </div>
+                            )}
 
                             <div>
                                 <Link href="/account/forgot-password">

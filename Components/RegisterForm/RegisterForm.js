@@ -19,13 +19,6 @@ export default function RegisterForm() {
         email: "",
         password: "",
         confirmPassword: "",
-        firstName: "",
-        lastName: "",
-        phone: "",
-        address: "",
-        city: "",
-        building: "",
-        deliveryPhone: ""
     });
 
     const handleChange = (e) => {
@@ -57,17 +50,14 @@ export default function RegisterForm() {
     useEffect(() => {
         error && alertLoginFailed(error);
     }, [error]);
+
     useEffect(() => {
         ValidatorForm.addValidationRule("isPhoneNumber", value => {
             return (value.length === 10 || value === "")
         });
-    });
-    useEffect(() => {
         ValidatorForm.addValidationRule("isLocalNumber", value => {
             return !!(value.match("078") || value.match("079") || value.match("077") || value === "");
         });
-    });
-    useEffect(() => {
         ValidatorForm.addValidationRule("validUsername", value => {
             let count = 0
             let isContainLetters = false
@@ -76,25 +66,19 @@ export default function RegisterForm() {
             letters.map((letter) => !parseInt(letter) ? isContainLetters = true : null)
             if ((count >= 3 && isContainLetters) || value === "") return true
         });
-    });
-    useEffect(() => {
         ValidatorForm.addValidationRule("moreThan8Character", value => {
             return (value.length >= 8 || value === "");
         });
-    });
-    useEffect(() => {
         ValidatorForm.addValidationRule("passwordContainANumbers", value => {
             return (value.search(/[0-9]/) !== -1 || value === "");
         });
-    });
-    useEffect(() => {
         ValidatorForm.addValidationRule("matchPasswords", value => {
             return (value === password || value === "");
         });
-    });
+    }, [values]);
 
     return (
-        <div>
+        <>
             <section className={styles.main}>
                 <ValidatorForm onSubmit={handleSubmit}>
                     <div className="container-fluid">
@@ -228,6 +212,6 @@ export default function RegisterForm() {
                     </div>
                 </ValidatorForm>
             </section>
-        </div>
+        </>
     );
 }

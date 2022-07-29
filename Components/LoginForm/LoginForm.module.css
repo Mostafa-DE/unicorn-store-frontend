@@ -141,6 +141,12 @@
     color: #000;
 }
 
+.rotating {
+    font-size: 2rem;
+    animation: rotating 2s linear infinite;
+    margin: 1.5rem 4rem;
+}
+
 @media (max-width: 803px) {
     .container {
         flex-direction: column;
@@ -152,5 +158,15 @@
 
     .containerLoginForms {
         margin: 0;
+    }
+}
+
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

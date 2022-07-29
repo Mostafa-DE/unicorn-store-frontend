@@ -3,8 +3,6 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import "../../node_modules/animate.css/animate.css";
 import {useContext, useState} from "react";
-
-/*--------------------Components-------------------------*/
 import MenuDrawer from "@/components/DrawerMenu";
 import DialogShoppingBag from "@/components/DialogShoppingBag";
 import DialogCompareProducts from "@/components/DialogCompareProducts/DialogCompareProducts";
@@ -12,40 +10,25 @@ import DialogSearchProducts from "@/components/DialogSearchProducts";
 import PopOver from "@/components/PopOver";
 import DropDownLnguageMenu from "./DropDownLangaugeMenu"
 import DialogLogin from "./DialogLogin"
-/*-------------------------X-----------------------------*/
-
-/*--------------------Categories-------------------------*/
 import {WomanCollections} from "@/components/Header/CategoriesHome/WomenCollections";
 import {MenCollections} from "@/components/Header/CategoriesHome/MenCollections";
 import {KidsCollections} from "@/components/Header/CategoriesHome/KidsCollections";
 import {AccessoriesCollections} from "@/components/Header/CategoriesHome/AccessoriesCollections";
 import {MoreCollections} from "@/components/Header/CategoriesHome/MoreCollections";
-/*-------------------------X-----------------------------*/
-
-/*--------------------Material Ui------------------------*/
+import DropDownAccount from "@/components/DropDownAccount";
 import Badge from "@mui/material/Badge";
-/*-------------------------X-----------------------------*/
-
-/*----------------------Context--------------------------*/
 import {AuthContext} from "@/context/AuthContext";
 import {BagContext} from "@/context/BagContext";
 import {CompareContext} from "@/context/CompareContext";
 import {LanguageContext} from "@/context/LanguageContext";
-/*-------------------------X-----------------------------*/
-
-/*-----------------------Hooks---------------------------*/
 import useScrollNavbar from "@/Hooks/useScrollNavbar";
 import useToggle from "@/Hooks/useToggle";
-/*-------------------------X-----------------------------*/
-
-/*--------------------React Icons------------------------*/
 import {HiOutlineShoppingBag} from "react-icons/hi";
-import {RiAccountPinCircleLine} from "react-icons/ri";
 import {FiMenu} from "react-icons/fi";
 import {ImHeart} from "react-icons/im";
 import {GiScales} from "react-icons/gi";
 import {BsSearch} from "react-icons/bs"
-/*-------------------------X----------------------------*/
+
 
 export default function Header() {
     const router = useRouter();
@@ -72,9 +55,8 @@ export default function Header() {
         setAnchorEl(null);
     };
 
-    const showLoginLink = () => {
-        const path = router.pathname
-        return !(path === "/account/login" || path === "/account/checkout-login");
+    const hideLoginLink = () => {
+        return !(router.pathname === "/account/login" || "/account/checkout-login" || "/account/register");
     }
 
     return (
@@ -110,7 +92,7 @@ export default function Header() {
                         <AccessoriesCollections language={language}/>
                         <MoreCollections language={language}/>
 
-                        {showLoginLink() && (
+                        {hideLoginLink() && (
                             <div className={styles.link}>
                                 <DialogLogin/>
                             </div>
@@ -189,15 +171,7 @@ export default function Header() {
                             }
                         />
                     </Badge>
-                    <PopOver
-                        text="My Account"
-                        icon={
-                            <RiAccountPinCircleLine
-                                onClick={user ? () => router.push("/account/my-account") : () => router.push("/account/login")}
-                                className={styles.accountIcon}
-                            />
-                        }
-                    />
+                    <DropDownAccount/>
                     <FiMenu
                         className={styles.menuIcon}
                         onClick={openDrawer}

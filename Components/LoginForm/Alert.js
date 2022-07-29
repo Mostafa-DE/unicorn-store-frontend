@@ -33,3 +33,13 @@ export const alertRememberMe = () => {
         html: `<p>يرجى ملاحظة أننا نستخدم ملفات تعريف الارتباط للاحتفاظ بتسجيل الدخول الخاص بك لمدة أسبوع ، وبعد ذلك يتم تسجيل الخروج تلقائيًا ، إذا كنت لا تريد الاحتفاظ بتسجيل الدخول فيمكنك الضغط على خيار تسجيل الخروج من القائمة</p>`
     });
 };
+
+export const alertLoginFailed = (error) => {
+    Swal.fire({
+        title: "حدث خطأ أثناء عملية تسجيل الدخول",
+        text: error,
+        icon: "error",
+        confirmButtonColor: "#fb9aa7",
+        confirmButtonText: "حسناً"
+    });
+}
