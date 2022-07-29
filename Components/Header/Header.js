@@ -56,7 +56,8 @@ export default function Header() {
     };
 
     const hideLoginLink = () => {
-        return !(router.pathname === "/account/login" || "/account/checkout-login" || "/account/register");
+        const paths = ["/account/login", "/account/register", "/account/checkout-login"];
+        return !paths.includes(router.pathname);
     }
 
     return (
