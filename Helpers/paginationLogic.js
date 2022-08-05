@@ -7,7 +7,7 @@ export const values = {
 export const getStartAndEndValueForPagination = (products, page) => {
     const perPage = 10;
     const totalProducts = products.length;
-    values.totalPages = Math.round(totalProducts / perPage);
+    values.totalPages = Math.ceil(totalProducts / perPage);
     if (values.totalPages < 1) {
         values.totalPages = 1;
     }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router"
 
-export default function useLoginDialog() {
+export default function usePagination() {
     const router = useRouter()
     const [page, setPage] = useState(1)
     const handleChangePage = async (event, value) => {
