@@ -1,5 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 
+//TODO: add right types here
+// @ts-ignore
 export const BagContext = createContext();
 
 export const BagProvider = ({ children }) => {
@@ -59,6 +61,8 @@ export const BagProvider = ({ children }) => {
     }
 
     const total = calculateBagTotal(items);
+    //TODO: add right types here
+    // @ts-ignore
     setBag({ items, ...total });
   };
 
@@ -71,6 +75,8 @@ export const BagProvider = ({ children }) => {
       items.splice(isProductExist, 1);
     }
     const total = calculateBagTotal(items);
+    //TODO: add right types here
+    // @ts-ignore
     setBag({ items, ...total });
   };
 
@@ -80,6 +86,8 @@ export const BagProvider = ({ children }) => {
     const isProductExist = items.findIndex((item) => item.id === product.id);
     items[isProductExist].qty++;
     const total = calculateBagTotal(items);
+    //TODO: add right types here
+    // @ts-ignore
     setBag({ items, ...total });
   };
 
@@ -89,6 +97,8 @@ export const BagProvider = ({ children }) => {
     const isProductExist = items.findIndex((item) => item.id === product.id);
     items[isProductExist].qty--;
     const total = calculateBagTotal(items);
+    //TODO: add right types here
+    // @ts-ignore
     setBag({ items, ...total });
   };
 

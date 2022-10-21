@@ -9,7 +9,6 @@ export default function NotFoundPage() {
         statusError="404 - Page not found"
         ErrorMessage="  ربما تمت إزالة الصفحة التي تبحث عنها أو أنها غير متاحة مؤقتًا"
         buttonTxt="الرجوع للقائمة الرئيسية"
-        buttonUrl=""
       />
     </Layout>
   );

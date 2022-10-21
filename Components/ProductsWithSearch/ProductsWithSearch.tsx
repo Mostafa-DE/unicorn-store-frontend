@@ -4,9 +4,9 @@ export default function ProductsWithSearch({
   productsData,
   searchTerm,
   pathname,
-  token
+  token,
 }) {
-  const allProductsFiltered = productsData.filter(products => {
+  const allProductsFiltered = productsData.filter((products) => {
     if (searchTerm === "") {
       return products;
     } else if (products.name.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -20,9 +20,11 @@ export default function ProductsWithSearch({
 
   return (
     <>
-      {allProductsFiltered.map(productData => (
+      {allProductsFiltered.map((productData) => (
         <ProductItems
           key={productData.id}
+          //TODO: add right types here
+          // @ts-ignore
           pathname={pathname}
           product={productData}
           token={token}

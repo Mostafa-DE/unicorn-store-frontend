@@ -1,37 +1,39 @@
-import {createContext, useEffect, useState} from "react";
+import { createContext, useEffect, useState } from "react";
 
+//TODO: add right types here
+// @ts-ignore
 export const LanguageContext = createContext();
 
-export const LanguageProvider = ({children}) => {
-    const [language, setLanguage] = useState("arabic");
+export const LanguageProvider = ({ children }) => {
+  const [language, setLanguage] = useState("arabic");
 
-    /*---------Save Product Cart in localStorage-----------*/
+  /*---------Save Product Cart in localStorage-----------*/
 
-    useEffect(() => {
-        if (window.localStorage.getItem("language") !== null) {
-            setLanguage(window.localStorage.getItem("language"));
-        }
-    }, []);
+  useEffect(() => {
+    if (window.localStorage.getItem("language") !== null) {
+      setLanguage(window.localStorage.getItem("language"));
+    }
+  }, []);
 
-    useEffect(() => {
-        window.localStorage.setItem("language", language);
-    }, [language]);
+  useEffect(() => {
+    window.localStorage.setItem("language", language);
+  }, [language]);
 
-    // /*-----------------------X----------------------------*/
+  // /*-----------------------X----------------------------*/
 
-    const ChangeLanguageToEnglish = () => {
-        setLanguage("english");
-    };
+  const ChangeLanguageToEnglish = () => {
+    setLanguage("english");
+  };
 
-    const ChangeLanguageToArabic = () => {
-        setLanguage("arabic");
-    };
+  const ChangeLanguageToArabic = () => {
+    setLanguage("arabic");
+  };
 
-    return (
-        <LanguageContext.Provider
-            value={{language, ChangeLanguageToEnglish, ChangeLanguageToArabic}}
-        >
-            {children}
-        </LanguageContext.Provider>
-    );
+  return (
+    <LanguageContext.Provider
+      value={{ language, ChangeLanguageToEnglish, ChangeLanguageToArabic }}
+    >
+      {children}
+    </LanguageContext.Provider>
+  );
 };

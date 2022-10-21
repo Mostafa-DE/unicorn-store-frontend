@@ -7,10 +7,25 @@
     "prettier"
   ],
   "rules": {
-    "prefer-const": "error",
+    "prefer-const": "off",
     "no-var": "error",
     "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-implicit-any": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/require-await": "off",
+    "@next/next/no-sync-scripts": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/restrict-plus-operands": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/await-thenable": "off",
+    "react-hooks/rules-of-hooks": "off"
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -18,14 +33,14 @@
     },
     "ecmaVersion": 12,
     "project": "tsconfig.eslint.json"
-  },
-  "ovverides": [
-    /* Pages check */
-    {
-      "files": ["pages/**/*.{ts,tsx}"],
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off"
-      }
-    }
-  ]
+  }
+  // "ovverides": [
+  //   /* Pages check */
+  //   {
+  //     "files": ["pages/**/*.{ts,tsx}"],
+  //     "rules": {
+  //       "@typescript-eslint/no-var-requires": "off"
+  //     }
+  //   }
+  // ]
 }

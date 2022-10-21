@@ -16,8 +16,7 @@ import { FaGithub } from "react-icons/fa";
 export default function Header() {
   return (
     <footer
-      className="page-footer font-small mdb-color lighten-3 py-3 pt-4 bg-light"
-      className={styles.mainFooter}
+      className={`page-footer font-small mdb-color lighten-3 py-3 pt-4 bg-light ${styles.mainFooter}`}
     >
       <div className="container text-center text-md-left">
         <div className="row">

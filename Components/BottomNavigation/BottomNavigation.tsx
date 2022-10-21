@@ -30,26 +30,26 @@ export default function LabelBottomNavigation() {
           label="Home"
           value="home"
           icon={<HomeIcon className={styles.icon} />}
-          onClick={() => handleClick("/", "home")}
+          onClick={() => handleClick("/")}
         />
 
         <BottomNavigationAction
           label="Your Bag"
           value="shoppingbag"
           icon={<ShoppingBagIcon className={styles.icon} />}
-          onClick={() => handleClick("/products/shopping-bag", "shoppingbag")}
+          onClick={() => handleClick("/products/shopping-bag")}
         />
         <BottomNavigationAction
           label="Wish List"
           value="favorites"
           icon={<FavoriteIcon className={styles.icon} />}
-          onClick={() => handleClick("/products/wish-list", "favorites")}
+          onClick={() => handleClick("/products/wish-list")}
         />
         <BottomNavigationAction
           label="Account"
           value="person"
           icon={<PersonIcon className={styles.icon} />}
-          onClick={() => handleClick("/account/my-account", "person")}
+          onClick={() => handleClick("/account/my-account")}
         />
       </BottomNavigation>
     </div>

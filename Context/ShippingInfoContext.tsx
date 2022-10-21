@@ -1,5 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 
+//TODO: add right types here
+// @ts-ignore
 export const ShippingInfoContext = createContext();
 
 export const ShippingInfoProvider = ({ children }) => {

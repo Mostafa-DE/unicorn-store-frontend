@@ -16,8 +16,20 @@ import Footer from "../Footer/Footer";
 import ChatBot from "../ChatBot/ChatBot";
 /*------------------X------------------*/
 
-export default function Layout({title, description, children, userAccount}) {
-    const router = useRouter();
+export interface ILayoutProps {
+  title: string;
+  children: React.ReactNode;
+  description?: string;
+  userAccount?: {};
+}
+
+const Layout: React.FC<ILayoutProps> = ({
+  title,
+  description,
+  children,
+  userAccount,
+}) => {
+  const router = useRouter();
 
     const {language} = useContext(LanguageContext)
     const {mainTitle, secondTitle, btnText} = languages[language];
