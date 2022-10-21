@@ -1,8 +1,31 @@
 {
-  "extends": ["next", "next/core-web-vitals"],
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
   "rules": {
-    "@next/next/no-img-element": "off",
-    "react/no-unescaped-entities": 0,
-    "@next/next/no-sync-scripts": "off"
-  }
+    "prefer-const": "error",
+    "no-var": "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "project": "tsconfig.eslint.json"
+  },
+  "ovverides": [
+    /* Pages check */
+    {
+      "files": ["pages/**/*.{ts,tsx}"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }
