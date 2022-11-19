@@ -2,16 +2,22 @@ import Carousel from "react-elastic-carousel";
 import ProductItems from "@/components/ProductItems/ProductItems";
 import {breakPoints} from "@/helpers/breakPointCarousel";
 import {AiOutlineLine} from "react-icons/ai";
+import {useContext} from "react";
+import {LanguageContext} from "@/context/LanguageContext";
+import {languages} from "./TranslateText";
 
 export default function CarouselDresses({token, products}) {
     if (products.length === 0) return;
+    const {language} = useContext(LanguageContext)
+    const {mainTitle} = languages[language];
+
     return (
         <div>
             <div className="containerTitle">
                 <h1 className="h1Title"
                     data-aos="zoom-in"
                 >
-                    أبرز المنتجات
+                    {mainTitle}
                 </h1>
                 <AiOutlineLine className="lineIcon"/>
             </div>

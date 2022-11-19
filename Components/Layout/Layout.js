@@ -1,5 +1,5 @@
 import styles from "@/components/Layout/Layout.module.css";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import Head from "next/head";
 import Link from "next/link";
 import {useRouter} from "next/dist/client/router";
@@ -7,6 +7,8 @@ import ButtonScrollUp from "../ButtonScrollUp/ButtonScrollUp";
 import ButtonWhatsApp from "../ButtonWhatsapp/ButtonWhatsApp";
 import NProgress from "nprogress";
 import BootomNavigation from "@/components/BottomNavigation"
+import {languages} from "./TranslateText"
+import {LanguageContext} from "@/context/LanguageContext";
 
 /*-------------components--------------*/
 import Header from "../Header/Header";
@@ -16,6 +18,9 @@ import ChatBot from "../ChatBot/ChatBot";
 
 export default function Layout({title, description, children, userAccount}) {
     const router = useRouter();
+
+    const {language} = useContext(LanguageContext)
+    const {mainTitle, secondTitle, btnText} = languages[language];
 
     /*---------n progress to show prgress for each click--------*/
     useEffect(() => {
@@ -62,11 +67,11 @@ export default function Layout({title, description, children, userAccount}) {
                 <div data-aos="fade-in"
                      className={styles.coverHome}
                 >
-                    <div className={styles.containerCoverText}>
-                        <p>The New Standard Of Modern Luxe </p>
-                        <span>Shop The New Season Offers</span>
+                    <div className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
+                        <p> {mainTitle} </p>
+                        <span> {secondTitle} </span>
                         <Link href="/categories/women-fashions/turkey-dresses/dresses">
-                            <button className={styles.exploreBtn}>Find Out Now</button>
+                            <button className={styles.exploreBtn}> {btnText} </button>
                         </Link>
                     </div>
                 </div>
