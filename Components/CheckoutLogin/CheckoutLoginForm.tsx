@@ -33,7 +33,7 @@ export default function LoginForm() {
   const [showPassword, handleShowPassword] = useShowPassword();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (evnt) => {
+  const handleSubmit = async (evnt: React.FormEvent<Element>) => {
     evnt.preventDefault();
     setIsLoading(true);
     await login({ email, password });

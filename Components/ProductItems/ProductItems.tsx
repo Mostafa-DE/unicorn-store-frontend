@@ -13,8 +13,15 @@ import { BiShareAlt } from "react-icons/bi";
 import { API_URL } from "@/config/index";
 import Swal from "sweetalert2";
 import DialogSocialShare from "@/components/DialogSocialShare";
+import { IProduct } from "@/Models/types";
 
-export default function ProductItems({ product, token }) {
+interface IProductItemsProps {
+  product: IProduct;
+  token: string;
+  pathname?: string;
+}
+
+const ProductItems: React.FC<IProductItemsProps> = ({ product, token }) => {
   const router = useRouter();
 
   // Auth Context
@@ -30,7 +37,7 @@ export default function ProductItems({ product, token }) {
   const { wishItems = [] } = wishBag;
   // xxxxxxxxxxxxxxxxx
 
-  const addToWishList = async (product) => {
+  const addToWishList = async (product: IProduct) => {
     try {
       await fetch(`${API_URL}/wishes`, {
         method: "POST",
@@ -41,7 +48,7 @@ export default function ProductItems({ product, token }) {
         body: JSON.stringify({
           name: `${product.name}`,
           price: `${product.price}`,
-          image: `${product.images[0].id}`,
+          image: `${product.images[0]?.id}`,
           slug: `${product.slug}`,
           productDetailsPage: `/${product.productDetailsPage}/${product.slug}`,
           IdProductExist: `${product.id}`,
@@ -75,19 +82,18 @@ export default function ProductItems({ product, token }) {
 
   // check or hide wish icon
   const wishBagProduct = wishItems.find(
-    (element) =>
+    (element: IProduct) =>
       `${element.productDetailsPage}/${element.slug}` ===
       `${product.productDetailsPage}/${product.slug}`
   );
 
   // hide or show check icon on compare product
   const productCompare = compareItems.find(
-    (element) =>
+    (element: IProduct) =>
       `${element.productDetailsPage}/${element.slug}` ===
       `${product.productDetailsPage}/${product.slug}`
   );
 
-  // state for share social dialog
   const [shareDialog, setShareDialog] = useState(false);
   const openShareDialog = () => {
     setShareDialog(true);
@@ -97,16 +103,11 @@ export default function ProductItems({ product, token }) {
     setShareDialog(false);
   };
 
-  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
   return (
     <div data-aos="fade-right" className={styles.container}>
       <img className={styles.imgs} src={product.images[0]?.url} />
       <DialogSocialShare
         shareDialog={shareDialog}
-        //TODO: add right types here
-        // @ts-ignore
-        openShareDialog={openShareDialog}
         closeShareDialog={closeShareDialog}
         product={product}
       />
@@ -167,4 +168,6 @@ export default function ProductItems({ product, token }) {
       </div>
     </div>
   );
-}
+};
+
+export default ProductItems;

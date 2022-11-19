@@ -1,7 +1,7 @@
 import cookie from "cookie";
 import { API_URL } from "@/config/index";
 
-const existUserApi = async (req, res) => {
+const existUserApi = async (req: any, res: any) => {
   if (req.method === "GET") {
     if (!req.headers.cookie) {
       return res.status(403).json({ message: "Not Authorized" });

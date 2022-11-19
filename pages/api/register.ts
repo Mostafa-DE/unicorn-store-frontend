@@ -1,7 +1,7 @@
 import cookie from "cookie";
 import { API_URL } from "@/config/index";
 
-const registerApi = async (req, res) => {
+const registerApi = async (req: any, res: any) => {
   if (req.method === "POST") {
     const {
       username,

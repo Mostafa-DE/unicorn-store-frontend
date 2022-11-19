@@ -1,7 +1,7 @@
 import cookie from "cookie";
 import {API_URL} from "@/config/index";
 
-const loginApi = async (req, res) => {
+const loginApi = async (req: any, res: any) => {
     if (req.method === "POST") {
         const {identifier, password} = req.body;
         const strapiRes = await fetch(`${API_URL}/auth/local`, {

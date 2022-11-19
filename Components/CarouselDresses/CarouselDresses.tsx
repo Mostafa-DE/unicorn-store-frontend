@@ -1,13 +1,20 @@
 import Carousel from "react-elastic-carousel";
 import ProductItems from "@/components/ProductItems/ProductItems";
-import {breakPoints} from "@/helpers/breakPointCarousel";
-import {AiOutlineLine} from "react-icons/ai";
-import {useContext} from "react";
-import {LanguageContext} from "@/context/LanguageContext";
-import {languages} from "./TranslateText";
+import { breakPoints } from "@/helpers/breakPointCarousel";
+import { AiOutlineLine } from "react-icons/ai";
+import { IProduct } from "@/Models/types";
 
-export default function CarouselDresses({ token, products }) {
-  if (products.length === 0) return;
+interface ICarouselDressesProps {
+  token: string;
+  products: IProduct[][];
+}
+
+const CarouselDresses: React.FC<ICarouselDressesProps> = ({
+  token,
+  products,
+}) => {
+
+  if (products.length === 0) return <div></div>;
   return (
     <div>
       <div className="containerTitle">
@@ -27,14 +34,12 @@ export default function CarouselDresses({ token, products }) {
         className="carousel"
         isRTL={false}
       >
-        {products.map((product) =>
-          product.map((productArrayData) => (
+        {products.map((productsArrayData) =>
+          productsArrayData.map((product) => (
             <ProductItems
-              //TODO: add right types here
-              // @ts-ignore
-              pathname={productArrayData.productDetailsPage}
-              key={productArrayData.id}
-              product={productArrayData}
+              pathname={product.productDetailsPage}
+              key={product.id}
+              product={product}
               token={token}
             />
           ))
@@ -42,41 +47,6 @@ export default function CarouselDresses({ token, products }) {
       </Carousel>
     </div>
   );
-export default function CarouselDresses({token, products}) {
-    if (products.length === 0) return;
-    const {language} = useContext(LanguageContext)
-    const {mainTitle} = languages[language];
+};
 
-    return (
-        <div>
-            <div className="containerTitle">
-                <h1 className="h1Title"
-                    data-aos="zoom-in"
-                >
-                    {mainTitle}
-                </h1>
-                <AiOutlineLine className="lineIcon"/>
-            </div>
-            <Carousel
-                enableAutoPlay
-                autoPlaySpeed={10000}
-                breakPoints={breakPoints}
-                disableArrowsOnEnd={false}
-                className="carousel"
-                isRTL={false}
-            >
-                {products.map((product) => (
-                    product.map(productArrayData => (
-                        <ProductItems
-                            pathname={productArrayData.productDetailsPage}
-                            key={productArrayData.id}
-                            product={productArrayData}
-                            token={token}
-                        />
-                    ))
-
-                ))}
-            </Carousel>
-        </div>
-    );
-}
+export default CarouselDresses;

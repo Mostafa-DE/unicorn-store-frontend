@@ -1,7 +1,15 @@
 import styles from "@/components/ChatBot/HeaderChatBot.module.css";
 import { VscClose } from "react-icons/vsc";
 
-export default function HeaderChatBot({ toggleFloating, userAccount }) {
+interface IHeaderChatBotProps {
+  userAccount: any;
+  toggleFloating: () => void;
+}
+
+const HeaderChatBot: React.FC<IHeaderChatBotProps> = ({
+  toggleFloating,
+  userAccount,
+}) => {
   return (
     <div className={styles.main}>
       <VscClose className={styles.closeIcon} onClick={toggleFloating} />
@@ -11,4 +19,6 @@ export default function HeaderChatBot({ toggleFloating, userAccount }) {
       <img className={styles.imgAvatar} src="/images/avatar.svg" />
     </div>
   );
-}
+};
+
+export default HeaderChatBot;

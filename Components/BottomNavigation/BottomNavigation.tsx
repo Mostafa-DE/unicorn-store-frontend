@@ -12,7 +12,7 @@ export default function LabelBottomNavigation() {
   const router = useRouter();
   const [state, setState] = useState("");
 
-  const handleClick = async (path) => {
+  const handleClick = async (path: string) => {
     await router.push(`${path}`);
   };
 

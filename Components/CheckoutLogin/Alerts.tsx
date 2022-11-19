@@ -34,7 +34,7 @@ export const alertRememberMe = async () => {
     });
 };
 
-export const alertLoginFailed = async (error) => {
+export const alertLoginFailed = async (error: string) => {
     await Swal.fire({
         title: "حدث خطأ أثناء تسجيل الدخول",
         icon: "error",
@@ -42,4 +42,4 @@ export const alertLoginFailed = async (error) => {
         confirmButtonText: "حسناً",
         html: `<p>${error}</p>`
     });
-}
+};

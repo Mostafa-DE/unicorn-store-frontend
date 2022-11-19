@@ -23,8 +23,6 @@ export default function ProductsWithSearch({
       {allProductsFiltered.map((productData) => (
         <ProductItems
           key={productData.id}
-          //TODO: add right types here
-          // @ts-ignore
           pathname={pathname}
           product={productData}
           token={token}
