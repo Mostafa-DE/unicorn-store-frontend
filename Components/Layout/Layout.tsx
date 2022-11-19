@@ -9,12 +9,10 @@ import NProgress from "nprogress";
 import BootomNavigation from "@/components/BottomNavigation"
 import {languages} from "./TranslateText"
 import {LanguageContext} from "@/context/LanguageContext";
-
-/*-------------components--------------*/
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import ChatBot from "../ChatBot/ChatBot";
-/*------------------X------------------*/
+
 
 export interface ILayoutProps {
   title: string;
@@ -31,7 +29,9 @@ const Layout: React.FC<ILayoutProps> = ({
 }) => {
   const router = useRouter();
 
+    // @ts-ignore
     const {language} = useContext(LanguageContext)
+    // @ts-ignore
     const {mainTitle, secondTitle, btnText} = languages[language];
 
     /*---------n progress to show prgress for each click--------*/
@@ -100,6 +100,8 @@ const Layout: React.FC<ILayoutProps> = ({
         </div>
     );
 }
+
+export default Layout;
 
 /*------------default title in case i forget to add title-----------*/
 Layout.defaultProps = {
