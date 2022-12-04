@@ -15,13 +15,17 @@ export function MenCollections({language}) {
                     <div className={styles.collectionsDiv}>
                         <ul>
                             <li>
-                                <Link href="/categories/men-fashions/men-pajamas/pajamas">
-                                    <a className={styles.categoryLink}>{pajamas}</a>
+                                <Link href="/categories/men-fashions/men-pajamas/pajamas"
+                                      className={styles.categoryLink}
+                                >
+                                    {pajamas}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/men-fashions/all-products/other-products">
-                                    <a className={styles.categoryLink}>{allProducts}</a>
+                                <Link href="/categories/men-fashions/all-products/other-products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>

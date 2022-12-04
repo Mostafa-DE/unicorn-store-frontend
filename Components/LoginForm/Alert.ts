@@ -20,7 +20,7 @@ export const alertBenefitsLogin = () => {
         icon: "info",
         confirmButtonText: "حسناً, لقد فهمت",
         confirmButtonColor: "#fb9aa7",
-        footer: `<a href="https://wa.me/message/HRQFZDWSM3EUH1">أنا بحاجة إلى المساعدة</a> لم تتضح الأمور بشكل جيد`
+        footer: `<a href="#">أنا بحاجة إلى المساعدة</a> لم تتضح الأمور بشكل جيد`
     });
 };
 

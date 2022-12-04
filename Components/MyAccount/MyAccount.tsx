@@ -18,20 +18,22 @@ export default function MyAccount({userAccount, userProfile, token}) {
         <div className={styles.main}>
             <div className={styles.container}>
                 <div data-aos="zoom-in"
+                     data-aos-once='true'
                      className={styles.containerFirstBox}
                 >
                     <div className={styles.containerText}>
-                        <h3 data-aos="fade-out">{username} 👋 مرحباً</h3>
-                        <p data-aos="fade-out"> {getRandomQuote(username)} </p>
+                        <h3 data-aos="fade-out" data-aos-once='true'>{username} 👋 مرحباً</h3>
+                        <p data-aos="fade-out" data-aos-once='true'> {getRandomQuote(username)} </p>
                     </div>
 
                     <div data-aos="fade-out"
+                         data-aos-once='true'
                          className={styles.containerBtns}
                     >
-                        <Link href="/account/dashboard-user">
+                        <Link href="/account/dashboard-user" passHref>
                             <button className={styles.orderHistoryBtn}>سجل طلباتك</button>
                         </Link>
-                        <Link href="/products/shopping-bag">
+                        <Link href="/products/shopping-bag" passHref>
                             <button className={styles.shoppingBagBtn}>
                                 حقيبة التسوق
                             </button>

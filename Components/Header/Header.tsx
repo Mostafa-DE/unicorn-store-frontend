@@ -79,14 +79,14 @@ export default function Header() {
         }`}
       >
         <div className={styles.logo}>
-          <Link href="/">
+          <Link href="/" passHref>
             <img
               src="/images/unicorn.png"
               alt="unicorns-logo"
               className={styles.logoImg}
             />
           </Link>
-          <Link href="/">
+          <Link href="/" passHref>
             <img
               src="/images/unicorn2.png"
               alt="unicorns-logo"
@@ -96,7 +96,7 @@ export default function Header() {
         </div>
 
         <div>
-          <ul data-aos="fade-out" className={styles.containerLink}>
+          <ul data-aos="fade-out" data-aos-once='true'  className={styles.containerLink}>
             <WomanCollections language={language} />
             <MenCollections language={language} />
             <KidsCollections language={language} />

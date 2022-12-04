@@ -207,6 +207,11 @@
     justify-content: space-evenly;
     align-items: center;
     margin: 3rem 2rem 0 0;
+    text-align: center;
+}
+
+.containerCategories a {
+    text-decoration: none;
 }
 
 .allCategories ul {
@@ -214,6 +219,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.allCategories a {
+    text-decoration: none;
 }
 
 .allCategories li {

@@ -5,7 +5,17 @@ import {languages} from "../TranslateText"
 
 
 export function AccessoriesCollections({language}) {
-    const {titleAccessories, women, men, kids, necklaces, rings, bracelets, watches, allProducts,} = languages[language];
+    const {
+        titleAccessories,
+        women,
+        men,
+        kids,
+        necklaces,
+        rings,
+        bracelets,
+        watches,
+        allProducts,
+    } = languages[language];
 
     return (
         <div className={styles.dropDown}>
@@ -19,23 +29,31 @@ export function AccessoriesCollections({language}) {
                         <span>{women}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/accessories/women/women-necklace/necklace">
-                                    <a className={styles.categoryLink}>{necklaces}</a>
+                                <Link href="/categories/accessories/women/women-necklace/necklace"
+                                      className={styles.categoryLink}
+                                >
+                                    {necklaces}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/accessories/women/women-rings/rings">
-                                    <a className={styles.categoryLink}>{rings}</a>
+                                <Link href="/categories/accessories/women/women-rings/rings"
+                                      className={styles.categoryLink}
+                                >
+                                    {rings}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/accessories/women/women-bracelets/bracelets">
-                                    <a className={styles.categoryLink}>{bracelets}</a>
+                                <Link href="/categories/accessories/women/women-bracelets/bracelets"
+                                      className={styles.categoryLink}
+                                >
+                                    {bracelets}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/accessories/women/all-products/other-products">
-                                    <a className={styles.categoryLink}>{allProducts}</a>
+                                <Link href="/categories/accessories/women/all-products/other-products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>
@@ -43,13 +61,17 @@ export function AccessoriesCollections({language}) {
                         <span>{men}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/accessories/men/men-watches/watches">
-                                    <a className={styles.categoryLink}>{watches}</a>
+                                <Link href="/categories/accessories/men/men-watches/watches"
+                                      className={styles.categoryLink}
+                                >
+                                    {watches}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/accessories/men/all-products/other-products">
-                                    <a className={styles.categoryLink}>{allProducts}</a>
+                                <Link href="/categories/accessories/men/all-products/other-products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>
@@ -57,13 +79,10 @@ export function AccessoriesCollections({language}) {
                         <span>{kids}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/accessories/kids/all-products/products">
-                                    <a
-                                        className={styles.categoryLink}
-                                        style={{padding: "1rem 0 2rem 0"}}
-                                    >
-                                        {allProducts}
-                                    </a>
+                                <Link href="/categories/accessories/kids/all-products/products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>

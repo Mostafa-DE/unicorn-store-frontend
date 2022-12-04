@@ -18,7 +18,7 @@ const CarouselDresses: React.FC<ICarouselDressesProps> = ({
   return (
     <div>
       <div className="containerTitle">
-        <h1 className="h1Title" data-aos="zoom-in">
+        <h1 className="h1Title" data-aos="zoom-in" data-aos-once='true'>
           أبرز المنتجات
         </h1>
         <AiOutlineLine className="lineIcon" />

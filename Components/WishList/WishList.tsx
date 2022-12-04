@@ -42,7 +42,7 @@ export default function WishList({ products, token }) {
 
   return (
     <div className={styles.main}>
-      <Box data-aos="fade-in" className="containerTitle">
+      <Box data-aos="fade-in" data-aos-once='true' className="containerTitle">
         <h1 className="h1Title"> قائمة المفضلة </h1>
         <AiOutlineLine className="lineIcon" />
       </Box>
@@ -57,7 +57,7 @@ export default function WishList({ products, token }) {
         </Box>
       )}
       {products.length !== 0 ? (
-        <Box data-aos="fade-right" className={styles.containerWishList}>
+        <Box data-aos="fade-right" data-aos-once='true' className={styles.containerWishList}>
           {products.map((product) => (
             <Box key={product.id} className={styles.containerProducts}>
               <img width={200} height={240} src={product.image.url} />

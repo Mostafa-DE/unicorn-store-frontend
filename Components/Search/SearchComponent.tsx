@@ -9,6 +9,7 @@ export default function SearchComponent({products, token}) {
     return (
         <Box sx={{margin: "8rem 0 0 0"}}>
             <Box data-aos="fade-in"
+                 data-aos-once='true'
                  className="containerTitle"
             >
                 <h1 className="h1Title">نتائج البحث عن </h1>

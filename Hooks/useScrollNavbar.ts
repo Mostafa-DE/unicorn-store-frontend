@@ -3,24 +3,25 @@ import { useState, useEffect } from "react";
 export default function useScrollNavbar() {
   const [scrollState, setScrollState] = useState("top");
 
-  useEffect(() => {
-    let listener = null;
-    listener = document.addEventListener("scroll", () => {
-      var scrolled = document.scrollingElement.scrollTop;
+  const handleScroll = (): void => {
+      let scrolled = document.scrollingElement.scrollTop;
       if (scrolled >= 100) {
-        if (scrollState !== "amir") {
-          setScrollState("amir");
+        if (scrollState !== "scrolled") {
+          setScrollState("scrolled");
         }
       } else {
         if (scrollState !== "top") {
           setScrollState("top");
         }
       }
-    });
+    }
+
+  useEffect(() => {
+    document.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      document.removeEventListener("scroll", listener);
+      document.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollState]);
+  });
 
   return [scrollState];
 }

@@ -188,10 +188,8 @@ export default function RegisterForm() {
                     </div>
                     <label className="form-check-label" htmlFor="form2Example3">
                       أنا اوافق على{" "}
-                      <Link href="/terms-policy/terms-conditions">
-                        <a className={styles.linkTermsAndConditions}>
+                      <Link href="/terms-policy/terms-conditions" className={styles.linkTermsAndConditions}>
                           شروط و أحكام{" "}
-                        </a>
                       </Link>
                       هذا الموقع
                     </label>

@@ -5,6 +5,7 @@ import {womenCollections, kidsCollections, menCollections, accessoriesCollection
 import {languages} from "./TranslateText"
 import {useContext} from "react";
 import {LanguageContext} from "@/context/LanguageContext";
+import Box from "@mui/material/Box";
 
 export default function CategoriesPhoto() {
     // @ts-ignore
@@ -25,6 +26,7 @@ export default function CategoriesPhoto() {
 
     return (
         <div data-aos="fade-in"
+             data-aos-once='true'
              className={styles.main}
         >
             <div className={styles.container}>
@@ -37,8 +39,8 @@ export default function CategoriesPhoto() {
                             <div className={styles.containerCategories}>
                                 <div className={styles.allCategories}>
                                     <ul className={styles.WomenUl}>
-                                        {womenCollections(womenLinksTitle).map(collection => (
-                                            <>
+                                        {womenCollections(womenLinksTitle).map((collection, idx) => (
+                                            <Box key={idx}>
                                                 {collection.type === "turkey" && (
                                                     <div className={styles.containerTitle}>
                                                         <p className={styles.titleCategories}>{collection.title}</p>
@@ -50,18 +52,19 @@ export default function CategoriesPhoto() {
                                                         <Link
                                                             key={idx}
                                                             href={link.url}
+                                                            passHref
                                                         >
                                                             <li>{link.title}</li>
                                                         </Link>
                                                     ))}
-                                            </>
+                                            </Box>
                                         ))}
                                     </ul>
                                 </div>
                                 <div className={styles.allCategories}>
                                     <ul className={styles.WomenUl}>
-                                        {womenCollections(womenLinksTitle).map(collection => (
-                                            <>
+                                        {womenCollections(womenLinksTitle).map((collection, idx) => (
+                                            <Box key={idx}>
                                                 {collection.type === "local" && (
                                                     <div className={styles.containerTitle}>
                                                         <p className={styles.titleCategories}>{collection.title}</p>
@@ -77,7 +80,7 @@ export default function CategoriesPhoto() {
                                                             <li>{link.title}</li>
                                                         </Link>
                                                     ))}
-                                            </>
+                                            </Box>
                                         ))}
                                     </ul>
                                 </div>
@@ -102,6 +105,7 @@ export default function CategoriesPhoto() {
                                             <Link
                                                 key={idx}
                                                 href={collection.url}
+                                                passHref
                                             >
                                                 <li>{collection.title}</li>
                                             </Link>
@@ -129,6 +133,7 @@ export default function CategoriesPhoto() {
                                             <Link
                                                 key={idx}
                                                 href={collection.url}
+                                                passHref
                                             >
                                                 <li>{collection.title}</li>
                                             </Link>
@@ -148,8 +153,8 @@ export default function CategoriesPhoto() {
                             <div className={styles.containerCategoriesAccessories}>
                                 <div className={styles.allCategories}>
                                     <ul>
-                                        {accessoriesCollections(accessoriesLinksTitle).map(collection => (
-                                            <>
+                                        {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (
+                                            <Box key={idx}>
                                                 {collection.type === "women" && (
                                                     <div className={styles.containerTitle}>
                                                         <p className={styles.titleCategories}>{collection.title}</p>
@@ -161,18 +166,19 @@ export default function CategoriesPhoto() {
                                                         <Link
                                                             key={idx}
                                                             href={link.url}
+                                                            passHref
                                                         >
                                                             <li>{link.title}</li>
                                                         </Link>
                                                     ))}
-                                            </>
+                                            </Box>
                                         ))}
                                     </ul>
                                 </div>
                                 <div className={styles.allCategories}>
                                     <ul>
-                                        {accessoriesCollections(accessoriesLinksTitle).map(collection => (
-                                            <>
+                                        {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (
+                                            <Box key={idx}>
                                                 {collection.type === "men" && (
                                                     <div className={styles.containerTitle}>
                                                         <p className={styles.titleCategories}>{collection.title}</p>
@@ -184,18 +190,19 @@ export default function CategoriesPhoto() {
                                                         <Link
                                                             key={idx}
                                                             href={link.url}
+                                                            passHref
                                                         >
                                                             <li>{link.title}</li>
                                                         </Link>
                                                     ))}
-                                            </>
+                                            </Box>
                                         ))}
                                     </ul>
                                 </div>
                                 <div className={styles.allCategories}>
                                     <ul>
-                                        {accessoriesCollections(accessoriesLinksTitle).map(collection => (
-                                            <>
+                                        {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (
+                                            <Box key={idx}>
                                                 {collection.type === "kids" && (
                                                     <div className={styles.containerTitle}>
                                                         <p className={styles.titleCategories}>{collection.title}</p>
@@ -207,11 +214,12 @@ export default function CategoriesPhoto() {
                                                         <Link
                                                             key={idx}
                                                             href={link.url}
+                                                            passHref
                                                         >
                                                             <li>{link.title}</li>
                                                         </Link>
                                                     ))}
-                                            </>
+                                            </Box>
                                         ))}
                                     </ul>
                                 </div>
@@ -223,7 +231,7 @@ export default function CategoriesPhoto() {
                 <div className={styles.containerMakeup}>
                     <div className={styles.makeupCardContent}>
                         <p className={styles.makeupText}> {makeUpTitle} </p>
-                        <Link href="/categories/makeup/products">
+                        <Link href="/categories/makeup/products" passHref>
                             <button className={styles.makeupShopBtn}>{btnText}</button>
                         </Link>
                     </div>
@@ -232,7 +240,7 @@ export default function CategoriesPhoto() {
                 <div className={styles.containerHouseware}>
                     <div className={styles.housewareCardContent}>
                         <p className={styles.housewareText}> {housewaresTitle} </p>
-                        <Link href="/categories/houseware/products">
+                        <Link href="/categories/houseware/products" passHref>
                             <button className={styles.housewareShopBtn}>{btnText}</button>
                         </Link>
                     </div>

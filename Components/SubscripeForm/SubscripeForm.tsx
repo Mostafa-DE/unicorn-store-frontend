@@ -27,11 +27,12 @@ export default function Test() {
         <div className={styles.containerImgs}>
           <img
             data-aos="fade-left"
+            data-aos-once='true'
             src="/images/unicorn/man-model.png"
             className={styles.manImg}
             alt="man-subscribe-img"
           />
-          <div data-aos="zoom-in" className={styles.containerForm}>
+          <div data-aos="zoom-in" data-aos-once='true' className={styles.containerForm}>
             <span>إشترك معنا الآن</span>
             <p>إشترك للحصول على آخر الأخبار و العروض الجديدة</p>
             <form onSubmit={handleSubmit}>
@@ -53,6 +54,7 @@ export default function Test() {
           </div>
           <img
             data-aos="fade-right"
+            data-aos-once='true'
             src="/images/unicorn/women-model.png"
             className={styles.womenImg}
             alt="women-subscribe-img"
