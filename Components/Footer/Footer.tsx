@@ -39,43 +39,43 @@ export default function Header() {
             <ul className="list-unstyled">
               <li>
                 <p>
-                  <Link href="/terms-policy/terms-conditions">
-                    <a className={styles.link}> الأحكام و الشروط </a>
+                  <Link href="/terms-policy/terms-conditions" className={styles.link}>
+                    الأحكام و الشروط
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
-                  <Link href="/terms-policy/privacy-policy">
-                    <a className={styles.link}>سياسة خاصة</a>
+                  <Link href="/terms-policy/privacy-policy" className={styles.link}>
+                   سياسة خاصة
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
-                  <Link href="/terms-policy/sales-policy">
-                    <a className={styles.link}>سياسة المبيعات</a>
+                  <Link href="/terms-policy/sales-policy" className={styles.link}>
+                    سياسة المبيعات
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
-                  <Link href="/terms-policy/refund-policy">
-                    <a className={styles.link}>سياسة الاسترجاع</a>
+                  <Link href="/terms-policy/refund-policy" className={styles.link}>
+                    سياسة الاسترجاع
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
-                  <Link href="/terms-policy/cancellation-policy">
-                    <a className={styles.link}>سياسة الإلغاء</a>
+                  <Link href="/terms-policy/cancellation-policy" className={styles.link}>
+                    سياسة الإلغاء
                   </Link>
                 </p>
               </li>
               <li>
                 <p>
-                  <Link href="/terms-policy/shipping-policy">
-                    <a className={styles.link}>سياسة الشحن</a>
+                  <Link href="/terms-policy/shipping-policy" className={styles.link}>
+                    سياسة الشحن
                   </Link>
                 </p>
               </li>
@@ -102,6 +102,7 @@ export default function Header() {
                     className={styles.link}
                     href="tel:0787834878"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     0787834878
                   </a>
@@ -114,6 +115,7 @@ export default function Header() {
                     className={styles.link}
                     href="https://wa.me/message/HRQFZDWSM3EUH1"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     0787834878
                   </a>
@@ -126,6 +128,7 @@ export default function Header() {
                     className={styles.link}
                     href="http://m.me/JoUnicornsStore"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     Unicorns Store
                   </a>
@@ -138,6 +141,7 @@ export default function Header() {
                     className={styles.link}
                     href="https://mail.google.com/mail/?view=cm&source=mailto&to=aya551555.com"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     unicornStore51@gmail.com
                   </a>
@@ -153,6 +157,7 @@ export default function Header() {
             <a
               href="https://web.facebook.com/JoUnicornsStore"
               target="_blank"
+              rel="noreferrer"
               type="button"
               aria-label="Facebook"
               className={`btn-floating btn-fb ${styles.link} ${styles.social} `}
@@ -162,6 +167,7 @@ export default function Header() {
             <a
               href="https://www.instagram.com/unicornsstore_jo/"
               target="_blank"
+              rel="noreferrer"
               type="button"
               aria-label="Instagram"
               className={`btn-floating btn-tw ${styles.link} ${styles.social} `}
@@ -171,6 +177,7 @@ export default function Header() {
             <a
               href="https://twitter.com/login"
               target="_blank"
+              rel="noreferrer"
               type="button"
               aria-label="Twitter"
               className={`btn-floating btn-dribbble ${styles.link} ${styles.social}  `}
@@ -185,7 +192,7 @@ export default function Header() {
       <div className={styles.copyRight}>
         <p>
           Copyright © Unicorns Store All rights reserved || Made By
-          <a href="https://www.linkedin.com/in/mostafa-de/" target="_blank">
+          <a href="https://www.linkedin.com/in/mostafa-de/" target="_blank" rel="noreferrer">
             MOSTAFA FAYYAD
           </a>
         </p>

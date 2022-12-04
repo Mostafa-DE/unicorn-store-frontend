@@ -131,6 +131,8 @@
     transition: all 0.4s ease-in;
     font-weight: 600;
     margin: 0.5rem 0 2rem 0;
+    text-align: center;
+    text-decoration: none;
 }
 
 .continueShoppingBtn:hover {

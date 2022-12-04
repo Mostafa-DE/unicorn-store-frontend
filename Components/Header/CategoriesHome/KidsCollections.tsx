@@ -16,18 +16,25 @@ export function KidsCollections({language}) {
                         <span>{TurkishMade}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/kids-fashions/kids-pajamas/pajamas">
-                                    <a className={styles.categoryLink}>{pajamas}</a>
+                                <Link
+                                    href="/categories/kids-fashions/kids-pajamas/pajamas"
+                                    className={styles.categoryLink}
+                                >
+                                    {pajamas}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/kids-fashions/kids-dresses/dresses">
-                                    <a className={styles.categoryLink}>{dresses}</a>
+                                <Link href="/categories/kids-fashions/kids-dresses/dresses"
+                                      className={styles.categoryLink}
+                                >
+                                    {dresses}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/categories/kids-fashions/all-products/other-products">
-                                    <a className={styles.categoryLink}>{allProducts}</a>
+                                <Link href="/categories/kids-fashions/all-products/other-products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>

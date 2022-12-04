@@ -17,28 +17,34 @@ export function MoreCollections({language}) {
                         <span>{makeup}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/makeup/products">
-                                    <a className={styles.categoryLink}>{allProducts}</a>
+                                <Link href="/categories/makeup/products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>
 
-                        <hr />
+                        <hr/>
                         <span>{packages}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/packages/products">
-                                    <a className={styles.categoryLink}>{allProducts}</a>
+                                <Link href="/categories/packages/products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>
 
-                        <hr />
+                        <hr/>
                         <span>{houseware}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/houseware/products">
-                                    <a className={styles.categoryLink}>{allProducts}</a>
+                                <Link href="/categories/houseware/products"
+                                      className={styles.categoryLink}
+                                >
+                                    {allProducts}
                                 </Link>
                             </li>
                         </ul>

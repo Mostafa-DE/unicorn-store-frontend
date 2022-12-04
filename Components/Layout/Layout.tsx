@@ -1,5 +1,5 @@
 import styles from "@/components/Layout/Layout.module.css";
-import {useContext, useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import Head from "next/head";
 import Link from "next/link";
 import {useRouter} from "next/dist/client/router";
@@ -18,7 +18,7 @@ export interface ILayoutProps {
   title: string;
   children: React.ReactNode;
   description?: string;
-  userAccount?: {};
+  userAccount?: unknown;
 }
 
 const Layout: React.FC<ILayoutProps> = ({

@@ -28,10 +28,10 @@ export default function MyAccount({userAccount, userProfile, token}) {
                     <div data-aos="fade-out"
                          className={styles.containerBtns}
                     >
-                        <Link href="/account/dashboard-user">
+                        <Link href="/account/dashboard-user" passHref>
                             <button className={styles.orderHistoryBtn}>سجل طلباتك</button>
                         </Link>
-                        <Link href="/products/shopping-bag">
+                        <Link href="/products/shopping-bag" passHref>
                             <button className={styles.shoppingBagBtn}>
                                 حقيبة التسوق
                             </button>

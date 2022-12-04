@@ -1,12 +1,24 @@
 import {NextResponse} from "next/server";
 import {API_URL, NEXT_URL} from "@/config/index";
+import type {NextRequest} from 'next/server'
 
 
-export async function middleware(req) {
+export async function middleware(req: NextRequest) {
+    const PUBLIC_FILE = /\.(.*)$/; // regex to match public files
+    const {pathname} = req.nextUrl;
+    if (
+        pathname.startsWith("/_next") || // exclude Next.js internals
+        pathname.startsWith("/api") || //  exclude all API routes
+        pathname.startsWith("/static") || // exclude static files
+        PUBLIC_FILE.test(pathname) // exclude all files in the public folder
+    ) {
+        return NextResponse.next();
+    }
+
     try {
         await fetch(API_URL);
-        const token = req.cookies['token']
-        const pageName = req.page.name
+        const token = req.cookies.get('token')?.value;
+        const pageName = req.nextUrl.pathname;
         const handleRoute =
             (suffix = '') => token ? NextResponse.redirect(`${NEXT_URL}${suffix}`) : NextResponse.next()
 
@@ -20,7 +32,7 @@ export async function middleware(req) {
                 })
                 const currentUser = await getCurrentUser.json();
                 if (currentUser.statusCode === 401) return NextResponse.redirect(NEXT_URL);
-                res.cookie("user", JSON.stringify(currentUser))
+                res.cookies.set('user', JSON.stringify(currentUser))
                 return res
             }
             return NextResponse.redirect(`${NEXT_URL}${suffix}`);
@@ -38,7 +50,7 @@ export async function middleware(req) {
         const protectedRoute = protectedRoutes[pageName]
         return protectedRoute ? protectedRoute() : NextResponse.next();
     } catch (err) {
-        return NextResponse.rewrite(`${NEXT_URL}/503`)
+        return NextResponse.rewrite(`${NEXT_URL}/503`);
     }
 
 }

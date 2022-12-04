@@ -79,14 +79,14 @@ export default function Header() {
         }`}
       >
         <div className={styles.logo}>
-          <Link href="/">
+          <Link href="/" passHref>
             <img
               src="/images/unicorn.png"
               alt="unicorns-logo"
               className={styles.logoImg}
             />
           </Link>
-          <Link href="/">
+          <Link href="/" passHref>
             <img
               src="/images/unicorn2.png"
               alt="unicorns-logo"
