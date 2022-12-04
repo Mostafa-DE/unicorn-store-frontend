@@ -19,6 +19,7 @@ export default function MyAccount({userAccount, userProfile, handleEditMode}) {
                     <TableRow>
                         <TableCell
                             data-aos="fade-out"
+                            data-aos-once='true'
                             className={styles.titleTable}
                             align="right"
                         >
@@ -27,7 +28,7 @@ export default function MyAccount({userAccount, userProfile, handleEditMode}) {
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
-                <TableHead data-aos="fade-out">
+                <TableHead data-aos="fade-out" data-aos-once='true'>
                     <TableRow>
                         <TableCell align="left">{firstName}</TableCell>
                         <TableCell align="right">الإسم الأول</TableCell>

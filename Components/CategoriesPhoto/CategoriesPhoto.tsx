@@ -26,6 +26,7 @@ export default function CategoriesPhoto() {
 
     return (
         <div data-aos="fade-in"
+             data-aos-once='true'
              className={styles.main}
         >
             <div className={styles.container}>

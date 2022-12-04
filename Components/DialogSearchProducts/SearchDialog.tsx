@@ -27,7 +27,7 @@ export default function DialogShoppingBag({ searchDialog, closeSearchDialog }) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <div data-aos="fade-in" className={styles.containerTitle}>
+          <div data-aos="fade-in" data-aos-once='true' className={styles.containerTitle}>
             <p className={styles.titleShoppingBag}>
               {" "}
               أخبرنا مالذي تبحث عنه ؟؟{" "}

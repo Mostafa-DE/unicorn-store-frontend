@@ -96,7 +96,7 @@ export default function Header() {
         </div>
 
         <div>
-          <ul data-aos="fade-out" className={styles.containerLink}>
+          <ul data-aos="fade-out" data-aos-once='true'  className={styles.containerLink}>
             <WomanCollections language={language} />
             <MenCollections language={language} />
             <KidsCollections language={language} />

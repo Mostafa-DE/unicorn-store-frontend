@@ -1,7 +1,9 @@
 import ChatBot from "react-simple-chatbot";
-import {useState} from "react";
+import React, {useState} from "react";
 import {ThemeProvider} from "styled-components";
 import HeaderChatBot from "./HeaderChatBot";
+import styles from "@/components/ChatBot/HeaderChatBot.module.css";
+import Image from "next/legacy/image";
 
 const theme = {
     background: "#fff",
@@ -33,11 +35,17 @@ export default function ChatBotComponent({userAccount}) {
                     }
                     botAvatar="/images/avatar.svg"
                     floatingIcon={
-                        <img
-                            src="/images/avatar.svg"
-                            width={45}
-                            height={45}
-                            alt="chatBot-img"
+                        <Image className={styles.imgAvatar}
+                               src="/images/avatar.svg"
+                               style={{
+                                   backgroundColor: "#fb9aa7",
+                                   padding: "0.3rem",
+                                   borderRadius: "50%",
+                                   margin: "0.5rem 0.5rem 0 0",
+                               }}
+                               alt="avatar image"
+                               height={40}
+                               width={40}
                         />
                     }
                     floatingStyle={{bottom: "5.2rem", right: "1.9rem"}}

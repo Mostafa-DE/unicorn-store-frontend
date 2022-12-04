@@ -104,7 +104,7 @@ const ProductItems: React.FC<IProductItemsProps> = ({ product, token }) => {
   };
 
   return (
-    <div data-aos="fade-right" className={styles.container}>
+    <div data-aos="fade-right" data-aos-once='true' className={styles.container}>
       <img className={styles.imgs} src={product.images[0]?.url} />
       <DialogSocialShare
         shareDialog={shareDialog}

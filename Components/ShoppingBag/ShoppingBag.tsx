@@ -41,14 +41,14 @@ export default function ShoppingBag({ token }) {
 
   return (
     <div className={styles.main}>
-      <div data-aos="fade-in" className="containerTitle">
+      <div data-aos="fade-in" data-aos-once='true' className="containerTitle">
         <h1 className="h1Title"> حقيبة التسوق </h1>
         <AiOutlineLine className="lineIcon" />
       </div>
       {items.length !== 0 ? (
         <>
           <TableContainer style={{ margin: "3.5rem 0 0 0" }}>
-            <Table data-aos="fade-in">
+            <Table data-aos="fade-in" data-aos-once='true'>
               <TableHead>
                 <TableRow>
                   <TableCell align="left">
@@ -124,7 +124,7 @@ export default function ShoppingBag({ token }) {
             </Table>
           </TableContainer>
 
-          <div data-aos="fade-in" className={styles.containerBoxAmountDetails}>
+          <div data-aos="fade-in" data-aos-once='true' className={styles.containerBoxAmountDetails}>
             <div className={styles.totalAmountDetails}>
               <p className={styles.subTotalText}>
                 {bag.totalBag} JD :السعر الإجمالي

@@ -77,6 +77,7 @@ const Layout: React.FC<ILayoutProps> = ({
             <Header/>
             {router.pathname === "/" && (
                 <div data-aos="fade-in"
+                     data-aos-once='true'
                      className={styles.coverHome}
                 >
                     <div className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
