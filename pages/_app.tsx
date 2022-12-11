@@ -8,7 +8,6 @@ import {WishBagProvider} from "@/context/WishBagContext";
 import {CompareProvider} from "@/context/CompareContext";
 import {ShippingInfoProvider} from "@/context/ShippingInfoContext";
 import {LanguageProvider} from "@/context/LanguageContext";
-import {motion, AnimatePresence} from "framer-motion";
 
 function MyApp({Component, pageProps, router}) {
     useEffect(() => {
@@ -41,40 +40,48 @@ function MyApp({Component, pageProps, router}) {
                 integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
                 crossOrigin="anonymous"
             />
-            <AnimatePresence>
-                <motion.div
-                    key={router.route}
-                    initial="pageInitial"
-                    animate="pageAnimate"
-                    variants={{
-                        pageInitial: {
-                            opacity: 0
-                        },
-                        pageAnimate: {
-                            opacity: 1
-                        },
-                        pageExit: {
-                            backgroundColor: "#fb9aa7",
-                            opacity: 0
-                        }
-                    }}
-                >
-                    <AuthProvider>
-                        <BagProvider>
-                            <WishBagProvider>
-                                <CompareProvider>
-                                    <ShippingInfoProvider>
-                                        <LanguageProvider>
-                                            <Component {...pageProps} />
-                                        </LanguageProvider>
-                                    </ShippingInfoProvider>
-                                </CompareProvider>
-                            </WishBagProvider>
-                        </BagProvider>
 
-                    </AuthProvider>
-                </motion.div>
-            </AnimatePresence>
+            {/*
+                Disabled because of the error:
+                    ( ! ) Bug behavior: Using React 18 a component inside <AnimatePresence/> does not unmount
+                                        from the DOM after the exit animation finishes.
+
+                    Issue on GitHub: https://github.com/framer/motion/issues/1421
+             */}
+
+            {/*<AnimatePresence>*/}
+            {/*    <motion.div*/}
+            {/*        key={router.route}*/}
+            {/*        initial="pageInitial"*/}
+            {/*        animate="pageAnimate"*/}
+            {/*        variants={{*/}
+            {/*            pageInitial: {*/}
+            {/*                opacity: 0*/}
+            {/*            },*/}
+            {/*            pageAnimate: {*/}
+            {/*                opacity: 1*/}
+            {/*            },*/}
+            {/*            pageExit: {*/}
+            {/*                backgroundColor: "#fb9aa7",*/}
+            {/*                opacity: 0*/}
+            {/*            }*/}
+            {/*        }}*/}
+            {/*    >*/}
+            <AuthProvider>
+                <BagProvider>
+                    <WishBagProvider>
+                        <CompareProvider>
+                            <ShippingInfoProvider>
+                                <LanguageProvider>
+                                    <Component {...pageProps} />
+                                </LanguageProvider>
+                            </ShippingInfoProvider>
+                        </CompareProvider>
+                    </WishBagProvider>
+                </BagProvider>
+            </AuthProvider>
+            {/*</motion.div>*/}
+            {/*</AnimatePresence>*/}
         </>
     );
 }
