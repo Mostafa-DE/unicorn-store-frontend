@@ -8,8 +8,6 @@ import {WishBagProvider} from "@/context/WishBagContext";
 import {CompareProvider} from "@/context/CompareContext";
 import {ShippingInfoProvider} from "@/context/ShippingInfoContext";
 import {LanguageProvider} from "@/context/LanguageContext";
-import {motion, AnimatePresence} from "framer-motion";
-import Router from "next/router";
 
 function MyApp({Component, pageProps, router}) {
     useEffect(() => {
@@ -42,6 +40,15 @@ function MyApp({Component, pageProps, router}) {
                 integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
                 crossOrigin="anonymous"
             />
+
+            {/*
+                Disabled because of the error:
+                    ( ! ) Bug behavior: Using React 18 a component inside <AnimatePresence/> does not unmount
+                                        from the DOM after the exit animation finishes.
+
+                    Issue on GitHub: https://github.com/framer/motion/issues/1421
+             */}
+
             {/*<AnimatePresence>*/}
             {/*    <motion.div*/}
             {/*        key={router.route}*/}
@@ -72,7 +79,6 @@ function MyApp({Component, pageProps, router}) {
                         </CompareProvider>
                     </WishBagProvider>
                 </BagProvider>
-
             </AuthProvider>
             {/*</motion.div>*/}
             {/*</AnimatePresence>*/}
