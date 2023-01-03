@@ -1,6 +1,6 @@
-import {NextResponse} from "next/server";
-import {API_URL, NEXT_URL} from "@/config/index";
 import type {NextRequest} from 'next/server'
+import {NextResponse} from "next/server";
+import {NEXT_URL} from "@/config/index";
 
 
 export async function middleware(req: NextRequest) {
@@ -24,18 +24,8 @@ export async function middleware(req: NextRequest) {
         (suffix = '') => token ? NextResponse.redirect(`${NEXT_URL}${suffix}`) : NextResponse.next()
 
     const handleRouteWithUser = async (suffix) => {
-        if (token) {
-            const res = NextResponse.next();
-            const getCurrentUser = await fetch(`${API_URL}/users/me`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            const currentUser = await getCurrentUser.json();
-            if (currentUser.statusCode === 401) return NextResponse.redirect(NEXT_URL);
-            res.cookies.set('user', JSON.stringify(currentUser))
-            return res
-        }
+        if (token) return NextResponse.next();
+
         return NextResponse.redirect(`${NEXT_URL}${suffix}`);
     }
 

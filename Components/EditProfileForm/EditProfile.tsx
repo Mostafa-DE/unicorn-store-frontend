@@ -9,19 +9,16 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {API_URL} from "@/config/index";
 
-export default function EditProfile({userAccount, userProfile, token, handleEditMode}) {
+export default function EditProfile({user, profile, handleEditMode}) {
     const router = useRouter();
-    const {username, email} = userAccount;
-    const {firstName, lastName, phone, address, city, building, deliveryPhone} = userProfile
+    const {first_name, last_name, username, email, is_active} = user;
+    const {phone, address, city, building_number} = profile
 
     const [values, setValues] = useState({
-        firstName: firstName || "",
-        lastName: lastName || "",
         phone: phone || "",
         address: address || "",
         city: city || "",
-        building: building || "",
-        deliveryPhone: deliveryPhone || ""
+        building: building_number || "",
     });
 
     const handleChange = (e) => {
@@ -30,32 +27,32 @@ export default function EditProfile({userAccount, userProfile, token, handleEdit
     }
 
     const setHttpMethod = () => {
-        return userProfile.length === 0 ? "POST" : "PUT";
+        return profile.length === 0 ? "POST" : "PUT";
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const {firstName, lastName, phone, address, city, building, deliveryPhone} = values;
-
-
-        await fetch(`${API_URL}/profiles/me`, {
-            method: setHttpMethod(),
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                firstName,
-                lastName,
-                phone,
-                address,
-                city,
-                building,
-                deliveryPhone
-            })
-        });
-        handleEditMode();
-        await router.replace(router.asPath);
+        // e.preventDefault();
+        // const {firstName, lastName, phone, address, city, building, deliveryPhone} = values;
+        //
+        //
+        // await fetch(`${API_URL}/profiles/me`, {
+        //     method: setHttpMethod(),
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Authorization": `Bearer ${token}`
+        //     },
+        //     body: JSON.stringify({
+        //         firstName,
+        //         lastName,
+        //         phone,
+        //         address,
+        //         city,
+        //         building,
+        //         deliveryPhone
+        //     })
+        // });
+        // handleEditMode();
+        // await router.replace(router.asPath);
     }
 
     useEffect(() => {
@@ -92,29 +89,13 @@ export default function EditProfile({userAccount, userProfile, token, handleEdit
                     <TableHead data-aos="fade-out">
                         <TableRow>
                             <TableCell align="left">
-                                <TextValidator
-                                    type="text"
-                                    name="firstName"
-                                    onChange={handleChange}
-                                    value={values.firstName}
-                                    variant="standard"
-                                    validators={["required"]}
-                                    errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
-                                />
+                                {first_name}
                             </TableCell>
                             <TableCell align="right">الإسم الأول</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="left">
-                                <TextValidator
-                                    type="text"
-                                    name="lastName"
-                                    onChange={handleChange}
-                                    value={values.lastName}
-                                    variant="standard"
-                                    validators={["required"]}
-                                    errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
-                                />
+                                {last_name}
                             </TableCell>
                             <TableCell align="right">الإسم الأخير</TableCell>
                         </TableRow>
@@ -184,27 +165,14 @@ export default function EditProfile({userAccount, userProfile, token, handleEdit
                                     ]}
                                 />
                             </TableCell>
-                            <TableCell align="right">رقم الهاتف الأساسي</TableCell>
+                            <TableCell align="right">رقم الهاتف </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="left">
-                                <TextValidator
-                                    type="text"
-                                    name="deliveryPhone"
-                                    onChange={handleChange}
-                                    value={values.deliveryPhone}
-                                    variant="standard"
-                                    validators={["isPhoneNumber", "isLocalNumber"]}
-                                    errorMessages={[
-                                        "!! رقم الهاتف يجب أن يتكون من 10 أرقام فقط",
-                                        "(078 , 079, 077) رقم الهاتف يجب أن يبدأ ب"
-                                    ]}
-                                />
+                                <span className={is_active ? styles.active : styles.deactive}>
+                                    {is_active ? "فعال" : "غير فعال"}
+                                </span>
                             </TableCell>
-                            <TableCell align="right">رقم هاتف للتوصيل</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align="left"><span className={styles.accountActive}>فعال</span></TableCell>
                             <TableCell align="right">حالة الحساب</TableCell>
                         </TableRow>
                     </TableHead>

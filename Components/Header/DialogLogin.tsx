@@ -27,42 +27,43 @@ export default function DialogLogin() {
     const router = useRouter();
 
     const [loginDialog, openLoginDialog, closeLoginDialog] = useLoginDialog();
-    const [email, handleChangeEmail] = useInputField();
+    const [username, handleChangeUsername] = useInputField();
     const [password, handleChangePassword] = useInputField();
     const [showPassword, handleShowPassword] = useShowPassword();
     const [showErrorMessage, setShowErrorMessage] = useState(false);
-    const [showAlertRememberCookies, setShowAlertRememberCookies] =
-        useState(false);
+    const [showAlertRememberCookies, setShowAlertRememberCookies] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     //TODO: add right types here
     // @ts-ignore
-    const {login, logout, user, error} = useContext(AuthContext);
+    const {login, logout, user, error, setError} = useContext(AuthContext);
     //TODO: add right types here
     // @ts-ignore
     const {language} = useContext(LanguageContext);
 
     useEffect(() => {
         error && setShowErrorMessage(true);
-    });
+    }, [error, user]);
 
     const {titleLogin, titleLogout} = languages[language];
 
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
         setIsLoading(true);
-        await login({email, password});
+        await login({username, password});
         setIsLoading(false);
     };
     const handleCloseErrorMessage = () => {
         setShowErrorMessage(!showErrorMessage);
+        setError(null);
     };
     const handleShowAlertRemember = () => {
         setShowAlertRememberCookies(!showAlertRememberCookies);
     };
-    const handleLoginGoogle = async () => {
-        await router.push(`${API_URL}/connect/google`);
-    };
+
+    // const handleLoginGoogle = async () => {
+    //     await router.push(`${API_URL}/connect/google`);
+    // };
 
     return (
         <div>
@@ -94,15 +95,15 @@ export default function DialogLogin() {
                 <ValidatorForm onSubmit={handleSubmit}>
                     <p className={styles.titleDialog}>تسجيل الدخول</p>
 
-                    <div className={styles.containerGoogleAndFacebookBtn}>
-                        <button
-                            type="button"
-                            className={styles.googleBtn}
-                            onClick={handleLoginGoogle}
-                        >
-                            <FaGoogle/>
-                        </button>
-                    </div>
+                    {/*<div className={styles.containerGoogleAndFacebookBtn}>*/}
+                    {/*    <button*/}
+                    {/*        type="button"*/}
+                    {/*        className={styles.googleBtn}*/}
+                    {/*        onClick={handleLoginGoogle}*/}
+                    {/*    >*/}
+                    {/*        <FaGoogle/>*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
 
                     <Alert
                         style={{
@@ -115,8 +116,7 @@ export default function DialogLogin() {
                         onClose={handleCloseErrorMessage}
                         show={showErrorMessage}
                     >
-                        نعتذر كلمة المرور أو البريد الإلكتروني غير صحيح يرجى المحاولة مرة
-                        أخرى
+                        {error}
                     </Alert>
 
                     <Alert
@@ -140,14 +140,15 @@ export default function DialogLogin() {
                     <DialogContent>
                         <div className={styles.containerInput}>
                             <TextValidator
-                                type="email"
+                                type="text"
+                                name="username"
                                 //TODO: add right types here
                                 // @ts-ignore
-                                onChange={handleChangeEmail}
-                                value={email}
+                                onChange={handleChangeUsername}
+                                value={username}
                                 fullWidth
                                 variant="standard"
-                                label="البريد الإلكتروني"
+                                label="اسم المستخدم"
                                 validators={["required"]}
                                 errorMessages={[" !! لا تستطيع ترك هذا الحقل فارغاً"]}
                             />
