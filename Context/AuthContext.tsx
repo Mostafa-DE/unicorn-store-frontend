@@ -1,6 +1,6 @@
-import {createContext, useState, useEffect} from "react";
+import {createContext, useState, useEffect, useCallback} from "react";
 import {useRouter} from "next/router";
-import {API_URL, NEXT_URL} from "@/config/index";
+import {NEXT_URL} from "@/config/index";
 
 //TODO: add right types here
 // @ts-ignore
@@ -12,10 +12,16 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [userProfile, setUserProfile] = useState(null);
     const [error, setError] = useState(null);
+    const [message, setMessage] = useState(null);
+
+    const fetchData = useCallback(async () => {
+        await getCurrentUserAndProfile();
+    }, []);
 
     useEffect(() => {
-        getCurrentUserAndProfile();
-    }, []);
+        fetchData()
+            .catch(err => console.log(err));
+    }, [fetchData]);
 
     const register = async (user) => {
         const createUser = await fetch(`${NEXT_URL}/api/auth/register`, {
@@ -29,12 +35,12 @@ export const AuthProvider = ({children}) => {
 
         const data = await createUser.json();
 
-        if (createUser.ok) {
-            setUser(data.user);
-            await router.push("/account/my-account");
-        } else {
+        if (!createUser.ok) {
             setError(data.message);
+            return;
         }
+        setMessage("User created successfully, please login to continue...");
+        await router.push("/account/my-account");
     };
 
     const login = async ({username, password}) => {
@@ -50,12 +56,11 @@ export const AuthProvider = ({children}) => {
             }),
         });
 
-        const user = await loginUser.json();
         if (!loginUser.ok) {
             setError("Username or password is incorrect, please try again with correct credentials");
             return;
         }
-        setUser(user);
+
         if (router.pathname === "/account/checkout-login") {
             await router.push("/payment/shipping-info");
             return;
@@ -64,7 +69,8 @@ export const AuthProvider = ({children}) => {
             await router.reload();
             return;
         }
-        await router.push("/account/my-account");
+        await getCurrentUserAndProfile();
+        setMessage("Hi, Welcome to unicorns store");
     };
 
     const logout = async () => {
@@ -77,12 +83,17 @@ export const AuthProvider = ({children}) => {
             body: JSON.stringify({username: user?.username}),
         });
 
-        if (logoutUser.ok) setUser(null);
+        const data = await logoutUser.json();
+
+        if (logoutUser.ok) {
+            await getCurrentUserAndProfile();
+            setMessage(data.message);
+        }
     };
 
     const getCurrentUserAndProfile = async () => {
         const currentUser = await fetch(`${NEXT_URL}/api/auth/user`);
-        const currentUserProfile = await fetch(`${NEXT_URL}/api/auth/user-profile`);
+        const currentUserProfile = await fetch(`${NEXT_URL}/api/auth/get-user-profile`);
         const currentUserData = await currentUser.json();
         const currentUserProfileData = await currentUserProfile.json();
 
@@ -95,8 +106,37 @@ export const AuthProvider = ({children}) => {
         }
     };
 
+    const updateProfile = async (profileData) => {
+        const userRes = await fetch(`${NEXT_URL}/api/auth/update-user-profile`, {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(profileData),
+        });
+        if (!userRes.ok) {
+            setError("Something went wrong, please try again");
+            return;
+        }
+        setMessage("Profile updated successfully");
+        await getCurrentUserAndProfile();
+    }
+
     return (
-        <AuthContext.Provider value={{user, userProfile, error, setError, register, login, logout, getCurrentUserAndProfile}}>
+        <AuthContext.Provider value={{
+            user,
+            userProfile,
+            error,
+            setError,
+            message,
+            setMessage,
+            register,
+            login,
+            logout,
+            updateProfile,
+            getCurrentUserAndProfile,
+        }}>
             {children}
         </AuthContext.Provider>
     );

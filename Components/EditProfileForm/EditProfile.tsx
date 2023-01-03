@@ -1,5 +1,6 @@
 import styles from "@/components/MyAccount/MyAccount.module.css";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
+import {AuthContext} from "@/context/AuthContext";
 import {useRouter} from "next/router";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import TableContainer from "@mui/material/TableContainer";
@@ -13,12 +14,14 @@ export default function EditProfile({user, profile, handleEditMode}) {
     const router = useRouter();
     const {first_name, last_name, username, email, is_active} = user;
     const {phone, address, city, building_number} = profile
+    // @ts-ignore
+    const {updateProfile} = useContext(AuthContext);
 
     const [values, setValues] = useState({
-        phone: phone || "",
-        address: address || "",
-        city: city || "",
-        building: building_number || "",
+        phone: phone ?? "",
+        address: address ?? "",
+        city: city ?? "",
+        building_number: building_number ?? "",
     });
 
     const handleChange = (e) => {
@@ -26,41 +29,19 @@ export default function EditProfile({user, profile, handleEditMode}) {
         setValues({...values, [name]: value});
     }
 
-    const setHttpMethod = () => {
-        return profile.length === 0 ? "POST" : "PUT";
-    }
 
     const handleSubmit = async (e) => {
-        // e.preventDefault();
-        // const {firstName, lastName, phone, address, city, building, deliveryPhone} = values;
-        //
-        //
-        // await fetch(`${API_URL}/profiles/me`, {
-        //     method: setHttpMethod(),
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Authorization": `Bearer ${token}`
-        //     },
-        //     body: JSON.stringify({
-        //         firstName,
-        //         lastName,
-        //         phone,
-        //         address,
-        //         city,
-        //         building,
-        //         deliveryPhone
-        //     })
-        // });
-        // handleEditMode();
-        // await router.replace(router.asPath);
+        e.preventDefault();
+        await updateProfile(values);
+        handleEditMode();
+        await router.replace(router.asPath);
     }
 
     useEffect(() => {
         ValidatorForm.addValidationRule("isPhoneNumber", value => {
             return (value.length === 10 || value === "")
         });
-    });
-    useEffect(() => {
+
         ValidatorForm.addValidationRule("isLocalNumber", value => {
             return !!(value.match("078") || value.match("079") || value.match("077") || value === "");
         });
@@ -139,9 +120,9 @@ export default function EditProfile({user, profile, handleEditMode}) {
                             <TableCell align="left">
                                 <TextValidator
                                     type="text"
-                                    name="building"
+                                    name="building_number"
                                     onChange={handleChange}
-                                    value={values.building}
+                                    value={values.building_number}
                                     variant="standard"
                                     validators={["required"]}
                                     errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}

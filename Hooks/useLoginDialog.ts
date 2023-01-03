@@ -9,5 +9,5 @@ export default function useLoginDialog() {
     setOpenDialog(false);
   };
 
-  return [openDialog, handleOpenDialog, handleCloseDialog];
+  return [openDialog, handleOpenDialog, handleCloseDialog] as const;
 }

@@ -25,12 +25,12 @@ const loginApi = async (req: LoginRequest, res: NextApiResponse) => {
         })
     });
 
-    const data = await loginRes.json();
+    const tokenObj = await loginRes.json();
 
     if (loginRes.ok) {
         res.setHeader(
             "Set-Cookie",
-            cookie.serialize("token", data.token, {
+            cookie.serialize("token", tokenObj.token, {
                 httpOnly: true,
                 maxAge: 60 * 60 * 24 * 7, // for a week
                 sameSite: "strict",
@@ -38,6 +38,6 @@ const loginApi = async (req: LoginRequest, res: NextApiResponse) => {
             })
         );
     }
-    res.status(loginRes.status).json({data});
+    res.status(loginRes.status).json({tokenObj});
 };
 export default loginApi;

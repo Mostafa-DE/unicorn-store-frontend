@@ -52,6 +52,7 @@ export default function DialogLogin() {
         setIsLoading(true);
         await login({username, password});
         setIsLoading(false);
+        if(!error) closeLoginDialog();
     };
     const handleCloseErrorMessage = () => {
         setShowErrorMessage(!showErrorMessage);

@@ -26,7 +26,7 @@ const logoutUserApi = async (req: NextApiRequest, res: NextApiResponse) => {
             })
         );
     }
-    res.status(logoutRes.status).json(data);
+    res.status(logoutRes.status).json({message: "Successfully logged out, We hope to see you again soon!"});
 };
 
 export default logoutUserApi;

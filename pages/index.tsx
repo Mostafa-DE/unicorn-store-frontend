@@ -1,7 +1,6 @@
 import Layout from "@/components/Layout/Layout";
 import {useEffect} from "react";
 import CategoriesPhoto from "@/components/CategoriesPhoto/CategoriesPhoto";
-import {API_URL} from "@/config/index";
 import CarouselDresses from "@/components/CarouselDresses/CarouselDresses";
 import {parseCookies} from "@/helpers/index";
 import SubscribeForm from "@/components/SubscripeForm/SubscripeForm";
@@ -14,10 +13,7 @@ export default function Home({products, token, userAccount}) {
 
     return (
         <>
-            <Layout
-                userAccount={userAccount}
-                title="Unicorns Store | Shop Online For Fashions, Tools, Gifts & More"
-            >
+            <Layout title="Unicorns Store | Shop Online For Fashions, Tools, Gifts & More">
                 <CategoriesPhoto/>
 
                 <CarouselDresses token={token} products={products}/>
@@ -35,23 +31,6 @@ export async function getServerSideProps({req}) {
     const urls = [`turkey-dresses`, `local-abayas`, `men-pajamas`];
     const AllProductsArray = [];
 
-    // console.log(req.headers.cookie)
-    // console.log('test test')
-    //
-    //
-    // const userRes = await fetch(`${API_URL}/api/auth/user/`, {
-    //     method: "GET",
-    //     credentials: "include",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         'Access-Control-Allow-Credentials': 'true',
-    //         Cookie: req.headers.cookie,
-    //     }
-    // });
-    //
-    // const data = await userRes.json();
-    // console.log(data)
-
     // await Promise.all(
     //     urls.map((url) =>
     //         fetch(`${API_URL}/${url}?_limit=5`)
@@ -64,20 +43,10 @@ export async function getServerSideProps({req}) {
     //     )
     // );
 
-    // const resAccount = await fetch(`${API_URL}/users/me`, {
-    //     method: "GET",
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //     },
-    // });
-
-    // const userAccount = await resAccount.json();
-
     return {
         props: {
             products: AllProductsArray,
             token: token,
-            // userAccount: userAccount,
         },
     };
 }
