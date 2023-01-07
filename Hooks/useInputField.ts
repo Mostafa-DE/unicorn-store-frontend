@@ -8,7 +8,7 @@ function useInputState() {
   const reset = () => {
     setValue("");
   };
-  return [value, handleChange, reset];
+  return [value, handleChange, reset] as const;
 }
 
 export default useInputState;

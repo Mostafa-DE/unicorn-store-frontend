@@ -34,7 +34,7 @@
 .containerRegisterForm {
     background-color: #fafafa;
     padding: 5rem 5rem 3rem 5rem;
-    margin: -8rem 0 0 0;
+    margin: -6.5rem 0 0 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,6 +111,8 @@
 
 .forgottenPassword {
     color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
 }
 
 .containerGoogleAndFacebookBtn {

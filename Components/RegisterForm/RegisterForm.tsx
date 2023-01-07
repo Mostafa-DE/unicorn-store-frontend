@@ -5,15 +5,12 @@ import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
 import Link from "next/link";
 import {AuthContext} from "@/context/AuthContext";
 import useShowPassword from "@/Hooks/useShowPassword";
-import {RiEyeLine} from "react-icons/ri";
-import {RiEyeCloseLine} from "react-icons/ri";
+import {RiEyeLine, RiEyeCloseLine} from "react-icons/ri";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
-import {alertLoginFailed} from "@/components/CheckoutLogin/Alerts";
+import {DialogAlert} from "@/helpers/AlertsAndDialogs/DialogAlert";
 
 export default function RegisterForm() {
-    //TODO: add right types here
-    // @ts-ignore
-    const {register, error} = useContext(AuthContext);
+    const {register} = useContext(AuthContext);
 
     const [values, setValues] = useState({
         username: "",
@@ -37,19 +34,24 @@ export default function RegisterForm() {
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
         setIsLoading(true);
-        await register({
+        const res = await register({
             username,
             email,
             first_name,
             last_name,
             password,
         });
+        if (!res.ok) {
+            DialogAlert({
+                title: "Something went wrong!!",
+                body: res.errorMessage,
+                icon: "error",
+            })
+            setIsLoading(false);
+            return;
+        }
         setIsLoading(false);
     };
-
-    useEffect(() => {
-        error && alertLoginFailed(error);
-    }, [error]);
 
     useEffect(() => {
         ValidatorForm.addValidationRule("isPhoneNumber", (value) => {
@@ -191,15 +193,11 @@ export default function RegisterForm() {
                                         {showPassword === true ? (
                                             <RiEyeLine
                                                 className={styles.iconShowPassword}
-                                                //TODO: add right types here
-                                                // @ts-ignore
                                                 onClick={handleShowPassword}
                                             />
                                         ) : (
                                             <RiEyeCloseLine
                                                 className={styles.iconShowPassword}
-                                                //TODO: add right types here
-                                                // @ts-ignore
                                                 onClick={handleShowPassword}
                                             />
                                         )}

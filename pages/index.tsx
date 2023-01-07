@@ -1,27 +1,24 @@
-import Layout from "@/components/Layout/Layout";
 import {useEffect} from "react";
 import CategoriesPhoto from "@/components/CategoriesPhoto/CategoriesPhoto";
 import CarouselDresses from "@/components/CarouselDresses/CarouselDresses";
-import {parseCookies} from "@/helpers/index";
+import {parseCookies} from "@/helpers/parseCookies";
 import SubscribeForm from "@/components/SubscripeForm/SubscripeForm";
 import PropertiesOurPage from "@/components/PropertiesOurPage/PropertiesOurPage";
 
-export default function Home({products, token, userAccount}) {
+export default function Home({products, token}) {
     useEffect(() => {
         window.localStorage.removeItem("shippingInformation");
     }, []);
 
     return (
         <>
-            <Layout title="Unicorns Store | Shop Online For Fashions, Tools, Gifts & More">
-                <CategoriesPhoto/>
+            <CategoriesPhoto/>
 
-                <CarouselDresses token={token} products={products}/>
+            <CarouselDresses token={token} products={products}/>
 
-                <PropertiesOurPage/>
+            <PropertiesOurPage/>
 
-                <SubscribeForm/>
-            </Layout>
+            <SubscribeForm/>
         </>
     );
 }

@@ -4,7 +4,7 @@ import useSearch from "@/Hooks/useSearch";
 import SearchInput from "@/components/SearchInput/SearchInput";
 import ProductsWithSearch from "@/components/ProductsWithSearch/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
-import { parseCookies } from "@/helpers/index";
+import { parseCookies } from "@/helpers/parseCookies";
 import {
   getStartAndEndValueForPagination,
   values,

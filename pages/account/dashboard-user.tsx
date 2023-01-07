@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout/Layout";
 import DashboardUser from "@/components/DashboardUser/DashboardUser";
-import {parseCookies} from "@/helpers/index";
+import {parseCookies} from "@/helpers/parseCookies";
 import {API_URL} from "@/config/index";
 
 export default function dashboardUserPage({userOrders}) {

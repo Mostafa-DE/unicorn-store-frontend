@@ -1,24 +1,16 @@
-import Layout from "@/components/Layout/Layout";
 import ShoppingBag from "@/components/ShoppingBag/ShoppingBag";
-import { parseCookies } from "@/helpers/index";
+import {parseCookies} from "@/helpers/parseCookies";
 
-export default function shoppingBagListPage({ userAccount, token }) {
-  return (
-    <Layout title="Your_Shopping_Bag">
-      {/* 
-      //TODO: add right types here 
-      // @ts-ignore */}
-      <ShoppingBag user={userAccount} token={token} />
-    </Layout>
-  );
+export default function shoppingBagListPage({token}) {
+    return <ShoppingBag token={token}/>;
 }
 
-export async function getServerSideProps({ req }) {
-  const { token = null } = parseCookies(req);
+export async function getServerSideProps({req}) {
+    const {token = null} = parseCookies(req);
 
-  return {
-    props: {
-      token: token,
-    },
-  };
+    return {
+        props: {
+            token: token,
+        },
+    };
 }

@@ -1,19 +1,17 @@
 import styles from "@/components/MyAccount/MyAccount.module.css";
-import {useState} from "react";
-import {useContext} from "react";
+import {useState, useContext, useMemo} from "react";
 import {AuthContext} from "@/context/AuthContext";
 import Link from "next/link";
 import {getRandomQuote} from "@/components/MyAccount/helper";
-import EditProfile from "@/components/EditProfileForm";
-import ProfileInfo from "@/components/ProfileInfo";
+import EditProfile from "@/components/MyAccount/EditProfileForm";
+import ProfileInfo from "@/components/MyAccount/ProfileInfo";
 
 
 export default function MyAccount() {
     const [editMode, setEditMode] = useState(false);
-
     // @ts-ignore
     const {user, userProfile} = useContext(AuthContext);
-    console.log(user);
+    let quote = useMemo(() => getRandomQuote(user?.username), []);
 
     const handleEditMode = () => {
         setEditMode(!editMode);
@@ -28,7 +26,7 @@ export default function MyAccount() {
                 >
                     <div className={styles.containerText}>
                         <h3 data-aos="fade-out" data-aos-once='true'>{user?.username} 👋 مرحباً</h3>
-                        <p data-aos="fade-out" data-aos-once='true'> {getRandomQuote(user?.username)} </p>
+                        <p data-aos="fade-out" data-aos-once='true'>{quote}</p>
                     </div>
 
                     <div data-aos="fade-out"

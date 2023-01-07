@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout/Layout";
 import WishList from "@/components/WishList/WishList";
 import { API_URL } from "@/config/index";
-import { parseCookies } from "@/helpers/index";
+import { parseCookies } from "@/helpers/parseCookies";
 
 export default function wishListPage({ userWishProduct, token }) {
   return (

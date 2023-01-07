@@ -7,7 +7,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import Link from "next/link";
-import {useRouter} from "next/router";
 import Slide from "@material-ui/core/Slide";
 import {AuthContext} from "@/context/AuthContext";
 import {languages} from "@/components/Header/TranslateText";
@@ -16,19 +15,21 @@ import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
 import {LanguageContext} from "@/context/LanguageContext";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
-import {FaGoogle} from "react-icons/fa";
-import {API_URL} from "@/config/index";
+import {TransitionProps} from "@mui/material/transitions";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+        children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>,
+) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function DialogLogin() {
-    const router = useRouter();
-
     const [loginDialog, openLoginDialog, closeLoginDialog] = useLoginDialog();
-    const [username, handleChangeUsername] = useInputField();
-    const [password, handleChangePassword] = useInputField();
+    const [username, handleChangeUsername, resetUsername] = useInputField();
+    const [password, handleChangePassword, resetPassword] = useInputField();
     const [showPassword, handleShowPassword] = useShowPassword();
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [showAlertRememberCookies, setShowAlertRememberCookies] = useState(false);
@@ -42,7 +43,14 @@ export default function DialogLogin() {
     const {language} = useContext(LanguageContext);
 
     useEffect(() => {
-        error && setShowErrorMessage(true);
+        if (error) setShowErrorMessage(true);
+        if (user) {
+            setError(null);
+            resetPassword();
+            resetUsername();
+            setShowErrorMessage(false);
+            closeLoginDialog();
+        }
     }, [error, user]);
 
     const {titleLogin, titleLogout} = languages[language];
@@ -52,60 +60,30 @@ export default function DialogLogin() {
         setIsLoading(true);
         await login({username, password});
         setIsLoading(false);
-        if(!error) closeLoginDialog();
     };
-    const handleCloseErrorMessage = () => {
-        setShowErrorMessage(!showErrorMessage);
-        setError(null);
-    };
+
     const handleShowAlertRemember = () => {
         setShowAlertRememberCookies(!showAlertRememberCookies);
     };
 
-    // const handleLoginGoogle = async () => {
-    //     await router.push(`${API_URL}/connect/google`);
-    // };
-
     return (
         <div>
             {!user && (
-                <li
-                    //TODO: add right types here
-                    // @ts-ignore
-                    onClick={openLoginDialog}
-                >
+                <li onClick={openLoginDialog}>
                     {titleLogin}
                 </li>
             )}
             {user && <li onClick={logout}>{titleLogout}</li>}
 
-            <Dialog
-                //TODO: add right types here
-                // @ts-ignore
-                open={loginDialog}
-                //TODO: add right types here
-                // @ts-ignore
-                TransitionComponent={Transition}
-                keepMounted
-                //TODO: add right types here
-                // @ts-ignore
-                onClose={closeLoginDialog}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
+            <Dialog open={loginDialog}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={closeLoginDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
             >
                 <ValidatorForm onSubmit={handleSubmit}>
                     <p className={styles.titleDialog}>تسجيل الدخول</p>
-
-                    {/*<div className={styles.containerGoogleAndFacebookBtn}>*/}
-                    {/*    <button*/}
-                    {/*        type="button"*/}
-                    {/*        className={styles.googleBtn}*/}
-                    {/*        onClick={handleLoginGoogle}*/}
-                    {/*    >*/}
-                    {/*        <FaGoogle/>*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
-
                     <Alert
                         style={{
                             maxWidth: "20rem",
@@ -113,8 +91,6 @@ export default function DialogLogin() {
                             fontSize: "0.8rem",
                         }}
                         variant="danger"
-                        dismissible
-                        onClose={handleCloseErrorMessage}
                         show={showErrorMessage}
                     >
                         {error}
@@ -143,8 +119,6 @@ export default function DialogLogin() {
                             <TextValidator
                                 type="text"
                                 name="username"
-                                //TODO: add right types here
-                                // @ts-ignore
                                 onChange={handleChangeUsername}
                                 value={username}
                                 fullWidth
@@ -156,8 +130,6 @@ export default function DialogLogin() {
                             <div className={styles.containerPassword}>
                                 <TextValidator
                                     type={showPassword === true ? "text" : "password"}
-                                    //TODO: add right types here
-                                    // @ts-ignore
                                     onChange={handleChangePassword}
                                     value={password}
                                     fullWidth
@@ -165,19 +137,16 @@ export default function DialogLogin() {
                                     label="الرقم السري"
                                     validators={["required"]}
                                     errorMessages={["!! لا تستطيع ترك هذا الحقل فارغاً"]}
+                                    name="password"
                                 />
                                 {showPassword === true ? (
                                     <RiEyeLine
                                         className={styles.iconPassword}
-                                        //TODO: add right types here
-                                        // @ts-ignore
                                         onClick={handleShowPassword}
                                     />
                                 ) : (
                                     <RiEyeCloseLine
                                         className={styles.iconPassword}
-                                        //TODO: add right types here
-                                        // @ts-ignore
                                         onClick={handleShowPassword}
                                     />
                                 )}

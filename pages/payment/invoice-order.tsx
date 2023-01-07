@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout/Layout";
 import InvoiceOrder from "@/components/InvoiceOrder/InvoiceOrder";
-import {parseCookies} from "@/helpers/index";
+import {parseCookies} from "@/helpers/parseCookies";
 
 export default function invoiceOrderPage({token}) {
     return (

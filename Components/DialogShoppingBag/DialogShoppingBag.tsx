@@ -17,7 +17,7 @@ import { AiOutlineLine } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 import { VscClose } from "react-icons/vsc";
 import { useRouter } from "next/router";
-import { TextAlert } from "@/helpers/TextAlert";
+import { TextAlert } from "@/helpers/AlertsAndDialogs/TextAlert";
 
 export default function DialogShoppingBag({
   shoppingDialog,

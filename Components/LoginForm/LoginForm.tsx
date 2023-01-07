@@ -1,55 +1,44 @@
 import styles from "@/components/LoginForm/LoginForm.module.css";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
-import {useContext, useEffect, useState} from "react";
+import {FormEvent, useContext, useEffect, useState} from "react";
 import Link from "next/link";
-import {AuthContext} from "@/context/AuthContext";
+import {AuthContext, IAuthContextProps} from "@/context/AuthContext";
 import useInputField from "@/Hooks/useInputField";
 import useShowPassword from "@/Hooks/useShowPassword";
 import {RiEyeLine} from "react-icons/ri";
 import {RiEyeCloseLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import {AiOutlineLine} from "react-icons/ai";
-import {
-    alertBenefitsLogin,
-    alertRememberMe,
-    alertLoginFailed,
-} from "@/components/LoginForm/Alert";
-import {useRouter} from "next/router";
-import {FaGoogle} from "react-icons/fa";
-import {API_URL} from "@/config/index";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
+import {alertRememberMe} from "@/helpers/AlertsAndDialogs/alertRememberMe";
+import {DialogAlert} from "@/helpers/AlertsAndDialogs/DialogAlert";
+import {alertBenefitsToLogin} from "@/helpers/AlertsAndDialogs/alertBenefitsToLogin";
 
-export default function LoginForm({rememberEmailUser}) {
-    const router = useRouter();
 
-    //TODO: add right types here
-    // @ts-ignore
-    const {login, error} = useContext(AuthContext);
-    useEffect(() => {
-        error && alertLoginFailed(error);
-    }, [login, error]);
+export default function LoginForm() {
+    const {login} = useContext<IAuthContextProps>(AuthContext);
 
-    const [email, setEmail] = useState(rememberEmailUser);
-    const handleChangeEmail = (evnt) => {
-        setEmail(evnt.target.value);
-    };
-
+    const [username, handleChangeUsername, resetUsername] = useInputField();
     const [password, handleChangePassword, resetPassword] = useInputField();
     const [showPassword, handleShowPassword] = useShowPassword();
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (evnt) => {
+    const handleSubmit = async (evnt: FormEvent) => {
         evnt.preventDefault();
         setIsLoading(true);
-        await login({email, password});
-        //TODO: add right types here
-        // @ts-ignore
+        const res = await login({username, password});
+        if (!res.ok) {
+            DialogAlert({
+                title: "Something went wrong!!",
+                body: res.errorMessage,
+                icon: "error",
+            })
+            setIsLoading(false);
+            return;
+        }
+        resetUsername();
         resetPassword();
         setIsLoading(false);
-    };
-
-    const handleLoginGoogle = async () => {
-        await router.push(`${API_URL}/connect/google`);
     };
 
     useEffect(() => {
@@ -71,27 +60,14 @@ export default function LoginForm({rememberEmailUser}) {
                                     الرجاء إدخال التفاصيل الخاصة بك أدناه لتسجيل الدخول إلى حسابك
                                 </p>
                             </div>
-                            <div className={styles.containerGoogleAndFacebookBtn}>
-                                <button
-                                    type="button"
-                                    className={styles.googleBtn}
-                                    onClick={handleLoginGoogle}
-                                >
-                                    <FaGoogle/>
-                                </button>
-                            </div>
-                            <div className={styles.orText}>
-                                <p>أو</p>
-                            </div>
-                            {/*  //TODO: add right types here
-                   // @ts-ignore */}
                             <TextValidator
-                                type="email"
-                                onChange={handleChangeEmail}
-                                value={email}
+                                type="text"
+                                name="username"
+                                onChange={handleChangeUsername}
+                                value={username}
                                 fullWidth
                                 variant="standard"
-                                label="البريد الإلكتروني"
+                                label="إسم المستخدم"
                                 validators={["required"]}
                                 errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                             />
@@ -101,8 +77,6 @@ export default function LoginForm({rememberEmailUser}) {
                                     type={showPassword === true ? "text" : "password"}
                                     name="firstName"
                                     value={password}
-                                    //TODO: add right types here
-                                    // @ts-ignore
                                     onChange={handleChangePassword}
                                     variant="standard"
                                     label="الرقم السري"
@@ -112,15 +86,11 @@ export default function LoginForm({rememberEmailUser}) {
                                 {showPassword === true ? (
                                     <RiEyeLine
                                         className={styles.iconShowPassword}
-                                        //TODO: add right types here
-                                        // @ts-ignore
                                         onClick={handleShowPassword}
                                     />
                                 ) : (
                                     <RiEyeCloseLine
                                         className={styles.iconShowPassword}
-                                        //TODO: add right types here
-                                        // @ts-ignore
                                         onClick={handleShowPassword}
                                     />
                                 )}
@@ -171,7 +141,7 @@ export default function LoginForm({rememberEmailUser}) {
                             </Link>
                             <p className={styles.textMoreFeatures}>
                                 سجل الآن لتحصل على ميزات إضافية, لمعرفة الميزات إضغط{" "}
-                                <span onClick={() => alertBenefitsLogin()}>{"هنا"}</span>
+                                <span onClick={() => alertBenefitsToLogin()}>{"هنا"}</span>
                             </p>
                         </div>
                     </div>
