@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout/Layout";
 import ShippingInfoForm from "@/components/ShippingInfoForm/ShippingInfoForm";
 import {API_URL} from "@/config/index";
-import {parseCookies} from "@/helpers/index";
+import {parseCookies} from "@/helpers/parseCookies";
 
 export default function shippingInformation({user, userProfile, token}) {
     return (

@@ -132,7 +132,7 @@ export default function Header() {
           />
 
           <Badge
-            badgeContent={bag.itemsCount}
+            // badgeContent={bag.itemsCount}
             color="error"
             showZero
             anchorOrigin={{

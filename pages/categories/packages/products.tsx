@@ -2,7 +2,7 @@ import { API_URL } from "@/config/index";
 import Layout from "@/components/Layout/Layout";
 import SearchInput from "@/components/SearchInput/SearchInput";
 import ProductsWithSearch from "@/components/ProductsWithSearch/ProductsWithSearch";
-import { parseCookies } from "@/helpers/index";
+import { parseCookies } from "@/helpers/parseCookies";
 import { AiOutlineLine } from "react-icons/ai";
 import useSearch from "@/Hooks/useSearch";
 import {

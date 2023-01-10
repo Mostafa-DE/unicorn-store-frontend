@@ -1,6 +1,7 @@
 import styles from "@/components/ShoppingBag/ShoppingBag.module.css";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {BagContext} from "@/context/BagContext";
+import {AuthContext} from "@/context/AuthContext";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import Table from "@mui/material/Table";
@@ -13,30 +14,67 @@ import {HiMinusSm} from "react-icons/hi";
 import {HiPlusSm} from "react-icons/hi";
 import {AiOutlineLine} from "react-icons/ai";
 import {FaTrash} from "react-icons/fa";
+import {API_URL} from "@/config/index";
 import {DialogAlert} from "@/helpers/AlertsAndDialogs/DialogAlert";
 
-export default function ShoppingBag({token}) {
+export default function ShoppingBag({bag}) {
+    console.log(bag)
     const router = useRouter();
+    const [cartItems, setCartItems] = useState(bag.cart_items);
+    const [totalBag, setTotalBag] = useState(bag.get_cart_total);
 
-    //TODO: add right types here
-    // @ts-ignore
-    const {bag, increaseQty, decreaseQty, removeFromBag} =
-        useContext(BagContext);
-    const {items = []} = bag;
+    async function handleChangeQty(lineId, qty) {
+        const res = await fetch(`${API_URL}/api/cart/items/${lineId}/`, {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({qty}),
+        })
+        if (!res.ok) {
+            await DialogAlert({
+                title: "Something went wrong!!",
+                body: "Something went wrong while updating the line, please try again later!!",
+                icon: "error"
+            })
+            return;
+        }
+        const line = await res.json();
+        setCartItems(prevState => {
+            const index = prevState.findIndex(item => item.id === lineId);
+            prevState[index] = line;
+            return [...prevState];
+        });
+        setTotalBag(line.get_cart_total)
+    }
 
-    const showDeleteIcon = (qty) => {
-        return qty === 1;
-    };
+    async function handleDeleteLine(lineId) {
+        const res = await fetch(`${API_URL}/api/cart/items/${lineId}/`, {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+        if (!res.ok) {
+            // TODO: Create a Message context to handle all the messages and errors
+            await DialogAlert({
+                title: "Something went wrong!!",
+                body: "Something went wrong while deleting the line, please try again later!!",
+                icon: "error"
+            })
+            return;
+        }
+        setCartItems(cartItems.filter(item => item.id !== lineId));
+        await DialogAlert({
+            title: "Line deleted!!",
+            body: "The line was deleted successfully!!",
+            icon: "success"
+        })
+    }
 
-    const handleIncreaseQty = (item) => {
-        if (item.qty >= 2)
-            return DialogAlert({
-                title: "Sorry 😔",
-                body: "You can't add more than 2 items of the same product",
-                icon: "error",
-            });
-        increaseQty(item);
-    };
+    const {user} = useContext(AuthContext);
 
     return (
         <div className={styles.main}>
@@ -44,7 +82,7 @@ export default function ShoppingBag({token}) {
                 <h1 className="h1Title"> حقيبة التسوق </h1>
                 <AiOutlineLine className="lineIcon"/>
             </div>
-            {items.length !== 0 ? (
+            {cartItems.length !== 0 ? (
                 <>
                     <TableContainer style={{margin: "3.5rem 0 0 0"}}>
                         <Table data-aos="fade-in" data-aos-once='true'>
@@ -65,56 +103,56 @@ export default function ShoppingBag({token}) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {items.map((item) => (
-                                    <TableRow key={item.id}>
+                                {cartItems.map(({product, quantity, id}) => (
+                                    <TableRow key={id}>
                                         <TableCell
                                             sx={{width: "23rem"}}
                                             className={styles.fontFamily}
                                         >
                                             <div className={styles.containerItemCell}>
                                                 <img
-                                                    src={item.images[0].url}
+                                                    // src={item.images[0].url}
                                                     width={100}
                                                     height={100}
                                                     alt="Item Image.."
                                                 />
                                                 <div className={styles.itemDetails}>
-                                                    <p className={styles.nameItem}>{item.name}</p>
+                                                    <p className={styles.nameItem}>{product.name}</p>
                                                     {/*<p>{item.color}</p>*/}
                                                     <p>
-                                                        {item.size} {item.size !== "" ? ":القياس" : null}
+                                                        {product.size} {product.size !== "" ? ":القياس" : null}
                                                     </p>
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell>{item.price} JD</TableCell>
+                                        <TableCell>{product.price} JD</TableCell>
                                         <TableCell align="center">
-                                            {item.qty}
+                                            {quantity}
                                             <div className={styles.addOrRemoveQty}>
-                                                {showDeleteIcon(item.qty) ? (
+                                                {quantity === 0 ? (
                                                     <FaTrash
                                                         className={styles.deleteBtnWhenQtyEqualsOne}
-                                                        onClick={() => removeFromBag(item)}
+                                                        onClick={() => handleDeleteLine(id)}
                                                     />
                                                 ) : (
                                                     <HiMinusSm
                                                         className={styles.minus}
-                                                        onClick={() => decreaseQty(item)}
+                                                        onClick={() => handleChangeQty(id, quantity - 1)}
                                                     />
                                                 )}
                                                 <HiPlusSm
                                                     className={styles.plus}
-                                                    onClick={() => handleIncreaseQty(item)}
+                                                    onClick={() => handleChangeQty(id, quantity + 1)}
                                                 />
                                             </div>
                                         </TableCell>
                                         <TableCell align="center">
-                                            {item.price * item.qty} JD
+                                            {product.price * quantity} JD
                                         </TableCell>
                                         <TableCell>
                                             <FaTrash
                                                 className={styles.deleteBtn}
-                                                onClick={() => removeFromBag(item)}
+                                                onClick={() => handleDeleteLine(id)}
                                             />
                                         </TableCell>
                                     </TableRow>
@@ -126,9 +164,8 @@ export default function ShoppingBag({token}) {
                     <div data-aos="fade-in" data-aos-once='true' className={styles.containerBoxAmountDetails}>
                         <div className={styles.totalAmountDetails}>
                             <p className={styles.subTotalText}>
-                                {bag.totalBag} JD :السعر الإجمالي
+                                {totalBag} JD :السعر الإجمالي
                             </p>
-                            <p className={styles.deliveryNote}>أجور التوصيل تضاف عند الطلب</p>
                         </div>
                     </div>
                     <div className={styles.containerBtns}>
@@ -137,21 +174,17 @@ export default function ShoppingBag({token}) {
                                 أكمل التسوق
                             </button>
                         </Link>
-                        {token !== null ? (
-                            <button
-                                className={styles.checkoutBtn}
-                                onClick={() => router.push("/payment/shipping-info")}
-                            >
-                                اطلب الآن
-                            </button>
-                        ) : (
-                            <button
-                                onClick={() => router.push("/account/checkout-login")}
-                                className={styles.checkoutBtn}
-                            >
-                                اطلب الآن
-                            </button>
-                        )}
+                        <button
+                            className={styles.checkoutBtn}
+                            onClick={
+                                user ?
+                                    () => router.push("/payment/shipping-info")
+                                    :
+                                    () => router.push("/account/checkout-login")
+                            }
+                        >
+                            اطلب الآن
+                        </button>
                     </div>
                 </>
             ) : (

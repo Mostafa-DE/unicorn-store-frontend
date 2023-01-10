@@ -13,26 +13,30 @@ interface RegisterRequest extends NextApiRequest {
 
 
 const registerApi = async (req: RegisterRequest, res: NextApiResponse) => {
-    const {username, email, first_name, last_name, password} = req.body;
-    const registerRes = await fetch(`${API_URL}/api/auth/register/`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Credentials': 'true',
-            Cookie: req.headers.cookie,
-        },
-        body: JSON.stringify({
-            username,
-            email,
-            first_name,
-            last_name,
-            password,
-        })
-    });
+    try {
+        const {username, email, first_name, last_name, password} = req.body;
+        const registerRes = await fetch(`${API_URL}/api/auth/register/`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Credentials': 'true',
+                Cookie: req.headers.cookie,
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                first_name,
+                last_name,
+                password,
+            })
+        });
 
-    const data = await registerRes.json();
-    res.status(registerRes.status).json(data);
+        const data = await registerRes.json();
+        res.status(registerRes.status).json(data);
+    } catch (error) {
+        res.status(500).json({});
+    }
 };
 
 export default registerApi;

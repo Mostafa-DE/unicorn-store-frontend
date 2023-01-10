@@ -11,6 +11,7 @@ import {LanguageProvider} from "@/context/LanguageContext";
 import Layout from "@/components/Layout";
 import {useRouter} from "next/router";
 import {NEXT_URL} from "@/config/index";
+import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
 
 
 function getPageTitle(): string {
@@ -26,7 +27,7 @@ function getPageTitle(): string {
     return "Unicorns Store | Shop Online For Fashions, Tools, Gifts & More";
 }
 
-function MyApp({Component, pageProps, currentUser, currentUserProfile}) {
+function MyApp({Component, pageProps, currentUser, currentUserProfile, serverError}) {
     useEffect(() => {
         AOS.init({
             duration: 2000
@@ -81,9 +82,18 @@ function MyApp({Component, pageProps, currentUser, currentUserProfile}) {
                         <CompareProvider>
                             <ShippingInfoProvider>
                                 <LanguageProvider>
-                                    <Layout title={getPageTitle()}>
-                                        <Component {...pageProps} />
-                                    </Layout>
+                                    {
+                                        serverError ?
+                                            <ErrorComponent
+                                                reaction="OOPS!"
+                                                statusError="503 - Service Unavailable"
+                                                ErrorMessage="The server is temporarily unavailable, Please try again later!!"
+                                                hideBackButton={true}
+                                            /> :
+                                            <Layout title={getPageTitle()}>
+                                                <Component {...pageProps} />
+                                            </Layout>
+                                    }
                                 </LanguageProvider>
                             </ShippingInfoProvider>
                         </CompareProvider>
@@ -116,6 +126,10 @@ MyApp.getInitialProps = async ({ctx}) => {
 
     if (userRes.ok) currentUser = await userRes.json();
     if (profileRes.ok) currentUserProfile = await profileRes.json();
+
+    if (userRes.status === 500) {
+        return {serverError: true}
+    }
 
     return {
         currentUser,

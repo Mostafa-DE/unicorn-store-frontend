@@ -32,7 +32,6 @@ const Layout: React.FC<ILayoutProps> = ({title, description, children}) => {
     // @ts-ignore
     const {mainTitle, secondTitle, btnText} = languages[language];
 
-    // @ts-ignore
     const {user, message, setMessage} = useContext(AuthContext);
 
     // n progress to show page progress

@@ -10,34 +10,38 @@ interface LoginRequest extends NextApiRequest {
 }
 
 const loginApi = async (req: LoginRequest, res: NextApiResponse) => {
-    const {username, password} = req.body;
-    const loginRes = await fetch(`${API_URL}/api/auth/login/`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Credentials': 'true',
-            Cookie: req.headers.cookie,
-        },
-        body: JSON.stringify({
-            username,
-            password
-        })
-    });
-
-    const tokenObj = await loginRes.json();
-
-    if (loginRes.ok) {
-        res.setHeader(
-            "Set-Cookie",
-            cookie.serialize("token", tokenObj.token, {
-                httpOnly: true,
-                maxAge: 60 * 60 * 24 * 7, // for a week
-                sameSite: "strict",
-                path: "/"
+    try {
+        const {username, password} = req.body;
+        const loginRes = await fetch(`${API_URL}/api/auth/login/`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Credentials': 'true',
+                Cookie: req.headers.cookie,
+            },
+            body: JSON.stringify({
+                username,
+                password
             })
-        );
+        });
+
+        const tokenObj = await loginRes.json();
+
+        if (loginRes.ok) {
+            res.setHeader(
+                "Set-Cookie",
+                cookie.serialize("token", tokenObj.token, {
+                    httpOnly: true,
+                    maxAge: 60 * 60 * 24 * 7, // for a week
+                    sameSite: "strict",
+                    path: "/"
+                })
+            );
+        }
+        res.status(loginRes.status).json({tokenObj});
+    } catch (error) {
+        res.status(500).json({});
     }
-    res.status(loginRes.status).json({tokenObj});
 };
 export default loginApi;
