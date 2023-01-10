@@ -6,35 +6,35 @@ import {useRouter} from "next/dist/client/router";
 import ButtonScrollUp from "../ButtonScrollUp/ButtonScrollUp";
 import ButtonWhatsApp from "../ButtonWhatsapp/ButtonWhatsApp";
 import NProgress from "nprogress";
-import BootomNavigation from "@/components/BottomNavigation"
+import BottomNavigation from "@/components/BottomNavigation"
 import {languages} from "./TranslateText"
 import {LanguageContext} from "@/context/LanguageContext";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import ChatBot from "../ChatBot/ChatBot";
+import {AuthContext} from "@/context/AuthContext";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import Stack from "@mui/material/Stack";
 
 
 export interface ILayoutProps {
-  title: string;
-  children: React.ReactNode;
-  description?: string;
-  userAccount?: unknown;
+    title: string;
+    children: React.ReactNode;
+    description?: string;
 }
 
-const Layout: React.FC<ILayoutProps> = ({
-  title,
-  description,
-  children,
-  userAccount,
-}) => {
-  const router = useRouter();
+const Layout: React.FC<ILayoutProps> = ({title, description, children}) => {
+    const router = useRouter();
 
     // @ts-ignore
     const {language} = useContext(LanguageContext)
     // @ts-ignore
     const {mainTitle, secondTitle, btnText} = languages[language];
 
-    /*---------n progress to show prgress for each click--------*/
+    const {user, message, setMessage} = useContext(AuthContext);
+
+    // n progress to show page progress
     useEffect(() => {
         const onRouterChangeStart = () => {
             NProgress.start();
@@ -55,32 +55,35 @@ const Layout: React.FC<ILayoutProps> = ({
             router.events.off("routeChangeError", onRouteChangeError);
         };
     });
-    /*-----------------------------x----------------------------*/
+
+    function handleClose() {
+        setMessage(null);
+    }
 
     return (
         <div>
             <Head>
                 <title> {title} </title>
-                <meta name="description"
-                      content={description}
-                />
-                <meta name="viewport"
-                      content="width=device-width, initial-scale=1"
-                />
-                <meta name="theme-color"
-                      content="#fb9aa7"
-                />
-                <link rel="icon"
-                      href="/images/unicorn.png"
-                />
+                <meta name="description" content={description}/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <meta name="theme-color" content="#fb9aa7"/>
+                <link rel="icon" href="/images/unicorn.png"/>
             </Head>
             <Header/>
+            <Stack spacing={2} sx={{width: '100%'}}>
+                <Snackbar open={message !== null && true} autoHideDuration={10000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" sx={{position: "fixed", top: 100, right: "40%"}}>
+                        {message}
+                    </Alert>
+                </Snackbar>
+            </Stack>
             {router.pathname === "/" && (
                 <div data-aos="fade-in"
                      data-aos-once='true'
                      className={styles.coverHome}
                 >
-                    <div className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
+                    <div
+                        className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
                         <p> {mainTitle} </p>
                         <span> {secondTitle} </span>
                         <Link href="/categories/women-fashions/turkey-dresses/dresses">
@@ -91,10 +94,10 @@ const Layout: React.FC<ILayoutProps> = ({
             )}
 
             <div className={styles.container}> {children} </div>
-            <BootomNavigation />
+            <BottomNavigation/>
             <Footer/>
 
-            <ChatBot userAccount={userAccount}/>
+            <ChatBot userAccount={user}/>
 
             <ButtonScrollUp/>
             <ButtonWhatsApp/>
@@ -104,10 +107,8 @@ const Layout: React.FC<ILayoutProps> = ({
 
 export default Layout;
 
-/*------------default title in case i forget to add title-----------*/
 Layout.defaultProps = {
     title: "Unicorns Store | Shop Online For Fashions, Tools, Gifts & More",
     description:
         "Unicorn Store | Shop Online for Electronics, Toys, Beauty, Tools & More. Exclusive Products. Same Day Delivery. Cash on Delivery."
 };
-/*---------------------------------X--------------------------------*/

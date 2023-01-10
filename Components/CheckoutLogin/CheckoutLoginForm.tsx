@@ -1,7 +1,6 @@
 import styles from "@/components/CheckoutLogin/CheckoutLoginForm.module.css";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
-import {useContext, useEffect, useState} from "react";
-import {useRouter} from "next/router";
+import {FormEvent, useContext, useState} from "react";
 import Link from "next/link";
 import {AuthContext} from "@/context/AuthContext";
 import useInputField from "@/Hooks/useInputField";
@@ -11,36 +10,33 @@ import {RiEyeCloseLine} from "react-icons/ri";
 import {FiAlertCircle} from "react-icons/fi";
 import {GrFormNext} from "react-icons/gr";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
-import {
-    alertBenefitsToLogin,
-    alertRememberMe,
-    alertLoginFailed,
-} from "@/components/CheckoutLogin/Alerts";
-import {API_URL} from "@/config/index";
-import {FaGoogle} from "react-icons/fa";
+import {DialogAlert} from "@/helpers/AlertsAndDialogs/DialogAlert";
+import {alertBenefitsToLogin} from "@/helpers/AlertsAndDialogs/alertBenefitsToLogin";
+import {alertRememberMe} from "@/helpers/AlertsAndDialogs/alertRememberMe";
 
 export default function LoginForm() {
-    const router = useRouter();
-    //TODO: add right types here
-    // @ts-ignore
-    const {login, error} = useContext(AuthContext);
-    useEffect(() => {
-        error && alertLoginFailed(error);
-    }, [error]);
-
-    const [email, handleChangeEmail] = useInputField();
-    const [password, handleChangePassword] = useInputField();
+    const {login} = useContext(AuthContext);
+    const [username, handleChangeUsername, resetUsername] = useInputField();
+    const [password, handleChangePassword, resetPassword] = useInputField();
     const [showPassword, handleShowPassword] = useShowPassword();
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (evnt: React.FormEvent<Element>) => {
+    const handleSubmit = async (evnt: FormEvent) => {
         evnt.preventDefault();
         setIsLoading(true);
-        await login({email, password});
+        const res = await login({username, password});
+        if (!res.ok) {
+            DialogAlert({
+                title: "Something went wrong!!",
+                body: res.errorMessage,
+                icon: "error",
+            })
+            setIsLoading(false);
+            return;
+        }
+        resetUsername();
+        resetPassword();
         setIsLoading(false);
-    };
-    const handleLoginGoogle = async () => {
-        await router.push(`${API_URL}/connect/google`);
     };
 
     return (
@@ -71,27 +67,14 @@ export default function LoginForm() {
                                     بشكل أسرع
                                 </p>
                             </div>
-                            <div className={styles.containerGoogleAndFacebookBtn}>
-                                <button
-                                    type="button"
-                                    className={styles.googleBtn}
-                                    onClick={handleLoginGoogle}
-                                >
-                                    <FaGoogle/>
-                                </button>
-                            </div>
-                            <div className={styles.orText}>
-                                <p>أو</p>
-                            </div>
                             <TextValidator
-                                type="email"
-                                //TODO: add right types here
-                                // @ts-ignore
-                                onChange={handleChangeEmail}
-                                value={email}
+                                type="text"
+                                name="username"
+                                onChange={handleChangeUsername}
+                                value={username}
                                 fullWidth
                                 variant="standard"
-                                label="البريد الإلكتروني"
+                                label="اسم المستخدم"
                                 validators={["required"]}
                                 errorMessages={["!! لا يمكنك ترك هذا الحقل فارغاً"]}
                             />
@@ -101,8 +84,6 @@ export default function LoginForm() {
                                     type={showPassword === true ? "text" : "password"}
                                     name="firstName"
                                     value={password}
-                                    //TODO: add right types here
-                                    // @ts-ignore
                                     onChange={handleChangePassword}
                                     variant="standard"
                                     label="الرقم السري"
@@ -112,15 +93,11 @@ export default function LoginForm() {
                                 {showPassword === true ? (
                                     <RiEyeLine
                                         className={styles.iconShowPassword}
-                                        //TODO: add right types here
-                                        // @ts-ignore
                                         onClick={handleShowPassword}
                                     />
                                 ) : (
                                     <RiEyeCloseLine
                                         className={styles.iconShowPassword}
-                                        //TODO: add right types here
-                                        // @ts-ignore
                                         onClick={handleShowPassword}
                                     />
                                 )}
@@ -169,7 +146,7 @@ export default function LoginForm() {
                             </Link>
                             <span className={styles.orText}>أو</span>
                             <Link href="/account/register" className={styles.signUpBtn}>
-                                انشاء حساب جديد
+                                إنشاء حساب جديد
                             </Link>
                             <p className={styles.textMoreFeatures}>
                                 سجل الآن لتحصل على ميزات إضافية, لمعرفة الميزات إضغط{" "}

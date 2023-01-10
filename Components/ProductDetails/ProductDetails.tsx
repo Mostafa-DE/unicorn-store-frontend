@@ -23,7 +23,7 @@ import {
     AlertSizeNotExist,
     AlertErrorSize,
 } from "@/components/ProductDetails/helpers";
-import {addProductToWishList} from "@/helpers/addProductToWishList";
+import {addProductToWishList} from "@/helpers/AlertsAndDialogs/addProductToWishList";
 
 export default function ProductDetails({product, token, reviews}) {
     const router = useRouter();

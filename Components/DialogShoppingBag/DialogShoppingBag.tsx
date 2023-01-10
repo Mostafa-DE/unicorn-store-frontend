@@ -17,7 +17,7 @@ import { AiOutlineLine } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 import { VscClose } from "react-icons/vsc";
 import { useRouter } from "next/router";
-import { TextAlert } from "@/helpers/TextAlert";
+import { TextAlert } from "@/helpers/AlertsAndDialogs/TextAlert";
 
 export default function DialogShoppingBag({
   shoppingDialog,
@@ -31,18 +31,20 @@ export default function DialogShoppingBag({
 
   //TODO: add right types here
   // @ts-ignore
-  const { bag, increaseQty, decreaseQty, removeFromBag } =
-    useContext(BagContext);
-  const { items = [] } = bag;
+  // const { bag, increaseQty, decreaseQty, removeFromBag } =
+  //   useContext(BagContext);
+  // const { items = [] } = bag;
 
   const showDeleteIcon = (qty) => {
     return qty === 1;
   };
 
-  const handleIncreaseQty = (item) => {
-    if (item.qty >= 2) return setShowAlert(true);
-    increaseQty(item);
-  };
+  const items = []
+
+  // const handleIncreaseQty = (item) => {
+  //   if (item.qty >= 2) return setShowAlert(true);
+  //   increaseQty(item);
+  // };
 
   return (
     <div>
@@ -121,17 +123,17 @@ export default function DialogShoppingBag({
                               {showDeleteIcon(item.qty) ? (
                                 <FaTrash
                                   className={styles.deleteBtnWhenQtyEqualsOne}
-                                  onClick={() => removeFromBag(item)}
+                                  // onClick={() => removeFromBag(item)}
                                 />
                               ) : (
                                 <HiMinusSm
                                   className={styles.minus}
-                                  onClick={() => decreaseQty(item)}
+                                  // onClick={() => decreaseQty(item)}
                                 />
                               )}
                               <HiPlusSm
                                 className={styles.plus}
-                                onClick={() => handleIncreaseQty(item)}
+                                // onClick={() => handleIncreaseQty(item)}
                               />
                             </div>
                           </TableCell>
@@ -141,7 +143,7 @@ export default function DialogShoppingBag({
                           <TableCell>
                             <FaTrash
                               className={styles.deleteBtn}
-                              onClick={() => removeFromBag(item)}
+                              // onClick={() => removeFromBag(item)}
                             />
                           </TableCell>
                         </TableRow>
@@ -153,7 +155,7 @@ export default function DialogShoppingBag({
               <div className={styles.mainBoxAmountDetails}>
                 <div>
                   <p data-aos="fade-in" className={styles.totalAmount}>
-                    {bag.totalBag} JD :السعر الإجمالي
+                    {/*{bag.totalBag} JD :السعر الإجمالي*/}
                   </p>
 
                   <div className={styles.containerBtns}>

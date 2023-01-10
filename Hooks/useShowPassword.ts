@@ -6,5 +6,5 @@ export default function useShowPassword() {
     setShowPassword(!showPassword);
   };
 
-  return [showPassword, handleShowPassword];
+  return [showPassword, handleShowPassword] as const;
 }

@@ -85,8 +85,12 @@
     font-size: 1.2rem;
 }
 
-.accountActive {
+.active {
     color: rgb(22, 195, 22);
+}
+
+.deactive {
+    color: rgb(255, 0, 0);
 }
 
 .editBtn, .cancelBtn {

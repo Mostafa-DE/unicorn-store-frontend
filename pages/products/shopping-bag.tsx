@@ -1,24 +1,26 @@
-import Layout from "@/components/Layout/Layout";
 import ShoppingBag from "@/components/ShoppingBag/ShoppingBag";
-import { parseCookies } from "@/helpers/index";
+import {API_URL} from "@/config/index";
 
-export default function shoppingBagListPage({ userAccount, token }) {
-  return (
-    <Layout title="Your_Shopping_Bag">
-      {/* 
-      //TODO: add right types here 
-      // @ts-ignore */}
-      <ShoppingBag user={userAccount} token={token} />
-    </Layout>
-  );
+export default function shoppingBagListPage({bag}) {
+    return <ShoppingBag bag={bag}/>;
 }
 
-export async function getServerSideProps({ req }) {
-  const { token = null } = parseCookies(req);
+export async function getServerSideProps({req}) {
+    const bagRes = await fetch(`${API_URL}/api/cart/`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Credentials': 'true',
+            Cookie: req.headers.cookie,
+        }
+    });
 
-  return {
-    props: {
-      token: token,
-    },
-  };
+    const bag = await bagRes.json();
+
+    return {
+        props: {
+            bag: bag,
+        },
+    };
 }

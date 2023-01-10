@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout/Layout";
 import { API_URL } from "@/config/index";
 import ProductDetails from "@/components/ProductDetails";
-import { parseCookies } from "@/helpers/index";
+import { parseCookies } from "@/helpers/parseCookies";
 import qs from "qs";
 
 export default function ProductDetailsPage({ product, token, reviews }) {

@@ -2,7 +2,7 @@ import Search from "@/components/Search";
 import Layout from "@/components/Layout";
 import qs from "qs";
 import { API_URL } from "@/config/index";
-import { parseCookies } from "@/helpers/index";
+import { parseCookies } from "@/helpers/parseCookies";
 import {
   getStartAndEndValueForPagination,
   values,
