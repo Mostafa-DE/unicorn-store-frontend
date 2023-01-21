@@ -79,7 +79,7 @@ export function AccessoriesCollections({language}) {
                         <span>{kids}</span>
                         <ul>
                             <li>
-                                <Link href="/categories/accessories/kids/all-products/products"
+                                <Link href="/categories/accessories/kids/all-products"
                                       className={styles.categoryLink}
                                 >
                                     {allProducts}

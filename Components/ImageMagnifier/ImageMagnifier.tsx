@@ -66,7 +66,7 @@ export default function ImageMagnifier({
             imgHeight * zoomLevel
         }px`,
 
-        //calculete position of zoomed image.
+        //calculate position of zoomed image.
         backgroundPositionX: `${-x * zoomLevel + magnifieWidth / 2}px`,
         backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
     }}

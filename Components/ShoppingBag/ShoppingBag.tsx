@@ -1,7 +1,7 @@
 import styles from "@/components/ShoppingBag/ShoppingBag.module.css";
-import React, {useContext, useEffect, useState} from "react";
-import {BagContext} from "@/context/BagContext";
+import React, {useContext, useState} from "react";
 import {AuthContext} from "@/context/AuthContext";
+import {MessageContext} from "@/context/MessageContext";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import Table from "@mui/material/Table";
@@ -15,13 +15,13 @@ import {HiPlusSm} from "react-icons/hi";
 import {AiOutlineLine} from "react-icons/ai";
 import {FaTrash} from "react-icons/fa";
 import {API_URL} from "@/config/index";
-import {DialogAlert} from "@/helpers/AlertsAndDialogs/DialogAlert";
 
 export default function ShoppingBag({bag}) {
-    console.log(bag)
     const router = useRouter();
     const [cartItems, setCartItems] = useState(bag.cart_items);
     const [totalBag, setTotalBag] = useState(bag.get_cart_total);
+
+    const {growl} = useContext(MessageContext);
 
     async function handleChangeQty(lineId, qty) {
         const res = await fetch(`${API_URL}/api/cart/items/${lineId}/`, {
@@ -33,10 +33,9 @@ export default function ShoppingBag({bag}) {
             body: JSON.stringify({qty}),
         })
         if (!res.ok) {
-            await DialogAlert({
-                title: "Something went wrong!!",
-                body: "Something went wrong while updating the line, please try again later!!",
-                icon: "error"
+            growl({
+                text: "Something went wrong while updating the line, please try again later!!",
+                severity: "error"
             })
             return;
         }
@@ -58,19 +57,16 @@ export default function ShoppingBag({bag}) {
             },
         });
         if (!res.ok) {
-            // TODO: Create a Message context to handle all the messages and errors
-            await DialogAlert({
-                title: "Something went wrong!!",
-                body: "Something went wrong while deleting the line, please try again later!!",
-                icon: "error"
+            growl({
+                text: "Something went wrong while deleting the line, please try again later!!",
+                severity: "error"
             })
             return;
         }
         setCartItems(cartItems.filter(item => item.id !== lineId));
-        await DialogAlert({
-            title: "Line deleted!!",
-            body: "The line was deleted successfully!!",
-            icon: "success"
+        growl({
+            text: "The line was deleted successfully!!",
+            severity: "success"
         })
     }
 
@@ -129,7 +125,7 @@ export default function ShoppingBag({bag}) {
                                         <TableCell align="center">
                                             {quantity}
                                             <div className={styles.addOrRemoveQty}>
-                                                {quantity === 0 ? (
+                                                {quantity === 1 ? (
                                                     <FaTrash
                                                         className={styles.deleteBtnWhenQtyEqualsOne}
                                                         onClick={() => handleDeleteLine(id)}

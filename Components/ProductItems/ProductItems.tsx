@@ -17,68 +17,60 @@ import { IProduct } from "@/Models/types";
 
 interface IProductItemsProps {
   product: IProduct;
-  token: string;
   pathname?: string;
 }
 
-const ProductItems: React.FC<IProductItemsProps> = ({ product, token }) => {
+const ProductItems: React.FC<IProductItemsProps> = ({ product }) => {
+  console.log(product)
   const router = useRouter();
 
-  // Auth Context
-  //TODO: add right types here
-  // @ts-ignore
   const { user } = useContext(AuthContext);
-  // xxxxxxxxxxxx
 
-  // wish bag context
   //TODO: add right types here
   // @ts-ignore
   const { wishBag, addToWishBag } = useContext(WishBagContext);
   const { wishItems = [] } = wishBag;
-  // xxxxxxxxxxxxxxxxx
 
-  const addToWishList = async (product: IProduct) => {
-    try {
-      await fetch(`${API_URL}/wishes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: `${product.name}`,
-          price: `${product.price}`,
-          image: `${product.images[0]?.id}`,
-          slug: `${product.slug}`,
-          productDetailsPage: `/${product.productDetailsPage}/${product.slug}`,
-          IdProductExist: `${product.id}`,
-          qty: product.qty || 1,
-        }),
-      });
-      addToWishBag(product);
-      Swal.fire({
-        title: "تم إضافة المنتج إلى قائمة المفضلة لديك",
-        icon: "success",
-        confirmButtonColor: "#fb9aa7",
-        confirmButtonText: "حسناً",
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const addToWishList = async (product: IProduct) => {
+  //   try {
+  //     await fetch(`${API_URL}/wishes`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         name: `${product.name}`,
+  //         price: `${product.price}`,
+  //         image: `${product.images[0]?.id}`,
+  //         slug: `${product.slug}`,
+  //         productDetailsPage: `/${product.productDetailsPage}/${product.slug}`,
+  //         IdProductExist: `${product.id}`,
+  //         qty: product.qty || 1,
+  //       }),
+  //     });
+  //     addToWishBag(product);
+  //     Swal.fire({
+  //       title: "تم إضافة المنتج إلى قائمة المفضلة لديك",
+  //       icon: "success",
+  //       confirmButtonColor: "#fb9aa7",
+  //       confirmButtonText: "حسناً",
+  //       showClass: {
+  //         popup: "animate__animated animate__fadeInDown",
+  //       },
+  //       hideClass: {
+  //         popup: "animate__animated animate__fadeOutUp",
+  //       },
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  // Compare Context
   //TODO: add right types here
   // @ts-ignore
   const { productsCompare, addToCompare } = useContext(CompareContext);
   const { compareItems = [] } = productsCompare;
-  // xxxxxxxxxxxxxxxx
 
   // check or hide wish icon
   const wishBagProduct = wishItems.find(
@@ -105,7 +97,8 @@ const ProductItems: React.FC<IProductItemsProps> = ({ product, token }) => {
 
   return (
     <div data-aos="fade-right" data-aos-once='true' className={styles.container}>
-      <img className={styles.imgs} src={product.images[0]?.url} />
+      {/*<img className={styles.imgs} src={product.images[0]?.url} />*/}
+      <img alt="productImg" src="/images/unicorn.png" width={300} height={400} />
       <DialogSocialShare
         shareDialog={shareDialog}
         closeShareDialog={closeShareDialog}
@@ -119,11 +112,11 @@ const ProductItems: React.FC<IProductItemsProps> = ({ product, token }) => {
                 <IoMdHeart className={styles.wishIconFilled} />
               ) : (
                 <IoMdHeartEmpty
-                  onClick={
-                    user === null
-                      ? () => router.push("/account/login")
-                      : () => addToWishList(product)
-                  }
+                  // onClick={
+                  //   user === null
+                  //     ? () => router.push("/account/login")
+                  //     : () => addToWishList(product)
+                  // }
                   className={styles.wishIconOutline}
                 />
               )}
@@ -147,19 +140,19 @@ const ProductItems: React.FC<IProductItemsProps> = ({ product, token }) => {
         </div>
         <div className={styles.head}>
           <p className={styles.nameText}>{product.name}</p>
-          {product.discount && (
-            <p className={styles.saveText}>Save {product.discount}%</p>
+          {product.discount_percentage !== 0 && (
+            <p className={styles.saveText}>Save {product.discount_percentage}%</p>
           )}
           <hr className={styles.hr} />
         </div>
         <div className={styles.price}>
-          {product.oldPrice && (
-            <p className={styles.oldPrice}>{product.oldPrice} JD</p>
+          {product.old_price && (
+            <p className={styles.oldPrice}>{product.old_price} JD</p>
           )}
           <p className={styles.newPrice}>{product.price} JD</p>
         </div>
         <div className={styles.quickview}>
-          <Link href={`/${product.productDetailsPage}/${product.slug}`}>
+          <Link href={`/${router.pathname}/${product.slug}`}>
             <button className={styles.quickviewBtn}>
               اطلب الآن / التفاصيل
             </button>

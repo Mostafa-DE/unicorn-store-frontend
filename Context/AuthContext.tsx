@@ -1,4 +1,5 @@
-import {createContext, useState, useEffect, useCallback, Dispatch, SetStateAction} from "react";
+import {createContext, useState, Dispatch, SetStateAction, useContext} from "react";
+import {MessageContext} from "@/context/MessageContext";
 import {useRouter} from "next/router";
 import {NEXT_URL} from "@/config/index";
 
@@ -30,8 +31,6 @@ export interface IAuthContextProps {
     userProfile: IUserProfile;
     error: string;
     setError: Dispatch<SetStateAction<string | null>>;
-    message: string;
-    setMessage: Dispatch<SetStateAction<string | null>>;
     register: ({...args}: RegisterParams) => RegisterResponse;
     login: ({...args}: LoginParams) => LoginResponse;
     logout: () => Promise<void>;
@@ -49,8 +48,8 @@ export const AuthProvider = ({children, currentUser, currentProfile}) => {
     const [user, setUser] = useState(currentUser);
     const [userProfile, setUserProfile] = useState(currentProfile);
     const [error, setError] = useState<string | null>(null);
-    const [message, setMessage] = useState<string | null>(null);
 
+    const {growl} = useContext(MessageContext);
 
     const register = async (user: RegisterParams): RegisterResponse => {
         const createUser = await fetch(`${NEXT_URL}/api/auth/register`, {
@@ -70,7 +69,10 @@ export const AuthProvider = ({children, currentUser, currentProfile}) => {
             if (data?.email) error = data.email[0];
             return {ok: false, errorMessage: error};
         }
-        setMessage("User created successfully, please login to continue...");
+        growl({
+            text: "User created successfully, please login to continue...",
+            severity: "success",
+        });
         await router.push("/account/my-account");
         return {ok: true};
     };
@@ -99,7 +101,10 @@ export const AuthProvider = ({children, currentUser, currentProfile}) => {
         // if (pathname === "/payment/shipping-info") await router.reload();
         if (pathname === "/account/login") await router.push("/account/my-account");
 
-        setMessage("Hi, Welcome to unicorns store");
+        growl({
+            text: "Hi, Welcome to unicorns store",
+            severity: "success",
+        });
         return {ok: true};
     };
 
@@ -117,7 +122,10 @@ export const AuthProvider = ({children, currentUser, currentProfile}) => {
 
         if (logoutUser.ok) {
             await getCurrentUserAndProfile();
-            setMessage(data.message);
+            growl({
+                text: data.message,
+                severity: "success",
+            });
             if (pathname === "/account/my-account") await router.push("/");
         }
     };
@@ -150,7 +158,10 @@ export const AuthProvider = ({children, currentUser, currentProfile}) => {
             setError("Something went wrong, please try again");
             return;
         }
-        setMessage("Profile updated successfully");
+        growl({
+            text: "Profile updated successfully",
+            severity: "success",
+        });
         await getCurrentUserAndProfile();
     }
 
@@ -160,8 +171,6 @@ export const AuthProvider = ({children, currentUser, currentProfile}) => {
             userProfile,
             error,
             setError,
-            message,
-            setMessage,
             register,
             login,
             logout,

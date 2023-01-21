@@ -1,6 +1,6 @@
 import styles from "@/components/ProductDetails/ProductDetails.module.css";
 import "../../node_modules/animate.css/animate.css";
-import {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import Link from "next/link";
 import {BagContext} from "@/context/BagContext";
 import ImageMagnifier from "../ImageMagnifier/ImageMagnifier";
@@ -24,8 +24,17 @@ import {
     AlertErrorSize,
 } from "@/components/ProductDetails/helpers";
 import {addProductToWishList} from "@/helpers/AlertsAndDialogs/addProductToWishList";
+import {IProduct} from "@/Models/types";
 
-export default function ProductDetails({product, token, reviews}) {
+
+interface IProductDetailsProps {
+    product: IProduct;
+    reviews: any;
+    token: string;
+}
+
+const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews}) => {
+    console.log(product)
     const router = useRouter();
     //TODO: add right types here
     // @ts-ignore
@@ -40,11 +49,11 @@ export default function ProductDetails({product, token, reviews}) {
     const {compareItems = []} = productsCompare;
 
     const [shareDialog, setShareDialog] = useState(false);
-    const [video, setvideo] = useState("");
-    const [image, setImage] = useState(product.images[0]?.url);
+    const [video, setVideo] = useState("");
+    const [image, setImage] = useState("/images/unicorn.png");
     const [length, setLength] = useState();
     const [weight, setWeight] = useState();
-    const [size, setSize] = useState("");
+    const [sizeTerm, setSizeTerm] = useState("");
     const openShareDialog = () => {
         setShareDialog(true);
     };
@@ -52,12 +61,12 @@ export default function ProductDetails({product, token, reviews}) {
         setShareDialog(false);
     };
     const handleChangeVideo = (url) => {
-        setvideo(url);
+        setVideo(url);
         setImage("");
     };
     const handleChangeImage = (url) => {
         setImage(url);
-        setvideo("");
+        setVideo("");
     };
     const handleChangeLength = (evnt) => {
         setLength(evnt.target.value);
@@ -67,21 +76,21 @@ export default function ProductDetails({product, token, reviews}) {
     };
 
     // check or hide wish icon
-    const wishBagProduct = wishItems.find(
-        (element) =>
-            `${element.productDetailsPage}/${element.slug}` ===
-            `${product.productDetailsPage}/${product.slug}`
-    );
-
-    // hide or show check icon on compare product
-    const productCompare = compareItems.find(
-        (element) =>
-            `${element.productDetailsPage}/${element.slug}` ===
-            `${product.productDetailsPage}/${product.slug}`
-    );
+    // const wishBagProduct = wishItems.find(
+    //     (element) =>
+    //         `${element.productDetailsPage}/${element.slug}` ===
+    //         `${product.productDetailsPage}/${product.slug}`
+    // );
+    //
+    // // hide or show check icon on compare product
+    // const productCompare = compareItems.find(
+    //     (element) =>
+    //         `${element.productDetailsPage}/${element.slug}` ===
+    //         `${product.productDetailsPage}/${product.slug}`
+    // );
 
     const AddToBag = async (product) => {
-        await addToBag(product, size);
+        await addToBag(product, sizeTerm);
         await router.push("/products/shopping-bag");
     };
 
@@ -121,48 +130,48 @@ export default function ProductDetails({product, token, reviews}) {
         //TODO: add right types here
         // @ts-ignore
         if (length >= 158 && length <= 165) {
-            if (small) return setSize("S");
-            if (medium) return setSize("M");
-            if (large) return setSize("L");
-            if (xLarge) return setSize("XL");
+            if (small) return setSizeTerm("S");
+            if (medium) return setSizeTerm("M");
+            if (large) return setSizeTerm("L");
+            if (xLarge) return setSizeTerm("XL");
             //TODO: add right types here
             // @ts-ignore
-            if (weight >= 76 && weight <= 80) return setSize("2XL");
+            if (weight >= 76 && weight <= 80) return setSizeTerm("2XL");
             //TODO: add right types here
             // @ts-ignore
-            if (weight >= 81) return setSize("3XL");
+            if (weight >= 81) return setSizeTerm("3XL");
         }
 
         //TODO: add right types here
         // @ts-ignore
         if (length > 165) {
-            if (small) return setSize("S");
-            if (medium) return setSize("M");
-            if (large) return setSize("L");
-            if (xLarge) return setSize("XL");
+            if (small) return setSizeTerm("S");
+            if (medium) return setSizeTerm("M");
+            if (large) return setSizeTerm("L");
+            if (xLarge) return setSizeTerm("XL");
             //TODO: add right types here
             // @ts-ignore
-            if (weight >= 76) return setSize("2XL");
+            if (weight >= 76) return setSizeTerm("2XL");
         }
 
         //TODO: add right types here
         // @ts-ignore
         if (length < 158) {
             const {medium, large, xLarge, xxLarge, xxxLarge} = sizeForShortPerson;
-            if (medium) return setSize("M");
-            if (large) return setSize("L");
-            if (xLarge) return setSize("XL");
-            if (xxLarge) return setSize("2XL");
-            if (xxxLarge) return setSize("3XL");
+            if (medium) return setSizeTerm("M");
+            if (large) return setSizeTerm("L");
+            if (xLarge) return setSizeTerm("XL");
+            if (xxLarge) return setSizeTerm("2XL");
+            if (xxxLarge) return setSizeTerm("3XL");
         }
-        setSize("");
+        setSizeTerm("");
     };
 
     // logic to determine the best size for user
     useEffect(() => {
-        if (length === "" || length < 50 || length > 172) return setSize("");
+        if (length === "" || length < 50 || length > 172) return setSizeTerm("");
         determineBestSize();
-    }, [length, weight, size]);
+    }, [length, weight, sizeTerm]);
 
     // hide size section in some pages
     const hideSizeSection = () => {
@@ -183,6 +192,14 @@ export default function ProductDetails({product, token, reviews}) {
             ));
     };
 
+    const checkSizeAvailable = (sizeTerm: string): boolean => {
+        if (sizeTerm === "") return;
+        for (let sizeObj of product.sizes) {
+            if (sizeObj.size === sizeTerm) return true;
+        }
+        return false;
+    }
+
     return (
         <Box data-aos="fade-in" className={styles.main}>
             <Box className={styles.container}>
@@ -198,6 +215,7 @@ export default function ProductDetails({product, token, reviews}) {
                     <div className={styles.smallImagesProduct}>
                         {product.images?.map((image) => (
                             <img
+                                alt="productImg"
                                 key={image.id}
                                 onClick={() => handleChangeImage(image.url)}
                                 className={styles.smallImage}
@@ -206,10 +224,11 @@ export default function ProductDetails({product, token, reviews}) {
                         ))}
                         {product.videos?.map((video) => (
                             <img
+                                alt="previewVideo"
                                 key={video.id}
                                 onClick={() => handleChangeVideo(video.url)}
                                 className={styles.smallImage}
-                                src={video.previewUrl}
+                                // src={video.previewUrl}
                             />
                         ))}
                     </div>
@@ -247,29 +266,30 @@ export default function ProductDetails({product, token, reviews}) {
                             />
                             <HiCheckCircle
                                 className={
-                                    productCompare?.isProductExist === true
-                                        ? styles.checkIcon
-                                        : styles.displayNone
+                                    styles.displayNone
+                                    // productCompare?.isProductExist === true
+                                    //     ? styles.checkIcon
+                                    //     : styles.displayNone
                                 }
                             />
-                            {wishBagProduct?.isProductExist === true ? (
-                                <IoMdHeart className={styles.heartIcon}/>
-                            ) : (
-                                <Popover
-                                    text="Add This Product To Wish List"
-                                    icon={
-                                        <IoMdHeartEmpty
-                                            onClick={
-                                                token === null
-                                                    ? () => router.push("/account/login")
-                                                    : () =>
-                                                        addProductToWishList(product, token, addToWishBag)
-                                            }
-                                            className={styles.heartIcon}
-                                        />
-                                    }
-                                />
-                            )}
+                            {/*{wishBagProduct?.isProductExist === true ? (*/}
+                            {/*    <IoMdHeart className={styles.heartIcon}/>*/}
+                            {/*) : (*/}
+                            {/*    <Popover*/}
+                            {/*        text="Add This Product To Wish List"*/}
+                            {/*        icon={*/}
+                            {/*            <IoMdHeartEmpty*/}
+                            {/*                onClick={*/}
+                            {/*                    token === null*/}
+                            {/*                        ? () => router.push("/account/login")*/}
+                            {/*                        : () =>*/}
+                            {/*                            addProductToWishList(product, token, addToWishBag)*/}
+                            {/*                }*/}
+                            {/*                className={styles.heartIcon}*/}
+                            {/*            />*/}
+                            {/*        }*/}
+                            {/*    />*/}
+                            {/*)}*/}
                         </Box>
                     </Box>
 
@@ -279,11 +299,11 @@ export default function ProductDetails({product, token, reviews}) {
                     </Box>
 
                     {/* Discount percentage */}
-                    {product.discount && (
+                    {product.discount_percentage !== 0 && (
                         <Box>
                             <p className={styles.discountPriceProduct}>
                                 {" "}
-                                Save {product.discount}%{" "}
+                                Save {product.discount_percentage}%{" "}
                             </p>
                             <hr style={{width: "21%", margin: "0 0 1rem 0"}}/>
                         </Box>
@@ -292,8 +312,8 @@ export default function ProductDetails({product, token, reviews}) {
                     {/* price section */}
                     <Box className={styles.containerPriceProduct}>
                         <p className={styles.priceProduct}> {product.price} JD </p>
-                        {product.oldPrice && (
-                            <p className={styles.oldPriceProduct}> {product.oldPrice} JD </p>
+                        {product.old_price && (
+                            <p className={styles.oldPriceProduct}> {product.old_price} JD </p>
                         )}
                     </Box>
 
@@ -305,7 +325,7 @@ export default function ProductDetails({product, token, reviews}) {
                     )}
 
                     {/* pre-order message */}
-                    {product.preOrder === true && (
+                    {product.pre_order && (
                         <Box className={styles.preOrderText}>
                             <span>: ملاحظة</span>
                             <p>
@@ -318,7 +338,7 @@ export default function ProductDetails({product, token, reviews}) {
                     )}
 
                     {/* size input */}
-                    {product.isAvailable && !hideSizeSection() && (
+                    {product.available && (
                         <>
                             <Box className={styles.containerTitleText}>
                                 <p className={styles.titleText}>
@@ -347,7 +367,7 @@ export default function ProductDetails({product, token, reviews}) {
                                     type="text"
                                     label="القياس"
                                     variant="standard"
-                                    value={size}
+                                    value={sizeTerm}
                                     //TODO: add right types here
                                     // @ts-ignore
                                     readOnly
@@ -357,18 +377,11 @@ export default function ProductDetails({product, token, reviews}) {
                         </>
                     )}
 
-                    {/* error message when size not available */}
                     <Box>
-                        {size === "S" && product.S !== true && AlertSizeNotExist}
-                        {size === "M" && product.M !== true && AlertSizeNotExist}
-                        {size === "L" && product.L !== true && AlertSizeNotExist}
-                        {size === "XL" && product.XL !== true && AlertSizeNotExist}
-                        {size === "2XL" && product.XXL !== true && AlertSizeNotExist}
-                        {size === "3XL" && product.XXXL !== true && AlertSizeNotExist}
+                        {checkSizeAvailable(sizeTerm) === false && AlertSizeNotExist}
                     </Box>
 
-                    {/* reminder for the users if the size not fit */}
-                    {size !== "" && (
+                    {sizeTerm !== "" && (
                         <Box>
                             <p className={styles.sizeNotFitText}>
                                 إذا كنت تعتقد أن القياس لا يناسبك يرجى ترك ملاحظة عند الطلب
@@ -381,22 +394,22 @@ export default function ProductDetails({product, token, reviews}) {
                     <Box className={styles.containerAllBtns}>
                         <button
                             onClick={
-                                size === "" && !hideSizeSection()
+                                sizeTerm === "" && !hideSizeSection()
                                     ? () => AlertErrorSize()
                                     : () => AddToBag(product)
                             }
                             className={
-                                product.isAvailable === true
+                                product.available === true
                                     ? styles.addToBagBtn
                                     : styles.buttonDisabled
                             }
                         >
-                            {product.preOrder === false
+                            {product.pre_order === false
                                 ? "أضف إلى الحقيبة"
                                 : "متوفر للطلب المسبق"}
                         </button>
 
-                        {product.isAvailable === false && (
+                        {product.available === false && (
                             <p className={styles.notAvaliableText}>
                                 نعتذر يبدو أن المنتج حالياً غير متوفر
                             </p>
@@ -410,7 +423,9 @@ export default function ProductDetails({product, token, reviews}) {
             </Box>
 
             {/* Reviews Section */}
-            <Reviews product={product} reviews={reviews} token={token}/>
+            {/*<Reviews product={product} reviews={reviews} token={token}/>*/}
         </Box>
     );
 }
+
+export default ProductDetails;

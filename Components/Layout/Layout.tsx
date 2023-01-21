@@ -16,6 +16,7 @@ import {AuthContext} from "@/context/AuthContext";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
+import {MessageContext} from "@/context/MessageContext";
 
 
 export interface ILayoutProps {
@@ -32,7 +33,8 @@ const Layout: React.FC<ILayoutProps> = ({title, description, children}) => {
     // @ts-ignore
     const {mainTitle, secondTitle, btnText} = languages[language];
 
-    const {user, message, setMessage} = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
+    const {message, closeGrowl} = useContext(MessageContext)
 
     // n progress to show page progress
     useEffect(() => {
@@ -56,10 +58,6 @@ const Layout: React.FC<ILayoutProps> = ({title, description, children}) => {
         };
     });
 
-    function handleClose() {
-        setMessage(null);
-    }
-
     return (
         <div>
             <Head>
@@ -70,13 +68,22 @@ const Layout: React.FC<ILayoutProps> = ({title, description, children}) => {
                 <link rel="icon" href="/images/unicorn.png"/>
             </Head>
             <Header/>
-            <Stack spacing={2} sx={{width: '100%'}}>
-                <Snackbar open={message !== null && true} autoHideDuration={10000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{position: "fixed", top: 100, right: "40%"}}>
-                        {message}
-                    </Alert>
-                </Snackbar>
-            </Stack>
+            {message && (
+                <Stack spacing={2} sx={{width: '100%'}}>
+                    <Snackbar open={true}
+                              autoHideDuration={message.autoHideDuration ?? 10000}
+                              onClose={() => closeGrowl()}
+                    >
+                        <Alert onClose={() => closeGrowl()}
+                               severity={message.severity}
+                               sx={{position: "fixed", top: 100, right: "40%"}}
+                        >
+                            {message.text}
+                        </Alert>
+                    </Snackbar>
+                </Stack>
+            )}
+
             {router.pathname === "/" && (
                 <div data-aos="fade-in"
                      data-aos-once='true'

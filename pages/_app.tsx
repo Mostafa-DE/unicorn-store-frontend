@@ -12,6 +12,7 @@ import Layout from "@/components/Layout";
 import {useRouter} from "next/router";
 import {NEXT_URL} from "@/config/index";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
+import {MessageProvider} from "@/context/MessageContext";
 
 
 function getPageTitle(): string {
@@ -76,30 +77,32 @@ function MyApp({Component, pageProps, currentUser, currentUserProfile, serverErr
             {/*            }*/}
             {/*        }}*/}
             {/*    >*/}
-            <AuthProvider currentUser={currentUser} currentProfile={currentUserProfile}>
-                <BagProvider>
-                    <WishBagProvider>
-                        <CompareProvider>
-                            <ShippingInfoProvider>
-                                <LanguageProvider>
-                                    {
-                                        serverError ?
-                                            <ErrorComponent
-                                                reaction="OOPS!"
-                                                statusError="503 - Service Unavailable"
-                                                ErrorMessage="The server is temporarily unavailable, Please try again later!!"
-                                                hideBackButton={true}
-                                            /> :
-                                            <Layout title={getPageTitle()}>
-                                                <Component {...pageProps} />
-                                            </Layout>
-                                    }
-                                </LanguageProvider>
-                            </ShippingInfoProvider>
-                        </CompareProvider>
-                    </WishBagProvider>
-                </BagProvider>
-            </AuthProvider>
+            <MessageProvider>
+                <AuthProvider currentUser={currentUser} currentProfile={currentUserProfile}>
+                    <BagProvider>
+                        <WishBagProvider>
+                            <CompareProvider>
+                                <ShippingInfoProvider>
+                                    <LanguageProvider>
+                                        {
+                                            serverError ?
+                                                <ErrorComponent
+                                                    reaction="OOPS!"
+                                                    statusError="503 - Service Unavailable"
+                                                    ErrorMessage="The server is temporarily unavailable, Please try again later!!"
+                                                    hideBackButton={true}
+                                                /> :
+                                                <Layout title={getPageTitle()}>
+                                                    <Component {...pageProps} />
+                                                </Layout>
+                                        }
+                                    </LanguageProvider>
+                                </ShippingInfoProvider>
+                            </CompareProvider>
+                        </WishBagProvider>
+                    </BagProvider>
+                </AuthProvider>
+            </MessageProvider>
             {/*</motion.div>*/}
             {/*</AnimatePresence>*/}
         </>
