@@ -90,7 +90,7 @@ function MyApp({Component, pageProps, currentUser, currentUserProfile, serverErr
                                                     reaction="OOPS!"
                                                     statusError="503 - Service Unavailable"
                                                     ErrorMessage="The server is temporarily unavailable, Please try again later!!"
-                                                    hideBackButton={true}
+                                                    showBackButton={true}
                                                 /> :
                                                 <Layout title={getPageTitle()}>
                                                     <Component {...pageProps} />

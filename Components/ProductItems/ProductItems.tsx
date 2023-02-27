@@ -14,6 +14,7 @@ import { API_URL } from "@/config/index";
 import Swal from "sweetalert2";
 import DialogSocialShare from "@/components/DialogSocialShare";
 import { IProduct } from "@/Models/types";
+import {calculateDiscountPrice} from "@/helpers/calculateDiscountPrice";
 
 interface IProductItemsProps {
   product: IProduct;
@@ -75,14 +76,18 @@ const ProductItems: React.FC<IProductItemsProps> = ({ product }) => {
   // check or hide wish icon
   const wishBagProduct = wishItems.find(
     (element: IProduct) =>
+        // @ts-ignore
       `${element.productDetailsPage}/${element.slug}` ===
+        // @ts-ignore
       `${product.productDetailsPage}/${product.slug}`
   );
 
   // hide or show check icon on compare product
   const productCompare = compareItems.find(
     (element: IProduct) =>
+        // @ts-ignore
       `${element.productDetailsPage}/${element.slug}` ===
+        // @ts-ignore
       `${product.productDetailsPage}/${product.slug}`
   );
 
@@ -98,7 +103,7 @@ const ProductItems: React.FC<IProductItemsProps> = ({ product }) => {
   return (
     <div data-aos="fade-right" data-aos-once='true' className={styles.container}>
       {/*<img className={styles.imgs} src={product.images[0]?.url} />*/}
-      <img alt="productImg" src="/images/unicorn.png" width={300} height={400} />
+      <img alt="productImg" src={product.images[0].url} width={300} height={400} />
       <DialogSocialShare
         shareDialog={shareDialog}
         closeShareDialog={closeShareDialog}
@@ -146,10 +151,10 @@ const ProductItems: React.FC<IProductItemsProps> = ({ product }) => {
           <hr className={styles.hr} />
         </div>
         <div className={styles.price}>
-          {product.old_price && (
-            <p className={styles.oldPrice}>{product.old_price} JD</p>
+          {product.discount_percentage !== 0 && (
+            <p className={styles.oldPrice}>{product.price} JD</p>
           )}
-          <p className={styles.newPrice}>{product.price} JD</p>
+          <p className={styles.newPrice}>{calculateDiscountPrice(product.price, product.discount_percentage)} JD</p>
         </div>
         <div className={styles.quickview}>
           <Link href={`/${router.pathname}/${product.slug}`}>

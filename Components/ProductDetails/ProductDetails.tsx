@@ -25,10 +25,14 @@ import {
 } from "@/components/ProductDetails/helpers";
 import {addProductToWishList} from "@/helpers/AlertsAndDialogs/addProductToWishList";
 import {IProduct} from "@/Models/types";
+import {calculateDiscountPrice} from "@/helpers/calculateDiscountPrice";
+import ErrorComponent from "../ErrorComponent";
 
+
+type ProductDoesNotExist = {error: string}
 
 interface IProductDetailsProps {
-    product: IProduct;
+    product: IProduct & ProductDoesNotExist;
     reviews: any;
     token: string;
 }
@@ -36,6 +40,18 @@ interface IProductDetailsProps {
 const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews}) => {
     console.log(product)
     const router = useRouter();
+    if (product.error || !product) {
+        return (
+            <ErrorComponent 
+                reaction="OOPS"
+                statusError="404 - Product Not Found"
+                ErrorMessage="Sorry, the product you are looking for does not exist or it is not available at the moment."
+                buttonTxt="Continue Shopping!!"
+                showPreviousPageButton={true}
+            />
+        )
+    }
+
     //TODO: add right types here
     // @ts-ignore
     const {addToBag} = useContext(BagContext);
@@ -50,7 +66,7 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
 
     const [shareDialog, setShareDialog] = useState(false);
     const [video, setVideo] = useState("");
-    const [image, setImage] = useState("/images/unicorn.png");
+    const [image, setImage] = useState(product.images[0].url);
     const [length, setLength] = useState();
     const [weight, setWeight] = useState();
     const [sizeTerm, setSizeTerm] = useState("");
@@ -311,10 +327,14 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
 
                     {/* price section */}
                     <Box className={styles.containerPriceProduct}>
-                        <p className={styles.priceProduct}> {product.price} JD </p>
-                        {product.old_price && (
-                            <p className={styles.oldPriceProduct}> {product.old_price} JD </p>
-                        )}
+                        <p className={styles.priceProduct}>
+                            {calculateDiscountPrice(product.price, product.discount_percentage)} JD
+                        </p>
+                        {/*{product.discount_percentage && (*/}
+                        {/*    <p className={styles.oldPriceProduct}>*/}
+                        {/*        {} JD*/}
+                        {/*    </p>*/}
+                        {/*)}*/}
                     </Box>
 
                     {/* color section */}

@@ -25,7 +25,6 @@ export interface IProduct {
     discount_percentage: number;
     available?: boolean;
     madeIn?: string;
-    old_price: number;
     pre_order: boolean;
     // productDetailsPage: string;
     type: string;
