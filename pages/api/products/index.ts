@@ -13,7 +13,7 @@ const userApi = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(productsRes.status).json(data);
 
     } catch (error) {
-        res.status(500).json({});
+        res.status(500).json([]);
     }
 
 };

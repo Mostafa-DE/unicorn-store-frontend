@@ -27,9 +27,10 @@ import {addProductToWishList} from "@/helpers/AlertsAndDialogs/addProductToWishL
 import {IProduct} from "@/Models/types";
 import {calculateDiscountPrice} from "@/helpers/calculateDiscountPrice";
 import ErrorComponent from "../ErrorComponent";
+import Image from "next/image";
 
 
-type ProductDoesNotExist = {error: string}
+type ProductDoesNotExist = { error: string }
 
 interface IProductDetailsProps {
     product: IProduct & ProductDoesNotExist;
@@ -42,7 +43,7 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
     const router = useRouter();
     if (product.error || !product) {
         return (
-            <ErrorComponent 
+            <ErrorComponent
                 reaction="OOPS"
                 statusError="404 - Product Not Found"
                 ErrorMessage="Sorry, the product you are looking for does not exist or it is not available at the moment."
@@ -51,6 +52,20 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
             />
         )
     }
+
+    const {
+        name,
+        price,
+        images,
+        videos,
+        description,
+        available,
+        pre_order,
+        color,
+        discount_percentage = 0,
+    } = product
+
+    if (images.length === 0) images.push({id: "Default", url: "/images/unicorn.png"});
 
     //TODO: add right types here
     // @ts-ignore
@@ -200,10 +215,10 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
     const getColorProduct = (product) => {
         return product.color
             .split("-")
-            .map((color) => (
-                <div
-                    style={{backgroundColor: `${color}`}}
-                    className={styles.colorProduct}
+            .map((color, idx) => (
+                <div key={idx}
+                     style={{backgroundColor: `${color}`}}
+                     className={styles.colorProduct}
                 />
             ));
     };
@@ -229,8 +244,10 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                 />
                 <div className={styles.containerImages}>
                     <div className={styles.smallImagesProduct}>
-                        {product.images?.map((image) => (
-                            <img
+                        {images.map((image) => (
+                            <Image
+                                width={120}
+                                height={100}
                                 alt="productImg"
                                 key={image.id}
                                 onClick={() => handleChangeImage(image.url)}
@@ -238,24 +255,26 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                                 src={image.url}
                             />
                         ))}
-                        {product.videos?.map((video) => (
-                            <img
+                        {videos.length > 0 && videos.map((video) => (
+                            <Image
+                                width={120}
+                                height={100}
                                 alt="previewVideo"
                                 key={video.id}
                                 onClick={() => handleChangeVideo(video.url)}
                                 className={styles.smallImage}
-                                // src={video.previewUrl}
+                                src={video.image}
                             />
                         ))}
                     </div>
-                    {video !== "" ? (
+                    {video !== "" && (
                         <video controlsList="nodownload" className={styles.video} controls>
                             <source src={video}/>
                         </video>
-                    ) : null}
-                    {image !== "" ? (
+                    )}
+                    {image !== "" && (
                         <ImageMagnifier src={image} width={"100%"} height={"600px"}/>
-                    ) : null}
+                    )}
                 </div>
 
                 <Box className={styles.containerDetails}>
@@ -310,42 +329,43 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                     </Box>
 
                     <Box className={styles.containerTitle}>
-                        <p className={styles.nameProduct}> {product.name} </p>
+                        <p className={styles.nameProduct}> {name} </p>
                         <AiOutlineLine className="lineIcon"/>
                     </Box>
 
-                    {/* Discount percentage */}
-                    {product.discount_percentage !== 0 && (
+                    {discount_percentage !== 0 && (
                         <Box>
                             <p className={styles.discountPriceProduct}>
-                                {" "}
-                                Save {product.discount_percentage}%{" "}
+                                {`Save ${discount_percentage}%`}
                             </p>
                             <hr style={{width: "21%", margin: "0 0 1rem 0"}}/>
                         </Box>
                     )}
 
-                    {/* price section */}
                     <Box className={styles.containerPriceProduct}>
                         <p className={styles.priceProduct}>
-                            {calculateDiscountPrice(product.price, product.discount_percentage)} JD
+                            {calculateDiscountPrice(price, discount_percentage)} JD
                         </p>
-                        {/*{product.discount_percentage && (*/}
-                        {/*    <p className={styles.oldPriceProduct}>*/}
-                        {/*        {} JD*/}
-                        {/*    </p>*/}
-                        {/*)}*/}
+                        {product.discount_percentage && (
+                            <p className={styles.oldPriceProduct}>
+                                {price} JD
+                            </p>
+                        )}
                     </Box>
 
-                    {/* color section */}
-                    {product.color && (
+                    <Box sx={{marginTop: "1rem"}}>
+                        <p className={styles.descriptionProduct}>
+                            {description}
+                        </p>
+                    </Box>
+
+                    {color && (
                         <Box className={styles.containerColorProduct}>
                             {getColorProduct(product)}
                         </Box>
                     )}
 
-                    {/* pre-order message */}
-                    {product.pre_order && (
+                    {pre_order && (
                         <Box className={styles.preOrderText}>
                             <span>: ملاحظة</span>
                             <p>
@@ -357,8 +377,7 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                         </Box>
                     )}
 
-                    {/* size input */}
-                    {product.available && (
+                    {available && (
                         <>
                             <Box className={styles.containerTitleText}>
                                 <p className={styles.titleText}>
@@ -388,9 +407,6 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                                     label="القياس"
                                     variant="standard"
                                     value={sizeTerm}
-                                    //TODO: add right types here
-                                    // @ts-ignore
-                                    readOnly
                                     fullWidth
                                 />
                             </Box>
@@ -410,7 +426,6 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                         </Box>
                     )}
 
-                    {/* Btns section */}
                     <Box className={styles.containerAllBtns}>
                         <button
                             onClick={
@@ -419,18 +434,18 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                                     : () => AddToBag(product)
                             }
                             className={
-                                product.available === true
+                                available === true
                                     ? styles.addToBagBtn
                                     : styles.buttonDisabled
                             }
                         >
-                            {product.pre_order === false
+                            {pre_order === false
                                 ? "أضف إلى الحقيبة"
                                 : "متوفر للطلب المسبق"}
                         </button>
 
-                        {product.available === false && (
-                            <p className={styles.notAvaliableText}>
+                        {available === false && (
+                            <p className={styles.notAvailableText}>
                                 نعتذر يبدو أن المنتج حالياً غير متوفر
                             </p>
                         )}
@@ -442,7 +457,6 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                 </Box>
             </Box>
 
-            {/* Reviews Section */}
             {/*<Reviews product={product} reviews={reviews} token={token}/>*/}
         </Box>
     );

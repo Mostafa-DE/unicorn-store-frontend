@@ -1,14 +1,12 @@
-export interface IFormats {
-    small: { url: string };
-    medium: { url: string };
-    large: { url: string };
-    thumbnail: { url: string };
+export interface IImages {
+    id: number | string;
+    url: string;
 }
 
-export interface IVideosAndImages {
-    id: number;
+export interface IVideos {
+    id: number | string;
     url: string;
-    formats: IFormats;
+    image: string;
 }
 
 type ISizes = { size: "S" | "M" | "L" | "XL" | "2XL" | "3XL" };
@@ -28,8 +26,8 @@ export interface IProduct {
     pre_order: boolean;
     // productDetailsPage: string;
     type: string;
-    images: IVideosAndImages[];
-    videos?: IVideosAndImages[];
+    images: IImages[];
+    videos?: IVideos[];
     created_at: string;
     published_at: string;
 }

@@ -1,28 +1,23 @@
 import ProductItems from "@/components/ProductItems/ProductItems";
 
 export default function ProductsWithSearch({products, searchTerm, pathname}) {
-    const allProductsFiltered = products.filter((products) => {
-        if (searchTerm === "") {
-            return products;
-        } else if (products.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-            return products;
-        } else if (
-            products.description?.toLowerCase().includes(searchTerm.toLowerCase())
-        ) {
-            return products;
-        }
-    });
+    let allProductsFiltered = [];
+    if (products.length > 0) {
+        allProductsFiltered = products.filter((products) => {
+            if (searchTerm === "") {
+                return products;
+            } else if (products.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                return products;
+            } else if (
+                products.description?.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+                return products;
+            }
+        });
+    }
 
     return (
         <>
-            {allProductsFiltered.map((product) => (
-                <ProductItems
-                    key={product.id}
-                    pathname={pathname}
-                    product={product}
-                />
-            ))}
-
             {allProductsFiltered.length === 0 ? (
                 <div className="containerSearchResults">
                     <h1>😔 لا شيء هنا</h1>
@@ -31,7 +26,13 @@ export default function ProductsWithSearch({products, searchTerm, pathname}) {
                         حالياً
                     </p>
                 </div>
-            ) : null}
+            ) : allProductsFiltered.map((product) => (
+                <ProductItems
+                    key={product.id}
+                    pathname={pathname}
+                    product={product}
+                />
+            ))}
         </>
     );
 }
