@@ -28,7 +28,7 @@ function getPageTitle(): string {
     return "Unicorns Store | Shop Online For Fashions, Tools, Gifts & More";
 }
 
-function MyApp({Component, pageProps, currentUser, currentUserProfile, serverError}) {
+function MyApp({Component, pageProps, currentUser, currentUserProfile, shoppingBag, serverError}) {
     useEffect(() => {
         AOS.init({
             duration: 2000
@@ -79,7 +79,7 @@ function MyApp({Component, pageProps, currentUser, currentUserProfile, serverErr
             {/*    >*/}
             <MessageProvider>
                 <AuthProvider currentUser={currentUser} currentProfile={currentUserProfile}>
-                    <BagProvider>
+                    <BagProvider shoppingBag={shoppingBag}>
                         <WishBagProvider>
                             <CompareProvider>
                                 <ShippingInfoProvider>
@@ -112,7 +112,7 @@ function MyApp({Component, pageProps, currentUser, currentUserProfile, serverErr
 export default MyApp;
 
 
-MyApp.getInitialProps = async ({ctx}) => {
+const getUserAndUserProfile = async (ctx) => {
     let currentUser = null;
     let currentUserProfile = null;
 
@@ -134,8 +134,32 @@ MyApp.getInitialProps = async ({ctx}) => {
         return {serverError: true}
     }
 
+    return {currentUser, currentUserProfile};
+}
+
+const getShoppingBag = async (ctx) => {
+    let shoppingBag = null;
+
+    const bagRes = await fetch(`${NEXT_URL}/api/cart/`, {
+        method: "GET",
+        credentials: "include",
+        headers: ctx.req?.headers
+    });
+
+    if (bagRes.ok) shoppingBag = await bagRes.json();
+
+    return {shoppingBag};
+}
+
+
+MyApp.getInitialProps = async ({ctx}) => {
+    const {currentUser, currentUserProfile} = await getUserAndUserProfile(ctx);
+    const {shoppingBag} = await getShoppingBag(ctx);
+
+
     return {
         currentUser,
         currentUserProfile,
+        shoppingBag,
     };
 };

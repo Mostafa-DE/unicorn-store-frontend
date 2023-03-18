@@ -9,7 +9,9 @@
 .itemDetails {
     margin: 0 0 0 1rem;
     display: flex;
+    width: 100%;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
 }
@@ -20,8 +22,15 @@
     width: 15rem;
 }
 
-.nameItem {
+.nameItem, .sizeItem, .priceItem, .totalPriceItem {
     max-width: 6rem;
+    font-size: 1.1rem;
+}
+
+.colorItem {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
 }
 
 .addOrRemoveQty {

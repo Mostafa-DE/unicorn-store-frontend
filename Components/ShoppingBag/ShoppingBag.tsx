@@ -15,16 +15,17 @@ import {HiPlusSm} from "react-icons/hi";
 import {AiOutlineLine} from "react-icons/ai";
 import {FaTrash} from "react-icons/fa";
 import {API_URL} from "@/config/index";
+import Image from "next/image";
 
 export default function ShoppingBag({bag}) {
     const router = useRouter();
     const [cartItems, setCartItems] = useState(bag.cart_items);
-    const [totalBag, setTotalBag] = useState(bag.get_cart_total);
+    const [totalBag, setTotalBag] = useState(bag.cart_total);
 
     const {growl} = useContext(MessageContext);
 
     async function handleChangeQty(lineId, qty) {
-        const res = await fetch(`${API_URL}/api/cart/items/${lineId}/`, {
+        const res = await fetch(`${API_URL}/api/cart/item/${lineId}/`, {
             method: "PUT",
             credentials: "include",
             headers: {
@@ -45,11 +46,11 @@ export default function ShoppingBag({bag}) {
             prevState[index] = line;
             return [...prevState];
         });
-        setTotalBag(line.get_cart_total)
+        setTotalBag(line.cart_total)
     }
 
     async function handleDeleteLine(lineId) {
-        const res = await fetch(`${API_URL}/api/cart/items/${lineId}/`, {
+        const res = await fetch(`${API_URL}/api/cart/item/${lineId}/`, {
             method: "DELETE",
             credentials: "include",
             headers: {
@@ -99,29 +100,41 @@ export default function ShoppingBag({bag}) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {cartItems.map(({product, quantity, id}) => (
+                                {cartItems.map(({product, quantity, id, size, color, images}) => (
                                     <TableRow key={id}>
                                         <TableCell
                                             sx={{width: "23rem"}}
                                             className={styles.fontFamily}
                                         >
                                             <div className={styles.containerItemCell}>
-                                                <img
-                                                    // src={item.images[0].url}
-                                                    width={100}
+                                                <Image
+                                                    src={
+                                                        (
+                                                            product.images
+                                                            && product.images.length !== 0
+                                                        ) ? product.images[0].url : ""
+                                                    }
+                                                    width={250}
                                                     height={100}
+                                                    style={{maxWidth: "100px"}}
                                                     alt="Item Image.."
                                                 />
                                                 <div className={styles.itemDetails}>
                                                     <p className={styles.nameItem}>{product.name}</p>
-                                                    {/*<p>{item.color}</p>*/}
-                                                    <p>
-                                                        {product.size} {product.size !== "" ? ":القياس" : null}
-                                                    </p>
+                                                    {color && (
+                                                        <p className={styles.colorItem}
+                                                           style={{backgroundColor: `${color}`}}>
+                                                        </p>
+                                                    )}
+                                                    {size && (
+                                                        <p className={styles.sizeItem}>
+                                                            {size}
+                                                        </p>
+                                                    )}
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell>{product.price} JD</TableCell>
+                                        <TableCell className={styles.priceItem}>{product.price} JD</TableCell>
                                         <TableCell align="center">
                                             {quantity}
                                             <div className={styles.addOrRemoveQty}>
@@ -142,7 +155,7 @@ export default function ShoppingBag({bag}) {
                                                 />
                                             </div>
                                         </TableCell>
-                                        <TableCell align="center">
+                                        <TableCell className={styles.totalPriceItem} align="center">
                                             {product.price * quantity} JD
                                         </TableCell>
                                         <TableCell>

@@ -36,25 +36,15 @@ const Layout: React.FC<ILayoutProps> = ({title, description, children}) => {
     const {user} = useContext(AuthContext);
     const {message, closeGrowl} = useContext(MessageContext)
 
-    // n progress to show page progress
     useEffect(() => {
-        const onRouterChangeStart = () => {
-            NProgress.start();
-        };
-        const onRouteChangeComplete = () => {
-            NProgress.done();
-        };
-        const onRouteChangeError = () => {
-            NProgress.done();
-        };
-        router.events.on("routeChangeStart", onRouterChangeStart);
-        router.events.on("routeChangeComplete", onRouteChangeComplete);
-        router.events.on("routeChangeError", onRouteChangeError);
+        router.events.on("routeChangeStart", () => NProgress.start());
+        router.events.on("routeChangeComplete", () => NProgress.done());
+        router.events.on("routeChangeError", () => NProgress.done());
 
         return () => {
-            router.events.off("routeChangeStart", onRouterChangeStart);
-            router.events.off("routeChangeComplete", onRouteChangeComplete);
-            router.events.off("routeChangeError", onRouteChangeError);
+            router.events.off("routeChangeStart", () => NProgress.start());
+            router.events.off("routeChangeComplete", () => NProgress.done());
+            router.events.off("routeChangeError", () => NProgress.done());
         };
     });
 

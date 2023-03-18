@@ -28,6 +28,7 @@ import {IProduct} from "@/Models/types";
 import {calculateDiscountPrice} from "@/helpers/calculateDiscountPrice";
 import ErrorComponent from "../ErrorComponent";
 import Image from "next/image";
+import {API_URL} from "@/config/index";
 
 
 type ProductDoesNotExist = { error: string }
@@ -38,7 +39,7 @@ interface IProductDetailsProps {
     token: string;
 }
 
-const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews}) => {
+const ProductDetails: React.FC<IProductDetailsProps> = ({product, reviews}) => {
     console.log(product)
     const router = useRouter();
     if (product.error || !product) {
@@ -55,6 +56,7 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
 
     const {
         name,
+        id,
         price,
         images,
         videos,
@@ -69,7 +71,7 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
 
     //TODO: add right types here
     // @ts-ignore
-    const {addToBag} = useContext(BagContext);
+
     //TODO: add right types here
     // @ts-ignore
     const {wishBag, addToWishBag} = useContext(WishBagContext);
@@ -78,6 +80,9 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
     // @ts-ignore
     const {productsCompare, addToCompare} = useContext(CompareContext);
     const {compareItems = []} = productsCompare;
+
+    //@ts-ignore
+    const {bag, createCartItem} = useContext(BagContext);
 
     const [shareDialog, setShareDialog] = useState(false);
     const [video, setVideo] = useState("");
@@ -106,6 +111,17 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
         setWeight(evnt.target.value);
     };
 
+    const handleCreateNewCartItem = async () => {
+        createCartItem({
+            productId: id,
+            size: sizeTerm,
+            quantity: 1,
+            color: color,
+        })
+
+        await router.push("/products/shopping-bag");
+    }
+
     // check or hide wish icon
     // const wishBagProduct = wishItems.find(
     //     (element) =>
@@ -119,11 +135,6 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
     //         `${element.productDetailsPage}/${element.slug}` ===
     //         `${product.productDetailsPage}/${product.slug}`
     // );
-
-    const AddToBag = async (product) => {
-        await addToBag(product, sizeTerm);
-        await router.push("/products/shopping-bag");
-    };
 
     const commonSize = {
         //TODO: add right types here
@@ -206,9 +217,9 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
 
     // hide size section in some pages
     const hideSizeSection = () => {
-        for (let pageUrl of pagesWithoutSize) {
-            if (pageUrl === router.pathname) return true;
-        }
+        pagesWithoutSize.map((page) => {
+            if (page === router.pathname) return true;
+        })
         return false;
     };
 
@@ -429,9 +440,9 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                     <Box className={styles.containerAllBtns}>
                         <button
                             onClick={
-                                sizeTerm === "" && !hideSizeSection()
+                                (sizeTerm === "" && !hideSizeSection())
                                     ? () => AlertErrorSize()
-                                    : () => AddToBag(product)
+                                    : () => handleCreateNewCartItem()
                             }
                             className={
                                 available === true
@@ -439,9 +450,7 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({product, token, reviews
                                     : styles.buttonDisabled
                             }
                         >
-                            {pre_order === false
-                                ? "أضف إلى الحقيبة"
-                                : "متوفر للطلب المسبق"}
+                            {pre_order === false ? "أضف إلى الحقيبة" : "متوفر للطلب المسبق"}
                         </button>
 
                         {available === false && (
