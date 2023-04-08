@@ -175,8 +175,9 @@ export default function ProductDetails({product, token, reviews}) {
     const getColorProduct = (product) => {
         return product.color
             .split("-")
-            .map((color) => (
+            .map((color, idx) => (
                 <div
+                    key={idx}
                     style={{backgroundColor: `${color}`}}
                     className={styles.colorProduct}
                 />

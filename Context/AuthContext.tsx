@@ -18,6 +18,15 @@ export const AuthProvider = ({children}) => {
         checkIfUserLoggedIn();
     }, []);
 
+    const navigateUserPage = () => {
+        if (router.pathname === "/account/checkout-login") return "/payment/shipping-info";
+        if (router.pathname === "/payment/shipping-info") {
+            router.reload();
+            return "";
+        }
+        return "/account/my-account";
+    }
+
     /*--------------------Register------------------*/
     const register = async (user) => {
         const createUser = await fetch(`${NEXT_URL}/api/register`, {
@@ -43,6 +52,7 @@ export const AuthProvider = ({children}) => {
 
     /*----------------------Login-------------------*/
     const login = async ({email: identifier, password}) => {
+        setError(null);
         const loginUser = await fetch(`${NEXT_URL}/api/login`, {
             method: "POST",
             headers: {
@@ -56,21 +66,13 @@ export const AuthProvider = ({children}) => {
 
         const data = await loginUser.json();
 
-        if (loginUser.ok) {
-            setUser(data.user);
-            if (router.pathname === "/account/checkout-login") {
-                await router.push("/payment/shipping-info");
-                return;
-            }
-            if (router.pathname === "/payment/shipping-info") {
-                await router.reload();
-                return;
-            }
-            await router.push("/account/my-account");
-        } else {
+        if (!loginUser.ok) {
             setError(data.message);
-            setError(null);
+            return;
         }
+
+        setUser(data.user);
+        await router.push(navigateUserPage());
     };
 
     /*------------------------X---------------------*/
@@ -104,7 +106,7 @@ export const AuthProvider = ({children}) => {
     /*------------------------X---------------------*/
 
     return (
-        <AuthContext.Provider value={{user, error, register, login, logout}}>
+        <AuthContext.Provider value={{user, error, setError, register, login, logout}}>
             {children}
         </AuthContext.Provider>
     );

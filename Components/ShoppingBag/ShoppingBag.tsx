@@ -22,6 +22,7 @@ export default function ShoppingBag({ token }) {
   // @ts-ignore
   const { bag, increaseQty, decreaseQty, removeFromBag } =
     useContext(BagContext);
+  // @ts-ignore
   const { items = [] } = bag;
 
   const showDeleteIcon = (qty) => {

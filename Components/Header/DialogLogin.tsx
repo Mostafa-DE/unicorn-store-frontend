@@ -37,14 +37,15 @@ export default function DialogLogin() {
 
     //TODO: add right types here
     // @ts-ignore
-    const {login, logout, user, error} = useContext(AuthContext);
+    const {login, logout, user, error, setError} = useContext(AuthContext);
     //TODO: add right types here
     // @ts-ignore
     const {language} = useContext(LanguageContext);
 
     useEffect(() => {
         error && setShowErrorMessage(true);
-    });
+        setError(null);
+    }, [error, setError]);
 
     const {titleLogin, titleLogout} = languages[language];
 
@@ -109,6 +110,7 @@ export default function DialogLogin() {
                             maxWidth: "20rem",
                             textAlign: "center",
                             fontSize: "0.8rem",
+                            marginTop: "0.8rem",
                         }}
                         variant="danger"
                         dismissible

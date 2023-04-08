@@ -24,10 +24,12 @@ export default function LoginForm({rememberEmailUser}) {
 
     //TODO: add right types here
     // @ts-ignore
-    const {login, error} = useContext(AuthContext);
+    const {login, error, setError} = useContext(AuthContext);
     useEffect(() => {
+        console.log("error", error);
         error && alertLoginFailed(error);
-    }, [login, error]);
+        setError(null);
+    }, [error, setError]);
 
     const [email, setEmail] = useState(rememberEmailUser);
     const handleChangeEmail = (evnt) => {

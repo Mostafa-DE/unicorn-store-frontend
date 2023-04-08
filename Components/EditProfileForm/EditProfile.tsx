@@ -157,7 +157,7 @@ export default function EditProfile({userAccount, userProfile, token, handleEdit
                         <TableRow>
                             <TableCell align="left">
                                 <TextValidator
-                                    type="text"
+                                    type="number"
                                     name="building"
                                     onChange={handleChange}
                                     value={values.building}
