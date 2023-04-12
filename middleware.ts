@@ -18,6 +18,7 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
+    // Handle protected routes
     const token = req.cookies.get('token')?.value;
     const pageName = req.nextUrl.pathname;
     const handleRoute =
@@ -49,5 +50,29 @@ export async function middleware(req: NextRequest) {
         "/products/wish-list": () => handleRouteWithUser('/account/login'),
     }
     const protectedRoute = protectedRoutes[pageName]
-    return protectedRoute ? protectedRoute() : NextResponse.next();
+    if (protectedRoute) return protectedRoute();
+
+    // Handle upcoming pages
+    const upcomingRoutes = [
+        "men-fashions/men-pajamas/pajamas",
+        "men-fashions/all-products/other-products",
+        "kids-fashions/kids-pajamas/pajamas",
+        "kids-fashions/kids-dresses/dresses",
+        "kids-fashions/all-products/other-products",
+        "accessories/women/women-necklace/necklace",
+        "accessories/women/women-rings/rings",
+        "accessories/women/women-bracelets/bracelets",
+        "accessories/women/all-products/other-products",
+        "accessories/men/men-watches/watches",
+        "accessories/men/all-products/other-products",
+        "accessories/kids/all-products/products",
+        "makeup/products",
+        "packages/products",
+        "houseware/products",
+    ]
+
+    const upcomingRoute = upcomingRoutes.find((route) => pathname.includes(route))
+    if (upcomingRoute) return NextResponse.rewrite(`${NEXT_URL}/coming-soon`);
+
+    return NextResponse.next();
 }

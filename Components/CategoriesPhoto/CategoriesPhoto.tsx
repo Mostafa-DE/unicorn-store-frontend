@@ -97,19 +97,22 @@ export default function CategoriesPhoto() {
                             <div className={styles.containerCategories}>
                                 <div className={styles.allCategories}>
                                     <ul>
-                                        <div className={styles.containerTitle}>
-                                            <p className={styles.titleCategories}> {kidsCollections(kidsLinksTitle).title} </p>
-                                            <AiOutlineLine className={styles.lineIcon}/>
-                                        </div>
-                                        {kidsCollections(kidsLinksTitle).links.map((collection, idx) => (
-                                            <Link
-                                                key={idx}
-                                                href={collection.url}
-                                                passHref
-                                            >
-                                                <li>{collection.title}</li>
-                                            </Link>
-                                        ))}
+                                        <li style={{fontSize: "1.5rem", marginTop: "2rem"}}>
+                                            Coming Soon...<br/> Stay tuned 🦄
+                                        </li>
+                                        {/*<div className={styles.containerTitle}>*/}
+                                        {/*    <p className={styles.titleCategories}> {kidsCollections(kidsLinksTitle).title} </p>*/}
+                                        {/*    <AiOutlineLine className={styles.lineIcon}/>*/}
+                                        {/*</div>*/}
+                                        {/*{kidsCollections(kidsLinksTitle).links.map((collection, idx) => (*/}
+                                        {/*    <Link*/}
+                                        {/*        key={idx}*/}
+                                        {/*        href={collection.url}*/}
+                                        {/*        passHref*/}
+                                        {/*    >*/}
+                                        {/*        <li>{collection.title}</li>*/}
+                                        {/*    </Link>*/}
+                                        {/*))}*/}
                                     </ul>
                                 </div>
                             </div>
@@ -125,19 +128,22 @@ export default function CategoriesPhoto() {
                             <div className={styles.containerCategories}>
                                 <div className={styles.allCategories}>
                                     <ul>
-                                        <div className={styles.containerTitle}>
-                                            <p className={styles.titleCategories}> {menCollections(menLinksTitle).title} </p>
-                                            <AiOutlineLine className={styles.lineIcon}/>
-                                        </div>
-                                        {menCollections(menLinksTitle).links.map((collection, idx) => (
-                                            <Link
-                                                key={idx}
-                                                href={collection.url}
-                                                passHref
-                                            >
-                                                <li>{collection.title}</li>
-                                            </Link>
-                                        ))}
+                                        <li style={{fontSize: "1.5rem", marginTop: "2rem"}}>
+                                            Coming Soon...<br/> Stay tuned 🦄
+                                        </li>
+                                        {/*<div className={styles.containerTitle}>*/}
+                                        {/*    <p className={styles.titleCategories}> {menCollections(menLinksTitle).title} </p>*/}
+                                        {/*    <AiOutlineLine className={styles.lineIcon}/>*/}
+                                        {/*</div>*/}
+                                        {/*{menCollections(menLinksTitle).links.map((collection, idx) => (*/}
+                                        {/*    <Link*/}
+                                        {/*        key={idx}*/}
+                                        {/*        href={collection.url}*/}
+                                        {/*        passHref*/}
+                                        {/*    >*/}
+                                        {/*        <li>{collection.title}</li>*/}
+                                        {/*    </Link>*/}
+                                        {/*))}*/}
                                     </ul>
                                 </div>
                             </div>
@@ -153,76 +159,79 @@ export default function CategoriesPhoto() {
                             <div className={styles.containerCategoriesAccessories}>
                                 <div className={styles.allCategories}>
                                     <ul>
-                                        {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (
-                                            <Box key={idx}>
-                                                {collection.type === "women" && (
-                                                    <div className={styles.containerTitle}>
-                                                        <p className={styles.titleCategories}>{collection.title}</p>
-                                                        <AiOutlineLine className={styles.lineIcon}/>
-                                                    </div>
-                                                )}
-                                                {collection.type === "women" &&
-                                                    collection.links.map((link, idx) => (
-                                                        <Link
-                                                            key={idx}
-                                                            href={link.url}
-                                                            passHref
-                                                        >
-                                                            <li>{link.title}</li>
-                                                        </Link>
-                                                    ))}
-                                            </Box>
-                                        ))}
+                                        <li style={{fontSize: "1.5rem", margin: "2rem 0 0 6rem"}}>
+                                            Coming Soon...<br/> Stay tuned 🦄
+                                        </li>
+                                        {/*{accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (*/}
+                                        {/*    <Box key={idx}>*/}
+                                        {/*        {collection.type === "women" && (*/}
+                                        {/*            <div className={styles.containerTitle}>*/}
+                                        {/*                <p className={styles.titleCategories}>{collection.title}</p>*/}
+                                        {/*                <AiOutlineLine className={styles.lineIcon}/>*/}
+                                        {/*            </div>*/}
+                                        {/*        )}*/}
+                                        {/*        {collection.type === "women" &&*/}
+                                        {/*            collection.links.map((link, idx) => (*/}
+                                        {/*                <Link*/}
+                                        {/*                    key={idx}*/}
+                                        {/*                    href={link.url}*/}
+                                        {/*                    passHref*/}
+                                        {/*                >*/}
+                                        {/*                    <li>{link.title}</li>*/}
+                                        {/*                </Link>*/}
+                                        {/*            ))}*/}
+                                        {/*    </Box>*/}
+                                        {/*))}*/}
                                     </ul>
                                 </div>
-                                <div className={styles.allCategories}>
-                                    <ul>
-                                        {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (
-                                            <Box key={idx}>
-                                                {collection.type === "men" && (
-                                                    <div className={styles.containerTitle}>
-                                                        <p className={styles.titleCategories}>{collection.title}</p>
-                                                        <AiOutlineLine className={styles.lineIcon}/>
-                                                    </div>
-                                                )}
-                                                {collection.type === "men" &&
-                                                    collection.links.map((link, idx) => (
-                                                        <Link
-                                                            key={idx}
-                                                            href={link.url}
-                                                            passHref
-                                                        >
-                                                            <li>{link.title}</li>
-                                                        </Link>
-                                                    ))}
-                                            </Box>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className={styles.allCategories}>
-                                    <ul>
-                                        {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (
-                                            <Box key={idx}>
-                                                {collection.type === "kids" && (
-                                                    <div className={styles.containerTitle}>
-                                                        <p className={styles.titleCategories}>{collection.title}</p>
-                                                        <AiOutlineLine className={styles.lineIcon}/>
-                                                    </div>
-                                                )}
-                                                {collection.type === "kids" &&
-                                                    collection.links.map((link, idx) => (
-                                                        <Link
-                                                            key={idx}
-                                                            href={link.url}
-                                                            passHref
-                                                        >
-                                                            <li>{link.title}</li>
-                                                        </Link>
-                                                    ))}
-                                            </Box>
-                                        ))}
-                                    </ul>
-                                </div>
+                                {/*// <div className={styles.allCategories}>*/}
+                                {/*//     <ul>*/}
+                                {/*//         {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (*/}
+                                {/*//             <Box key={idx}>*/}
+                                {/*//                 {collection.type === "men" && (*/}
+                                {/*//                     <div className={styles.containerTitle}>*/}
+                                {/*//                         <p className={styles.titleCategories}>{collection.title}</p>*/}
+                                {/*//                         <AiOutlineLine className={styles.lineIcon}/>*/}
+                                {/*//                     </div>*/}
+                                {/*//                 )}*/}
+                                {/*/!*                {collection.type === "men" &&*!/*/}
+                                {/*/!*                    collection.links.map((link, idx) => (*!/*/}
+                                {/*/!*                        <Link*!/*/}
+                                {/*/!*                            key={idx}*!/*/}
+                                {/*/!*                            href={link.url}*!/*/}
+                                {/*/!*                            passHref*!/*/}
+                                {/*/!*                        >*!/*/}
+                                {/*/!*                            <li>{link.title}</li>*!/*/}
+                                {/*/!*                        </Link>*!/*/}
+                                {/*/!*                    ))}*!/*/}
+                                {/*/!*            </Box>*!/*/}
+                                {/*/!*        ))}*!/*/}
+                                {/*/!*    </ul>*!/*/}
+                                {/*/!*</div>*!/*/}
+                                {/*// <div className={styles.allCategories}>*/}
+                                {/*    <ul>*/}
+                                {/*        {accessoriesCollections(accessoriesLinksTitle).map((collection, idx) => (*/}
+                                {/*            <Box key={idx}>*/}
+                                {/*                {collection.type === "kids" && (*/}
+                                {/*                    <div className={styles.containerTitle}>*/}
+                                {/*                        <p className={styles.titleCategories}>{collection.title}</p>*/}
+                                {/*                        <AiOutlineLine className={styles.lineIcon}/>*/}
+                                {/*                    </div>*/}
+                                {/*                )}*/}
+                                {/*                {collection.type === "kids" &&*/}
+                                {/*                    collection.links.map((link, idx) => (*/}
+                                {/*                        <Link*/}
+                                {/*                            key={idx}*/}
+                                {/*                            href={link.url}*/}
+                                {/*                            passHref*/}
+                                {/*                        >*/}
+                                {/*                            <li>{link.title}</li>*/}
+                                {/*                        </Link>*/}
+                                {/*                    ))}*/}
+                                {/*            </Box>*/}
+                                {/*        ))}*/}
+                                {/*    </ul>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </div>
@@ -231,8 +240,16 @@ export default function CategoriesPhoto() {
                 <div className={styles.containerMakeup}>
                     <div className={styles.makeupCardContent}>
                         <p className={styles.makeupText}> {makeUpTitle} </p>
-                        <Link href="/categories/makeup/products" passHref>
-                            <button className={styles.makeupShopBtn}>{btnText}</button>
+                        <Link href="#" passHref>
+                            <button style={{
+                                margin: "2rem 13rem 0 0",
+                                backgroundColor: "transparent",
+                                border: "1px solid #333",
+                                padding: "0.5rem 1.2rem",
+                            }}>
+                                Coming Soon 🦄
+                            </button>
+                            {/*<button className={styles.makeupShopBtn}>{btnText}</button>*/}
                         </Link>
                     </div>
                 </div>
@@ -240,8 +257,15 @@ export default function CategoriesPhoto() {
                 <div className={styles.containerHouseware}>
                     <div className={styles.housewareCardContent}>
                         <p className={styles.housewareText}> {housewaresTitle} </p>
-                        <Link href="/categories/houseware/products" passHref>
-                            <button className={styles.housewareShopBtn}>{btnText}</button>
+                        <Link href="#" passHref>
+                            <button style={{
+                                backgroundColor: "transparent",
+                                border: "1px solid #333",
+                                padding: "0.5rem 1.2rem",
+                            }}>
+                                Coming Soon 🦄
+                            </button>
+                            {/*<button className={styles.housewareShopBtn}>{btnText}</button>*/}
                         </Link>
                     </div>
                 </div>

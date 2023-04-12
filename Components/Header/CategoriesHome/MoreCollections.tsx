@@ -14,39 +14,40 @@ export function MoreCollections({language}) {
             <div className={styles.dropDownContent}>
                 <div className={styles.containerDropDownContent}>
                     <div className={styles.collectionsDiv}>
-                        <span>{makeup}</span>
-                        <ul>
-                            <li>
-                                <Link href="/categories/makeup/products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
-                        </ul>
+                        {/*<span>{makeup}</span>*/}
+                        {/*<ul>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/makeup/products"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {allProducts}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*</ul>*/}
 
-                        <hr/>
-                        <span>{packages}</span>
-                        <ul>
-                            <li>
-                                <Link href="/categories/packages/products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
-                        </ul>
+                        {/*<hr/>*/}
+                        {/*<span>{packages}</span>*/}
+                        {/*<ul>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/packages/products"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {allProducts}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*</ul>*/}
 
-                        <hr/>
-                        <span>{houseware}</span>
+                        {/*<hr/>*/}
+                        {/*<span>{houseware}</span>*/}
                         <ul>
-                            <li>
-                                <Link href="/categories/houseware/products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
+                            <li style={{marginLeft: "1.5rem"}}>Coming Soon...<br/> Stay tuned 🦄</li>
+                            {/*<li>*/}
+                            {/*    <Link href="/categories/houseware/products"*/}
+                            {/*          className={styles.categoryLink}*/}
+                            {/*    >*/}
+                            {/*        {allProducts}*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
                         </ul>
                     </div>
                     <div className={styles.img}>

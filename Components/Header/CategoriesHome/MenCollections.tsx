@@ -2,6 +2,7 @@ import styles from "@/components/Header/Header.module.css";
 import Link from "next/link";
 import {IoIosArrowDown} from "react-icons/io";
 import {languages} from "@/components/Header/TranslateText";
+import Typography from "@mui/material/Typography";
 
 export function MenCollections({language}) {
     const {titleMen, allProducts, pajamas} = languages[language];
@@ -14,20 +15,21 @@ export function MenCollections({language}) {
                 <div className={styles.containerDropDownContent}>
                     <div className={styles.collectionsDiv}>
                         <ul>
-                            <li>
-                                <Link href="/categories/men-fashions/men-pajamas/pajamas"
-                                      className={styles.categoryLink}
-                                >
-                                    {pajamas}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/categories/men-fashions/all-products/other-products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
+                            <li style={{marginLeft: "1.5rem"}}>Coming Soon...<br/> Stay tuned 🦄</li>
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/men-fashions/men-pajamas/pajamas"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {pajamas}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/men-fashions/all-products/other-products"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {allProducts}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
                         </ul>
                     </div>
                     <div className={styles.img}>

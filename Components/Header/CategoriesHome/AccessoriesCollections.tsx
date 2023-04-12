@@ -26,72 +26,73 @@ export function AccessoriesCollections({language}) {
             <div className={styles.dropDownContent}>
                 <div className={styles.containerDropDownContent}>
                     <div className={styles.collectionsDiv}>
-                        <span>{women}</span>
+                        {/*<span>{women}</span>*/}
+                        {/*<ul>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/accessories/women/women-necklace/necklace"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {necklaces}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/accessories/women/women-rings/rings"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {rings}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/accessories/women/women-bracelets/bracelets"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {bracelets}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/accessories/women/all-products/other-products"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {allProducts}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*</ul>*/}
+                        {/*<hr/>*/}
+                        {/*<span>{men}</span>*/}
+                        {/*<ul>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/accessories/men/men-watches/watches"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {watches}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*    <li>*/}
+                        {/*        <Link href="/categories/accessories/men/all-products/other-products"*/}
+                        {/*              className={styles.categoryLink}*/}
+                        {/*        >*/}
+                        {/*            {allProducts}*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*</ul>*/}
+                        {/*<hr/>*/}
+                        {/*<span>{kids}</span>*/}
                         <ul>
-                            <li>
-                                <Link href="/categories/accessories/women/women-necklace/necklace"
-                                      className={styles.categoryLink}
-                                >
-                                    {necklaces}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/categories/accessories/women/women-rings/rings"
-                                      className={styles.categoryLink}
-                                >
-                                    {rings}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/categories/accessories/women/women-bracelets/bracelets"
-                                      className={styles.categoryLink}
-                                >
-                                    {bracelets}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/categories/accessories/women/all-products/other-products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
-                        </ul>
-                        <hr/>
-                        <span>{men}</span>
-                        <ul>
-                            <li>
-                                <Link href="/categories/accessories/men/men-watches/watches"
-                                      className={styles.categoryLink}
-                                >
-                                    {watches}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/categories/accessories/men/all-products/other-products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
-                        </ul>
-                        <hr/>
-                        <span>{kids}</span>
-                        <ul>
-                            <li>
-                                <Link href="/categories/accessories/kids/all-products/products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
+                            <li style={{marginLeft: "1.5rem"}}>Coming Soon...<br/> Stay tuned 🦄</li>
+                            {/*<li>*/}
+                            {/*    <Link href="/categories/accessories/kids/all-products/products"*/}
+                            {/*          className={styles.categoryLink}*/}
+                            {/*    >*/}
+                            {/*        {allProducts}*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
                         </ul>
                     </div>
                     <div className={styles.img}>
                         <img
                             src="/images/unicorn/accessories.jpg"
                             width={400}
-                            height={538}
+                            height={400}
                             className={styles.img}
                         />
                     </div>

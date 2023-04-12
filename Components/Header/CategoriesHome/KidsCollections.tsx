@@ -13,30 +13,31 @@ export function KidsCollections({language}) {
             <div className={styles.dropDownContent}>
                 <div className={styles.containerDropDownContent}>
                     <div className={styles.collectionsDiv}>
-                        <span>{TurkishMade}</span>
+                        {/*<span>{TurkishMade}</span>*/}
                         <ul>
-                            <li>
-                                <Link
-                                    href="/categories/kids-fashions/kids-pajamas/pajamas"
-                                    className={styles.categoryLink}
-                                >
-                                    {pajamas}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/categories/kids-fashions/kids-dresses/dresses"
-                                      className={styles.categoryLink}
-                                >
-                                    {dresses}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/categories/kids-fashions/all-products/other-products"
-                                      className={styles.categoryLink}
-                                >
-                                    {allProducts}
-                                </Link>
-                            </li>
+                            <li style={{marginLeft: "1.5rem"}}>Coming Soon...<br/> Stay tuned 🦄</li>
+                            {/*<li>*/}
+                            {/*    <Link*/}
+                            {/*        href="/categories/kids-fashions/kids-pajamas/pajamas"*/}
+                            {/*        className={styles.categoryLink}*/}
+                            {/*    >*/}
+                            {/*        {pajamas}*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
+                            {/*<li>*/}
+                            {/*    <Link href="/categories/kids-fashions/kids-dresses/dresses"*/}
+                            {/*          className={styles.categoryLink}*/}
+                            {/*    >*/}
+                            {/*        {dresses}*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
+                            {/*<li>*/}
+                            {/*    <Link href="/categories/kids-fashions/all-products/other-products"*/}
+                            {/*          className={styles.categoryLink}*/}
+                            {/*    >*/}
+                            {/*        {allProducts}*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
                         </ul>
                     </div>
                     <div className={styles.img}>
