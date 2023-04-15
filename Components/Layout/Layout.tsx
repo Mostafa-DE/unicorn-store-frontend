@@ -10,6 +10,8 @@ import {languages} from "./TranslateText"
 import {LanguageContext} from "@/context/LanguageContext";
 import Footer from "../Footer/Footer";
 import dynamic from "next/dynamic";
+import {Skeleton} from "@mui/material";
+import Box from "@mui/material/Box";
 
 
 export interface ILayoutProps {
@@ -58,19 +60,28 @@ const Layout: React.FC<ILayoutProps> = (
     const DynamicHeader: React.ComponentType = dynamic(
         () => import('@/components/Header'),
         {
-            loading: () => <p>Loading...</p>,
+            loading: () => (
+                <Box margin="-27px">
+                    <Skeleton animation="wave" height={120}/>
+                    <Skeleton animation="wave" height={700} sx={{margin: "-10rem"}}/>
+                </Box>
+            )
         })
 
     const DynamicChatBot: React.ComponentType = dynamic(
         () => import('@/components/ChatBot'),
         {
-            loading: () => <p>Loading...</p>,
+            loading: () => (
+                <Skeleton animation="wave" variant="circular" width={40} height={40}/>
+            ),
         })
 
     const DynamicBottomNavigation: React.ComponentType = dynamic(
         () => import('@/components/BottomNavigation'),
         {
-            loading: () => <p>Loading...</p>,
+            loading: () => (
+                <Skeleton animation="wave" width={40} height={40}/>
+            ),
         })
 
     return (
