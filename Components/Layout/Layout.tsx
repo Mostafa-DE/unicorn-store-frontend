@@ -6,35 +6,34 @@ import {useRouter} from "next/dist/client/router";
 import ButtonScrollUp from "../ButtonScrollUp/ButtonScrollUp";
 import ButtonWhatsApp from "../ButtonWhatsapp/ButtonWhatsApp";
 import NProgress from "nprogress";
-import BootomNavigation from "@/components/BottomNavigation"
 import {languages} from "./TranslateText"
 import {LanguageContext} from "@/context/LanguageContext";
-import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import ChatBot from "../ChatBot/ChatBot";
+import dynamic from "next/dynamic";
 
 
 export interface ILayoutProps {
-  title: string;
-  children: React.ReactNode;
-  description?: string;
-  userAccount?: unknown;
+    title: string;
+    children: React.ReactNode;
+    description?: string;
+    userAccount?: unknown;
 }
 
-const Layout: React.FC<ILayoutProps> = ({
-  title,
-  description,
-  children,
-  userAccount,
-}) => {
-  const router = useRouter();
+const Layout: React.FC<ILayoutProps> = (
+    {
+        title,
+        description,
+        children,
+        userAccount,
+    }) => {
+    const router = useRouter();
 
     // @ts-ignore
     const {language} = useContext(LanguageContext)
     // @ts-ignore
     const {mainTitle, secondTitle, btnText} = languages[language];
 
-    /*---------n progress to show prgress for each click--------*/
+    /*---------n progress to show progress for each click--------*/
     useEffect(() => {
         const onRouterChangeStart = () => {
             NProgress.start();
@@ -55,7 +54,24 @@ const Layout: React.FC<ILayoutProps> = ({
             router.events.off("routeChangeError", onRouteChangeError);
         };
     });
-    /*-----------------------------x----------------------------*/
+
+    const DynamicHeader: React.ComponentType = dynamic(
+        () => import('@/components/Header'),
+        {
+            loading: () => <p>Loading...</p>,
+        })
+
+    const DynamicChatBot: React.ComponentType = dynamic(
+        () => import('@/components/ChatBot'),
+        {
+            loading: () => <p>Loading...</p>,
+        })
+
+    const DynamicBottomNavigation: React.ComponentType = dynamic(
+        () => import('@/components/BottomNavigation'),
+        {
+            loading: () => <p>Loading...</p>,
+        })
 
     return (
         <div>
@@ -74,16 +90,17 @@ const Layout: React.FC<ILayoutProps> = ({
                       href="/images/unicorn.png"
                 />
             </Head>
-            <Header/>
+            <DynamicHeader/>
             {router.pathname === "/" && (
                 <div data-aos="fade-in"
                      data-aos-once='true'
                      className={styles.coverHome}
                 >
-                    <div className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
+                    <div
+                        className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
                         <p> {mainTitle} </p>
                         <span> {secondTitle} </span>
-                        <Link href="/categories/women-fashions/turkey-dresses/dresses">
+                        <Link href="/categories/women-fashions/turkey-dresses/dresses" passHref={true}>
                             <button className={styles.exploreBtn}> {btnText} </button>
                         </Link>
                     </div>
@@ -91,10 +108,12 @@ const Layout: React.FC<ILayoutProps> = ({
             )}
 
             <div className={styles.container}> {children} </div>
-            <BootomNavigation />
+            <DynamicBottomNavigation/>
             <Footer/>
 
-            <ChatBot userAccount={userAccount}/>
+            {/* TODO: Still JS, couldn't switch to TS, compatibility issue we should consider change the library */}
+            {/* @ts-ignore */}
+            <DynamicChatBot userAccount={userAccount}/>
 
             <ButtonScrollUp/>
             <ButtonWhatsApp/>

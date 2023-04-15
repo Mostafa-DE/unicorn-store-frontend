@@ -1,8 +1,7 @@
 import Layout from "@/components/Layout/Layout";
+import dynamic from 'next/dynamic'
 import {useEffect} from "react";
-import CategoriesPhoto from "@/components/CategoriesPhoto/CategoriesPhoto";
 import {API_URL} from "@/config/index";
-import CarouselDresses from "@/components/CarouselDresses/CarouselDresses";
 import {parseCookies} from "@/helpers/index";
 import SubscribeForm from "@/components/SubscripeForm/SubscripeForm";
 import PropertiesOurPage from "@/components/PropertiesOurPage/PropertiesOurPage";
@@ -12,15 +11,28 @@ export default function Home({products, token, userAccount}) {
         window.localStorage.removeItem("shippingInformation");
     }, []);
 
+
+    const DynamicCategoriesPhoto = dynamic(
+        () => import('@/components/CategoriesPhoto/CategoriesPhoto'),
+        {
+            loading: () => <p>Loading...</p>,
+        })
+
+    const DynamicCarouselDresses = dynamic(
+        () => import('@/components/CarouselDresses/CarouselDresses'),
+        {
+            loading: () => <p>Loading...</p>,
+        })
+
     return (
         <>
             <Layout
                 userAccount={userAccount}
                 title="Unicorns Store | Shop Online For Fashions, Tools, Gifts & More"
             >
-                <CategoriesPhoto/>
+                <DynamicCategoriesPhoto/>
 
-                <CarouselDresses token={token} products={products}/>
+                <DynamicCarouselDresses token={token} products={products}/>
 
                 <PropertiesOurPage/>
 
