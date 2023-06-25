@@ -1,17 +1,13 @@
 import styles from "@/components/Layout/Layout.module.css";
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import Head from "next/head";
-import Link from "next/link";
 import {useRouter} from "next/dist/client/router";
 import ButtonScrollUp from "../ButtonScrollUp/ButtonScrollUp";
 import ButtonWhatsApp from "../ButtonWhatsapp/ButtonWhatsApp";
 import NProgress from "nprogress";
-import {languages} from "./TranslateText"
-import {LanguageContext} from "@/context/LanguageContext";
 import Footer from "../Footer/Footer";
 import dynamic from "next/dynamic";
 import {Skeleton} from "@mui/material";
-import Box from "@mui/material/Box";
 
 
 export interface ILayoutProps {
@@ -29,11 +25,6 @@ const Layout: React.FC<ILayoutProps> = (
         userAccount,
     }) => {
     const router = useRouter();
-
-    // @ts-ignore
-    const {language} = useContext(LanguageContext)
-    // @ts-ignore
-    const {mainTitle, secondTitle, btnText} = languages[language];
 
     /*---------n progress to show progress for each click--------*/
     useEffect(() => {
@@ -61,10 +52,7 @@ const Layout: React.FC<ILayoutProps> = (
         () => import('@/components/Header'),
         {
             loading: () => (
-                <Box margin="-27px">
-                    <Skeleton animation="wave" height={120}/>
-                    <Skeleton animation="wave" height={700} sx={{margin: "-10rem"}}/>
-                </Box>
+                <Skeleton animation="wave" height={120} sx={{width: "100%", position: "absolute", top: -25}}/>
             )
         })
 
@@ -72,7 +60,16 @@ const Layout: React.FC<ILayoutProps> = (
         () => import('@/components/ChatBot'),
         {
             loading: () => (
-                <Skeleton animation="wave" variant="circular" width={40} height={40}/>
+                <Skeleton animation="wave"
+                          variant="circular"
+                          sx={{
+                              position: "absolute",
+                              right: 0,
+                              bottom: "6rem",
+                          }}
+                          width={55}
+                          height={55}
+                />
             ),
         })
 
@@ -81,6 +78,14 @@ const Layout: React.FC<ILayoutProps> = (
         {
             loading: () => (
                 <Skeleton animation="wave" width={40} height={40}/>
+            ),
+        })
+
+    const DynamicBanner: React.ComponentType = dynamic(
+        () => import('@/components/Banner'),
+        {
+            loading: () => (
+                <Skeleton animation="wave" height={550} sx={{width: "100%"}}/>
             ),
         })
 
@@ -102,21 +107,11 @@ const Layout: React.FC<ILayoutProps> = (
                 />
             </Head>
             <DynamicHeader/>
-            {router.pathname === "/" && (
-                <div data-aos="fade-in"
-                     data-aos-once='true'
-                     className={styles.coverHome}
-                >
-                    <div
-                        className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
-                        <p> {mainTitle} </p>
-                        <span> {secondTitle} </span>
-                        <Link href="/categories/women-fashions/turkey-dresses/dresses" passHref={true}>
-                            <button className={styles.exploreBtn}> {btnText} </button>
-                        </Link>
-                    </div>
-                </div>
-            )}
+            {
+                router.pathname === "/" && (
+                    <DynamicBanner/>
+                )
+            }
 
             <div className={styles.container}> {children} </div>
             <DynamicBottomNavigation/>

@@ -2,15 +2,31 @@ import { API_URL } from "@/config/index";
 import Layout from "@/components/Layout/Layout";
 import useSearch from "@/Hooks/useSearch";
 import SearchInput from "@/components/SearchInput/SearchInput";
-import ProductsWithSearch from "@/components/ProductsWithSearch/ProductsWithSearch";
 import { AiOutlineLine } from "react-icons/ai";
 import { parseCookies } from "@/helpers/index";
 import {
   getStartAndEndValueForPagination,
   values,
 } from "@/helpers/paginationLogic";
-import Pagination from "@/components/Pagination";
 import usePagination from "@/Hooks/usePagination";
+import dynamic from "next/dynamic";
+
+
+const DynamicProductsWithSearch = dynamic(
+    () => import("@/components/ProductsWithSearch"),
+    {
+      loading: () => (
+          <div>Loading...</div>
+      )
+    });
+
+const DynamicPagination = dynamic(
+    () => import("@/components/Pagination"),
+    {
+      loading: () => (
+          <div>Loading...</div>
+      )
+    });
 
 export default function OtherProducts({
   turkeyWomenProducts,
@@ -30,7 +46,7 @@ export default function OtherProducts({
 
       <SearchInput searchTerm={searchTerm} handleChange={handleChange} />
       <div className="containerCardProducts">
-        <ProductsWithSearch
+        <DynamicProductsWithSearch
           productsData={turkeyWomenProducts}
           pathname={pathname}
           searchTerm={searchTerm}
@@ -38,7 +54,7 @@ export default function OtherProducts({
         />
       </div>
       {turkeyWomenProducts.length !== 0 && (
-        <Pagination
+        <DynamicPagination
           page={page}
           totalPages={totalPages}
           handleChangePage={handleChangePage}

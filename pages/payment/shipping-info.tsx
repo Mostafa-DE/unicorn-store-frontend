@@ -1,12 +1,20 @@
 import Layout from "@/components/Layout/Layout";
-import ShippingInfoForm from "@/components/ShippingInfoForm/ShippingInfoForm";
 import {API_URL} from "@/config/index";
 import {parseCookies} from "@/helpers/index";
+import dynamic from "next/dynamic";
+
+const DynamicShippingInfoForm = dynamic(
+    () => import("@/components/ShippingInfoForm"),
+    {
+        loading: () => (
+            <h1>Loading...</h1>
+        )
+    });
 
 export default function shippingInformation({user, userProfile, token}) {
     return (
         <Layout title="Shipping_Information">
-            <ShippingInfoForm
+            <DynamicShippingInfoForm
                 token={token}
                 userProfile={userProfile}
                 user={user}

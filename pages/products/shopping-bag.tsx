@@ -1,6 +1,14 @@
 import Layout from "@/components/Layout/Layout";
-import ShoppingBag from "@/components/ShoppingBag/ShoppingBag";
 import { parseCookies } from "@/helpers/index";
+import dynamic from "next/dynamic";
+
+const DynamicShoppingBag = dynamic(
+    () => import("@/components/ShoppingBag"),
+    {
+        loading: () => (
+        <h1>Loading...</h1>
+        )
+    });
 
 export default function shoppingBagListPage({ userAccount, token }) {
   return (
@@ -8,7 +16,7 @@ export default function shoppingBagListPage({ userAccount, token }) {
       {/* 
       //TODO: add right types here 
       // @ts-ignore */}
-      <ShoppingBag user={userAccount} token={token} />
+      <DynamicShoppingBag user={userAccount} token={token} />
     </Layout>
   );
 }

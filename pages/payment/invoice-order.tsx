@@ -1,11 +1,19 @@
 import Layout from "@/components/Layout/Layout";
-import InvoiceOrder from "@/components/InvoiceOrder/InvoiceOrder";
 import {parseCookies} from "@/helpers/index";
+import dynamic from "next/dynamic";
+
+const DynamicInvoiceOrder = dynamic(
+    () => import("@/components/InvoiceOrder"),
+    {
+        loading: () => (
+            <h1>Loading...</h1>
+        )
+    });
 
 export default function invoiceOrderPage({token}) {
     return (
         <Layout title="Your_Invoice_Order">
-            <InvoiceOrder token={token}/>
+            <DynamicInvoiceOrder token={token}/>
         </Layout>
     );
 }
