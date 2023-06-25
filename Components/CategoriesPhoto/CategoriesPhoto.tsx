@@ -31,7 +31,11 @@ export default function CategoriesPhoto() {
         >
             <div className={styles.container}>
 
-                <div className={styles.containerWomenCard}>
+                <div className={styles.containerWomenCard}
+                     style={{
+                         backgroundImage: "url(/womenCategory.jpg)"
+                     }}
+                >
                     <div className={styles.womenCardContent}>
                         <p className={styles.womenFashionText}>{womenMainTitle}</p>
                         <button className={styles.WomenShopBtn}>{btnText}</button>
@@ -89,7 +93,11 @@ export default function CategoriesPhoto() {
                     </div>
                 </div>
 
-                <div className={styles.containerKidsCard}>
+                <div className={styles.containerKidsCard}
+                     style={{
+                         backgroundImage: "url(/kidsCategory.jpg)"
+                     }}
+                >
                     <div className={styles.kidsCardContent}>
                         <p className={styles.kidsFashionText}>{kidsMainTitle}</p>
                         <button className={styles.kidsShopBtn}>{btnText}</button>
@@ -117,7 +125,11 @@ export default function CategoriesPhoto() {
                     </div>
                 </div>
 
-                <div className={styles.containerMenCard}>
+                <div className={styles.containerMenCard}
+                     style={{
+                         backgroundImage: "url(/menCategory.jpg)"
+                     }}
+                >
                     <div className={styles.menCardContent}>
                         <p className={styles.menFashionText}>{menMainTitle}</p>
                         <button className={styles.menShopBtn}>{btnText}</button>
@@ -145,7 +157,11 @@ export default function CategoriesPhoto() {
                     </div>
                 </div>
 
-                <div className={styles.containerAccessories}>
+                <div className={styles.containerAccessories}
+                     style={{
+                         backgroundImage: "url(/accessories3.png)"
+                     }}
+                >
                     <div className={styles.accessoriesCardContent}>
                         <p className={styles.accessoriesText}> {accessoriesMainTitle} </p>
                         <button className={styles.accessoriesShopBtn}>{btnText}</button>
@@ -228,7 +244,11 @@ export default function CategoriesPhoto() {
                     </div>
                 </div>
 
-                <div className={styles.containerMakeup}>
+                <div className={styles.containerMakeup}
+                     style={{
+                         backgroundImage: "url(/model-make-up.png)"
+                     }}
+                >
                     <div className={styles.makeupCardContent}>
                         <p className={styles.makeupText}> {makeUpTitle} </p>
                         <Link href="/categories/makeup/products" passHref>
@@ -237,7 +257,11 @@ export default function CategoriesPhoto() {
                     </div>
                 </div>
 
-                <div className={styles.containerHouseware}>
+                <div className={styles.containerHouseware}
+                     style={{
+                         backgroundImage: "url(/houseware2.png)"
+                     }}
+                >
                     <div className={styles.housewareCardContent}>
                         <p className={styles.housewareText}> {housewaresTitle} </p>
                         <Link href="/categories/houseware/products" passHref>
