@@ -1,16 +1,48 @@
-import Layout from "@/components/Layout/Layout";
+import Layout from "@/components/Layout";
+import dynamic from 'next/dynamic'
 import {useEffect} from "react";
-import CategoriesPhoto from "@/components/CategoriesPhoto/CategoriesPhoto";
 import {API_URL} from "@/config/index";
-import CarouselDresses from "@/components/CarouselDresses/CarouselDresses";
 import {parseCookies} from "@/helpers/index";
 import SubscribeForm from "@/components/SubscripeForm/SubscripeForm";
-import PropertiesOurPage from "@/components/PropertiesOurPage/PropertiesOurPage";
+import PropertiesOurPage from "@/components/PropertiesOurPage";
+import Box from "@mui/material/Box";
+import {Skeleton} from "@mui/material";
 
 export default function Home({products, token, userAccount}) {
     useEffect(() => {
         window.localStorage.removeItem("shippingInformation");
     }, []);
+
+
+    const DynamicCategoriesPhoto = dynamic(
+        () => import('@/components/CategoriesPhoto'),
+        {
+            loading: () => (
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
+                    flexWrap: "wrap",
+                }}>
+                    <Skeleton animation="wave" width={400} height={380}/>
+                    <Skeleton animation="wave" width={400} height={380}/>
+                    <Skeleton animation="wave" width={400} height={380}/>
+                    <Skeleton animation="wave" width={400} height={380}/>
+                    <Skeleton animation="wave" width={400} height={380}/>
+                    <Skeleton animation="wave" width={400} height={380}/>
+                </Box>
+            )
+        })
+
+    const DynamicCarouselDresses = dynamic(
+        () => import('@/components/CarouselDresses'),
+        {
+            loading: () => (
+                <Box>
+                    <Skeleton animation="wave" height={200}/>
+                </Box>
+            )
+        })
 
     return (
         <>
@@ -18,9 +50,9 @@ export default function Home({products, token, userAccount}) {
                 userAccount={userAccount}
                 title="Unicorns Store | Shop Online For Fashions, Tools, Gifts & More"
             >
-                <CategoriesPhoto/>
+                <DynamicCategoriesPhoto/>
 
-                <CarouselDresses token={token} products={products}/>
+                <DynamicCarouselDresses token={token} products={products}/>
 
                 <PropertiesOurPage/>
 

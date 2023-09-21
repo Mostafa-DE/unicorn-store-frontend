@@ -1,12 +1,20 @@
 import Layout from "@/components/Layout/Layout";
-import MyAccount from "@/components/MyAccount/MyAccount";
 import {parseCookies} from "@/helpers/index";
 import {API_URL} from "@/config/index";
+import dynamic from "next/dynamic";
+
+const DynamicMyAccount = dynamic(
+    () => import("@/components/MyAccount"),
+    {
+        loading: () => (
+            <h1>Loading...</h1>
+        )
+    });
 
 export default function myAccount({userAccount, userProfile ,token}) {
     return (
         <Layout title="Your_Account_Details">
-            <MyAccount
+            <DynamicMyAccount
                 userAccount={userAccount}
                 token={token}
                 userProfile={userProfile[0] || []}

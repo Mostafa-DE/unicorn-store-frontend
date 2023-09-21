@@ -1,0 +1,174 @@
+.coverHome {
+    background: url("../../public/images/coverHome2.png");
+    height: 25rem;
+    width: 100%;
+    margin: 6rem 0 0 0;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.containerCoverText,
+.containerCoverTextArabic {
+    position: absolute;
+    top: 30%;
+    right: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.containerCoverTextArabic {
+    right: 34%;
+}
+
+.containerCoverText p,
+.containerCoverTextArabic p {
+    font-size: 2.6rem;
+    animation: fadeInDown 2s;
+}
+
+.containerCoverText span,
+.containerCoverTextArabic span {
+    font-size: 1.5rem;
+    animation: fadeInLeft 2s;
+}
+
+.exploreBtn {
+    background-color: #333;
+    color: #fff;
+    padding: 0.3rem 1.2rem 0 1.2rem;
+    margin: 1.5rem 0 0 0;
+    border: 1px solid #333;
+    transition: all 0.3s ease-in;
+    animation: btnAnimation 5s;
+}
+
+.exploreBtn:hover {
+    background: none;
+    color: #333;
+    transition: all 0.3s ease-out;
+}
+
+
+.fixedImage {
+    background-image: url("../../public/images/coverHome2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right 35% bottom 100%;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+
+@media (max-width: 1050px) {
+    .containerCoverText,
+    .containerCoverTextArabic {
+        right: 25%;
+    }
+}
+
+
+@media (max-width: 850px) {
+    .coverHome {
+        background: url("../../public/images/coverHome2.png");
+        background-position: right 22% bottom 100%;
+    }
+
+    .exploreBtn {
+        margin: 1rem 0 0 0;
+    }
+
+    .containerCoverText,
+    .containerCoverTextArabic {
+        right: 30%;
+    }
+}
+
+@media (max-width: 600px) {
+    .containerCoverText p,
+    .containerCoverTextArabic p {
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .containerCoverText span,
+    .containerCoverTextArabic span {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 425px) {
+    .containerCoverText p,
+    .containerCoverTextArabic p {
+        font-size: 1.6rem;
+    }
+
+    .coverHome {
+        background: url("../../public/images/coverHome2.png");
+        background-position: right 22% bottom 100%;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes btnAnimation {
+    0%,
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+        -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    0% {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    20% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1);
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9);
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.03, 1.03, 1.03);
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        -webkit-transform: scale3d(0.97, 0.97, 0.97);
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}

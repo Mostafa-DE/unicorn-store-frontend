@@ -17,7 +17,6 @@
 .containerAccessories,
 .containerMakeup,
 .containerHouseware {
-    background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088545/unicorn-store/womenCategory_le698n.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     width: 25rem;
@@ -28,32 +27,27 @@
 }
 
 .containerKidsCard {
-    background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088544/unicorn-store/kidsCategory_bvjcof.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .containerMenCard {
-    background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1644088544/unicorn-store/menCategory_tamiz8.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .containerAccessories {
-    background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1651437491/unicorn-store/accessories_iuwy78.png");
     background-position: right 20% bottom 50%;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .containerMakeup {
-    background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1651437491/unicorn-store/makeUp_sbwhmd.png");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .containerHouseware {
-    background: url("https://res.cloudinary.com/al-fayyad/image/upload/v1651437491/unicorn-store/houseware_rnlr9f.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: right 20% bottom 10%;

@@ -1,11 +1,19 @@
 import Layout from "@/components/Layout/Layout";
-import LoginForm from "@/components/LoginForm/LoginForm";
 import {parseCookies} from "@/helpers/index";
+import dynamic from "next/dynamic";
+
+const DynamicLoginForm = dynamic(
+    () => import("@/components/LoginForm"),
+    {
+        loading: () => (
+            <h1>Loading...</h1>
+        )
+    });
 
 function loginPage({userEmail}) {
     return (
         <Layout title="Account_Login">
-            <LoginForm rememberEmailUser={userEmail?.email} />
+            <DynamicLoginForm rememberEmailUser={userEmail?.email} />
         </Layout>
     );
 }

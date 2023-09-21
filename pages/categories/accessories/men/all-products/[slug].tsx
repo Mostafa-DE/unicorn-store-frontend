@@ -1,42 +1,51 @@
 import Layout from "@/components/Layout/Layout";
-import { API_URL } from "@/config/index";
-import ProductDetails from "@/components/ProductDetails";
-import { parseCookies } from "@/helpers/index";
+import {API_URL} from "@/config/index";
+import {parseCookies} from "@/helpers/index";
 import qs from "qs";
+import dynamic from "next/dynamic";
 
-export default function ProductDetailsPage({ product, token, reviews }) {
-  return (
-    <Layout title="Product Details">
-      {product.map((product) => (
-        <ProductDetails
-          token={token}
-          key={product.id}
-          product={product}
-          reviews={reviews}
-        />
-      ))}
-    </Layout>
-  );
+
+const DynamicProductDetails = dynamic(
+    () => import("@/components/ProductDetails"),
+    {
+        loading: () => (
+            <div>Loading...</div>
+        )
+    });
+
+export default function ProductDetailsPage({product, token, reviews}) {
+    return (
+        <Layout title="Product Details">
+            {product.map((product) => (
+                <DynamicProductDetails
+                    token={token}
+                    key={product.id}
+                    product={product}
+                    reviews={reviews}
+                />
+            ))}
+        </Layout>
+    );
 }
 
-export async function getServerSideProps({ req, query: { slug } }) {
-  const { token = null } = parseCookies(req);
+export async function getServerSideProps({req, query: {slug}}) {
+    const {token = null} = parseCookies(req);
 
-  const res = await fetch(`${API_URL}/men-accessories?slug=${slug}`);
-  const product = await res.json();
+    const res = await fetch(`${API_URL}/men-accessories?slug=${slug}`);
+    const product = await res.json();
 
-  const query = qs.stringify({
-    _where: [{ product: `/categories/accessories/men/all-products/${slug}` }],
-  });
+    const query = qs.stringify({
+        _where: [{product: `/categories/accessories/men/all-products/${slug}`}],
+    });
 
-  const resReviews = await fetch(`${API_URL}/reviews?${query}`);
-  const reviews = await resReviews.json();
+    const resReviews = await fetch(`${API_URL}/reviews?${query}`);
+    const reviews = await resReviews.json();
 
-  return {
-    props: {
-      product,
-      token,
-      reviews,
-    },
-  };
+    return {
+        props: {
+            product,
+            token,
+            reviews,
+        },
+    };
 }

@@ -1,40 +1,32 @@
 import styles from "@/components/Layout/Layout.module.css";
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import Head from "next/head";
-import Link from "next/link";
 import {useRouter} from "next/dist/client/router";
 import ButtonScrollUp from "../ButtonScrollUp/ButtonScrollUp";
 import ButtonWhatsApp from "../ButtonWhatsapp/ButtonWhatsApp";
 import NProgress from "nprogress";
-import BootomNavigation from "@/components/BottomNavigation"
-import {languages} from "./TranslateText"
-import {LanguageContext} from "@/context/LanguageContext";
-import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import ChatBot from "../ChatBot/ChatBot";
+import dynamic from "next/dynamic";
+import {Skeleton} from "@mui/material";
 
 
 export interface ILayoutProps {
-  title: string;
-  children: React.ReactNode;
-  description?: string;
-  userAccount?: unknown;
+    title: string;
+    children: React.ReactNode;
+    description?: string;
+    userAccount?: unknown;
 }
 
-const Layout: React.FC<ILayoutProps> = ({
-  title,
-  description,
-  children,
-  userAccount,
-}) => {
-  const router = useRouter();
+const Layout: React.FC<ILayoutProps> = (
+    {
+        title,
+        description,
+        children,
+        userAccount,
+    }) => {
+    const router = useRouter();
 
-    // @ts-ignore
-    const {language} = useContext(LanguageContext)
-    // @ts-ignore
-    const {mainTitle, secondTitle, btnText} = languages[language];
-
-    /*---------n progress to show prgress for each click--------*/
+    /*---------n progress to show progress for each click--------*/
     useEffect(() => {
         const onRouterChangeStart = () => {
             NProgress.start();
@@ -55,7 +47,47 @@ const Layout: React.FC<ILayoutProps> = ({
             router.events.off("routeChangeError", onRouteChangeError);
         };
     });
-    /*-----------------------------x----------------------------*/
+
+    const DynamicHeader: React.ComponentType = dynamic(
+        () => import('@/components/Header'),
+        {
+            loading: () => (
+                <Skeleton animation="wave" height={120} sx={{width: "100%", position: "absolute", top: -25}}/>
+            )
+        })
+
+    const DynamicChatBot: React.ComponentType = dynamic(
+        () => import('@/components/ChatBot'),
+        {
+            loading: () => (
+                <Skeleton animation="wave"
+                          variant="circular"
+                          sx={{
+                              position: "absolute",
+                              right: 0,
+                              bottom: "6rem",
+                          }}
+                          width={55}
+                          height={55}
+                />
+            ),
+        })
+
+    const DynamicBottomNavigation: React.ComponentType = dynamic(
+        () => import('@/components/BottomNavigation'),
+        {
+            loading: () => (
+                <Skeleton animation="wave" width={40} height={40}/>
+            ),
+        })
+
+    const DynamicBanner: React.ComponentType = dynamic(
+        () => import('@/components/Banner'),
+        {
+            loading: () => (
+                <Skeleton animation="wave" height={550} sx={{width: "100%"}}/>
+            ),
+        })
 
     return (
         <div>
@@ -74,27 +106,20 @@ const Layout: React.FC<ILayoutProps> = ({
                       href="/images/unicorn.png"
                 />
             </Head>
-            <Header/>
-            {router.pathname === "/" && (
-                <div data-aos="fade-in"
-                     data-aos-once='true'
-                     className={styles.coverHome}
-                >
-                    <div className={language === "arabic" ? styles.containerCoverTextArabic : styles.containerCoverText}>
-                        <p> {mainTitle} </p>
-                        <span> {secondTitle} </span>
-                        <Link href="/categories/women-fashions/turkey-dresses/dresses">
-                            <button className={styles.exploreBtn}> {btnText} </button>
-                        </Link>
-                    </div>
-                </div>
-            )}
+            <DynamicHeader/>
+            {
+                router.pathname === "/" && (
+                    <DynamicBanner/>
+                )
+            }
 
             <div className={styles.container}> {children} </div>
-            <BootomNavigation />
+            <DynamicBottomNavigation/>
             <Footer/>
 
-            <ChatBot userAccount={userAccount}/>
+            {/* TODO: Still JS, couldn't switch to TS, compatibility issue we should consider change the library */}
+            {/* @ts-ignore */}
+            <DynamicChatBot userAccount={userAccount}/>
 
             <ButtonScrollUp/>
             <ButtonWhatsApp/>

@@ -1,14 +1,23 @@
 import Layout from "@/components/Layout/Layout";
 import { API_URL } from "@/config/index";
-import ProductDetails from "@/components/ProductDetails";
 import { parseCookies } from "@/helpers/index";
 import qs from "qs";
+import dynamic from "next/dynamic";
+
+
+const DynamicProductDetails = dynamic(
+    () => import("@/components/ProductDetails"),
+    {
+      loading: () => (
+          <h1>Loading...</h1>
+      )
+    });
 
 export default function ProductDetailsPage({ product, token, reviews }) {
   return (
     <Layout title="Product Details">
       {product.map((product) => (
-        <ProductDetails
+        <DynamicProductDetails
           token={token}
           key={product.id}
           product={product}
