@@ -13,13 +13,12 @@ const CarouselDresses: React.FC<ICarouselDressesProps> = ({
   token,
   products,
 }) => {
-
   if (products.length === 0) return <div></div>;
   return (
     <div>
       <div className="containerTitle">
-        <h1 className="h1Title" data-aos="zoom-in" data-aos-once='true'>
-          أبرز المنتجات
+        <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
+          Top Products
         </h1>
         <AiOutlineLine className="lineIcon" />
       </div>

@@ -81,14 +81,14 @@ export default function Header() {
         <div className={styles.logo}>
           <Link href="/" passHref>
             <img
-              src="/images/unicorn.png"
+              src="/images/unicorns-logo-2.png"
               alt="unicorns-logo"
               className={styles.logoImg}
             />
           </Link>
           <Link href="/" passHref>
             <img
-              src="/images/unicorn2.png"
+              src="/images/unicorns-logo-2.png"
               alt="unicorns-logo"
               className={styles.logoImg2}
             />
@@ -96,18 +96,59 @@ export default function Header() {
         </div>
 
         <div>
-          <ul data-aos="fade-out" data-aos-once='true'  className={styles.containerLink}>
-            <WomanCollections language={language} />
-            <MenCollections language={language} />
-            <KidsCollections language={language} />
-            <AccessoriesCollections language={language} />
-            <MoreCollections language={language} />
-
-            {hideLoginLink() && (
-              <div className={styles.link}>
-                <DialogLogin />
-              </div>
-            )}
+          <ul
+            data-aos="fade-out"
+            data-aos-once="true"
+            className={styles.containerLink}
+          >
+            <Link
+              href="/categories/women-fashions/midi-dresses/dresses"
+              className={styles.link}
+            >
+              Midi Dress
+            </Link>
+            <Link
+              href="/categories/women-fashions/mini-dresses/dresses"
+              className={styles.link}
+            >
+              Mini Dress
+            </Link>
+            <Link
+              href="/categories/women-fashions/long-dresses/dresses"
+              className={styles.link}
+            >
+              Long Dress
+            </Link>
+            <Link
+              href="/categories/women-fashions/off-dresses/dresses"
+              className={styles.link}
+            >
+              Off Shoulder
+            </Link>
+            <Link
+              href="/categories/women-fashions/hijab-dresses/dresses"
+              className={styles.link}
+            >
+              Hijab Dress
+            </Link>
+            <Link
+              href="/categories/women-fashions/suit-dresses/dresses"
+              className={styles.link}
+            >
+              Suits
+            </Link>
+            <Link
+              href="/categories/women-fashions/jsuit-dresses/dresses"
+              className={styles.link}
+            >
+              Jumpsuits
+            </Link>
+            <Link
+              href="/categories/women-fashions/a-dresses/dresses"
+              className={styles.link}
+            >
+              A - Line
+            </Link>
           </ul>
         </div>
 
