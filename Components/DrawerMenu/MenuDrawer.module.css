@@ -1,9 +1,13 @@
-/* .containerSocial {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
+.link {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+.link:hover {
+  color: #fb9aa7;
+}
+
 
 .containerAllText {
   background-color: #fafafa;

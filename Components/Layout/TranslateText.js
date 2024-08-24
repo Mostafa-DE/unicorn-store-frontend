@@ -6,7 +6,7 @@ export const languages = {
     },
     english: {
         mainTitle: "The New Standard Of Modern Luxe",
-        secondTitle: "Shop The New Season Offers",
+        secondTitle: "Shop The New Arrivals",
         btnText: "Find Out Now"
     }
 

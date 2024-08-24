@@ -11,17 +11,16 @@ interface ICarouselDressesProps {
 
 const CarouselDresses: React.FC<ICarouselDressesProps> = ({
   token,
-  products,
+  products
 }) => {
-  if (products.length === 0) return <div></div>;
+  if (products.length === 0) {
+      return <div></div>;
+  }
+
+  const _products = products.flat();
+
   return (
     <div>
-      <div className="containerTitle">
-        <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
-          Top Products
-        </h1>
-        <AiOutlineLine className="lineIcon" />
-      </div>
       {/*
         //TODO: add right types here
         // @ts-ignore*/}
@@ -33,15 +32,13 @@ const CarouselDresses: React.FC<ICarouselDressesProps> = ({
         className="carousel"
         isRTL={false}
       >
-        {products.map((productsArrayData) =>
-          productsArrayData.map((product) => (
+        {_products.map((product) =>
             <ProductItems
               pathname={product.productDetailsPage}
               key={product.id}
               product={product}
               token={token}
             />
-          ))
         )}
       </Carousel>
     </div>

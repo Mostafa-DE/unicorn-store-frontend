@@ -62,15 +62,6 @@ export default function Header() {
     setAnchorEl(null);
   };
 
-  const hideLoginLink = () => {
-    const paths = [
-      "/account/login",
-      "/account/register",
-      "/account/checkout-login",
-    ];
-    return !paths.includes(router.pathname);
-  };
-
   return (
     <div className={styles.main}>
       <nav
@@ -102,49 +93,49 @@ export default function Header() {
             className={styles.containerLink}
           >
             <Link
-              href="/categories/women-fashions/midi-dresses/dresses"
+              href="/categories/women-fashions/midi-dresses"
               className={styles.link}
             >
               Midi Dress
             </Link>
             <Link
-              href="/categories/women-fashions/mini-dresses/dresses"
+              href="/categories/women-fashions/mini-dresses"
               className={styles.link}
             >
               Mini Dress
             </Link>
             <Link
-              href="/categories/women-fashions/long-dresses/dresses"
+              href="/categories/women-fashions/long-dresses"
               className={styles.link}
             >
               Long Dress
             </Link>
             <Link
-              href="/categories/women-fashions/off-dresses/dresses"
+              href="/categories/women-fashions/off-dresses"
               className={styles.link}
             >
               Off Shoulder
             </Link>
             <Link
-              href="/categories/women-fashions/hijab-dresses/dresses"
+              href="/categories/women-fashions/hijab-dresses"
               className={styles.link}
             >
               Hijab Dress
             </Link>
             <Link
-              href="/categories/women-fashions/suit-dresses/dresses"
+              href="/categories/women-fashions/suit-dresses"
               className={styles.link}
             >
               Suits
             </Link>
             <Link
-              href="/categories/women-fashions/jsuit-dresses/dresses"
+              href="/categories/women-fashions/jsuit-dresses"
               className={styles.link}
             >
               Jumpsuits
             </Link>
             <Link
-              href="/categories/women-fashions/a-dresses/dresses"
+              href="/categories/women-fashions/a-dresses"
               className={styles.link}
             >
               A - Line

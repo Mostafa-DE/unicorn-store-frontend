@@ -12,7 +12,7 @@ import {
 import Pagination from "@/components/Pagination";
 import usePagination from "@/Hooks/usePagination";
 
-export default function Dresses({ turkeyDresses, token, totalPages }) {
+export default function Index({ turkeyDresses, token, totalPages }) {
   const pathname = "/categories/women-fashions/long-dresses";
   const [searchTerm, handleChange] = useSearch();
   const [page, handleChangePage] = usePagination();
@@ -45,18 +45,28 @@ export default function Dresses({ turkeyDresses, token, totalPages }) {
 }
 
 export async function getServerSideProps({ req, query: { page = 1 } }) {
-  const { token = null } = parseCookies(req);
-  const res = await fetch(`${API_URL}/long-dresses`);
+  try {
+    const { token = null } = parseCookies(req);
+    const res = await fetch(`${API_URL}/long-dresses`);
+    const turkeyDresses = await res.json();
 
-  const turkeyDresses = await res.json();
+    getStartAndEndValueForPagination(turkeyDresses, page);
 
-  getStartAndEndValueForPagination(turkeyDresses, page);
-
-  return {
-    props: {
-      turkeyDresses: turkeyDresses.slice(values.start, values.end),
-      token: token,
-      totalPages: values.totalPages,
-    },
-  };
+    return {
+      props: {
+        turkeyDresses: turkeyDresses.slice(values.start, values.end),
+        token: token,
+        totalPages: values.totalPages,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        turkeyDresses: [],
+        token: null,
+        totalPages: 0,
+      },
+    }
+  }
 }

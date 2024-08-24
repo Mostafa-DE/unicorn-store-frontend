@@ -44,7 +44,7 @@ export const languages = {
         womenLinksTitle: {
             turkeyTitle: "Turkish Products",
             localTitle: "Local Products",
-            title1: "Evening Dresses",
+            title1: "Evening Index",
             title2: "Lingerie",
             title3: "Abayas and Qatafin",
             title4: "All Products"
@@ -59,7 +59,7 @@ export const languages = {
         kidsLinksTitle: {
             mainTitle: "Children Section",
             title1: "Pajamas",
-            title2: "Dresses",
+            title2: "Index",
             title3: "All Products"
         },
         accessoriesMainTitle: "Accessories",

@@ -49,13 +49,18 @@ export async function getServerSideProps({ req, query: { term, page = 1 } }) {
 
   const AllProductsArray = [];
 
-  await Promise.all(
-    urls.map((url) =>
-      fetch(`${API_URL}/${url}?${query}`)
-        .then((res) => res.json())
-        .then((product) => AllProductsArray.push(product))
-    )
-  );
+  try {
+    await Promise.all(
+        urls.map((url) =>
+            fetch(`${API_URL}/${url}?${query}`)
+                .then((res) => res.json())
+                .then((product) => AllProductsArray.push(product))
+        )
+    );
+  } catch (e) {
+    console.log(e);
+  }
+
 
   getStartAndEndValueForPagination(AllProductsArray.flat(), page);
 

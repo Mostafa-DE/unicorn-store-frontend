@@ -12,15 +12,15 @@ import {
 import Pagination from "@/components/Pagination";
 import usePagination from "@/Hooks/usePagination";
 
-export default function Dresses({ turkeyDresses, token, totalPages }) {
-  const pathname = "/categories/women-fashions/jsuit-dresses";
+export default function Index({ turkeyDresses, token, totalPages }) {
+  const pathname = "/categories/women-fashions/off-dresses";
   const [searchTerm, handleChange] = useSearch();
   const [page, handleChangePage] = usePagination();
 
   return (
     <Layout title="Women_Turkey_Dresses">
       <div data-aos="fade-in" className="containerTitle">
-        <h1 className="h1Title">Jumpsuits</h1>
+        <h1 className="h1Title">Off Shoulder</h1>
         <AiOutlineLine className="lineIcon" />
       </div>
 
@@ -45,18 +45,28 @@ export default function Dresses({ turkeyDresses, token, totalPages }) {
 }
 
 export async function getServerSideProps({ req, query: { page = 1 } }) {
-  const { token = null } = parseCookies(req);
-  const res = await fetch(`${API_URL}/jsuit-dresses`);
+  try {
+    const { token = null } = parseCookies(req);
+    const res = await fetch(`${API_URL}/off-dresses`);
+    const turkeyDresses = await res.json();
 
-  const turkeyDresses = await res.json();
+    getStartAndEndValueForPagination(turkeyDresses, page);
 
-  getStartAndEndValueForPagination(turkeyDresses, page);
-
-  return {
-    props: {
-      turkeyDresses: turkeyDresses.slice(values.start, values.end),
-      token: token,
-      totalPages: values.totalPages,
-    },
-  };
+    return {
+      props: {
+        turkeyDresses: turkeyDresses.slice(values.start, values.end),
+        token: token,
+        totalPages: values.totalPages,
+      },
+    };
+  } catch (error) {
+    console.log(error)
+    return {
+      props: {
+        turkeyDresses: [],
+        token: null,
+        totalPages: 0,
+      },
+    }
+  }
 }

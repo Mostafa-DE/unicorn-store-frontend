@@ -1,23 +1,14 @@
 export const urls = [
-    `turkey-dresses`,
-    `turkey-women-products`,
-    `turkey-lingeries`,
-    `turkey-abayas`,
-    `local-lingeries`,
-    `local-dresses`,
-    `local-women-products`,
-    `local-abayas`,
-    `men-products`,
-    `men-pajamas`,
-    `kids-products`,
-    `kids-dresses`,
-    `kids-pajamas`,
-    `kids-accessories`,
-    `men-watches`,
-    `women-accessories`,
-    `bracelets`,
-    `necklaces`,
-    `rings`
+    "midi-dresses",
+    "long-dresses",
+    "off-dresses",
+    "a-dresses",
+    "mini-dresses",
+    "suit-dresses",
+    "jsuit-dresses",
+    "hijab-dresses",
+    "new-arrivals",
+    "offers"
 ]
 
 export const AlertProductDoesNotExist = () => {
