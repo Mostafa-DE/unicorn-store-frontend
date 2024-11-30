@@ -1,127 +1,112 @@
 import Layout from "@/components/Layout/Layout";
-import { useEffect } from "react";
-import CategoriesPhoto from "@/components/CategoriesPhoto/CategoriesPhoto";
-import { API_URL } from "@/config/index";
+import {useEffect} from "react";
+import {API_URL} from "@/config/index";
 import CarouselDresses from "@/components/CarouselDresses/CarouselDresses";
-import { parseCookies } from "@/helpers/index";
+import {parseCookies} from "@/helpers/index";
 import SubscribeForm from "@/components/SubscripeForm/SubscripeForm";
 import PropertiesOurPage from "@/components/PropertiesOurPage/PropertiesOurPage";
 import {AiOutlineLine} from "react-icons/ai";
+import {IProduct} from "@/Models/types";
+import CategoriesPhoto from "@/components/CategoriesPhoto/CategoriesPhoto";
 
-export default function Home({ products, token, userAccount, newArrivals = [], offers = [] }) {
-  useEffect(() => {
-    window.localStorage.removeItem("shippingInformation");
-  }, []);
+type HomeProps = {
+    products: IProduct[];
+    token: string;
+    userAccount: any;
+};
 
-  return (
-    <>
-      <Layout
-          userAccount={userAccount}
-          title="Unicorns Store | Shop Online For Fashions, Tools, Gifts & More"
-      >
+export default function Home({products, token, userAccount}: HomeProps) {
+    useEffect(() => {
+        window.localStorage.removeItem("shippingInformation");
+    }, []);
 
-        <div>
-          <div className="containerTitle">
-            <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
-              Top Products
-            </h1>
-            <AiOutlineLine className="lineIcon"/>
-          </div>
-          <CarouselDresses token={token} products={products}/>
-        </div>
-        {
-          newArrivals.length > 0 && (
+    const newArrivals = products.filter((product) => product.newArrival === true);
+    const offers = products.filter((product) => product.discount);
+
+    return (
+        <>
+            <Layout
+                userAccount={userAccount}
+                title="Unicorns Store | Shop Online For Fashions, Tools, Gifts & More"
+            >
+
+                <CategoriesPhoto/>
+
                 <div>
-                  <div className="containerTitle">
-                    <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
-                      New Arrivals
-                    </h1>
-                    <AiOutlineLine className="lineIcon"/>
-                  </div>
-                  <CarouselDresses token={token} products={newArrivals}/>
+                    <div className="containerTitle">
+                        <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
+                            Top Products
+                        </h1>
+                        <AiOutlineLine className="lineIcon"/>
+                    </div>
+                    <CarouselDresses token={token} products={products}/>
                 </div>
-            )
-        }
-        {
-            offers.length > 0 && (
-                <div>
-                  <div className="containerTitle">
-                    <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
-                      Offers
-                    </h1>
-                    <AiOutlineLine className="lineIcon"/>
-                </div>
-                <CarouselDresses token={token} products={offers}/>
-              </div>
-            )
-        }
+                {
+                    newArrivals.length > 0 && (
+                        <div>
+                            <div className="containerTitle">
+                                <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
+                                    New Arrivals
+                                </h1>
+                                <AiOutlineLine className="lineIcon"/>
+                            </div>
+                            <CarouselDresses token={token} products={newArrivals}/>
+                        </div>
+                    )
+                }
+                {
+                    offers.length > 0 && (
+                        <div>
+                            <div className="containerTitle">
+                                <h1 className="h1Title" data-aos="zoom-in" data-aos-once="true">
+                                    Offers
+                                </h1>
+                                <AiOutlineLine className="lineIcon"/>
+                            </div>
+                            <CarouselDresses token={token} products={offers}/>
+                        </div>
+                    )
+                }
 
-        <PropertiesOurPage/>
+                <PropertiesOurPage/>
 
-        <SubscribeForm/>
-      </Layout>
-    </>
-  );
+                <SubscribeForm/>
+            </Layout>
+        </>
+    );
 }
 
 export async function getServerSideProps({req}) {
-  const {token = null} = parseCookies(req);
-  const urls = [`midi-dresses`, `long-dresses`, `off-dresses`, "a-dresses"];
-  const AllProductsArray = [];
+    const {token = null} = parseCookies(req);
 
-  try {
-    await Promise.all(
-        urls.map((url) =>
-            fetch(`${API_URL}/${url}?_limit=5`)
-                .then((res) => res.json())
-                .then((product) => {
-                  if (product.length > 0 && product[0].error === undefined) {
-                    AllProductsArray.push(product);
-                  }
-                })
-        )
-    );
-  } catch(e) {
-    console.log(e);
-  }
+    let products = [];
+    try {
+        const res = await fetch(`${API_URL}/all-products`)
+        products = await res.json()
+    } catch (error) {
+        console.log(error)
+    }
 
-  let newArrivals = [];
-  try {
-    const res = await fetch(`${API_URL}/new-arrivals?_limit=20`);
-    newArrivals = await res.json();
-  } catch (error) {
-    console.log(error);
-  }
 
-  let offers = [];
-  try {
-    const res = await fetch(`${API_URL}/offers?_limit=20`);
-    offers = await res.json();
-  } catch (error) {
-    console.log(error)
-  }
+    let userAccount = null;
+    try {
+        const resAccount = await fetch(`${API_URL}/users/me`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
-  let userAccount = null;
-  try {
-    const resAccount = await fetch(`${API_URL}/users/me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+        userAccount = await resAccount.json();
+    } catch (error) {
+        console.log(error);
+    }
 
-    userAccount = await resAccount.json();
-  } catch (error) {
-    console.log(error);
-  }
-
-  return {
-    props: {
-      products: AllProductsArray,
-      token: token,
-      userAccount: userAccount,
-      newArrivals: newArrivals,
-      offers: offers,
-    },
-  };
+    return {
+        props: {
+            products,
+            token,
+            userAccount
+        },
+    };
 }

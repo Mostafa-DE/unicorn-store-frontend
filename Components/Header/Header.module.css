@@ -380,7 +380,7 @@
   margin: 0.5rem 0 0 0;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1230px) {
   .containerLink {
     display: none;
   }

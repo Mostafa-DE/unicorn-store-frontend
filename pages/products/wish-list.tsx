@@ -3,7 +3,7 @@ import WishList from "@/components/WishList/WishList";
 import { API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
 
-export default function wishListPage({ userWishProduct, token }) {
+export default function wishListPage({ userWishProduct = [], token }) {
   return (
     <Layout title="Your_Wish_List">
       <WishList token={token} products={userWishProduct} />

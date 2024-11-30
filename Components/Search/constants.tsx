@@ -7,8 +7,6 @@ export const urls = [
     "suit-dresses",
     "jsuit-dresses",
     "hijab-dresses",
-    "new-arrivals",
-    "offers"
 ]
 
 export const AlertProductDoesNotExist = () => {

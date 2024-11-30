@@ -81,7 +81,7 @@ const Layout: React.FC<ILayoutProps> = ({
           >
             <p> {mainTitle} </p>
             <span> {secondTitle} </span>
-            <Link href="/categories/women-fashions/offers">
+            <Link href="/products">
               <button className={styles.exploreBtn}> {btnText} </button>
             </Link>
           </div>
