@@ -26,6 +26,9 @@
 .smallImagesProduct {
     display: flex;
     flex-direction: column;
+    max-height: 37rem;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .widthMainImage {

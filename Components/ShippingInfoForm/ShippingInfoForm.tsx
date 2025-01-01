@@ -1,7 +1,7 @@
 import styles from "@/components/ShippingInfoForm/ShippingInfoForm.module.css";
 import {useContext, useEffect, useState} from "react";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import {API_URL} from "@/config/index";
+import {API_URL, NEXT_URL} from "@/config/index";
 import Link from "next/link";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,13 +14,13 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMoreSharp";
 import {GrFormNext} from "react-icons/gr";
 import {CgSpinnerTwoAlt} from "react-icons/cg";
-import emailjs from "emailjs-com";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
 import qs from "qs";
 import {cities} from "@/components/ShippingInfoForm/Cities";
 import {BagContext} from "@/context/BagContext";
 import {ShippingInfoContext} from "@/context/ShippingInfoContext";
 import router from "next/router";
+import {v4 as uuidv4} from 'uuid';
 
 export default function ShippingInfoForm({user, userProfile, token}) {
     //TODO: add right types here
@@ -43,20 +43,25 @@ export default function ShippingInfoForm({user, userProfile, token}) {
         );
     }
 
-    const {firstName, lastName, phone, building, address} =
-    userProfile[0] ?? {};
+    const {firstName, lastName, phone, building, address} = userProfile[0] ?? {};
     const {email, username, id} = user || {};
 
     const unauthorizedUser = userProfile.statusCode;
-    const orderNumber = (Date.now() * Math.random()).toString().substring(0, 6);
+    const orderNumber = uuidv4().substring(0, 6);
     const todayDate = new Date().toISOString().slice(0, 10);
 
     const idImageProducts = items.map((product) => product.images[0].id);
     const detailsOrder = items.map(
-        (product) =>
-            `{#Name: ${product.name} ${product.size !== undefined ? ", Size:" : ""} ${
-                product.size !== undefined ? product.size : ""
-            }} `
+        (item, idx) => `
+            Product ${idx + 1} ==>
+            Name: ${item.name} 
+            Size: ${item.size}
+            Color: ${item.color} 
+            Price: ${item.price}
+            Quantity: ${item.qty}
+            Total: ${item.price * item.qty}
+            --------------------------------
+        `
     );
 
     const [isLoading, setIsLoading] = useState(false);
@@ -155,15 +160,29 @@ export default function ShippingInfoForm({user, userProfile, token}) {
         };
     };
 
-    const sendEmail = (evnt) => {
-        emailjs
-            .sendForm(
-                "service_3c1s0le",
-                "template_a6sto4t",
-                evnt.target,
-                "user_y4snMVOIayDWYkwH6dS0G"
-            )
-            .catch((err) => console.log(err));
+    const sendEmail = async () => {
+        try {
+            await fetch(`${NEXT_URL}/api/send-email`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: values.email,
+                    orderNumber: `UN${orderNumber}`,
+                    customerName: `${values.firstName} ${values.lastName}`,
+                    phone: values.phone,
+                    city: values.city,
+                    address: values.address,
+                    building: values.building,
+                    orderDate: todayDate,
+                    items: items,
+                    orderTotal: TotalBag(),
+                }),
+            });
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     const addOrderToShippingInfo = async () => {
@@ -224,7 +243,7 @@ export default function ShippingInfoForm({user, userProfile, token}) {
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
         setIsSpinnerLoading(true);
-        await sendEmail(evnt);
+        await sendEmail();
         await createNewOrder();
         await addOrderToShippingInfo();
         if (discount) await turnDiscountIntoExpired();
